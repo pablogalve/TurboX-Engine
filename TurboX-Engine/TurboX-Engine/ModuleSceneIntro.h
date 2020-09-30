@@ -3,11 +3,6 @@
 #include "p2DynArray.h"
 #include "Globals.h"
 
-#define BOUNCER_TIME 200
-
-struct PhysBody3D;
-class Cube;
-
 class ModuleSceneIntro : public Module
 {
 public:
@@ -15,7 +10,7 @@ public:
 	~ModuleSceneIntro();
 
 	bool Start();
-	update_status Update();
+	update_status Update(float dt);
 	bool CleanUp();
 
 public:

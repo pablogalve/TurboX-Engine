@@ -35,61 +35,64 @@ bool ModuleCamera3D::CleanUp()
 }
 
 // -----------------------------------------------------------------
-update_status ModuleCamera3D::Update()
+update_status ModuleCamera3D::Update(float dt)
 {
-	// OnKeys WASD keys -----------------------------------
-	float move = 0.1f;
-	// TODO 3: Make the camera go up/down when pressing R (up) F(down)
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT)
-	{
-		Position.z -= move;
-		App->camera->Reference.z -= move;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT)
-	{
-		Position.z += move;
-		App->camera->Reference.z += move;
-	}
-	// TODO 4: Make the camera go forward (w) and backward with (s)
-	// Note that the vectors X/Y/Z contain the current axis of the camera
-	// you can read them to modify Position
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-	{
-		Position.y += move;
-		App->camera->Reference.y += move;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-	{
-		Position.y -= move;
-		App->camera->Reference.y -= move;
-	}
-	// TODO 5: Make the camera go left (a) and right with (d)
-	// Note that the vectors X/Y/Z contain the current axis of the camera
-	// you can read them to modify Position
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		Position.x -= move;
-		App->camera->Reference.x -= move;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	{
-		Position.x += move;
-		App->camera->Reference.x += move;
-	}
+	// Implement a debug camera with keys and mouse
+	// Now we can make this movememnt frame rate independant!
+
+	vec3 newPos(0,0,0);
+	float speed = 3.0f * dt;
+	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+		speed = 8.0f * dt;
+
+	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
+	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
+
+	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
+	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
+
+
+	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
+	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
+
+	Position += newPos;
+	Reference += newPos;
 
 	// Mouse motion ----------------
+
 	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
 
-		// TODO (Homework): Rotate the camera with the mouse
-		vec3 Forward = -Z;
+		float Sensitivity = 0.25f;
 
-		Forward = rotate(Forward, dx, Y);
-		Forward = rotate(Forward, dy, X);
+		Position -= Reference;
 
-		LookAt(Forward + Position);
+		if(dx != 0)
+		{
+			float DeltaX = (float)dx * Sensitivity;
+
+			X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+			Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+			Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+		}
+
+		if(dy != 0)
+		{
+			float DeltaY = (float)dy * Sensitivity;
+
+			Y = rotate(Y, DeltaY, X);
+			Z = rotate(Z, DeltaY, X);
+
+			if(Y.y < 0.0f)
+			{
+				Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
+				Y = cross(Z, X);
+			}
+		}
+
+		Position = Reference + Z * length(Position);
 	}
 
 	// Recalculate matrix -------------
