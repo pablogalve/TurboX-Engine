@@ -13,5 +13,12 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-public:
+private:
+
+	void ShowMenuBar();
+	void ShowDemoWindow();
+
+private:
+
+	bool showDemo = false;
 };
