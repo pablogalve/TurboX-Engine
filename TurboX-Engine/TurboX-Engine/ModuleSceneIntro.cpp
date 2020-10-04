@@ -103,10 +103,14 @@ void ModuleSceneIntro::ShowAboutWindow()
 		ImGui::End();
 		return;
 	}
+
 	ImGui::Text("TurboX Engine v0.1");
 	ImGui::Text("The next generation 3D Game Engine");
-	ImGui::Text("By Pablo Galve & Macia Dalmau");
-
+	ImGui::Text("Authors: ");
+	if (ImGui::SmallButton("Pablo Galve"))
+		ShellExecuteA(NULL, "open", "https://github.com/pablogalve", NULL, NULL, SW_SHOWNORMAL);
+	if (ImGui::SmallButton("Macia Dalmau"))
+		ShellExecuteA(NULL, "open", "https://github.com/maciadalmau", NULL, NULL, SW_SHOWNORMAL);
 	ImGui::Separator();
 	
 	ImGui::Text("3rd Party Libraries used:");
