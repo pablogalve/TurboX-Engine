@@ -5,7 +5,7 @@
 #include "glew\glew.h"
 #include "SDL\include\SDL_opengl.h"
 
-#pragma comment (lib, "glew/glew32.lib")    /* link OpenGL Utility lib     */
+#pragma comment (lib, "Libraries/glew/glew32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)

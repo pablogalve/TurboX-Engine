@@ -3,7 +3,7 @@
 #include "Primitive.h"
 #include "glew/glew.h"
 
-#pragma comment (lib, "glew/glew32.lib")
+#pragma comment (lib, "Libraries/glew/glew32.lib")
 
 
 // ------------------------------------------------------------

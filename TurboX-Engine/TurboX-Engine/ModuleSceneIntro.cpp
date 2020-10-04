@@ -6,9 +6,9 @@
 
 #include "Primitive.h"
 
-#include "imgui.h"
-#include "imgui_impl_opengl3.h"
-#include "imgui_impl_sdl.h"
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_impl_opengl3.h"
+#include "ImGui/imgui_impl_sdl.h"
 
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
