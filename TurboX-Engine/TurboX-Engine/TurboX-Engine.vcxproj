@@ -47,7 +47,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>G:\GitHub\TurboX-Engine\TurboX-Engine\TurboX-Engine\Libraries;C:\Users\Pablo Galve\OneDrive\Documentos\GitHub\TurboX-Engine\TurboX-Engine\TurboX-Engine\Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\macia\Documents\GitHub\GameEngine\TurboX-Engine\TurboX-Engine\Libraries;G:\GitHub\TurboX-Engine\TurboX-Engine\TurboX-Engine\Libraries;C:\Users\Pablo Galve\OneDrive\Documentos\GitHub\TurboX-Engine\TurboX-Engine\TurboX-Engine\Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -178,14 +178,11 @@
     <ClInclude Include="ModuleGui.h" />
     <ClInclude Include="ModulePhysics3D.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
-    <ClInclude Include="p2List.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAudio.h" />
     <ClInclude Include="ModuleInput.h" />
     <ClInclude Include="ModuleSceneIntro.h" />
     <ClInclude Include="ModuleWindow.h" />
-    <ClInclude Include="p2DynArray.h" />
-    <ClInclude Include="p2Point.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
