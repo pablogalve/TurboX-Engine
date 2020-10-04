@@ -9,7 +9,7 @@
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_opengl3.h"
 #include "ImGui/imgui_impl_sdl.h"
-
+#include "glew/glew.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {}
@@ -37,13 +37,17 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.Render();
 
 	// Inputs
-	if ((App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_RCTRL) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) { showDemo = !showDemo; }
+	if ((App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_RCTRL) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) 
+		showDemoWindow = !showDemoWindow;
 
 	// Gui
 	ShowMenuBar();
 
-	if (showDemo)
+	if (showDemoWindow)
 		ShowDemoWindow();
+
+	if (showAboutWindow)
+		ShowAboutWindow();
 
 	return UPDATE_CONTINUE;
 }
@@ -64,13 +68,21 @@ void ModuleSceneIntro::ShowMenuBar()
 			if (ImGui::MenuItem("Exit"))
 			{
 				App->CloseApp();
-			}
-			
+			}			
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Window"))
 		{
-			if (ImGui::MenuItem("Demo Window", "CTRL+D", showDemo)) { showDemo = !showDemo; }
+			if (ImGui::MenuItem("Demo Window", "CTRL+D", showDemoWindow))
+				showDemoWindow = !showDemoWindow;
+
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("Help"))
+		{
+			if (ImGui::MenuItem("About")) {
+				showAboutWindow = !showAboutWindow;
+			}
 
 			ImGui::EndMenu();
 		}
@@ -84,4 +96,66 @@ void ModuleSceneIntro::ShowDemoWindow()
 	ImGui::ShowDemoWindow();
 }
 
+void ModuleSceneIntro::ShowAboutWindow()
+{
+	if (!ImGui::Begin("About", &showAboutWindow))
+	{
+		ImGui::End();
+		return;
+	}
+	ImGui::Text("TurboX Engine v0.1");
+	ImGui::Text("The next generation 3D Game Engine");
+	ImGui::Text("By Pablo Galve & Macia Dalmau");
 
+	ImGui::Separator();
+	
+	ImGui::Text("3rd Party Libraries used:");
+
+	//SDL Version
+	ImGui::BulletText("SDL %d.%d.%d", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL);
+
+	//OpenGL
+	ImGui::BulletText("OpenGL 3");
+
+	//ImGui Version
+	ImGui::BulletText("ImGui %s", ImGui::GetVersion());
+	
+	//MathGeoLib
+	ImGui::BulletText("MathGeoLib 1.5");
+
+	//Glew
+	ImGui::BulletText("Glew %d.%d.%d", GLEW_VERSION_MAJOR, GLEW_VERSION_MINOR, GLEW_VERSION_MICRO);
+
+	ImGui::Separator();
+
+	ImGui::Text("License:");
+	ImGui::Spacing();
+	ImGui::Text("MIT License:");
+	ImGui::Spacing();
+	ImGui::TextWrapped("Copyright (c) 2020 TurboX Engine");
+	ImGui::Spacing();
+	ImGui::TextWrapped(
+		"Permission is hereby granted, free of charge, to any person obtaining a copy"
+		"of this software and associated documentation files Genesis Engine, to deal"
+		"in the Software without restriction, including without limitation the rights"
+		"to use, copy, modify, merge, publish, distribute, sublicense, and /or sell"
+		"copies of the Software, and to permit persons to whom the Software is"
+		"furnished to do so, subject to the following conditions : ");
+	ImGui::Spacing();
+
+	ImGui::TextWrapped(
+		"The above copyright notice and this permission notice shall be included in all"
+		"copies or substantial portions of the Software.");
+	ImGui::Spacing();
+
+	ImGui::TextWrapped(
+		"THE SOFTWARE IS PROVIDED 'AS I', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR"
+		"IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,"
+		"FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE"
+		"AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+		"LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,"
+		"OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE"
+		"SOFTWARE.");
+
+	ImGui::End();
+}

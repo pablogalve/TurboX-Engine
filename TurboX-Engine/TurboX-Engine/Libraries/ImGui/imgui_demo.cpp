@@ -2941,15 +2941,22 @@ static void ShowDemoWindowMisc()
 
 void ImGui::ShowAboutWindow(bool* p_open)
 {
-    if (!ImGui::Begin("About Dear ImGui", p_open, ImGuiWindowFlags_AlwaysAutoResize))
+    if (!ImGui::Begin("About", p_open, ImGuiWindowFlags_AlwaysAutoResize))
     {
         ImGui::End();
         return;
     }
-    ImGui::Text("Dear ImGui %s", ImGui::GetVersion());
+	ImGui::Text("The Creator v0.3");
+	ImGui::Text("The next generation 3D Game Engine");
+	ImGui::Text("By Pablo Galve & Macià Dalmau");
+	ImGui::Separator();
+	ImGui::Text("3rd Party Libraries used:");
+    ImGui::Text("ImGui %s", ImGui::GetVersion());
+	ImGui::Text("SDL 2");
+	ImGui::Text("Glew");
+
     ImGui::Separator();
-    ImGui::Text("By Omar Cornut and all dear imgui contributors.");
-    ImGui::Text("Dear ImGui is licensed under the MIT License, see LICENSE for more information.");
+
 
     static bool show_config_info = false;
     ImGui::Checkbox("Config/Build Information", &show_config_info);
