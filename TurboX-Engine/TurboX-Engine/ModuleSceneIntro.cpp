@@ -12,7 +12,14 @@
 #include "glew/glew.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
-{}
+{
+	showDemoWindow = false;
+	showAboutWindow = false;
+	showConfigurationWindow = true;
+
+	fps_log.resize(100);
+	ms_log.resize(100);
+}
 
 ModuleSceneIntro::~ModuleSceneIntro()
 {}
@@ -177,9 +184,22 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 {
 	ImGui::Begin("Configuration", &showConfigurationWindow);
 
+	ImGui::Text("Options");
+
 	if (ImGui::CollapsingHeader("Application"))
 	{
-
+		//FPS
+		fps_log.erase(fps_log.begin());
+		fps_log.push_back(ImGui::GetIO().Framerate);
+		char title[25];
+		sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
+		ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+		
+		//Milliseconds
+		ms_log.erase(ms_log.begin());
+		ms_log.push_back(1 / (ImGui::GetIO().Framerate / 1000));
+		sprintf_s(title, 25, "Milliseconds %.1f", ms_log[ms_log.size() - 1]);
+		ImGui::PlotHistogram("##framerate", &ms_log[0], ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));
 	}	
 	if (ImGui::CollapsingHeader("Audio"))
 	{

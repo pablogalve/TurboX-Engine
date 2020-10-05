@@ -2,6 +2,8 @@
 #include "Module.h"
 #include "Globals.h"
 
+#include <vector>
+
 class ModuleSceneIntro : public Module
 {
 public:
@@ -11,6 +13,7 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
+	float GetFPS();
 
 private:
 
@@ -21,7 +24,10 @@ private:
 
 private:
 
-	bool showDemoWindow = false;
-	bool showAboutWindow = false;
-	bool showConfigurationWindow = true;
+	bool showDemoWindow;
+	bool showAboutWindow;
+	bool showConfigurationWindow;
+
+	std::vector<float> fps_log;
+	std::vector<float> ms_log;
 };
