@@ -17,9 +17,11 @@ private:
 	void ShowMenuBar();
 	void ShowDemoWindow();
 	void ShowAboutWindow();
+	void ShowConfigurationWindow();
 
 private:
 
 	bool showDemoWindow = false;
 	bool showAboutWindow = false;
+	bool showConfigurationWindow = true;
 };

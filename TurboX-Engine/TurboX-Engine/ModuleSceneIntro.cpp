@@ -49,6 +49,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	if (showAboutWindow)
 		ShowAboutWindow();
 
+	if (showConfigurationWindow)
+		ShowConfigurationWindow();
+
 	return UPDATE_CONTINUE;
 }
 
@@ -69,6 +72,12 @@ void ModuleSceneIntro::ShowMenuBar()
 			{
 				App->CloseApp();
 			}			
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("Edit")) {
+			if (ImGui::MenuItem("Configuration")) {
+				showConfigurationWindow = !showConfigurationWindow;
+			}
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Window"))
@@ -160,6 +169,78 @@ void ModuleSceneIntro::ShowAboutWindow()
 		"LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,"
 		"OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE"
 		"SOFTWARE.");
+
+	ImGui::End();
+}
+
+void ModuleSceneIntro::ShowConfigurationWindow()
+{
+	ImGui::Begin("Configuration", &showConfigurationWindow);
+
+	if (ImGui::CollapsingHeader("Application"))
+	{
+
+	}	
+	if (ImGui::CollapsingHeader("Audio"))
+	{
+
+	}
+	if (ImGui::CollapsingHeader("Camera"))
+	{
+
+	}
+	if (ImGui::CollapsingHeader("Gui"))
+	{
+
+	}
+	if (ImGui::CollapsingHeader("Input"))
+	{
+
+	}
+	if (ImGui::CollapsingHeader("Physics"))
+	{
+
+	}
+	if (ImGui::CollapsingHeader("Renderer"))
+	{
+
+	}
+	if (ImGui::CollapsingHeader("Window"))
+	{
+
+	}
+	if (ImGui::CollapsingHeader("Hardware"))
+	{
+		//Hardware Detection
+
+		//SDL Version
+		SDL_version sdl_version;
+		SDL_GetVersion(&sdl_version);
+		ImGui::Text("SDL Version: %d.%d.%d", sdl_version.major, sdl_version.minor, sdl_version.patch);
+		ImGui::Separator();
+
+		//CPUs
+		ImGui::Text("CPUs: ");
+
+		//System RAM
+		ImGui::Text("System RAM: ");
+
+		//Caps
+		ImGui::Text("Caps: ");
+		ImGui::Separator();
+
+		//GPU
+		ImGui::Text("GPU: ");
+
+		//Brand
+		ImGui::Text("Brand: ");
+
+		//VRAM
+		ImGui::Text("VRAM Budget: ");
+		ImGui::Text("VRAM Usage: ");
+		ImGui::Text("VRAM Available: ");
+		ImGui::Text("VRAM Reserved: ");
+	}
 
 	ImGui::End();
 }
