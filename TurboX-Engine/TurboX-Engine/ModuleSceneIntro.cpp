@@ -227,7 +227,59 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 	}
 	if (ImGui::CollapsingHeader("Window"))
 	{
+		float bright = App->window->GetBrightness();
+		ImGui::SliderFloat("Brightness", &bright, 0, 1.0f);
+		App->window->SetBrightness(bright);
 
+		int w, h;
+		App->window->GetSize(w, h);
+		
+		int minWidthVal = 640;
+		int maxWidthVal = 1920;
+		if (ImGui::SliderInt("Width", &w, minWidthVal, maxWidthVal)) 
+		{
+			App->window->SetSize(w, h);
+		}
+
+		int minHeightVal = 480;
+		int maxHeightVal = 1080;
+		if (ImGui::SliderInt("Height", &h, minHeightVal, maxHeightVal)) {
+			App->window->SetSize(w, h);
+		}
+
+		bool fullscreen = App->window->IsFullscreen();
+		
+		if (ImGui::Checkbox("Fullscreen", &fullscreen)) 
+		{
+			fullscreen != fullscreen;
+			App->window->SetFullscreen(fullscreen);
+		}
+
+		ImGui::SameLine();
+
+		bool resizable = App->window->IsResizable();
+
+		if (ImGui::Checkbox("Resizable ", &resizable))
+		{
+			resizable != resizable;
+			App->window->SetResizable(resizable);
+		}
+
+		bool borderless = App->window->IsBorderless();
+
+		if (ImGui::Checkbox("Borderless", &borderless)) 
+		{
+			borderless != borderless;
+			App->window->SetBorderless(borderless);
+		}
+
+		ImGui::SameLine();
+
+		bool fullDesktop = App->window->IsFullscreenDesktop();
+		if (ImGui::Checkbox("Full Desktop", &fullDesktop)) {
+			fullDesktop != fullDesktop;
+			App->window->SetFullscreenDesktop(fullDesktop);
+		}
 	}
 	if (ImGui::CollapsingHeader("Hardware"))
 	{

@@ -28,6 +28,7 @@ enum update_status
 };
 
 // Configuration -----------
+#define DEFAULT_BRIGHTNESS 1.0f
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 1024
 #define SCREEN_SIZE 1
