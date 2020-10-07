@@ -32,5 +32,5 @@ private:
 	std::vector<float> fps_log;
 	std::vector<float> ms_log;
 
-	std::vector<std::string> caps_log;
+	std::vector<std::string> caps_log;	
 };

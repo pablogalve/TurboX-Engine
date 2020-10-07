@@ -19,7 +19,7 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 
 	fps_log.resize(100);
 	ms_log.resize(100);
-	caps_log.resize(11);
+	caps_log.resize(0);
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -279,41 +279,63 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 	}
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
-		//Hardware Detection
+		//Hardware Detection		
+		ImVec4 yellow(1.0f, 0.8f, 0.0f, 1.0f); //We'll use yellow to print the result
 
 		//SDL Version
 		SDL_version sdl_version;
 		SDL_GetVersion(&sdl_version);
-		ImGui::Text("SDL Version: %d.%d.%d", sdl_version.major, sdl_version.minor, sdl_version.patch);
+		ImGui::Text("SDL Version:");
+		ImGui::SameLine();
+		ImGui::TextColored(yellow, "%d.%d.%d", sdl_version.major, sdl_version.minor, sdl_version.patch);
 		ImGui::Separator();
 
 		//CPUs
-		ImGui::Text("CPUs: %i (Cache: %ikb)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
+		ImGui::Text("CPUs: ");
+		ImGui::SameLine();
+		ImGui::TextColored(yellow, "%i (Cache: %ikb)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
 
 		//System RAM		
 		float ram_gb = (float)(SDL_GetSystemRAM()); //We get the RAM in megabytes so we convert it to gigabytes
-		ImGui::Text("System RAM: %.2f GB", ram_gb/1024);
+		ImGui::Text("System RAM: ");
+		ImGui::SameLine();
+		ImGui::TextColored(yellow, "%.2f GB", ram_gb / 1024);
 
 		//Caps		
 		ImGui::Text("Caps: ");
 		for (int i = 0; i < caps_log.size(); i++)
 		{
 			ImGui::SameLine();
-			ImGui::Text(caps_log[i].c_str());
+			ImGui::TextColored(yellow, "%s", caps_log[i].c_str());
 		}
 		ImGui::Separator();
 
 		//GPU
-		ImGui::Text("GPU: %s", glGetString(GL_RENDERER));
+		ImGui::Text("GPU: ");
+		ImGui::SameLine();
+		ImGui::TextColored(yellow, "%s", glGetString(GL_RENDERER));
 
 		//Brand
-		ImGui::Text("Brand: %s", glGetString(GL_VENDOR));
+		ImGui::Text("Brand: ");
+		ImGui::SameLine();
+		ImGui::TextColored(yellow, "%s", glGetString(GL_VENDOR));
 
 		//VRAM
 		ImGui::Text("VRAM Budget: ");
+		ImGui::SameLine();
+		ImGui::TextColored(yellow, "not implemented yet");
+
 		ImGui::Text("VRAM Usage: ");
+		ImGui::SameLine();
+		ImGui::TextColored(yellow, "not implemented yet");
+
 		ImGui::Text("VRAM Available: ");
+		ImGui::SameLine();
+		ImGui::TextColored(yellow, "not implemented yet");
+
 		ImGui::Text("VRAM Reserved: ");
+		ImGui::SameLine();
+		ImGui::TextColored(yellow, "not implemented yet");
 	}
 
 	ImGui::End();
