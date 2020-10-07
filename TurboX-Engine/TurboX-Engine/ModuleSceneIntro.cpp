@@ -19,6 +19,7 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 
 	fps_log.resize(100);
 	ms_log.resize(100);
+	caps_log.resize(11);
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -33,6 +34,8 @@ bool ModuleSceneIntro::Start()
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
+
+	GetHardwareCaps();
 
 	return ret;
 }
@@ -285,20 +288,26 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 		ImGui::Separator();
 
 		//CPUs
-		ImGui::Text("CPUs: ");
+		ImGui::Text("CPUs: %i (Cache: %ikb)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
 
-		//System RAM
-		ImGui::Text("System RAM: ");
+		//System RAM		
+		float ram_gb = (float)(SDL_GetSystemRAM()); //We get the RAM in megabytes so we convert it to gigabytes
+		ImGui::Text("System RAM: %.2f GB", ram_gb/1024);
 
-		//Caps
+		//Caps		
 		ImGui::Text("Caps: ");
+		for (int i = 0; i < caps_log.size(); i++)
+		{
+			ImGui::SameLine();
+			ImGui::Text(caps_log[i].c_str());
+		}
 		ImGui::Separator();
 
 		//GPU
-		ImGui::Text("GPU: ");
+		ImGui::Text("GPU: %s", glGetString(GL_RENDERER));
 
 		//Brand
-		ImGui::Text("Brand: ");
+		ImGui::Text("Brand: %s", glGetString(GL_VENDOR));
 
 		//VRAM
 		ImGui::Text("VRAM Budget: ");
@@ -308,4 +317,19 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 	}
 
 	ImGui::End();
+}
+
+void ModuleSceneIntro::GetHardwareCaps()
+{
+	if (SDL_Has3DNow())caps_log.push_back("3DNow");
+	if (SDL_HasAVX())caps_log.push_back("AVX");
+	if (SDL_HasAVX2())caps_log.push_back("AVX2");
+	if (SDL_HasAltiVec())caps_log.push_back("AltiVec");
+	if (SDL_HasMMX())caps_log.push_back("MMX");
+	if (SDL_HasRDTSC())caps_log.push_back("RDTSC");
+	if (SDL_HasSSE())caps_log.push_back("SSE");
+	if (SDL_HasSSE2())caps_log.push_back("SSE2");
+	if (SDL_HasSSE3())caps_log.push_back("SSE3");
+	if (SDL_HasSSE41())caps_log.push_back("SSE41");
+	if (SDL_HasSSE42())caps_log.push_back("SSE42");
 }

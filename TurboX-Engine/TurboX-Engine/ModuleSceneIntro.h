@@ -3,6 +3,7 @@
 #include "Globals.h"
 
 #include <vector>
+#include <string>
 
 class ModuleSceneIntro : public Module
 {
@@ -21,7 +22,7 @@ private:
 	void ShowDemoWindow();
 	void ShowAboutWindow();
 	void ShowConfigurationWindow();
-
+	void GetHardwareCaps();
 private:
 
 	bool showDemoWindow;
@@ -30,4 +31,6 @@ private:
 
 	std::vector<float> fps_log;
 	std::vector<float> ms_log;
+
+	std::vector<std::string> caps_log;
 };
