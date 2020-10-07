@@ -10,6 +10,7 @@
 #include "ImGui/imgui_impl_opengl3.h"
 #include "ImGui/imgui_impl_sdl.h"
 #include "glew/glew.h"
+#include "glew/wglew.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -34,8 +35,6 @@ bool ModuleSceneIntro::Start()
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
-
-	GetHardwareCaps();
 
 	return ret;
 }
@@ -280,6 +279,7 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
 		//Hardware Detection		
+		GetHardwareCaps();
 		ImVec4 yellow(1.0f, 0.8f, 0.0f, 1.0f); //We'll use yellow to print the result
 
 		//SDL Version
@@ -308,6 +308,7 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 			ImGui::SameLine();
 			ImGui::TextColored(yellow, "%s", caps_log[i].c_str());
 		}
+		caps_log.clear();
 		ImGui::Separator();
 
 		//GPU
@@ -321,21 +322,25 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 		ImGui::TextColored(yellow, "%s", glGetString(GL_VENDOR));
 
 		//VRAM
-		ImGui::Text("VRAM Budget: ");
-		ImGui::SameLine();
-		ImGui::TextColored(yellow, "not implemented yet");
+		float vram_budget = 0, vram_usage = 0, vram_available = 0, vram_reserved = 0;
 
-		ImGui::Text("VRAM Usage: ");
+		GetVramData(vram_budget, vram_usage, vram_available, vram_reserved);
+
+		ImGui::Text("VRAM Total: ");
 		ImGui::SameLine();
-		ImGui::TextColored(yellow, "not implemented yet");
+		ImGui::TextColored(yellow, "%.1f Mb", vram_budget);
+
+		ImGui::Text("VRAM Dedicated: ");
+		ImGui::SameLine();
+		ImGui::TextColored(yellow, "%.1f Mb", vram_usage);
 
 		ImGui::Text("VRAM Available: ");
 		ImGui::SameLine();
-		ImGui::TextColored(yellow, "not implemented yet");
+		ImGui::TextColored(yellow, "%.1f Mb", vram_available);
 
 		ImGui::Text("VRAM Reserved: ");
 		ImGui::SameLine();
-		ImGui::TextColored(yellow, "not implemented yet");
+		ImGui::TextColored(yellow, "%.1f Mb", vram_reserved);
 	}
 
 	ImGui::End();
@@ -354,4 +359,35 @@ void ModuleSceneIntro::GetHardwareCaps()
 	if (SDL_HasSSE3())caps_log.push_back("SSE3");
 	if (SDL_HasSSE41())caps_log.push_back("SSE41");
 	if (SDL_HasSSE42())caps_log.push_back("SSE42");
+}
+
+void ModuleSceneIntro::GetVramData(float& vram_budget, float& vram_usage, float& vram_available, float& vram_reserved)
+{
+	// Function created using the documentation from NVIDIA Corporation:
+	// http://developer.download.nvidia.com/opengl/specs/GL_NVX_gpu_memory_info.txt
+	// And the documentation from ATI Technologies:
+	// https://www.khronos.org/registry/OpenGL/extensions/ATI/ATI_meminfo.txt
+
+	const char* gpu_brand = (const char*)(glGetString(GL_VENDOR));
+	GLint _vram_budget;
+	GLint _vram_usage;
+	GLint _vram_available;
+	GLint _vram_reserved;
+
+	if (strcmp(gpu_brand, "0x0423fc58") || strcmp(gpu_brand, "NVIDIA Corporation")) { //NVIDIA Corporation
+		glGetIntegerv(GL_GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX, &_vram_budget); //total available memory, total size (in Kb) of the memory available for allocations
+		glGetIntegerv(GL_GPU_MEMORY_INFO_DEDICATED_VIDMEM_NVX, &_vram_usage); //dedicated video memory, total size (in kb) of the GPU memory		
+		glGetIntegerv(GL_GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX, &_vram_available); //current available dedicated video memory (in kb), currently unused GPU memory
+		glGetIntegerv(GL_GPU_MEMORY_INFO_EVICTED_MEMORY_NVX, &_vram_reserved); //size of total video memory evicted (in kb)
+
+		//We convert our local GLint variables into float variables
+		//At the same time -> Data is returned in kb, so we convert it into Mb
+		vram_budget = (float)(_vram_budget / 1024);
+		vram_usage = (float)(_vram_usage / 1024);
+		vram_available = (float)(_vram_available / 1024);
+		vram_reserved = (float)(_vram_reserved / 1024);
+	}
+	else if(strcmp(gpu_brand, "ATI Technologies"))  {
+		//TODO
+	}
 }

@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 
+typedef int GLint;
+
 class ModuleSceneIntro : public Module
 {
 public:
@@ -14,7 +16,6 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
-	float GetFPS();
 
 private:
 
@@ -23,6 +24,7 @@ private:
 	void ShowAboutWindow();
 	void ShowConfigurationWindow();
 	void GetHardwareCaps();
+	void GetVramData(float& vram_budget, float& vram_usage, float& vram_available, float& vram_reserved);
 private:
 
 	bool showDemoWindow;
