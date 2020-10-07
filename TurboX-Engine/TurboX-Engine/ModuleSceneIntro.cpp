@@ -95,7 +95,16 @@ void ModuleSceneIntro::ShowMenuBar()
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Help"))
-		{
+		{			
+			if (ImGui::MenuItem("Documentation")) {
+				ShellExecuteA(NULL, "open", "https://github.com/pablogalve/TurboX-Engine", NULL, NULL, SW_SHOWNORMAL);
+			}
+			if (ImGui::MenuItem("Download lastest")) {
+				ShellExecuteA(NULL, "open", "https://github.com/pablogalve/TurboX-Engine/releases", NULL, NULL, SW_SHOWNORMAL);
+			}
+			if (ImGui::MenuItem("Report a bug")) {
+				ShellExecuteA(NULL, "open", "https://github.com/pablogalve/TurboX-Engine/issues", NULL, NULL, SW_SHOWNORMAL);
+			}
 			if (ImGui::MenuItem("About")) {
 				showAboutWindow = !showAboutWindow;
 			}
@@ -201,27 +210,11 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 		sprintf_s(title, 25, "Milliseconds %.1f", ms_log[ms_log.size() - 1]);
 		ImGui::PlotHistogram("##framerate", &ms_log[0], ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));
 	}	
-	if (ImGui::CollapsingHeader("Audio"))
-	{
-
-	}
-	if (ImGui::CollapsingHeader("Camera"))
-	{
-
-	}
-	if (ImGui::CollapsingHeader("Gui"))
+	if (ImGui::CollapsingHeader("File System"))
 	{
 
 	}
 	if (ImGui::CollapsingHeader("Input"))
-	{
-
-	}
-	if (ImGui::CollapsingHeader("Physics"))
-	{
-
-	}
-	if (ImGui::CollapsingHeader("Renderer"))
 	{
 
 	}
