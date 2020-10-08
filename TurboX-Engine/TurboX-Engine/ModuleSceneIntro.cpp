@@ -44,11 +44,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
-
-	// Inputs
-	if ((App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_RCTRL) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) 
-		showDemoWindow = !showDemoWindow;
-
+	
 	// Gui
 	ShowMenuBar();
 
@@ -83,21 +79,19 @@ void ModuleSceneIntro::ShowMenuBar()
 			}			
 			ImGui::EndMenu();
 		}
-		if (ImGui::BeginMenu("Edit")) {
+		if (ImGui::BeginMenu("View")) {
+			if (ImGui::MenuItem("Console (Not implemented yet)")) {
+				showConfigurationWindow = !showConfigurationWindow;
+			}
 			if (ImGui::MenuItem("Configuration")) {
 				showConfigurationWindow = !showConfigurationWindow;
 			}
 			ImGui::EndMenu();
 		}
-		if (ImGui::BeginMenu("Window"))
-		{
-			if (ImGui::MenuItem("Demo Window", "CTRL+D", showDemoWindow))
-				showDemoWindow = !showDemoWindow;
-
-			ImGui::EndMenu();
-		}
 		if (ImGui::BeginMenu("Help"))
 		{			
+			if (ImGui::MenuItem("Demo Window"))
+				showDemoWindow = !showDemoWindow;
 			if (ImGui::MenuItem("Documentation")) {
 				ShellExecuteA(NULL, "open", "https://github.com/pablogalve/TurboX-Engine", NULL, NULL, SW_SHOWNORMAL);
 			}
@@ -305,8 +299,9 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 		ImGui::Text("Caps: ");
 		for (int i = 0; i < caps_log.size(); i++)
 		{
-			ImGui::SameLine();
-			ImGui::TextColored(yellow, "%s", caps_log[i].c_str());
+			if(i != 4)
+				ImGui::SameLine();
+			ImGui::TextColored(yellow, "%s,", caps_log[i].c_str());
 		}
 		caps_log.clear();
 		ImGui::Separator();
