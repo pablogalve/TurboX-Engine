@@ -18,7 +18,8 @@ bool ModuleGui::Start()
 {
 	bool ret = true;
 
-	LOG("Starting ImGui");
+	App->console->AddLog("Starting ImGui");
+	//LOG("Starting ImGui");
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -62,7 +63,8 @@ bool ModuleGui::CleanUp()
 {
 	bool ret = true;
 
-	LOG("Cleaning up ImGui");
+	App->console->AddLog("Cleaning up ImGui");
+	//LOG("Cleaning up ImGui");
 
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();

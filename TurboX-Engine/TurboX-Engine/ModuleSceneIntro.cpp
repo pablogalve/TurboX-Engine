@@ -3,7 +3,6 @@
 #include "ModuleSceneIntro.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
-#include "ModuleConsole.h"
 
 #include "Primitive.h"
 
@@ -12,8 +11,6 @@
 #include "ImGui/imgui_impl_sdl.h"
 #include "glew/glew.h"
 #include "glew/wglew.h"
-
-
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -62,9 +59,7 @@ update_status ModuleSceneIntro::Update(float dt)
 		ShowConfigurationWindow();
 
 	if (showConsoleWindow) {
-		static ModuleConsole console;
-
-		console.Draw("Test", &showConsoleWindow);
+		App->console->Draw("Console", &showConsoleWindow);
 	}
 
 	return UPDATE_CONTINUE;

@@ -24,6 +24,7 @@ public:
 	ModuleCamera3D* camera;
 	ModulePhysics3D* physics;
 	ModuleGui* gui;
+	ModuleConsole* console;
 
 private:
 

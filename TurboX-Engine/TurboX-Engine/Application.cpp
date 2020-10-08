@@ -10,6 +10,7 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	physics = new ModulePhysics3D(this);
 	gui = new ModuleGui(this);
+	console = new ModuleConsole();
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -52,7 +53,8 @@ bool Application::Init()
 	}
 
 	// After all Init calls we call Start() in all modules
-	LOG("Application Start --------------");
+	console->AddLog("Application Start --------------");
+	//LOG("Application Start --------------");
 	for (int i = 0; i < vector_modules.size() && ret == true; i++)
 	{
 		ret = vector_modules[i]->Start();
