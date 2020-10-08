@@ -53,7 +53,7 @@ bool Application::Init()
 	}
 
 	// After all Init calls we call Start() in all modules
-	console->AddLog("Application Start --------------");
+	console->AddLog("-------------- Application Start --------------");
 	//LOG("Application Start --------------");
 	for (int i = 0; i < vector_modules.size() && ret == true; i++)
 	{
@@ -112,6 +112,8 @@ bool Application::CleanUp()
 	{
 		vector_modules[i]->CleanUp();
 	}
+
+	delete console;
 
 	return ret;
 }

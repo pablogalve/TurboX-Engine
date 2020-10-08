@@ -11,7 +11,6 @@ ModuleConsole::ModuleConsole() {
 	Commands.push_back("CLASSIFY");  // "classify" is only here to provide an example of "C"+[tab] completing to "CL" and displaying matches.
 	AutoScroll = true;
 	ScrollToBottom = false;
-	AddLog("Welcome to Dear ImGui!");
 }
 
 ModuleConsole::~ModuleConsole() {
@@ -51,20 +50,7 @@ void ModuleConsole::Draw(const char* title, bool* p_open)
 		if (ImGui::MenuItem("Close Console"))
 			*p_open = false;
 		ImGui::EndPopup();
-	}
-
-	ImGui::TextWrapped("This example implements a console with basic coloring, completion and history. A more elaborate implementation may want to store entries along with extra data such as timestamp, emitter, etc.");
-	ImGui::TextWrapped("Enter 'HELP' for help, press TAB to use text completion.");
-
-	// TODO: display items starting from the bottom
-
-	if (ImGui::SmallButton("Add Dummy Text")) { AddLog("%d some text", Items.Size); AddLog("some more text"); AddLog("display very important message here!"); } ImGui::SameLine();
-	if (ImGui::SmallButton("Add Dummy Error")) { AddLog("[error] something went wrong"); } ImGui::SameLine();
-	if (ImGui::SmallButton("Clear")) { ClearLog(); } ImGui::SameLine();
-	bool copy_to_clipboard = ImGui::SmallButton("Copy");
-	//static float t = 0.0f; if (ImGui::GetTime() - t > 0.02f) { t = ImGui::GetTime(); AddLog("Spam %f", t); }
-
-	ImGui::Separator();
+	}	
 
 	// Options menu
 	if (ImGui::BeginPopup("Options"))
@@ -72,12 +58,16 @@ void ModuleConsole::Draw(const char* title, bool* p_open)
 		ImGui::Checkbox("Auto-scroll", &AutoScroll);
 		ImGui::EndPopup();
 	}
-
 	// Options, Filter
 	if (ImGui::Button("Options"))
-		ImGui::OpenPopup("Options");
-	ImGui::SameLine();
-	Filter.Draw("Filter (\"incl,-excl\") (\"error\")", 180);
+		ImGui::OpenPopup("Options"); ImGui::SameLine();
+
+	if (ImGui::Button("Clear"))ClearLog(); ImGui::SameLine();
+	bool copy_to_clipboard = ImGui::Button("Copy");
+
+	
+	//ImGui::SameLine();
+	//Filter.Draw("Filter (\"incl,-excl\") (\"error\")", 180);
 	ImGui::Separator();
 
 	const float footer_height_to_reserve = ImGui::GetStyle().ItemSpacing.y + ImGui::GetFrameHeightWithSpacing(); // 1 separator, 1 input text
@@ -125,10 +115,10 @@ void ModuleConsole::Draw(const char* title, bool* p_open)
 
 	ImGui::PopStyleVar();
 	ImGui::EndChild();
-	ImGui::Separator();
+	//ImGui::Separator();
 
 	// Command-line
-	bool reclaim_focus = false;
+	/*bool reclaim_focus = false;
 	if (ImGui::InputText("Input", InputBuf, IM_ARRAYSIZE(InputBuf), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CallbackCompletion | ImGuiInputTextFlags_CallbackHistory, &TextEditCallbackStub, (void*)this))
 	{
 		char* s = InputBuf;
@@ -143,7 +133,7 @@ void ModuleConsole::Draw(const char* title, bool* p_open)
 	ImGui::SetItemDefaultFocus();
 	if (reclaim_focus)
 		ImGui::SetKeyboardFocusHere(-1); // Auto focus previous widget
-
+	*/
 	ImGui::End();
 }
 

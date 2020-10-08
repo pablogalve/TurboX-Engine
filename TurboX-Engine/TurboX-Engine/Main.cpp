@@ -22,30 +22,33 @@ int main(int argc, char ** argv)
 	int main_return = EXIT_FAILURE;
 	main_states state = MAIN_CREATION;
 	Application* App = NULL;
+	
 
 	while (state != MAIN_EXIT)
 	{
 		switch (state)
 		{
 		case MAIN_CREATION:
-
-			LOG("-------------- Application Creation --------------");
+			if(App != nullptr)App->console->AddLog("-------------- Application Creation --------------");
+			else LOG("-------------- Application Creation --------------");
 			App = new Application();
 			state = MAIN_START;
 			break;
 
 		case MAIN_START:
-
-			LOG("-------------- Application Init --------------");
+			App->console->AddLog("-------------- Application Init --------------");
+			//LOG("-------------- Application Init --------------");
 			if (App->Init() == false)
 			{
-				LOG("Application Init exits with ERROR");
+				App->console->AddLog("Application Init exits with ERROR");
+				//LOG("Application Init exits with ERROR");
 				state = MAIN_EXIT;
 			}
 			else
 			{
 				state = MAIN_UPDATE;
-				LOG("-------------- Application Update --------------");
+				App->console->AddLog("-------------- Application Update --------------");
+				//LOG("-------------- Application Update --------------");
 			}
 
 			break;
@@ -56,7 +59,8 @@ int main(int argc, char ** argv)
 
 			if (update_return == UPDATE_ERROR)
 			{
-				LOG("Application Update exits with ERROR");
+				App->console->AddLog("Application Update exits with ERROR");
+				//LOG("Application Update exits with ERROR");
 				state = MAIN_EXIT;
 			}
 
@@ -66,11 +70,12 @@ int main(int argc, char ** argv)
 			break;
 
 		case MAIN_FINISH:
-
-			LOG("-------------- Application CleanUp --------------");
+			App->console->AddLog("-------------- Application CleanUp --------------");
+			//LOG("-------------- Application CleanUp --------------");
 			if (App->CleanUp() == false)
 			{
-				LOG("Application CleanUp exits with ERROR");
+				App->console->AddLog("Application CleanUp exits with ERROR");
+				//LOG("Application CleanUp exits with ERROR");
 			}
 			else
 				main_return = EXIT_SUCCESS;
@@ -81,7 +86,6 @@ int main(int argc, char ** argv)
 
 		}
 	}
-
 	delete App;
 	LOG("Exiting game '%s'...\n", TITLE);
 	return main_return;
