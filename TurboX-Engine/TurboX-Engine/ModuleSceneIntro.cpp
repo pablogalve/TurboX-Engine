@@ -3,6 +3,7 @@
 #include "ModuleSceneIntro.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleConsole.h"
 
 #include "Primitive.h"
 
@@ -12,11 +13,14 @@
 #include "glew/glew.h"
 #include "glew/wglew.h"
 
+
+
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	showDemoWindow = false;
 	showAboutWindow = false;
 	showConfigurationWindow = true;
+	showConsoleWindow = true;
 
 	fps_log.resize(100);
 	ms_log.resize(100);
@@ -57,6 +61,12 @@ update_status ModuleSceneIntro::Update(float dt)
 	if (showConfigurationWindow)
 		ShowConfigurationWindow();
 
+	if (showConsoleWindow) {
+		static ModuleConsole console;
+
+		console.Draw("Test", &showConsoleWindow);
+	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -73,7 +83,7 @@ void ModuleSceneIntro::ShowMenuBar()
 	{
 		if (ImGui::BeginMenu("File"))
 		{
-			if (ImGui::MenuItem("Exit"))
+			if (ImGui::MenuItem("Exit", "ESC"))
 			{
 				App->CloseApp();
 			}			
@@ -81,7 +91,7 @@ void ModuleSceneIntro::ShowMenuBar()
 		}
 		if (ImGui::BeginMenu("View")) {
 			if (ImGui::MenuItem("Console (Not implemented yet)")) {
-				showConfigurationWindow = !showConfigurationWindow;
+				showConsoleWindow = !showConsoleWindow;
 			}
 			if (ImGui::MenuItem("Configuration")) {
 				showConfigurationWindow = !showConfigurationWindow;

@@ -25,11 +25,13 @@ private:
 	void ShowConfigurationWindow();
 	void GetHardwareCaps();
 	void GetVramData(float& vram_budget, float& vram_usage, float& vram_available, float& vram_reserved);
+	
 private:
 
 	bool showDemoWindow;
 	bool showAboutWindow;
 	bool showConfigurationWindow;
+	bool showConsoleWindow;
 
 	std::vector<float> fps_log;
 	std::vector<float> ms_log;
