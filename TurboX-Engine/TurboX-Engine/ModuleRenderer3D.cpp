@@ -17,7 +17,7 @@ ModuleRenderer3D::~ModuleRenderer3D()
 {}
 
 // Called before render is available
-bool ModuleRenderer3D::Init()
+bool ModuleRenderer3D::Init(JSON_Object* obj)
 {
 	App->console->AddLog("Creating 3D Renderer context");
 	//LOG("Creating 3D Renderer context");
@@ -107,7 +107,7 @@ bool ModuleRenderer3D::Init()
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	glewInit();
-
+	json_object_clear(obj);
 	return ret;
 }
 // PreUpdate: clear buffer

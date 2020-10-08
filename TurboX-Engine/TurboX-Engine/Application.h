@@ -11,7 +11,9 @@
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
 #include "ModuleGui.h"
+#include "./JSON/parson.h"
 #include <vector>
+#include <list>
 
 class Application
 {
@@ -30,7 +32,7 @@ private:
 
 	Timer	ms_timer;
 	float	dt;
-	std::vector<Module*> vector_modules;
+	std::list<Module*> modules_list;
 
 public:
 

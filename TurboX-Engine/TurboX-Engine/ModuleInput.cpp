@@ -8,6 +8,7 @@ ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, sta
 {
 	keyboard = new KEY_STATE[MAX_KEYS];
 	memset(keyboard, KEY_IDLE, sizeof(KEY_STATE) * MAX_KEYS);
+	name = "Input";
 }
 
 // Destructor
@@ -17,7 +18,7 @@ ModuleInput::~ModuleInput()
 }
 
 // Called before render is available
-bool ModuleInput::Init()
+bool ModuleInput::Init(JSON_Object* obj)
 {
 	App->console->AddLog("Init SDL input event system");
 	//LOG("Init SDL input event system");
@@ -30,6 +31,8 @@ bool ModuleInput::Init()
 		//LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
+
+	json_object_clear(obj);
 
 	return ret;
 }

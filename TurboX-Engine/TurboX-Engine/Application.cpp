@@ -33,33 +33,62 @@ Application::Application()
 
 Application::~Application()
 {
-	std::vector<Module*>::reverse_iterator item = vector_modules.rbegin();
-
-	while (item != vector_modules.rend())
-	{
-		delete* item;
-		++item;
+	for (std::list < Module* > ::reverse_iterator item = modules_list.rbegin(); item != modules_list.rend(); item++) {
+		delete (*item);
 	}
+	modules_list.clear();
 }
 
 bool Application::Init()
 {
 	bool ret = true;
 
-	// Call Init() in all modules
-	for (int i = 0; i < vector_modules.size() && ret == true; i++)
-	{
-		ret = vector_modules[i]->Init();
+	JSON_Value* config;
+	JSON_Object* objModules = nullptr;
+
+	if (config = json_parse_file(CONFIG_FILE)) {
+		
+		JSON_Object* obj;
+		JSON_Object* appObj;
+
+		obj = json_value_get_object(config);
+		appObj = json_object_get_object(obj, "App");
+
+		const char* title = json_object_get_string(appObj, "Name");
+		window->SetTitle((char*)title);
+
+		objModules = obj;
+		json_object_clear(appObj);
+		obj = nullptr;
+		json_object_clear(obj);
+
 	}
 
-	// After all Init calls we call Start() in all modules
-	console->AddLog("-------------- Application Start --------------");
-	//LOG("Application Start --------------");
-	for (int i = 0; i < vector_modules.size() && ret == true; i++)
+	// Call Init() in all modules
+
+	std::list<Module*>::iterator item = modules_list.begin();
+
+
+	while (item != modules_list.end() && ret == true)
 	{
-		ret = vector_modules[i]->Start();
+		ret = (*item)->Init(json_object_get_object(objModules, (*item)->name.c_str()));
+		item++;
+	}
+
+	console->AddLog("-------------- Application Start --------------");
+
+	// After all Init calls we call Start() in all modules
+	item = modules_list.begin();
+
+	while (item != modules_list.end() && ret == true)
+	{
+		ret = (*item)->Start();
+		item++;
 	}
 	
+	json_object_clear(objModules);
+	json_value_free(config);
+
 	ms_timer.Start();
 	return ret;
 }
@@ -74,6 +103,7 @@ void Application::PrepareUpdate()
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
+	
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
@@ -82,19 +112,14 @@ update_status Application::Update()
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
 	
-	for (int i = 0; i < vector_modules.size() && ret == UPDATE_CONTINUE; i++)
-	{
-		ret = vector_modules[i]->PreUpdate(dt);
+	for (std::list<Module*>::iterator item = modules_list.begin(); item != modules_list.end() && ret == UPDATE_CONTINUE; item++) {
+		ret = (*item)->PreUpdate(dt);
 	}
-
-	for (int i = 0; i < vector_modules.size() && ret == UPDATE_CONTINUE; i++)
-	{
-		ret = vector_modules[i]->Update(dt);
+	for (std::list<Module*>::iterator item = modules_list.begin(); item != modules_list.end() && ret == UPDATE_CONTINUE; item++) {
+		ret = (*item)->Update(dt);
 	}
-
-	for (int i = 0; i < vector_modules.size() && ret == UPDATE_CONTINUE; i++)
-	{
-		ret = vector_modules[i]->PostUpdate(dt);
+	for (std::list<Module*>::iterator item = modules_list.begin(); item != modules_list.end() && ret == UPDATE_CONTINUE; item++) {
+		ret = (*item)->PostUpdate(dt);
 	}
 
 	if (closeApp)
@@ -108,9 +133,12 @@ bool Application::CleanUp()
 {
 	bool ret = true;
 	
-	for (int i = vector_modules.size() - 1; i > 0; i--)
+	std::list<Module*>::reverse_iterator item = modules_list.rbegin();
+
+	while (item != modules_list.rend() && ret == true)
 	{
-		vector_modules[i]->CleanUp();
+		ret = (*item)->CleanUp();
+		item++;
 	}
 
 	delete console;
@@ -125,5 +153,5 @@ void Application::CloseApp()
 
 void Application::AddModule(Module* mod)
 {
-	vector_modules.push_back(mod);
+	modules_list.push_back(mod);
 }

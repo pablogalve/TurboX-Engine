@@ -11,17 +11,21 @@ ModulePhysics3D::ModulePhysics3D(Application* app, bool start_enabled) : Module(
 	debug_draw = NULL;
 	debug = true;
 
-	// TODO 2: Create collision configuration, dispacher
-	// broad _phase and solver
-
-	//TODO 4: Uncomment the creation of the DebugDrawer
-	//debug_draw = new DebugDrawer();
+	name = "Physics";
 }
 
 // Destructor
 ModulePhysics3D::~ModulePhysics3D()
 {
 	delete debug_draw;
+}
+
+bool ModulePhysics3D::Init(JSON_Object* obj)
+{
+	bool ret = true;
+
+	json_object_clear(obj);//clear obj to free memory
+	return ret;
 }
 
 // ---------------------------------------------------------

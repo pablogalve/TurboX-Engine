@@ -46,6 +46,9 @@
     <Filter Include="Libraries\MathGeoLib\Time">
       <UniqueIdentifier>{3a792fac-8d1b-4b98-bbf2-61e0017e81ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Libraries\JSON">
+      <UniqueIdentifier>{c57ea004-611b-417c-8c10-501e5e6d36e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -558,6 +561,9 @@
     <ClInclude Include="ModuleConsole.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Libraries\JSON\parson.h">
+      <Filter>Libraries\JSON</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -718,6 +724,9 @@
     </ClCompile>
     <ClCompile Include="ModuleConsole.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\JSON\parson.c">
+      <Filter>Libraries\JSON</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

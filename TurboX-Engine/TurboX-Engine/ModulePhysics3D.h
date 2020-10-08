@@ -12,6 +12,7 @@ public:
 	~ModulePhysics3D();
 
 	bool Start();
+	bool Init(JSON_Object* obj);
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);

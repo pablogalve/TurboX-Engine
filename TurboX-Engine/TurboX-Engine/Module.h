@@ -1,6 +1,10 @@
 #pragma once
 
+#include "./JSON/parson.h"
+#include <string>
+
 class Application;
+
 
 class Module
 {
@@ -8,7 +12,10 @@ private :
 	bool enabled;
 
 public:
+	
 	Application* App;
+
+	std::string name;
 
 	Module(Application* parent, bool start_enabled = true) : App(parent)
 	{}
@@ -16,7 +23,7 @@ public:
 	virtual ~Module()
 	{}
 
-	virtual bool Init() 
+	virtual bool Init(JSON_Object* obj)
 	{
 		return true; 
 	}

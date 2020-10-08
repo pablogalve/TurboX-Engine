@@ -90,6 +90,7 @@
     <ClInclude Include="Libraries\glew\glew.h" />
     <ClInclude Include="Libraries\glew\glxew.h" />
     <ClInclude Include="Libraries\glew\wglew.h" />
+    <ClInclude Include="Libraries\JSON\parson.h" />
     <ClInclude Include="Libraries\MathGeoLib\Algorithm\Random\LCG.h" />
     <ClInclude Include="Libraries\MathGeoLib\Geometry\AABB.h" />
     <ClInclude Include="Libraries\MathGeoLib\Geometry\AABB2D.h" />
@@ -255,6 +256,7 @@
     <ClCompile Include="Libraries/ImGui/imgui_impl_opengl3.cpp" />
     <ClCompile Include="Libraries/ImGui/imgui_impl_sdl.cpp" />
     <ClCompile Include="Libraries/ImGui/imgui_widgets.cpp" />
+    <ClCompile Include="Libraries\JSON\parson.c" />
     <ClCompile Include="Libraries\MathGeoLib\Algorithm\Random\LCG.cpp" />
     <ClCompile Include="Libraries\MathGeoLib\Geometry\AABB.cpp" />
     <ClCompile Include="Libraries\MathGeoLib\Geometry\Capsule.cpp" />

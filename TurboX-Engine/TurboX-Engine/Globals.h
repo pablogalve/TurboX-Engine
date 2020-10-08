@@ -38,3 +38,4 @@ enum update_status
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
 #define TITLE "TurboX 3D Engine"
+#define CONFIG_FILE "config.JSON"

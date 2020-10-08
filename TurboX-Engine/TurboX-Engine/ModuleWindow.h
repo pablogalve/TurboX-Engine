@@ -15,7 +15,7 @@ public:
 	// Destructor
 	virtual ~ModuleWindow();
 
-	bool Init();
+	bool Init(JSON_Object* obj);
 	bool CleanUp();
 
 	void SetTitle(const char* title);
@@ -25,7 +25,6 @@ public:
 	void SetResizable(bool resizable);
 	void SetBorderless(bool borderless);
 	void SetFullscreenDesktop(bool fullsdesktop);
-
 	bool IsFullscreen() const { return _fullscreen; }
 	bool IsResizable() const { return _resizable; }
 	bool IsBorderless() const { return _borderless; }
@@ -33,6 +32,7 @@ public:
 
 	float GetBrightness() const { return _brightness; }
 	void GetSize(int& h, int& w)const;
+	std::string GetWindowTitle() const { return _title; }
 
 public:
 	//The window we'll be rendering to
@@ -50,6 +50,8 @@ public:
 	int _brightness = DEFAULT_BRIGHTNESS;
 	uint _w;
 	uint _h;
+
+	std::string _title = TITLE;
 
 };
 
