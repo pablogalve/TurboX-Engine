@@ -3,7 +3,9 @@
 #include "Globals.h"
 #include "glmath.h"
 #include "Light.h"
+#include <array>
 
+using namespace std;
 #define MAX_LIGHTS 8
 
 class ModuleRenderer3D : public Module
@@ -12,6 +14,7 @@ public:
 	ModuleRenderer3D(Application* app, bool start_enabled = true);
 	~ModuleRenderer3D();
 
+	bool Start();
 	bool Init(JSON_Object* obj);
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
@@ -31,4 +34,8 @@ public:
 
 	bool _wireframe = false;
 
+	uint cube_id = 0;
+	uint buffIndicesID = 0;
+	array<float, 24> cube;
+	array<uint, 36> cubeIndices;
 };

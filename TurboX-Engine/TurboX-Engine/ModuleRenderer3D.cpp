@@ -17,6 +17,26 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 ModuleRenderer3D::~ModuleRenderer3D()
 {}
 
+bool ModuleRenderer3D::Start()
+{
+
+	bool ret = true;
+
+	cube = { .0f,.0f,.0f  ,1.0f,.0f,.0f ,.0f,1.0f,.0f , 1.0f,1.0f,.0f , .0f,.0f,1.0f , 1.0f,.0f,1.0f , .0f,1.0f,1.0f  ,  1.0f,1.0f,1.0f };
+	
+	glGenBuffers(1, (GLuint*)&(cube_id)); 
+	glBindBuffer(GL_ARRAY_BUFFER, cube_id);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * cube.size(), &cube[0], GL_STATIC_DRAW);
+
+	cubeIndices = { 0,1,2 , 1,3,2 , 3,1,5 , 5,7,3 , 7,5,4 , 6,7,4 , 6,4,0  , 0,2,6  , 6,2,3 , 6,3,7 , 0,4,5 , 0,5,1 };
+
+	glGenBuffers(1, (GLuint*)&(buffIndicesID));
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffIndicesID);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * cubeIndices.size(), &cubeIndices[0], GL_STATIC_DRAW);
+
+	return ret;
+}
+
 // Called before render is available
 bool ModuleRenderer3D::Init(JSON_Object* obj)
 {
@@ -132,6 +152,21 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+	glLineWidth(1.0f);
+	glEnableClientState(GL_VERTEX_ARRAY);
+
+	glBindBuffer(GL_ARRAY_BUFFER, cube_id);
+	glVertexPointer(3, GL_FLOAT, 0, NULL); 
+	glDrawArrays(GL_TRIANGLES, 0, cubeIndices.size());
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffIndicesID);
+
+
+	glDrawElements(GL_TRIANGLES, cubeIndices.size(), GL_UNSIGNED_INT, NULL);
+
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
 }
