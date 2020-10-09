@@ -99,30 +99,6 @@
     <ClInclude Include="ModuleGui.h">
       <Filter>Sources\Modules\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Libraries/ImGui/imconfig.h">
-      <Filter>Libraries\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Libraries/ImGui/imgui.h">
-      <Filter>Libraries\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Libraries/ImGui/imgui_impl_opengl3.h">
-      <Filter>Libraries\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Libraries/ImGui/imgui_impl_sdl.h">
-      <Filter>Libraries\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Libraries/ImGui/imgui_internal.h">
-      <Filter>Libraries\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Libraries/ImGui/imstb_rectpack.h">
-      <Filter>Libraries\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Libraries/ImGui/imstb_textedit.h">
-      <Filter>Libraries\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Libraries/ImGui/imstb_truetype.h">
-      <Filter>Libraries\ImGui</Filter>
-    </ClInclude>
     <ClInclude Include="Libraries\SDL\include\begin_code.h">
       <Filter>Libraries\SDL</Filter>
     </ClInclude>
@@ -564,6 +540,30 @@
     <ClInclude Include="Libraries\JSON\parson.h">
       <Filter>Libraries\JSON</Filter>
     </ClInclude>
+    <ClInclude Include="Libraries\ImGui\imconfig.h">
+      <Filter>Libraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\ImGui\imgui.h">
+      <Filter>Libraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\ImGui\imgui_impl_opengl3.h">
+      <Filter>Libraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\ImGui\imgui_impl_sdl.h">
+      <Filter>Libraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\ImGui\imgui_internal.h">
+      <Filter>Libraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\ImGui\imstb_rectpack.h">
+      <Filter>Libraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\ImGui\imstb_textedit.h">
+      <Filter>Libraries\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\ImGui\imstb_truetype.h">
+      <Filter>Libraries\ImGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -613,24 +613,6 @@
     </ClCompile>
     <ClCompile Include="ModuleGui.cpp">
       <Filter>Sources\Modules\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Libraries/ImGui/imgui.cpp">
-      <Filter>Libraries\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Libraries/ImGui/imgui_demo.cpp">
-      <Filter>Libraries\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Libraries/ImGui/imgui_draw.cpp">
-      <Filter>Libraries\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Libraries/ImGui/imgui_impl_opengl3.cpp">
-      <Filter>Libraries\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Libraries/ImGui/imgui_impl_sdl.cpp">
-      <Filter>Libraries\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Libraries/ImGui/imgui_widgets.cpp">
-      <Filter>Libraries\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="Libraries\MathGeoLib\Time\Clock.cpp">
       <Filter>Libraries\MathGeoLib\Time</Filter>
@@ -727,6 +709,24 @@
     </ClCompile>
     <ClCompile Include="Libraries\JSON\parson.c">
       <Filter>Libraries\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\ImGui\imgui.cpp">
+      <Filter>Libraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\ImGui\imgui_demo.cpp">
+      <Filter>Libraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\ImGui\imgui_draw.cpp">
+      <Filter>Libraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\ImGui\imgui_impl_opengl3.cpp">
+      <Filter>Libraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\ImGui\imgui_impl_sdl.cpp">
+      <Filter>Libraries\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\ImGui\imgui_widgets.cpp">
+      <Filter>Libraries\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

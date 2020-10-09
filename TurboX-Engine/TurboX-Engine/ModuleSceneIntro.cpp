@@ -4,6 +4,8 @@
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 
+#include <string>
+
 #include "Primitive.h"
 
 #include "ImGui/imgui.h"
@@ -85,7 +87,7 @@ void ModuleSceneIntro::ShowMenuBar()
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("View")) {
-			if (ImGui::MenuItem("Console (Not implemented yet)")) {
+			if (ImGui::MenuItem("Console")) {
 				showConsoleWindow = !showConsoleWindow;
 			}
 			if (ImGui::MenuItem("Configuration")) {
@@ -198,6 +200,15 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 
 	if (ImGui::CollapsingHeader("Application"))
 	{
+		char appName[50] = "TurboX Engine";
+		char appName2[50];
+		
+
+		if (ImGui::InputText("App name", appName, 50, ImGuiInputTextFlags_EnterReturnsTrue)) {
+			int fd = 5;
+		}
+		ImGui::InputText("Organization", "UPC CITM", 50);
+
 		//FPS
 		fps_log.erase(fps_log.begin());
 		fps_log.push_back(ImGui::GetIO().Framerate);
