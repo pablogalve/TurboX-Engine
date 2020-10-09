@@ -198,6 +198,8 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 
 	ImGui::Text("Options");
 
+	ImVec4 yellow(1.0f, 0.8f, 0.0f, 1.0f); //We'll use yellow to print the results
+
 	if (ImGui::CollapsingHeader("Application"))
 	{
 		char appName[50] = "TurboX Engine";
@@ -224,7 +226,13 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 	}	
 	if (ImGui::CollapsingHeader("File System"))
 	{
+		char filename[] = "../../../../TurboX-Engine";
+		char fullFilename[MAX_PATH];
 
+		GetFullPathName(filename, MAX_PATH, fullFilename, nullptr);
+
+		ImGui::Text("Base Path: ");
+		ImGui::TextColored(yellow, fullFilename);
 	}
 	if (ImGui::CollapsingHeader("Input"))
 	{
@@ -289,8 +297,7 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
 		//Hardware Detection		
-		GetHardwareCaps();
-		ImVec4 yellow(1.0f, 0.8f, 0.0f, 1.0f); //We'll use yellow to print the result
+		GetHardwareCaps();		
 
 		//SDL Version
 		SDL_version sdl_version;
