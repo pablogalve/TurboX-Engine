@@ -17,7 +17,10 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+
 	void OnResize(int width, int height);
+
+	void SetWireframeMode(bool active);
 
 public:
 
@@ -25,4 +28,7 @@ public:
 	SDL_GLContext context;
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+
+	bool _wireframe = false;
+
 };

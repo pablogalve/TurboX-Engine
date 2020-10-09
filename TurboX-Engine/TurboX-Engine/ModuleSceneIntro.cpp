@@ -360,6 +360,13 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 		ImGui::SameLine();
 		ImGui::TextColored(yellow, "%.1f Mb", vram_reserved);
 	}
+	if (ImGui::CollapsingHeader("Renderer"))
+	{
+		if (ImGui::Checkbox("Wireframe", &App->renderer3D->_wireframe)) 
+		{
+			App->renderer3D->SetWireframeMode(App->renderer3D->_wireframe);
+		}
+	}
 
 	ImGui::End();
 }
