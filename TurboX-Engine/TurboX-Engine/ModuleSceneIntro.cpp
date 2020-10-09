@@ -6,8 +6,6 @@
 
 #include <string>
 
-#include "Primitive.h"
-
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_opengl3.h"
 #include "ImGui/imgui_impl_sdl.h"
@@ -44,10 +42,11 @@ bool ModuleSceneIntro::Start()
 
 update_status ModuleSceneIntro::Update(float dt)
 {
-	Plane p(0, 1, 0, 0);
+	/*Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
-	
+	*/
+
 	// Gui
 	ShowMenuBar();
 

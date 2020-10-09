@@ -78,9 +78,6 @@
     <ClInclude Include="Globals.h">
       <Filter>Sources</Filter>
     </ClInclude>
-    <ClInclude Include="Primitive.h">
-      <Filter>Sources\Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="Color.h">
       <Filter>Sources\Containers</Filter>
     </ClInclude>
@@ -595,9 +592,6 @@
     </ClCompile>
     <ClCompile Include="glmath.cpp">
       <Filter>Sources\Containers</Filter>
-    </ClCompile>
-    <ClCompile Include="Primitive.cpp">
-      <Filter>Sources\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Color.cpp">
       <Filter>Sources\Containers</Filter>
