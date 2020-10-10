@@ -143,19 +143,34 @@ void ModuleSceneIntro::ShowAboutWindow()
 	ImGui::Text("3rd Party Libraries used:");
 
 	//SDL Version
-	ImGui::BulletText("SDL %d.%d.%d", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL);
+	ImGui::BulletText("SDL %d.%d.%d", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL); ImGui::SameLine();
+	if (ImGui::SmallButton("Open Website"))
+		ShellExecuteA(NULL, "open", "https://libsdl.org/", NULL, NULL, SW_SHOWNORMAL);
 
 	//OpenGL
-	ImGui::BulletText("OpenGL 3");
+	int major = 0;
+	int minor = 0;
+	glGetIntegerv(GL_MAJOR_VERSION, &major);
+	glGetIntegerv(GL_MINOR_VERSION, &minor);
+
+	ImGui::BulletText("OpenGL %i.%i", major, minor); ImGui::SameLine();
+	if (ImGui::SmallButton("Open Website"))
+		ShellExecuteA(NULL, "open", "https://www.opengl.org/", NULL, NULL, SW_SHOWNORMAL);
 
 	//ImGui Version
-	ImGui::BulletText("ImGui %s", ImGui::GetVersion());
+	ImGui::BulletText("ImGui %s", ImGui::GetVersion()); ImGui::SameLine();
+	if (ImGui::SmallButton("Open Website"))
+		ShellExecuteA(NULL, "open", "https://github.com/ocornut/imgui", NULL, NULL, SW_SHOWNORMAL);
 	
 	//MathGeoLib
-	ImGui::BulletText("MathGeoLib 1.5");
+	ImGui::BulletText("MathGeoLib 1.5"); ImGui::SameLine();
+	if (ImGui::SmallButton("Open Website"))
+		ShellExecuteA(NULL, "open", "https://github.com/juj/MathGeoLib", NULL, NULL, SW_SHOWNORMAL);
 
 	//Glew
-	ImGui::BulletText("Glew %d.%d.%d", GLEW_VERSION_MAJOR, GLEW_VERSION_MINOR, GLEW_VERSION_MICRO);
+	ImGui::BulletText("Glew %d.%d.%d", GLEW_VERSION_MAJOR, GLEW_VERSION_MINOR, GLEW_VERSION_MICRO); ImGui::SameLine();
+	if (ImGui::SmallButton("Open Website"))
+		ShellExecuteA(NULL, "open", "https://github.com/nigels-com/glew", NULL, NULL, SW_SHOWNORMAL);
 
 	ImGui::Separator();
 
