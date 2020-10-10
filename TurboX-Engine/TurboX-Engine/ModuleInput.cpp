@@ -8,7 +8,7 @@ ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, sta
 {
 	keyboard = new KEY_STATE[MAX_KEYS];
 	memset(keyboard, KEY_IDLE, sizeof(KEY_STATE) * MAX_KEYS);
-	name = "Input";
+	name = "Input";	
 }
 
 // Destructor
@@ -46,10 +46,11 @@ update_status ModuleInput::PreUpdate(float dt)
 	
 	for(int i = 0; i < MAX_KEYS; ++i)
 	{
-		if(keys[i] == 1)
+		if (keys[i] == 1)
 		{
-			if(keyboard[i] == KEY_IDLE)
+			if (keyboard[i] == KEY_IDLE) {
 				keyboard[i] = KEY_DOWN;
+			}
 			else
 				keyboard[i] = KEY_REPEAT;
 		}
@@ -87,23 +88,57 @@ update_status ModuleInput::PreUpdate(float dt)
 	}
 
 	mouse_x_motion = mouse_y_motion = 0;
-
+	
 	bool quit = false;
 	SDL_Event e;
 	while(SDL_PollEvent(&e))
 	{
 		switch(e.type)
 		{
-			case SDL_MOUSEWHEEL:
-			mouse_z = e.wheel.y;
+			case SDL_KEYDOWN:	
+				AddLastInput("Keybr", e.key.keysym.sym, "KEY_DOWN");
+			break;
+			case SDL_KEYUP:
+				AddLastInput("Keybr", e.key.keysym.sym, "KEY_UP");
+			break;
+			case SDL_MOUSEBUTTONDOWN:
+				switch (e.button.button)
+				{
+				case SDL_BUTTON_LEFT:
+					AddLastInput("Mouse", 0, "KEY_DOWN");
+					break;
+				case SDL_BUTTON_RIGHT:
+					AddLastInput("Mouse", 2, "KEY_DOWN");
+					break;
+				default:
+					AddLastInput("Mouse", 1, "KEY_DOWN");
+					break;
+				}
+			break;
+			case SDL_MOUSEBUTTONUP:
+				switch (e.button.button)
+				{
+				case SDL_BUTTON_LEFT:
+					AddLastInput("Mouse", 0, "KEY_UP");
+					break;
+				case SDL_BUTTON_RIGHT:
+					AddLastInput("Mouse", 2, "KEY_UP");
+					break;
+				default:
+					AddLastInput("Mouse", 1, "KEY_UP");
+					break;
+				}
+				break;
+			case SDL_MOUSEWHEEL:				
+				mouse_z = e.wheel.y;
 			break;
 
 			case SDL_MOUSEMOTION:
-			mouse_x = e.motion.x / SCREEN_SIZE;
-			mouse_y = e.motion.y / SCREEN_SIZE;
+				mouse_x = e.motion.x / SCREEN_SIZE;
+				mouse_y = e.motion.y / SCREEN_SIZE;
 
-			mouse_x_motion = e.motion.xrel / SCREEN_SIZE;
-			mouse_y_motion = e.motion.yrel / SCREEN_SIZE;
+				mouse_x_motion = e.motion.xrel / SCREEN_SIZE;
+				mouse_y_motion = e.motion.yrel / SCREEN_SIZE;
 			break;
 
 			case SDL_QUIT:
@@ -131,4 +166,60 @@ bool ModuleInput::CleanUp()
 	//LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
+}
+
+void ModuleInput::AddLastInput(std::string name, Uint8 keyboard_num, std::string type)
+{
+	if (last_inputs->last_input == last_inputs->size - 1) {
+		//List is full
+
+		for (int j = 0; j < last_inputs->size - 1; j++)
+		{
+			//We remove the first input(last_input[0]) and move everything up to make space for the new element
+			last_inputs[j].name = last_inputs[j + 1].name;
+			last_inputs[j].keyboard_num = last_inputs[j + 1].keyboard_num;
+			last_inputs[j].type = last_inputs[j + 1].type;
+			//last_inputs[i] = last_inputs[i + 1];
+		}
+
+		//We add the last input to the list
+		last_inputs[last_inputs->last_input].name = name;
+		last_inputs[last_inputs->last_input].keyboard_num = keyboard_num;
+		last_inputs[last_inputs->last_input].type = type;
+		last_inputs[last_inputs->last_input].is_null = false;
+
+		//last_inputs[last_inputs->size].is_null = true;		
+	}
+	else {
+		//List is not full
+
+		//We add the last input to the list
+		last_inputs[last_inputs->last_input].name = name;
+		last_inputs[last_inputs->last_input].keyboard_num = keyboard_num;
+		last_inputs[last_inputs->last_input].type = type;
+		last_inputs[last_inputs->last_input].is_null = false;
+
+		if(last_inputs->last_input < last_inputs->size - 1)
+			last_inputs->last_input++;
+	}
+}
+
+void ModuleInput::PrintLastInputs()
+{
+	//Name: keyboard_num - Type
+	/*Output Examples:
+		Keybr: 93 - UP
+		Mouse: 02 - REPEAT
+	*/
+	for (int i = last_inputs->size; i >= 0; i--)
+	{
+		if (last_inputs[i].is_null == false) {
+			std::string _name = last_inputs[i].name;
+			int _keyboard_num = (int)(last_inputs[i].keyboard_num);
+			std::string _type = last_inputs[i].type;
+
+			//ImGui::Text("%s: %i - %s", _name, _keyboard_num, _type);
+			ImGui::Text("%s: %i - %s", _name.c_str(), _keyboard_num, _type.c_str());
+		}
+	}	
 }

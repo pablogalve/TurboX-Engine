@@ -235,7 +235,27 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 	}
 	if (ImGui::CollapsingHeader("Input"))
 	{
+		//Mouse position
+		POINT cursor_position;
+		if (GetCursorPos(&cursor_position)) {
+			ImGui::Text("Mouse Position: "); ImGui::SameLine();
+			ImGui::TextColored(yellow, "%i, %i", cursor_position.x, cursor_position.y);
+		}
+		
+		//Mouse motion
+		ImGui::Text("Mouse Motion: "); ImGui::SameLine();
+		ImGui::TextColored(yellow, "%i, %i", App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
 
+		//Mouse Wheel
+		ImGui::Text("Mouse Wheel: "); ImGui::SameLine();
+		ImGui::TextColored(yellow, "%i", App->input->GetMouseZ());
+
+		ImGui::Separator();
+
+		ImGui::Text("Last Inputs:");
+		App->input->PrintLastInputs();
+
+		ImGui::Separator();
 	}
 	if (ImGui::CollapsingHeader("Window"))
 	{
