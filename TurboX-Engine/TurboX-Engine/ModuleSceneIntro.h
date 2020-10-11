@@ -24,6 +24,13 @@ private:
 	void ShowDemoWindow();
 	void ShowAboutWindow();
 	void ShowConfigurationWindow();
+	void ShowHierarchyWindow();
+	void ShowSceneWindow();
+	void ShowToolbarWindow();
+	void ShowInspectorWindow();
+	void ShowExplorerWindow();
+	void ShowResourcesWindow();
+
 	void GetHardwareCaps();
 	void GetVramData(float& vram_budget, float& vram_usage, float& vram_available, float& vram_reserved);
 	
@@ -33,6 +40,12 @@ private:
 	bool showAboutWindow;
 	bool showConfigurationWindow;
 	bool showConsoleWindow;
+	bool showHierarchyWindow;
+	bool showSceneWindow;
+	bool showToolbarWindow;
+	bool showInspectorWindow;
+	bool showExplorerWindow;
+	bool showResourcesWindow;
 
 	std::vector<float> fps_log;
 	std::vector<float> ms_log;

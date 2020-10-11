@@ -18,6 +18,12 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	showAboutWindow = false;
 	showConfigurationWindow = true;
 	showConsoleWindow = true;
+	showHierarchyWindow = true;
+	showSceneWindow = true;
+	showToolbarWindow = true;
+	showInspectorWindow = true;
+	showExplorerWindow = true;
+	showResourcesWindow = true;
 
 	fps_log.resize(100);
 	ms_log.resize(100);
@@ -42,11 +48,6 @@ bool ModuleSceneIntro::Start()
 
 update_status ModuleSceneIntro::Update(float dt)
 {
-	/*Plane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
-	*/
-
 	// Gui
 	ShowMenuBar();
 
@@ -62,6 +63,24 @@ update_status ModuleSceneIntro::Update(float dt)
 	if (showConsoleWindow) {
 		App->console->Draw("Console", &showConsoleWindow);
 	}
+
+	if (showHierarchyWindow)
+		ShowHierarchyWindow();
+
+	if (showSceneWindow)
+		ShowSceneWindow();
+
+	if (showToolbarWindow)
+		ShowToolbarWindow();
+
+	if (showInspectorWindow)
+		ShowInspectorWindow();
+
+	if (showExplorerWindow)
+		ShowExplorerWindow();
+
+	if (showResourcesWindow)
+		ShowResourcesWindow();
 
 	return UPDATE_CONTINUE;
 }
@@ -92,6 +111,22 @@ void ModuleSceneIntro::ShowMenuBar()
 			if (ImGui::MenuItem("Configuration")) {
 				showConfigurationWindow = !showConfigurationWindow;
 			}
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("Window")) {
+			if (ImGui::BeginMenu("Display"))
+			{
+				if (ImGui::MenuItem("Hierarchy", nullptr, showHierarchyWindow)); showHierarchyWindow = !showHierarchyWindow;
+				if (ImGui::MenuItem("Scene", nullptr, showSceneWindow)); showSceneWindow = !showSceneWindow;
+				if (ImGui::MenuItem("Inspector", nullptr, showInspectorWindow)); showInspectorWindow = !showInspectorWindow;
+				if (ImGui::MenuItem("Console", nullptr, showConsoleWindow)) showConsoleWindow = !showConsoleWindow;
+				if (ImGui::MenuItem("Explorer", nullptr, showExplorerWindow)); showExplorerWindow = !showExplorerWindow;
+				//if (ImGui::MenuItem("Resources", nullptr, showResourcesWindow));
+				if (ImGui::MenuItem("Engine Config", nullptr, showConfigurationWindow))showConfigurationWindow = !showConfigurationWindow;
+				if (ImGui::MenuItem("Toolbar", nullptr, showToolbarWindow)); showToolbarWindow = !showToolbarWindow;
+				ImGui::EndMenu();
+			}
+
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Help"))
@@ -401,6 +436,48 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 			App->renderer3D->SetWireframeMode(App->renderer3D->_wireframe);
 		}
 	}
+
+	ImGui::End();
+}
+
+void ModuleSceneIntro::ShowHierarchyWindow()
+{
+	ImGui::Begin("Hierarchy", &showHierarchyWindow);
+
+	ImGui::End();
+}
+
+void ModuleSceneIntro::ShowSceneWindow()
+{
+	ImGui::Begin("Scene", &showSceneWindow);
+
+	ImGui::End();
+}
+
+void ModuleSceneIntro::ShowToolbarWindow()
+{
+	ImGui::Begin("Toolbar", &showToolbarWindow);
+
+	ImGui::End();
+}
+
+void ModuleSceneIntro::ShowInspectorWindow()
+{
+	ImGui::Begin("Inspector", &showInspectorWindow);
+
+	ImGui::End();
+}
+
+void ModuleSceneIntro::ShowExplorerWindow()
+{
+	ImGui::Begin("Explorer", &showExplorerWindow);
+
+	ImGui::End();
+}
+
+void ModuleSceneIntro::ShowResourcesWindow()
+{
+	ImGui::Begin("Resources", &showResourcesWindow);
 
 	ImGui::End();
 }
