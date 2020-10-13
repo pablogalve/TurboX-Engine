@@ -53,13 +53,10 @@ update_status ModuleGui::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-update_status ModuleGui::PostUpdate(float dt)
+void ModuleGui::Draw()
 {
-	// Render
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-	return UPDATE_CONTINUE;
 }
 
 bool ModuleGui::CleanUp()
