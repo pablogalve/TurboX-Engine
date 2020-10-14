@@ -22,18 +22,6 @@ bool ModuleRenderer3D::Start()
 
 	bool ret = true;
 
-	/*cube = { .0f,.0f,.0f  ,1.0f,.0f,.0f ,.0f,1.0f,.0f , 1.0f,1.0f,.0f , .0f,.0f,1.0f , 1.0f,.0f,1.0f , .0f,1.0f,1.0f  ,  1.0f,1.0f,1.0f };
-	
-	glGenBuffers(1, (GLuint*)&(cube_id)); 
-	glBindBuffer(GL_ARRAY_BUFFER, cube_id);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * cube.size(), &cube[0], GL_STATIC_DRAW);
-
-	cubeIndices = { 0,1,2 , 1,3,2 , 3,1,5 , 5,7,3 , 7,5,4 , 6,7,4 , 6,4,0  , 0,2,6  , 6,2,3 , 6,3,7 , 0,4,5 , 0,5,1 };
-
-	glGenBuffers(1, (GLuint*)&(buffIndicesID));
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffIndicesID);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * cubeIndices.size(), &cubeIndices[0], GL_STATIC_DRAW);*/
-
 	return ret;
 }
 
@@ -306,6 +294,30 @@ void ModuleRenderer3D::DrawCubeWithArrays()
 
 void ModuleRenderer3D::DrawCubeWithIndices()
 {
+	GLfloat vertices[] = { 2.f, 2.f, 0.f,
+		0.f, 2.f, 0.f,
+		0.f, 0.f, 0.f,
+		2.f, 0.f, 0.f,
+		2.f, 0.f, -2.f,
+		2.f, 2.f, -2.f,
+		0.f, 2.f, -2.f,
+		0.f, 0.f, -2.f, };          // 8 of vertex coords
 	
+	GLubyte indices[] = { 0,1,2, 2,3,0,   // 36 of indices
+						 0,3,4, 4,5,0,
+						 0,5,6, 6,1,0,
+						 1,6,7, 7,2,1,
+						 7,4,3, 3,2,7,
+						 4,7,6, 6,5,4 };
+
+	// activate and specify pointer to vertex array
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, vertices);
+
+	// draw a cube
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, indices);
+
+	// deactivate vertex arrays after drawing
+	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
