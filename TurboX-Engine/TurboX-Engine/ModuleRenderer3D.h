@@ -24,6 +24,9 @@ public:
 	void OnResize(int width, int height);
 
 	void SetWireframeMode(bool active);
+	void DrawCubeWithDirectMode();
+	void DrawCubeWithArrays();
+	void DrawCubeWithIndices();
 
 public:
 

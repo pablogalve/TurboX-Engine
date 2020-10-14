@@ -22,7 +22,7 @@ bool ModuleRenderer3D::Start()
 
 	bool ret = true;
 
-	cube = { .0f,.0f,.0f  ,1.0f,.0f,.0f ,.0f,1.0f,.0f , 1.0f,1.0f,.0f , .0f,.0f,1.0f , 1.0f,.0f,1.0f , .0f,1.0f,1.0f  ,  1.0f,1.0f,1.0f };
+	/*cube = { .0f,.0f,.0f  ,1.0f,.0f,.0f ,.0f,1.0f,.0f , 1.0f,1.0f,.0f , .0f,.0f,1.0f , 1.0f,.0f,1.0f , .0f,1.0f,1.0f  ,  1.0f,1.0f,1.0f };
 	
 	glGenBuffers(1, (GLuint*)&(cube_id)); 
 	glBindBuffer(GL_ARRAY_BUFFER, cube_id);
@@ -32,7 +32,7 @@ bool ModuleRenderer3D::Start()
 
 	glGenBuffers(1, (GLuint*)&(buffIndicesID));
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffIndicesID);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * cubeIndices.size(), &cubeIndices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * cubeIndices.size(), &cubeIndices[0], GL_STATIC_DRAW);*/
 
 	return ret;
 }
@@ -152,20 +152,9 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	glLineWidth(1.0f);
-	glEnableClientState(GL_VERTEX_ARRAY);
-
-	glBindBuffer(GL_ARRAY_BUFFER, cube_id);
-	glVertexPointer(3, GL_FLOAT, 0, NULL); 
-	glDrawArrays(GL_TRIANGLES, 0, cubeIndices.size());
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffIndicesID);
-
-
-	glDrawElements(GL_TRIANGLES, cubeIndices.size(), GL_UNSIGNED_INT, NULL);
-
-
-	glDisableClientState(GL_VERTEX_ARRAY);
+	//DrawCubeWithDirectMode();
+	//DrawCubeWithArrays();
+	DrawCubeWithIndices();
 
 	App->gui->Draw();
 
@@ -202,5 +191,121 @@ void ModuleRenderer3D::SetWireframeMode(bool active)
 {
 	if (active)glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	else glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
+void ModuleRenderer3D::DrawCubeWithDirectMode()
+{
+	//cube in direct mode
+	glBegin(GL_TRIANGLES);
+
+	glVertex3f(0.f, 2.f, 0.f);
+	glVertex3f(0.f, 0.f, 0.f);
+	glVertex3f(0.f, 0.f, 2.f);
+	glVertex3f(0.f, 0.f, 2.f);
+	glVertex3f(0.f, 2.f, 2.f);
+	glVertex3f(0.f, 2.f, 0.f);
+
+	glVertex3f(2.f, 2.f, 0.f);
+	glVertex3f(2.f, 0.f, 2.f);
+	glVertex3f(2.f, 0.f, 0.f);
+	glVertex3f(2.f, 0.f, 2.f);
+	glVertex3f(2.f, 2.f, 0.f);
+	glVertex3f(2.f, 2.f, 2.f);
+
+	glVertex3f(0.f, 2.f, 0.f);
+	glVertex3f(2.f, 2.f, 0.f);
+	glVertex3f(2.f, 0.f, 0.f);
+	glVertex3f(0.f, 2.f, 0.f);
+	glVertex3f(2.f, 0.f, 0.f);
+	glVertex3f(0.f, 0.f, 0.f);
+
+	glVertex3f(0.f, 2.f, 2.f);
+	glVertex3f(2.f, 0.f, 2.f);
+	glVertex3f(2.f, 2.f, 2.f);
+	glVertex3f(0.f, 2.f, 2.f);
+	glVertex3f(0.f, 0.f, 2.f);
+	glVertex3f(2.f, 0.f, 2.f);
+
+	glVertex3f(0.f, 2.f, 2.f);
+	glVertex3f(2.f, 2.f, 2.f);
+	glVertex3f(2.f, 2.f, 0.f);
+	glVertex3f(0.f, 2.f, 2.f);
+	glVertex3f(2.f, 2.f, 0.f);
+	glVertex3f(0.f, 2.f, 0.f);
+
+	glVertex3f(0.f, 0.f, 2.f);
+	glVertex3f(2.f, 0.f, 0.f);
+	glVertex3f(2.f, 0.f, 2.f);
+	glVertex3f(0.f, 0.f, 2.f);
+	glVertex3f(0.f, 0.f, 0.f);
+	glVertex3f(2.f, 0.f, 0.f);
+
+	glEnd();
+	glLineWidth(1.0f);
+}
+
+void ModuleRenderer3D::DrawCubeWithArrays()
+{
+	//Draw a cube with Vertex Arrays and glDrawArrays()
+	GLfloat vertices[] =
+	{
+		0.f, 2.f, 0.f,
+		0.f, 0.f, 0.f,
+		0.f, 0.f, 2.f,
+		0.f, 0.f, 2.f,
+		0.f, 2.f, 2.f,
+		0.f, 2.f, 0.f,
+
+		2.f, 2.f, 0.f,
+		2.f, 0.f, 2.f,
+		2.f, 0.f, 0.f,
+		2.f, 0.f, 2.f,
+		2.f, 2.f, 0.f,
+		2.f, 2.f, 2.f,
+
+		0.f, 2.f, 0.f,
+		2.f, 2.f, 0.f,
+		2.f, 0.f, 0.f,
+		0.f, 2.f, 0.f,
+		2.f, 0.f, 0.f,
+		0.f, 0.f, 0.f,
+
+		0.f, 2.f, 2.f,
+		2.f, 0.f, 2.f,
+		2.f, 2.f, 2.f,
+		0.f, 2.f, 2.f,
+		0.f, 0.f, 2.f,
+		2.f, 0.f, 2.f,
+
+		0.f, 2.f, 2.f,
+		2.f, 2.f, 2.f,
+		2.f, 2.f, 0.f,
+		0.f, 2.f, 2.f,
+		2.f, 2.f, 0.f,
+		0.f, 2.f, 0.f,
+
+		0.f, 0.f, 2.f,
+		2.f, 0.f, 0.f,
+		2.f, 0.f, 2.f,
+		0.f, 0.f, 2.f,
+		0.f, 0.f, 0.f,
+		2.f, 0.f, 0.f
+	};
+
+	uint my_id = 0;
+	glGenBuffers(1, (GLuint*)&(my_id));
+	glBindBuffer(GL_ARRAY_BUFFER, my_id);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 108, vertices, GL_STATIC_DRAW);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, my_id);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+void ModuleRenderer3D::DrawCubeWithIndices()
+{
+	
 }
 
