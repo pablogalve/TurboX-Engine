@@ -4,6 +4,7 @@
 #include "glmath.h"
 #include "Light.h"
 #include <array>
+#include <cmath>
 
 using namespace std;
 #define MAX_LIGHTS 8
@@ -28,7 +29,7 @@ public:
 	void DrawCubeWithDirectMode();
 	void DrawCubeWithArrays();
 	void DrawCubeWithIndices();
-	void DrawSphere();
+	void DrawSphere(float radius, unsigned int rings, unsigned int sectors);
 
 public:
 
