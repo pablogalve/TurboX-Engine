@@ -28,6 +28,7 @@ public:
 	void DrawCubeWithDirectMode();
 	void DrawCubeWithArrays();
 	void DrawCubeWithIndices();
+	void DrawPyramid();
 	void DrawSphere();
 
 public:
