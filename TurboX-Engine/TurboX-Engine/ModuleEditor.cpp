@@ -115,7 +115,7 @@ void ModuleEditor::ShowMenuBar()
 		}
 		if (ImGui::BeginMenu("Assets")) {
 			if (ImGui::MenuItem("Create Cube"))App->renderer3D->DrawCubeWithIndices();
-			if (ImGui::MenuItem("Create Sphere"))App->renderer3D->DrawSphere();
+			if (ImGui::MenuItem("Create Sphere"))App->renderer3D->DrawSphere(1, 12, 24);
 			if (ImGui::MenuItem("Create Pyramid"))App->renderer3D->DrawPyramid();
 			if (ImGui::MenuItem("Create Cylinder"))App->renderer3D->DrawCylinder();
 
