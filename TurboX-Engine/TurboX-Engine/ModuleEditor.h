@@ -8,11 +8,11 @@
 
 typedef int GLint;
 
-class ModuleSceneIntro : public Module
+class ModuleEditor : public Module
 {
 public:
-	ModuleSceneIntro(Application* app, bool start_enabled = true);
-	~ModuleSceneIntro();
+	ModuleEditor(Application* app, bool start_enabled = true);
+	~ModuleEditor();
 
 	bool Start();
 	update_status Update(float dt);

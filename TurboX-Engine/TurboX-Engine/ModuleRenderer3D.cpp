@@ -140,9 +140,12 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+
 	//DrawCubeWithDirectMode();
 	//DrawCubeWithArrays();
 	DrawCubeWithIndices();
+
+
 
 	App->gui->Draw();
 
@@ -327,5 +330,10 @@ void ModuleRenderer3D::DrawCubeWithIndices()
 
 	// deactivate vertex arrays after drawing
 	glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+void ModuleRenderer3D::DrawSphere()
+{
+	
 }
 

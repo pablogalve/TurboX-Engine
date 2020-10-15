@@ -1,6 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
-#include "ModuleSceneIntro.h"
+#include "ModuleEditor.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 
@@ -12,7 +12,7 @@
 #include "glew/glew.h"
 #include "glew/wglew.h"
 
-ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	showDemoWindow = false;
 	showAboutWindow = false;
@@ -30,10 +30,10 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	caps_log.resize(0);
 }
 
-ModuleSceneIntro::~ModuleSceneIntro()
+ModuleEditor::~ModuleEditor()
 {}
 
-bool ModuleSceneIntro::Start()
+bool ModuleEditor::Start()
 {
 	bool ret = true;
 
@@ -46,7 +46,7 @@ bool ModuleSceneIntro::Start()
 	return ret;
 }
 
-update_status ModuleSceneIntro::Update(float dt)
+update_status ModuleEditor::Update(float dt)
 {
 	// Gui
 	ShowMenuBar();
@@ -85,14 +85,14 @@ update_status ModuleSceneIntro::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-bool ModuleSceneIntro::CleanUp()
+bool ModuleEditor::CleanUp()
 {
 	bool ret = true;
 
 	return ret;
 }
 
-void ModuleSceneIntro::ShowMenuBar()
+void ModuleEditor::ShowMenuBar()
 {
 	if (ImGui::BeginMainMenuBar())
 	{
@@ -153,12 +153,12 @@ void ModuleSceneIntro::ShowMenuBar()
 	}
 }
 
-void ModuleSceneIntro::ShowDemoWindow()
+void ModuleEditor::ShowDemoWindow()
 {
 	ImGui::ShowDemoWindow();
 }
 
-void ModuleSceneIntro::ShowAboutWindow()
+void ModuleEditor::ShowAboutWindow()
 {
 	if (!ImGui::Begin("About", &showAboutWindow))
 	{
@@ -241,7 +241,7 @@ void ModuleSceneIntro::ShowAboutWindow()
 	ImGui::End();
 }
 
-void ModuleSceneIntro::ShowConfigurationWindow()
+void ModuleEditor::ShowConfigurationWindow()
 {
 	ImGui::Begin("Configuration", &showConfigurationWindow);
 
@@ -448,49 +448,49 @@ void ModuleSceneIntro::ShowConfigurationWindow()
 	ImGui::End();
 }
 
-void ModuleSceneIntro::ShowHierarchyWindow()
+void ModuleEditor::ShowHierarchyWindow()
 {
 	ImGui::Begin("Hierarchy", &showHierarchyWindow);
 
 	ImGui::End();
 }
 
-void ModuleSceneIntro::ShowSceneWindow()
+void ModuleEditor::ShowSceneWindow()
 {
 	ImGui::Begin("Scene", &showSceneWindow);
 
 	ImGui::End();
 }
 
-void ModuleSceneIntro::ShowToolbarWindow()
+void ModuleEditor::ShowToolbarWindow()
 {
 	ImGui::Begin("Toolbar", &showToolbarWindow);
 
 	ImGui::End();
 }
 
-void ModuleSceneIntro::ShowInspectorWindow()
+void ModuleEditor::ShowInspectorWindow()
 {
 	ImGui::Begin("Inspector", &showInspectorWindow);
 
 	ImGui::End();
 }
 
-void ModuleSceneIntro::ShowExplorerWindow()
+void ModuleEditor::ShowExplorerWindow()
 {
 	ImGui::Begin("Explorer", &showExplorerWindow);
 
 	ImGui::End();
 }
 
-void ModuleSceneIntro::ShowResourcesWindow()
+void ModuleEditor::ShowResourcesWindow()
 {
 	ImGui::Begin("Resources", &showResourcesWindow);
 
 	ImGui::End();
 }
 
-void ModuleSceneIntro::GetHardwareCaps()
+void ModuleEditor::GetHardwareCaps()
 {
 	if (SDL_Has3DNow())caps_log.push_back("3DNow");
 	if (SDL_HasAVX())caps_log.push_back("AVX");
@@ -505,7 +505,7 @@ void ModuleSceneIntro::GetHardwareCaps()
 	if (SDL_HasSSE42())caps_log.push_back("SSE42");
 }
 
-void ModuleSceneIntro::GetVramData(float& vram_budget, float& vram_usage, float& vram_available, float& vram_reserved)
+void ModuleEditor::GetVramData(float& vram_budget, float& vram_usage, float& vram_available, float& vram_reserved)
 {
 	// Function created using the documentation from NVIDIA Corporation:
 	// http://developer.download.nvidia.com/opengl/specs/GL_NVX_gpu_memory_info.txt

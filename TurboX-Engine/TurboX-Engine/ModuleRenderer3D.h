@@ -28,6 +28,7 @@ public:
 	void DrawCubeWithDirectMode();
 	void DrawCubeWithArrays();
 	void DrawCubeWithIndices();
+	void DrawSphere();
 
 public:
 
@@ -39,5 +40,6 @@ public:
 	bool _cull_face = false;
 	bool _lighting = false;
 	bool _wireframe = false;
+
 
 };
