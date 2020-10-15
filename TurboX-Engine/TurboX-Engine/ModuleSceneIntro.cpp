@@ -116,14 +116,14 @@ void ModuleSceneIntro::ShowMenuBar()
 		if (ImGui::BeginMenu("Window")) {
 			if (ImGui::BeginMenu("Display"))
 			{
-				if (ImGui::MenuItem("Hierarchy", nullptr, showHierarchyWindow)); showHierarchyWindow = !showHierarchyWindow;
-				if (ImGui::MenuItem("Scene", nullptr, showSceneWindow)); showSceneWindow = !showSceneWindow;
-				if (ImGui::MenuItem("Inspector", nullptr, showInspectorWindow)); showInspectorWindow = !showInspectorWindow;
-				if (ImGui::MenuItem("Console", nullptr, showConsoleWindow)) showConsoleWindow = !showConsoleWindow;
-				if (ImGui::MenuItem("Explorer", nullptr, showExplorerWindow)); showExplorerWindow = !showExplorerWindow;
-				//if (ImGui::MenuItem("Resources", nullptr, showResourcesWindow));
-				if (ImGui::MenuItem("Engine Config", nullptr, showConfigurationWindow))showConfigurationWindow = !showConfigurationWindow;
-				if (ImGui::MenuItem("Toolbar", nullptr, showToolbarWindow)); showToolbarWindow = !showToolbarWindow;
+				ImGui::MenuItem("Hierarchy", nullptr, &showHierarchyWindow);
+				ImGui::MenuItem("Scene", nullptr, &showSceneWindow);
+				ImGui::MenuItem("Inspector", nullptr, &showInspectorWindow);
+				ImGui::MenuItem("Console", nullptr, &showConsoleWindow);
+				ImGui::MenuItem("Explorer", nullptr, &showExplorerWindow);
+				//if (ImGui::MenuItem("Resources", nullptr, &showResourcesWindow));
+				ImGui::MenuItem("Engine Config", nullptr, &showConfigurationWindow);
+				ImGui::MenuItem("Toolbar", nullptr, &showToolbarWindow);
 				ImGui::EndMenu();
 			}
 

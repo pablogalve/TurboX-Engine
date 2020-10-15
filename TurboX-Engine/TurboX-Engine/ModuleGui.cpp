@@ -55,6 +55,8 @@ update_status ModuleGui::Update(float dt)
 
 void ModuleGui::Draw()
 {
+	
+
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
