@@ -10,6 +10,8 @@
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	_cull_face = false;
+	_lighting = false;
 	_wireframe = false;
 }
 
@@ -105,11 +107,9 @@ bool ModuleRenderer3D::Init(JSON_Object* obj)
 		GLfloat MaterialDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
 
-		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_CULL_FACE);
 		lights[0].Active(true);
-		glEnable(GL_LIGHTING);
-		glEnable(GL_COLOR_MATERIAL);
+		
+		
 	}
 
 	// Projection matrix for
@@ -173,6 +173,14 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+void ModuleRenderer3D::GL_Enable(unsigned int flag, bool active)
+{
+	if (active)
+		glEnable(flag);
+	else
+		glDisable(flag);
 }
 
 void ModuleRenderer3D::SetWireframeMode(bool active) 

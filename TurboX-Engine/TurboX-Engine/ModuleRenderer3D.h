@@ -23,6 +23,7 @@ public:
 
 	void OnResize(int width, int height);
 
+	void GL_Enable(unsigned int flag, bool active);
 	void SetWireframeMode(bool active);
 	void DrawCubeWithDirectMode();
 	void DrawCubeWithArrays();
@@ -35,10 +36,8 @@ public:
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
+	bool _cull_face = false;
+	bool _lighting = false;
 	bool _wireframe = false;
 
-	uint cube_id = 0;
-	uint buffIndicesID = 0;
-	array<float, 24> cube;
-	array<uint, 36> cubeIndices;
 };
