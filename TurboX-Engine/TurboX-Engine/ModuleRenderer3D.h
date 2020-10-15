@@ -29,7 +29,9 @@ public:
 	void DrawCubeWithDirectMode();
 	void DrawCubeWithArrays();
 	void DrawCubeWithIndices();
+	void DrawPyramid();
 	void DrawSphere(float radius, unsigned int rings, unsigned int sectors);
+	void DrawCylinder();
 
 public:
 
