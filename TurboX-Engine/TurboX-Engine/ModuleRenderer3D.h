@@ -29,6 +29,7 @@ public:
 	void DrawCubeWithArrays();
 	void DrawCubeWithIndices();
 	void DrawPyramid();
+	void DrawCylinder();
 	void DrawSphere();
 
 public:

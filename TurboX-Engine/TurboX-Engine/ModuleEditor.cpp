@@ -113,6 +113,14 @@ void ModuleEditor::ShowMenuBar()
 			}
 			ImGui::EndMenu();
 		}
+		if (ImGui::BeginMenu("Assets")) {
+			if (ImGui::MenuItem("Create Cube"))App->renderer3D->DrawCubeWithIndices();
+			if (ImGui::MenuItem("Create Sphere"))App->renderer3D->DrawSphere();
+			if (ImGui::MenuItem("Create Pyramid"))App->renderer3D->DrawPyramid();
+			if (ImGui::MenuItem("Create Cylinder"))App->renderer3D->DrawCylinder();
+
+			ImGui::EndMenu();
+		}
 		if (ImGui::BeginMenu("Window")) {
 			if (ImGui::BeginMenu("Display"))
 			{

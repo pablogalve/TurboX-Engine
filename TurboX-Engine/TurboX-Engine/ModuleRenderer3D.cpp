@@ -360,3 +360,7 @@ void ModuleRenderer3D::DrawSphere()
 	
 }
 
+void ModuleRenderer3D::DrawCylinder()
+{
+
+}
