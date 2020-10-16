@@ -141,7 +141,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//DrawCubeWithIndices();
 	//DrawPyramid();
 	//DrawSphere(1, 12, 24);
-	DrawCylinder(1, 2, 10);
+	//DrawCylinder(1, 2, 10);
+	DrawCone(1,2,10);
 
 	App->gui->Draw();
 	
@@ -412,7 +413,7 @@ void ModuleRenderer3D::DrawSphere(float _radius, unsigned int _rings, unsigned i
 	glPopMatrix();
 }
 
-void ModuleRenderer3D::DrawCylinder(float radius, float height, int sides)
+void ModuleRenderer3D::DrawCylinder(float radius, float height, uint sides)
 {	
 	//Cylinder formulas:
 	//http://www.songho.ca/opengl/gl_cylinder.html
@@ -564,4 +565,9 @@ void ModuleRenderer3D::DrawCylinder(float radius, float height, int sides)
 	glNormalPointer(GL_FLOAT, 0, &cylinder_normals[0]);
 	glTexCoordPointer(2, GL_FLOAT, 0, &cylinder_texcoords[0]);
 	glDrawElements(GL_TRIANGLES, cylinder_indices.size(), GL_UNSIGNED_SHORT, &cylinder_indices[0]);
+}
+
+void ModuleRenderer3D::DrawCone(float radius, float height, uint sides)
+{
+	
 }

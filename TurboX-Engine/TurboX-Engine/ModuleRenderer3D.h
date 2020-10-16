@@ -37,7 +37,8 @@ public:
 	void DrawCubeWithIndices();
 	void DrawPyramid();
 	void DrawSphere(float radius, unsigned int rings, unsigned int sectors);
-	void DrawCylinder(float radius, float height, int sides);
+	void DrawCylinder(float radius, float height, uint sides);
+	void DrawCone(float radius, float height, uint sides);
 
 public:
 
@@ -54,4 +55,9 @@ public:
 	std::vector<GLfloat> cylinder_normals;
 	std::vector<GLfloat> cylinder_texcoords;
 	std::vector<GLushort> cylinder_indices;
+
+	std::vector<GLfloat> cone_vertices;
+	std::vector<GLfloat> cone_normals;
+	std::vector<GLfloat> cone_texcoords;
+	std::vector<GLushort> cone_indices;
 };

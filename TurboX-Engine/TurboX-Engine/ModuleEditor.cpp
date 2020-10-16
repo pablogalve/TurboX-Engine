@@ -474,6 +474,18 @@ void ModuleEditor::ShowToolbarWindow()
 {
 	ImGui::Begin("Toolbar", &showToolbarWindow);
 
+	ImGui::Text("Display: "); ImGui::SameLine();
+
+	if (ImGui::Checkbox("Cull Face", &App->renderer3D->_cull_face))	
+		App->renderer3D->GL_Enable(GL_CULL_FACE, App->renderer3D->_cull_face);	
+	ImGui::SameLine();
+	if (ImGui::Checkbox("Lighting", &App->renderer3D->_lighting))	
+		App->renderer3D->GL_Enable(GL_LIGHTING, App->renderer3D->_lighting);	
+	ImGui::SameLine();
+	if (ImGui::Checkbox("Wireframe", &App->renderer3D->_wireframe))	
+		App->renderer3D->SetWireframeMode(App->renderer3D->_wireframe);
+	ImGui::SameLine();
+
 	ImGui::End();
 }
 
