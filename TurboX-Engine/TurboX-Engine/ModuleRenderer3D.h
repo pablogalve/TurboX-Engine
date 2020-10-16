@@ -5,6 +5,12 @@
 #include "Light.h"
 #include <array>
 #include <cmath>
+#include <vector>
+#include "glew\glew.h"
+#include "SDL\include\SDL_opengl.h"
+
+#pragma comment (lib, "Libraries/glew/glew32.lib")    /* link OpenGL Utility lib     */
+#pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
 using namespace std;
 #define MAX_LIGHTS 8
@@ -31,7 +37,7 @@ public:
 	void DrawCubeWithIndices();
 	void DrawPyramid();
 	void DrawSphere(float radius, unsigned int rings, unsigned int sectors);
-	void DrawCylinder();
+	void DrawCylinder(float radius, float height, int sides);
 
 public:
 
@@ -44,5 +50,8 @@ public:
 	bool _lighting = false;
 	bool _wireframe = false;
 
-
+	std::vector<GLfloat> cylinder_vertices;
+	std::vector<GLfloat> cylinder_normals;
+	std::vector<GLfloat> cylinder_texcoords;
+	std::vector<GLushort> cylinder_indices;
 };

@@ -39,3 +39,4 @@ enum update_status
 #define VSYNC true
 #define TITLE "TurboX 3D Engine"
 #define CONFIG_FILE "config.JSON"
+#define PI 3.1415926f
