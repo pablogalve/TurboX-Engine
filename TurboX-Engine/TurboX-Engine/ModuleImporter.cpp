@@ -1,10 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleImporter.h"
-#include "Assimp/include/cimport.h"
-#include "Assimp/include/scene.h"
-#include "Assimp/include/postprocess.h"
-#pragma comment (lib, "Libraries/Assimp/libx86/assimp.lib")
+
 
 ModuleImporter::ModuleImporter(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -29,4 +26,19 @@ bool ModuleImporter::CleanUp()
 {
 
 	return true;
+}
+
+void ModuleImporter::LoadFBX(char* file_path)
+{
+	
+	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
+	
+	if (scene != nullptr && scene->HasMeshes())
+	{
+		// Use scene->mNumMeshes to iterate on scene->mMeshes array
+		aiReleaseImport(scene);
+	}
+	else
+		LOG("Error loading file %s", file_path);
+
 }

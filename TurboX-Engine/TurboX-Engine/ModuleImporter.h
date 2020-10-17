@@ -1,7 +1,11 @@
 #ifndef __ModuleImporter_H__
 #define __ModuleImporter_H__
 
-#include "Application.h"
+#include "Module.h"
+#include "Assimp/include/cimport.h"
+#include "Assimp/include/scene.h"
+#include "Assimp/include/postprocess.h"
+#pragma comment (lib, "Libraries/Assimp/libx86/assimp.lib")
 
 
 class ModuleImporter : public Module
@@ -13,6 +17,8 @@ public:
 
 	bool Init(JSON_Object* obj);
 	bool CleanUp();
+
+	void LoadFBX(char* path);
 
 private:
 

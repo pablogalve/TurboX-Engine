@@ -571,3 +571,8 @@ void ModuleRenderer3D::DrawCone(float radius, float height, uint sides)
 {
 	
 }
+
+void ModuleRenderer3D::DrawMeshes()
+{
+
+}

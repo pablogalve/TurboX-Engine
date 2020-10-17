@@ -3,17 +3,29 @@
 #include "Globals.h"
 #include "glmath.h"
 #include "Light.h"
+#include "glew\glew.h"
+#include "SDL\include\SDL_opengl.h"
 #include <array>
 #include <cmath>
 #include <vector>
-#include "glew\glew.h"
-#include "SDL\include\SDL_opengl.h"
 
 #pragma comment (lib, "Libraries/glew/glew32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
 using namespace std;
 #define MAX_LIGHTS 8
+
+struct Mesh {
+
+	uint id_index = 0; // index in VRAM
+	uint num_index = 0;
+	uint* index = nullptr;
+
+	uint id_vertex = 0; // unique vertex in VRAM
+	uint num_vertex = 0;
+	float* vertex = nullptr;
+
+};
 
 class ModuleRenderer3D : public Module
 {
@@ -27,11 +39,11 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-
 	void OnResize(int width, int height);
 
 	void GL_Enable(unsigned int flag, bool active);
 	void SetWireframeMode(bool active);
+	
 	void DrawCubeWithDirectMode();
 	void DrawCubeWithArrays();
 	void DrawCubeWithIndices();
@@ -39,6 +51,7 @@ public:
 	void DrawSphere(float radius, unsigned int rings, unsigned int sectors);
 	void DrawCylinder(float radius, float height, uint sides);
 	void DrawCone(float radius, float height, uint sides);
+	void DrawMeshes();
 
 public:
 
