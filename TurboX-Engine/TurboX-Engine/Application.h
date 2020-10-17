@@ -11,6 +11,7 @@
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
 #include "ModuleGui.h"
+#include "ModuleImporter.h"
 #include "./JSON/parson.h"
 #include <vector>
 #include <list>
@@ -27,6 +28,7 @@ public:
 	ModulePhysics3D* physics;
 	ModuleGui* gui;
 	ModuleConsole* console;
+	ModuleImporter* importer;
 
 private:
 
