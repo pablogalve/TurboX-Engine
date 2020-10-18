@@ -38,6 +38,8 @@ bool ModuleRenderer3D::Init(JSON_Object* obj)
 		ret = false;
 	}
 
+	glewInit();
+
 	if (ret == true)
 	{
 		//Use Vsync
@@ -110,7 +112,8 @@ bool ModuleRenderer3D::Init(JSON_Object* obj)
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	glewInit();
+	SetMeshBuffer();
+
 	json_object_clear(obj);
 	return ret;
 }
@@ -142,7 +145,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//DrawPyramid();
 	//DrawSphere(1, 12, 24);
 	//DrawCylinder(1, 2, 10);
-	DrawCone(1,2,10);
+	//DrawCone(1,2,10);
+	DrawMesh();
 
 	App->gui->Draw();
 	
@@ -572,7 +576,27 @@ void ModuleRenderer3D::DrawCone(float radius, float height, uint sides)
 	
 }
 
-void ModuleRenderer3D::DrawMeshes()
+void ModuleRenderer3D::SetMeshBuffer()
 {
+	mesh = &App->importer->ourMesh;
+
+	glGenBuffers(1, (GLuint*)&mesh->id_vertex);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertex);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->num_vertex * 3, mesh->vertex, GL_STATIC_DRAW);
+
+	glGenBuffers(1, (GLuint*)&mesh->id_index);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_index);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * mesh->num_index, mesh->index, GL_STATIC_DRAW);
+
+}
+
+void ModuleRenderer3D::DrawMesh()
+{
+	mesh = &App->importer->ourMesh;
+	
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	glDrawElements(GL_TRIANGLES, mesh->num_index, GL_UNSIGNED_INT, NULL);
+	glDisableClientState(GL_VERTEX_ARRAY);
 
 }

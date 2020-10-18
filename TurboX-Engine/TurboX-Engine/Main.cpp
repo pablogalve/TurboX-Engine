@@ -17,7 +17,7 @@ enum main_states
 
 int main(int argc, char ** argv)
 {
-	LOG("Starting game '%s'...", TITLE);
+	//LOG("Starting game '%s'...", TITLE);
 
 	int main_return = EXIT_FAILURE;
 	main_states state = MAIN_CREATION;
@@ -30,7 +30,7 @@ int main(int argc, char ** argv)
 		{
 		case MAIN_CREATION:
 			if(App != nullptr)App->console->AddLog("-------------- Application Creation --------------");
-			else LOG("-------------- Application Creation --------------");
+			else //LOG("-------------- Application Creation --------------");
 			App = new Application();
 			state = MAIN_START;
 			break;
@@ -87,6 +87,6 @@ int main(int argc, char ** argv)
 		}
 	}
 	delete App;
-	LOG("Exiting game '%s'...\n", TITLE);
+	//LOG("Exiting game '%s'...\n", TITLE);
 	return main_return;
 }
