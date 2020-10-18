@@ -73,4 +73,8 @@ public:
 	std::vector<GLfloat> cone_normals;
 	std::vector<GLfloat> cone_texcoords;
 	std::vector<GLushort> cone_indices;
+
+	unsigned int frameBuffer;
+	unsigned int texColorBuffer;
+	unsigned int renderBuffer;
 };

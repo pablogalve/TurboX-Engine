@@ -25,6 +25,9 @@ ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, s
 	showExplorerWindow = true;
 	showResourcesWindow = true;
 
+	bool open_dockspace_init = true;
+	open_dockspace = &open_dockspace_init;
+
 	fps_log.resize(100);
 	ms_log.resize(100);
 	caps_log.resize(0);
@@ -48,6 +51,10 @@ bool ModuleEditor::Start()
 
 update_status ModuleEditor::Update(float dt)
 {
+	update_status ret = UPDATE_CONTINUE;
+
+	DockSpace(open_dockspace);
+
 	// Gui
 	ShowMenuBar();
 
@@ -60,9 +67,8 @@ update_status ModuleEditor::Update(float dt)
 	if (showConfigurationWindow)
 		ShowConfigurationWindow();
 
-	if (showConsoleWindow) {
+	if (showConsoleWindow)
 		App->console->Draw("Console", &showConsoleWindow);
-	}
 
 	if (showHierarchyWindow)
 		ShowHierarchyWindow();
@@ -85,11 +91,64 @@ update_status ModuleEditor::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
+update_status ModuleEditor::Draw()
+{
+	////scene window
+	//if (showSceneWindow)
+	//{
+	//	ImGui::Begin("Scene", &showSceneWindow);
+	//	ImVec2 windowSize = ImGui::GetWindowSize();
+
+	//	ImGui::Image((ImTextureID)App->renderer3D->texColorBuffer,
+	//		ImVec2(windowSize.x, windowSize.y), ImVec2(0, 1), ImVec2(1, 0));
+	//	ImGui::End();
+	//}
+
+	ImGui::Render();
+
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+	return UPDATE_CONTINUE;
+}
+
 bool ModuleEditor::CleanUp()
 {
 	bool ret = true;
 
 	return ret;
+}
+
+void ModuleEditor::DockSpace(bool* p_open) {
+	static bool opt_padding = false;
+	static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
+
+	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDocking;
+
+	// Set viewport and windows settings
+	ImGuiViewport* viewport = ImGui::GetMainViewport();
+	ImGui::SetNextWindowPos(viewport->GetWorkPos());
+	ImGui::SetNextWindowSize(viewport->GetWorkSize());
+	ImGui::SetNextWindowViewport(viewport->ID);
+	
+	// Set window flags
+	window_flags |= ImGuiWindowFlags_NoTitleBar;
+
+	// Disable padding
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+	ImGui::Begin("DockSpace", p_open, window_flags);
+	
+	ImGui::PopStyleVar();
+
+	// DockSpace
+	ImGuiIO& io = ImGui::GetIO();
+	if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
+	{
+		ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+		ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+	}
+
+	ImGui::End();
 }
 
 void ModuleEditor::ShowMenuBar()
@@ -463,13 +522,6 @@ void ModuleEditor::ShowHierarchyWindow()
 	ImGui::End();
 }
 
-void ModuleEditor::ShowSceneWindow()
-{
-	ImGui::Begin("Scene", &showSceneWindow);
-
-	ImGui::End();
-}
-
 void ModuleEditor::ShowToolbarWindow()
 {
 	ImGui::Begin("Toolbar", &showToolbarWindow);
@@ -486,6 +538,16 @@ void ModuleEditor::ShowToolbarWindow()
 		App->renderer3D->SetWireframeMode(App->renderer3D->_wireframe);
 	ImGui::SameLine();
 
+	ImGui::End();
+}
+
+void ModuleEditor::ShowSceneWindow()
+{
+	ImGui::Begin("Scene", &showSceneWindow);
+	ImVec2 windowSize = ImGui::GetWindowSize();
+
+	ImGui::Image((ImTextureID)App->renderer3D->texColorBuffer,
+	ImVec2(windowSize.x, windowSize.y), ImVec2(0, 1), ImVec2(1, 0));
 	ImGui::End();
 }
 

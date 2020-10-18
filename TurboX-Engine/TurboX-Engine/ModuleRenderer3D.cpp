@@ -112,6 +112,30 @@ bool ModuleRenderer3D::Init(JSON_Object* obj)
 
 	glewInit();
 	json_object_clear(obj);
+
+	//FrameBuffer	
+	glGenFramebuffers(1, &frameBuffer);
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+
+	//Texture Buffer
+	glGenTextures(1, &texColorBuffer);
+	glBindTexture(GL_TEXTURE_2D, texColorBuffer);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, App->window->_w, App->window->_h, 0, GL_RGBA, GL_UNSIGNED_INT, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texColorBuffer, 0);
+
+	//RenderBuffer
+	glGenRenderbuffers(1, &renderBuffer);
+	glBindRenderbuffer(GL_RENDERBUFFER, renderBuffer);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, App->window->_w, App->window->_h);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderBuffer);
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		App->console->AddLog("Framebuffer was unsuccessful");
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 	return ret;
 }
 // PreUpdate: clear buffer
@@ -141,9 +165,10 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//DrawCubeWithIndices();
 	//DrawPyramid();
 	//DrawSphere(1, 12, 24);
-	//DrawCylinder(1, 2, 10);
-	DrawCone(1,2,10);
+	DrawCylinder(1, 2, 10);
+	//DrawCone(1,2,10);
 
+	App->editor->Draw();
 	App->gui->Draw();
 	
 	SDL_GL_SwapWindow(App->window->window);
