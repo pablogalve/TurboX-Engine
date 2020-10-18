@@ -18,7 +18,7 @@ ModuleTexture::~ModuleTexture()
 
 bool ModuleTexture::Start()
 {
-	
+	/*
 	glGenFramebuffers(1, &frameBuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 
@@ -43,7 +43,7 @@ bool ModuleTexture::Start()
 	glFramebufferRenderbuffer(
 		GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rboDepthStencil
 	);
-	
+	*/
 	bool ret = true;
 
 	return ret;

@@ -16,19 +16,17 @@ public:
 
 	bool Start();
 	update_status Update(float dt);
-	update_status Draw();
-	bool CleanUp();	
+	bool CleanUp();
 
 private:
-	void DockSpace(bool* p_open);
 
 	void ShowMenuBar();
 	void ShowDemoWindow();
 	void ShowAboutWindow();
 	void ShowConfigurationWindow();
 	void ShowHierarchyWindow();
-	void ShowToolbarWindow();
 	void ShowSceneWindow();
+	void ShowToolbarWindow();
 	void ShowInspectorWindow();
 	void ShowExplorerWindow();
 	void ShowResourcesWindow();
@@ -48,8 +46,6 @@ private:
 	bool showInspectorWindow;
 	bool showExplorerWindow;
 	bool showResourcesWindow;
-
-	bool* open_dockspace;
 
 	std::vector<float> fps_log;
 	std::vector<float> ms_log;

@@ -18,7 +18,7 @@ Application::Application()
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
 
-	// Main Modules	
+	// Main Modules
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
