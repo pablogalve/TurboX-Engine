@@ -12,8 +12,8 @@ public:
 	ModuleAudio(Application* app, bool start_enabled = true);
 	~ModuleAudio();
 
-	bool Init(JSON_Object* obj);
-	bool CleanUp();
+	bool Init(JSON_Object* obj)override;
+	bool CleanUp()override;
 
 	// Play a music file
 	bool PlayMusic(const char* path, float fade_time = DEFAULT_MUSIC_FADE_TIME);

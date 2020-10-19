@@ -14,9 +14,9 @@ public:
 	ModuleEditor(Application* app, bool start_enabled = true);
 	~ModuleEditor();
 
-	bool Start();
-	update_status Update(float dt);
-	bool CleanUp();
+	bool Start() override;
+	update_status Update(float dt) override;
+	bool CleanUp() override;
 
 private:
 

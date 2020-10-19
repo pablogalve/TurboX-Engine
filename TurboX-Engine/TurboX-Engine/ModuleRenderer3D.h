@@ -22,11 +22,11 @@ public:
 	ModuleRenderer3D(Application* app, bool start_enabled = true);
 	~ModuleRenderer3D();
 
-	bool Start();
-	bool Init(JSON_Object* obj);
-	update_status PreUpdate(float dt);
-	update_status PostUpdate(float dt);
-	bool CleanUp();
+	bool Start()override;
+	bool Init(JSON_Object* obj)override;
+	update_status PreUpdate(float dt)override;
+	update_status PostUpdate(float dt)override;
+	bool CleanUp()override;
 
 	void OnResize(int width, int height);
 

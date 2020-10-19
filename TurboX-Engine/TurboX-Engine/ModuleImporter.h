@@ -25,8 +25,8 @@ public:
 	ModuleImporter(Application* app, bool start_enabled = true);
 	~ModuleImporter();
 
-	bool Init(JSON_Object* obj);
-	bool CleanUp();
+	bool Init(JSON_Object* obj)override;
+	bool CleanUp()override;
 
 	void LoadFBX(char* path);
 
