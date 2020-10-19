@@ -16,8 +16,9 @@ ModuleRenderer3D::~ModuleRenderer3D()
 
 bool ModuleRenderer3D::Start()
 {
-
 	bool ret = true;
+
+	CreateGridLine(100);
 
 	return ret;
 }
@@ -139,6 +140,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 
+	DrawGridLine();
+	DrawAxisLines();
 	//DrawCubeWithDirectMode();
 	//DrawCubeWithArrays();
 	//DrawCubeWithIndices();
@@ -191,6 +194,67 @@ void ModuleRenderer3D::SetWireframeMode(bool active)
 {
 	if (active)glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	else glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
+void ModuleRenderer3D::CreateGridLine(int size = 1000)
+{
+	grid_size = size;	
+}
+
+void ModuleRenderer3D::DrawGridLine()
+{
+	glBegin(GL_LINES);
+
+	//Vertical Lines
+	for (float x = -grid_size * 0.5f; x <= grid_size * 0.5f; x++)
+	{
+		glVertex3f(x, 0, -grid_size * 0.5f); glVertex3f(x, 0, grid_size * 0.5f);
+	}
+
+	//Horizontal Lines
+	for (float z = -grid_size * 0.5f; z <= grid_size * 0.5f; z++)
+	{
+		glVertex3f(-grid_size * 0.5f, 0, z); glVertex3f(grid_size * 0.5f, 0, z);
+	}
+
+	glEnd();
+}
+
+void ModuleRenderer3D::DrawAxisLines()
+{
+	glPushMatrix();
+	
+	// Draw Axis Grid
+	glLineWidth(2.0f);
+
+	glBegin(GL_LINES);
+
+	glColor4f(1.0f, 0.0f, 0.0f, 1.0f); // Sex color of x axis to red
+
+	glVertex3f(0.0f, 0.0f, 0.0f); glVertex3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(1.0f, 0.1f, 0.0f); glVertex3f(1.1f, -0.1f, 0.0f);
+	glVertex3f(1.1f, 0.1f, 0.0f); glVertex3f(1.0f, -0.1f, 0.0f);
+
+	glColor4f(0.0f, 1.0f, 0.0f, 1.0f); // Sex color of y axis to green
+
+	glVertex3f(0.0f, 0.0f, 0.0f); glVertex3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(-0.05f, 1.25f, 0.0f); glVertex3f(0.0f, 1.15f, 0.0f);
+	glVertex3f(0.05f, 1.25f, 0.0f); glVertex3f(0.0f, 1.15f, 0.0f);
+	glVertex3f(0.0f, 1.15f, 0.0f); glVertex3f(0.0f, 1.05f, 0.0f);
+
+	glColor4f(0.0f, 0.0f, 1.0f, 1.0f); // Sex color of z axis to blue
+
+	glVertex3f(0.0f, 0.0f, 0.0f); glVertex3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(-0.05f, 0.1f, 1.05f); glVertex3f(0.05f, 0.1f, 1.05f);
+	glVertex3f(0.05f, 0.1f, 1.05f); glVertex3f(-0.05f, -0.1f, 1.05f);
+	glVertex3f(-0.05f, -0.1f, 1.05f); glVertex3f(0.05f, -0.1f, 1.05f);
+
+	glEnd();
+
+	glLineWidth(1.0f);	
+
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Set color of everything back to white
+	glPopMatrix();
 }
 
 void ModuleRenderer3D::DrawCubeWithDirectMode()

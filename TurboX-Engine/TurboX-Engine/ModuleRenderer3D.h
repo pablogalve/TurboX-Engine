@@ -32,7 +32,11 @@ public:
 
 	void GL_Enable(unsigned int flag, bool active);
 	void SetWireframeMode(bool active);
-	
+
+	void CreateGridLine(int size);
+	void DrawGridLine();
+	void DrawAxisLines();
+
 	void DrawCubeWithDirectMode();
 	void DrawCubeWithArrays();
 	void DrawCubeWithIndices();
@@ -65,4 +69,7 @@ public:
 	std::vector<GLushort> cone_indices;
 
 	Mesh* mesh;
+
+private:
+	int grid_size;
 };
