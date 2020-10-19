@@ -74,10 +74,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="About.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="Configuration.h" />
+    <ClInclude Include="Explorer.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="Hierarchy.h" />
+    <ClInclude Include="Inspector.h" />
     <ClInclude Include="Libraries\glew\eglew.h" />
     <ClInclude Include="Libraries\glew\glew.h" />
     <ClInclude Include="Libraries\glew\glxew.h" />
@@ -245,12 +250,20 @@
     <ClInclude Include="ModuleEditor.h" />
     <ClInclude Include="ModuleTexture.h" />
     <ClInclude Include="ModuleWindow.h" />
+    <ClInclude Include="Resources.h" />
+    <ClInclude Include="SceneWindow.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="WindowConfig.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="About.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Configuration.cpp" />
+    <ClCompile Include="Explorer.cpp" />
     <ClCompile Include="glmath.cpp" />
+    <ClCompile Include="Hierarchy.cpp" />
+    <ClCompile Include="Inspector.cpp" />
     <ClCompile Include="Libraries\ImGui\imgui.cpp" />
     <ClCompile Include="Libraries\ImGui\imgui_demo.cpp" />
     <ClCompile Include="Libraries\ImGui\imgui_draw.cpp" />
@@ -302,7 +315,10 @@
     <ClCompile Include="ModuleEditor.cpp" />
     <ClCompile Include="ModuleTexture.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
+    <ClCompile Include="Resources.cpp" />
+    <ClCompile Include="SceneWindow.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="WindowConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Libraries\MathGeoLib\Geometry\KDTree.inl" />

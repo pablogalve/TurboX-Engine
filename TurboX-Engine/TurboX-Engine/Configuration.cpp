@@ -1,156 +1,17 @@
-#include "Globals.h"
-#include "Application.h"
-#include "ModuleEditor.h"
-#include "ModuleWindow.h"
-#include "ModuleRenderer3D.h"
+#include "Configuration.h"
 
-#include <string>
-
-#include "ImGui/imgui.h"
-#include "ImGui/imgui_impl_opengl3.h"
-#include "ImGui/imgui_impl_sdl.h"
-#include "glew/glew.h"
-#include "glew/wglew.h"
-
-ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
+Configuration::Configuration(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	showDemoWindow = false;
-	showConfigurationWindow = true;
-	showConsoleWindow = true;
-	showToolbarWindow = true;
-
-	about_window = new About();
-	hierarchy_window = new Hierarchy();
-	explorer_window = new Explorer();
-	scene_window = new SceneWindow();
-	resources_window = new Resources();
-	inspector_window = new Inspector();	
-	//config = new Configuration(app, true);
+	fps_log.resize(100);
+	ms_log.resize(100);
+	caps_log.resize(0);
 }
 
-ModuleEditor::~ModuleEditor()
-{}
-
-bool ModuleEditor::Start()
+Configuration::~Configuration()
 {
-	bool ret = true;
-
-	float f;
-	char* buf;
-
-	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
-	App->camera->LookAt(vec3(0, 0, 0));
-
-	return ret;
 }
 
-update_status ModuleEditor::Update(float dt)
-{
-	// Gui
-	ShowMenuBar();
-
-	// Display editor windows/panels
-	if (showDemoWindow) ImGui::ShowDemoWindow();
-	if (about_window->GetShowWindow()) about_window->Draw();
-	if (showConsoleWindow)App->console->Draw("Console", &showConsoleWindow);	
-	if (hierarchy_window->GetShowWindow())hierarchy_window->Draw();
-	if (scene_window->GetShowWindow())scene_window->Draw();
-	//if (toolbar_window->GetShowWindow())toolbar_window->Draw(App);
-	if (showToolbarWindow)ShowToolbarWindow();
-	if (inspector_window->GetShowWindow())inspector_window->Draw();
-	if (explorer_window->GetShowWindow()) explorer_window->Draw();
-	if (resources_window->GetShowWindow())resources_window->Draw();
-	if (showConfigurationWindow)ShowConfigurationWindow();
-
-	return UPDATE_CONTINUE;
-}
-
-bool ModuleEditor::CleanUp()
-{
-	bool ret = true;
-
-	App->console->AddLog("Cleaning up the Editor");
-
-	// Delete configuration windows/panels
-	delete about_window;
-	delete hierarchy_window;
-	delete explorer_window;
-	delete inspector_window;
-	delete resources_window;
-	delete scene_window;
-
-	return ret;
-}
-
-void ModuleEditor::ShowMenuBar()
-{
-	if (ImGui::BeginMainMenuBar())
-	{
-		if (ImGui::BeginMenu("File"))
-		{
-			if (ImGui::MenuItem("Exit", "ESC"))
-			{
-				App->CloseApp();
-			}			
-			ImGui::EndMenu();
-		}
-		if (ImGui::BeginMenu("View")) {
-			if (ImGui::MenuItem("Console")) {
-				showConsoleWindow = !showConsoleWindow;
-			}
-			if (ImGui::MenuItem("Configuration")) {
-
-			}
-			ImGui::EndMenu();
-		}
-		if (ImGui::BeginMenu("Assets")) {
-			if (ImGui::MenuItem("Create Cube"))App->renderer3D->DrawCubeWithIndices();
-			if (ImGui::MenuItem("Create Sphere"))App->renderer3D->DrawSphere(1, 12, 24);
-			if (ImGui::MenuItem("Create Pyramid"))App->renderer3D->DrawPyramid();
-			if (ImGui::MenuItem("Create Cylinder"))App->renderer3D->DrawCylinder(5,5,5);
-
-			ImGui::EndMenu();
-		}
-		if (ImGui::BeginMenu("Window")) {
-			if (ImGui::BeginMenu("Display"))
-			{
-				if (ImGui::MenuItem("Hierarchy", nullptr, hierarchy_window->GetShowWindow())) hierarchy_window->SetShowWindow();
-				if (ImGui::MenuItem("Scene", nullptr, scene_window->GetShowWindow())) scene_window->SetShowWindow();
-				if (ImGui::MenuItem("Inspector", nullptr, inspector_window->GetShowWindow())) inspector_window->SetShowWindow();
-				if (ImGui::MenuItem("Explorer", nullptr, explorer_window->GetShowWindow())) explorer_window->SetShowWindow();
-				if (ImGui::MenuItem("Resources", nullptr, resources_window->GetShowWindow())) resources_window->SetShowWindow();
-				ImGui::MenuItem("Console", nullptr, &showConsoleWindow);
-				ImGui::MenuItem("Engine Config", nullptr, &showConfigurationWindow);
-				ImGui::MenuItem("Toolbar", nullptr, &showToolbarWindow);
-				ImGui::EndMenu();
-			}
-
-			ImGui::EndMenu();
-		}
-		if (ImGui::BeginMenu("Help"))
-		{			
-			ImGui::MenuItem("Demo Window", nullptr, &showDemoWindow);
-			if (ImGui::MenuItem("Documentation")) {
-				ShellExecuteA(NULL, "open", "https://github.com/pablogalve/TurboX-Engine", NULL, NULL, SW_SHOWNORMAL);
-			}
-			if (ImGui::MenuItem("Download lastest")) {
-				ShellExecuteA(NULL, "open", "https://github.com/pablogalve/TurboX-Engine/releases", NULL, NULL, SW_SHOWNORMAL);
-			}
-			if (ImGui::MenuItem("Report a bug")) {
-				ShellExecuteA(NULL, "open", "https://github.com/pablogalve/TurboX-Engine/issues", NULL, NULL, SW_SHOWNORMAL);
-			}
-			//ImGui::MenuItem("About", nullptr, &showAboutWindow);
-			if (ImGui::MenuItem("About"))
-				about_window->SetShowWindow();
-
-			ImGui::EndMenu();
-		}
-
-		ImGui::EndMainMenuBar();
-	}
-}
-
-void ModuleEditor::ShowConfigurationWindow()
+void Configuration::Draw()
 {
 	ImGui::Begin("Configuration");
 
@@ -357,26 +218,12 @@ void ModuleEditor::ShowConfigurationWindow()
 	ImGui::End();
 }
 
-void ModuleEditor::ShowToolbarWindow()
+void Configuration::SetShowWindow()
 {
-	ImGui::Begin("Toolbar");
-
-	ImGui::Text("Display: "); ImGui::SameLine();
-
-	if (ImGui::Checkbox("Cull Face", &App->renderer3D->_cull_face))
-		App->renderer3D->GL_Enable(GL_CULL_FACE, App->renderer3D->_cull_face);
-	ImGui::SameLine();
-	if (ImGui::Checkbox("Lighting", &App->renderer3D->_lighting))
-		App->renderer3D->GL_Enable(GL_LIGHTING, App->renderer3D->_lighting);
-	ImGui::SameLine();
-	if (ImGui::Checkbox("Wireframe", &App->renderer3D->_wireframe))
-		App->renderer3D->SetWireframeMode(App->renderer3D->_wireframe);
-	ImGui::SameLine();
-
-	ImGui::End();
+	showWindow = !showWindow;
 }
 
-void ModuleEditor::GetHardwareCaps()
+void Configuration::GetHardwareCaps()
 {
 	if (SDL_Has3DNow())caps_log.push_back("3DNow");
 	if (SDL_HasAVX())caps_log.push_back("AVX");
@@ -391,7 +238,7 @@ void ModuleEditor::GetHardwareCaps()
 	if (SDL_HasSSE42())caps_log.push_back("SSE42");
 }
 
-void ModuleEditor::GetVramData(float& vram_budget, float& vram_usage, float& vram_available, float& vram_reserved)
+void Configuration::GetVramData(float& vram_budget, float& vram_usage, float& vram_available, float& vram_reserved)
 {
 	// NVIDIA Documentation:
 	// http://developer.download.nvidia.com/opengl/specs/GL_NVX_gpu_memory_info.txt
