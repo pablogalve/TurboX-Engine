@@ -20,6 +20,14 @@ struct Mesh
 	uint id_normals = 0;
 	uint num_normals = 0;
 	float* normals = NULL;
+
+	uint id_colors = 0;
+	uint num_colors = 0;
+	float* colors = NULL;
+
+	uint id_texcoords = 0;
+	uint num_texcoords = 0;
+	float* texcoords = NULL;
 };
 
 class ModuleImporter : public Module

@@ -15,7 +15,7 @@ ModuleImporter::~ModuleImporter()
 // Called before render is available
 bool ModuleImporter::Init(JSON_Object* obj)
 {
-	LoadFBX("Assets/BakerHouse.fbx");
+	//LoadFBX("Assets/BakerHouse.fbx");
 
 	bool ret = true;
 	json_object_clear(obj);
@@ -62,15 +62,40 @@ void ModuleImporter::LoadFBX(char* file_path)
 						memcpy(&ourMesh.index[i * 3], meshIterator->mFaces[i].mIndices, 3 * sizeof(uint));
 					}
 				}
+			}
 
-				if (meshIterator->HasNormals())
+			if (meshIterator->HasNormals())
+			{
+				ourMesh.num_normals = meshIterator->mNumVertices;
+				ourMesh.normals = new float[ourMesh.num_normals * 3];
+				memcpy(ourMesh.normals, meshIterator->mNormals, sizeof(float) * ourMesh.num_normals * 3);
+			}
+
+			if (meshIterator->HasVertexColors(0))
+			{
+				ourMesh.num_colors = meshIterator->mNumVertices;
+				ourMesh.colors = new float[ourMesh.num_colors * 4];
+				memcpy(ourMesh.colors, meshIterator->mColors, sizeof(float) * ourMesh.num_colors * 4);
+				for (unsigned int i = 0, v = 0; i < ourMesh.num_colors; i++, v += 4)
 				{
-					ourMesh.num_normals = meshIterator->mNumVertices;
-					ourMesh.normals = new float[ourMesh.num_normals * 3];
-					memcpy(ourMesh.normals, meshIterator->mNormals, sizeof(float) * ourMesh.num_normals * 3);
+					ourMesh.colors[v] = meshIterator->mColors[0][i].r;
+					ourMesh.colors[v + 1] = meshIterator->mColors[0][i].g;
+					ourMesh.colors[v + 2] = meshIterator->mColors[0][i].b;
+					ourMesh.colors[v + 3] = meshIterator->mColors[0][i].a;
 				}
 			}
 
+			if (meshIterator->HasTextureCoords(0))
+			{
+				ourMesh.num_texcoords = meshIterator->mNumVertices;
+				ourMesh.texcoords = new float[ourMesh.num_texcoords * 2];
+				memcpy(ourMesh.texcoords, meshIterator->mTextureCoords, sizeof(float) * ourMesh.num_texcoords * 2);
+				for (unsigned int i = 0, v = 0; i < ourMesh.num_texcoords; i++, v += 2)
+				{
+					ourMesh.texcoords[v] = meshIterator->mTextureCoords[0][i].x;
+					ourMesh.texcoords[v + 1] = meshIterator->mTextureCoords[0][i].y;
+				}
+			}
 		}
 
 		aiReleaseImport(scene);

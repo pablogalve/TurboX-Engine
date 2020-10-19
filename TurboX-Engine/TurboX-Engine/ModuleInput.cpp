@@ -1,7 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
-
+#include "ModuleImporter.h"
 #define MAX_KEYS 300
 
 ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -9,6 +9,7 @@ ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, sta
 	keyboard = new KEY_STATE[MAX_KEYS];
 	memset(keyboard, KEY_IDLE, sizeof(KEY_STATE) * MAX_KEYS);
 	name = "Input";	
+	dropped_filedir = nullptr;
 }
 
 // Destructor
@@ -20,6 +21,7 @@ ModuleInput::~ModuleInput()
 // Called before render is available
 bool ModuleInput::Init(JSON_Object* obj)
 {
+
 	App->console->AddLog("Init SDL input event system");
 	//LOG("Init SDL input event system");
 	bool ret = true;
@@ -33,6 +35,8 @@ bool ModuleInput::Init(JSON_Object* obj)
 	}
 
 	json_object_clear(obj);
+
+	SDL_EventState(SDL_DROPFILE, SDL_ENABLE);
 
 	return ret;
 }
@@ -145,6 +149,14 @@ update_status ModuleInput::PreUpdate(float dt)
 			quit = true;
 			break;
 
+			case (SDL_DROPFILE): 
+			{      
+				// In case if dropped file
+				dropped_filedir = e.drop.file;
+				App->importer->LoadFBX(dropped_filedir);
+				App->renderer3D->SetMeshBuffer();
+				break;
+			}
 			case SDL_WINDOWEVENT:
 			{
 				if(e.window.event == SDL_WINDOWEVENT_RESIZED)
@@ -164,6 +176,7 @@ bool ModuleInput::CleanUp()
 {
 	App->console->AddLog("Quitting SDL input event subsystem");
 	//LOG("Quitting SDL input event subsystem");
+	SDL_free(dropped_filedir);
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
 }
