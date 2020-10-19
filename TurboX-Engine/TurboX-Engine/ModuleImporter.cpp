@@ -62,6 +62,13 @@ void ModuleImporter::LoadFBX(char* file_path)
 						memcpy(&ourMesh.index[i * 3], meshIterator->mFaces[i].mIndices, 3 * sizeof(uint));
 					}
 				}
+
+				if (meshIterator->HasNormals())
+				{
+					ourMesh.num_normals = meshIterator->mNumVertices;
+					ourMesh.normals = new float[ourMesh.num_normals * 3];
+					memcpy(ourMesh.normals, meshIterator->mNormals, sizeof(float) * ourMesh.num_normals * 3);
+				}
 			}
 
 		}

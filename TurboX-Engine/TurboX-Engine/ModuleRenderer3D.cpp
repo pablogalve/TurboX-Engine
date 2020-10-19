@@ -5,9 +5,10 @@
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	_cull_face = false;
-	_lighting = false;
+	_cull_face = true;
+	_lighting = true;
 	_wireframe = false;
+	mesh = nullptr;
 }
 
 // Destructor
@@ -19,6 +20,7 @@ bool ModuleRenderer3D::Start()
 	bool ret = true;
 
 	CreateGridLine(100);
+	SetMeshBuffer();
 
 	return ret;
 }
@@ -39,7 +41,7 @@ bool ModuleRenderer3D::Init(JSON_Object* obj)
 		ret = false;
 	}
 
-	glewInit();
+	GLenum error = glewInit();
 
 	if (ret == true)
 	{
@@ -105,15 +107,16 @@ bool ModuleRenderer3D::Init(JSON_Object* obj)
 		GLfloat MaterialDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
 
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_CULL_FACE);
 		lights[0].Active(true);
-		
+		glEnable(GL_LIGHTING);
+		glEnable(GL_COLOR_MATERIAL);
 		
 	}
 
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
-
-	SetMeshBuffer();
 
 	json_object_clear(obj);
 	return ret;
@@ -652,6 +655,9 @@ void ModuleRenderer3D::SetMeshBuffer()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_index);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * mesh->num_index, mesh->index, GL_STATIC_DRAW);
 
+	glGenBuffers(1, (GLuint*)&mesh->id_normals);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_normals);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_normals*3, mesh->normals, GL_STATIC_DRAW);
 }
 
 void ModuleRenderer3D::DrawMesh()
@@ -659,8 +665,18 @@ void ModuleRenderer3D::DrawMesh()
 	mesh = &App->importer->ourMesh;
 	
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glDrawElements(GL_TRIANGLES, mesh->num_index, GL_UNSIGNED_INT, NULL);
-	glDisableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
 
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertex);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_normals);
+	glNormalPointer(GL_FLOAT, 0, NULL);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_index);
+
+	glDrawElements(GL_TRIANGLES, mesh->num_index, GL_UNSIGNED_INT, NULL);
+
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
 }
