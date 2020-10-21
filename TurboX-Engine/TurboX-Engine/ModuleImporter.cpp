@@ -1,6 +1,10 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleImporter.h"
+#include "DeviL/include/ilut.h"
+#pragma comment (lib,"Libraries/DeviL/lib/DevIL.lib")
+#pragma comment (lib,"Libraries/DeviL/lib/ILU.lib")
+#pragma comment (lib,"Libraries/DeviL/lib/ILUT.lib")
 
 
 ModuleImporter::ModuleImporter(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -15,7 +19,7 @@ ModuleImporter::~ModuleImporter()
 // Called before render is available
 bool ModuleImporter::Init(JSON_Object* obj)
 {
-	//LoadFBX("Assets/BakerHouse.fbx");
+	LoadFBX("Assets/BakerHouse.fbx");
 
 	bool ret = true;
 	json_object_clear(obj);

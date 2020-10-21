@@ -52,6 +52,9 @@
     <Filter Include="Sources\Editor">
       <UniqueIdentifier>{40ea8281-1706-4a7a-9f94-b3c8fa5f8d2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Libraries\DevIL">
+      <UniqueIdentifier>{f2b6b0e5-5d9a-46e5-9178-963ac7efc6a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -593,6 +596,30 @@
     </ClInclude>
     <ClInclude Include="Resources.h">
       <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\DevIL\include\devil_cpp_wrapper.hpp">
+      <Filter>Libraries\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\DevIL\include\devil_internal_exports.h">
+      <Filter>Libraries\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\DevIL\include\il.h">
+      <Filter>Libraries\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\DevIL\include\il_wrap.h">
+      <Filter>Libraries\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\DevIL\include\ilu.h">
+      <Filter>Libraries\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\DevIL\include\ilu_region.h">
+      <Filter>Libraries\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\DevIL\include\ilut.h">
+      <Filter>Libraries\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\DevIL\include\ilut_config.h">
+      <Filter>Libraries\DevIL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
