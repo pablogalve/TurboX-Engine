@@ -54,7 +54,7 @@ update_status ModuleEditor::Update(float dt)
 	if (about_window->GetShowWindow()) about_window->Draw();
 	if (showConsoleWindow)App->console->Draw("Console", &showConsoleWindow);	
 	if (hierarchy_window->GetShowWindow())hierarchy_window->Draw();
-	if (scene_window->GetShowWindow())scene_window->Draw();
+	if (scene_window->GetShowWindow())scene_window->Draw(App->renderer3D->texColorBuffer);
 	//if (toolbar_window->GetShowWindow())toolbar_window->Draw(App);
 	if (showToolbarWindow)ShowToolbarWindow();
 	if (inspector_window->GetShowWindow())inspector_window->Draw();
@@ -133,7 +133,7 @@ void ModuleEditor::ShowMenuBar()
 			if (ImGui::MenuItem("Documentation")) {
 				ShellExecuteA(NULL, "open", "https://github.com/pablogalve/TurboX-Engine", NULL, NULL, SW_SHOWNORMAL);
 			}
-			if (ImGui::MenuItem("Download lastest")) {
+			if (ImGui::MenuItem("Download latest")) {
 				ShellExecuteA(NULL, "open", "https://github.com/pablogalve/TurboX-Engine/releases", NULL, NULL, SW_SHOWNORMAL);
 			}
 			if (ImGui::MenuItem("Report a bug")) {

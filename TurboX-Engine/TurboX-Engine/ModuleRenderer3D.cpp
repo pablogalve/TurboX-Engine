@@ -115,6 +115,31 @@ bool ModuleRenderer3D::Init(JSON_Object* obj)
 		
 	}
 
+	//FrameBuffer
+	glGenFramebuffers(1, &frameBuffer);
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+	//Texture Buffer
+	glGenTextures(1, &texColorBuffer);
+	glBindTexture(GL_TEXTURE_2D, texColorBuffer);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, App->window->_w, App->window->_h, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texColorBuffer, 0);
+
+	//RenderBuffer
+	glGenRenderbuffers(1, &renderBuffer);
+	glBindRenderbuffer(GL_RENDERBUFFER, renderBuffer);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, App->window->_w, App->window->_h);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderBuffer);
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		App->console->AddLog("Scene Framebuffer is not complete");
+	else
+		App->console->AddLog("Framebuffer is completed");
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -124,6 +149,8 @@ bool ModuleRenderer3D::Init(JSON_Object* obj)
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
@@ -139,9 +166,9 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
-// PostUpdate present buffer to screen
-update_status ModuleRenderer3D::PostUpdate(float dt)
+update_status ModuleRenderer3D::Update(float dt)
 {
+	update_status ret = UPDATE_CONTINUE;
 
 	DrawGridLine();
 	DrawAxisLines();
@@ -154,6 +181,16 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//DrawCone(1,2,10);
 	DrawMesh();
 
+	return ret;
+}
+
+// PostUpdate present buffer to screen
+update_status ModuleRenderer3D::PostUpdate(float dt)
+{
+	glBindVertexArray(0);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glClear(GL_COLOR_BUFFER_BIT);	
+
 	App->gui->Draw();
 	
 	SDL_GL_SwapWindow(App->window->window);
@@ -165,7 +202,7 @@ bool ModuleRenderer3D::CleanUp()
 {
 	App->console->AddLog("Destroying 3D Renderer");
 	//LOG("Destroying 3D Renderer");
-
+	glDeleteFramebuffers(1, &frameBuffer);
 	SDL_GL_DeleteContext(context);
 
 	return true;
