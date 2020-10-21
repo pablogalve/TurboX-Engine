@@ -28,6 +28,7 @@ public:
 	bool CleanUp() override;
 
 private:
+	void CreateDockSpace();
 
 	void ShowMenuBar();
 	void ShowConfigurationWindow();

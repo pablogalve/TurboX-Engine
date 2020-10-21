@@ -46,8 +46,10 @@ bool ModuleEditor::Start()
 
 update_status ModuleEditor::Update(float dt)
 {
+	CreateDockSpace();
+
 	// Gui
-	ShowMenuBar();
+	ShowMenuBar();	
 
 	// Display editor windows/panels
 	if (showDemoWindow) ImGui::ShowDemoWindow();
@@ -82,6 +84,39 @@ bool ModuleEditor::CleanUp()
 	return ret;
 }
 
+void ModuleEditor::CreateDockSpace()
+{
+	static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
+
+	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDocking;
+
+	// Set viewport and windows settings
+	ImGuiViewport* viewport = ImGui::GetMainViewport();
+	ImGui::SetNextWindowPos(viewport->GetWorkPos());
+	ImGui::SetNextWindowSize(viewport->GetWorkSize());
+	ImGui::SetNextWindowViewport(viewport->ID);
+
+	// Set window flags
+	window_flags |= ImGuiWindowFlags_NoTitleBar;
+
+	// Disable padding
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+	ImGui::Begin("DockSpace", (bool*)true, window_flags);
+
+	ImGui::PopStyleVar();
+
+	// Create DockSpace
+	ImGuiIO& io = ImGui::GetIO();
+	if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
+	{
+		ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+		ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+	}
+
+	ImGui::End();
+}
+
 void ModuleEditor::ShowMenuBar()
 {
 	if (ImGui::BeginMainMenuBar())
@@ -92,15 +127,6 @@ void ModuleEditor::ShowMenuBar()
 			{
 				App->CloseApp();
 			}			
-			ImGui::EndMenu();
-		}
-		if (ImGui::BeginMenu("View")) {
-			if (ImGui::MenuItem("Console")) {
-				showConsoleWindow = !showConsoleWindow;
-			}
-			if (ImGui::MenuItem("Configuration")) {
-
-			}
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Assets")) {
