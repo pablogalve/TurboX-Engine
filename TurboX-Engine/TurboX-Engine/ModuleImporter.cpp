@@ -19,6 +19,7 @@ ModuleImporter::~ModuleImporter()
 // Called before render is available
 bool ModuleImporter::Init(JSON_Object* obj)
 {
+
 	LoadFBX("Assets/BakerHouse.fbx");
 
 	bool ret = true;
@@ -75,6 +76,7 @@ void ModuleImporter::LoadFBX(char* file_path)
 				memcpy(ourMesh.normals, meshIterator->mNormals, sizeof(float) * ourMesh.num_normals * 3);
 			}
 
+			/*
 			if (meshIterator->HasVertexColors(0))
 			{
 				ourMesh.num_colors = meshIterator->mNumVertices;
@@ -99,7 +101,7 @@ void ModuleImporter::LoadFBX(char* file_path)
 					ourMesh.texcoords[v] = meshIterator->mTextureCoords[0][i].x;
 					ourMesh.texcoords[v + 1] = meshIterator->mTextureCoords[0][i].y;
 				}
-			}
+			}*/
 		}
 
 		aiReleaseImport(scene);

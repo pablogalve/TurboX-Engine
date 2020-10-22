@@ -3,7 +3,6 @@
 #include "ModuleEditor.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
-
 #include <string>
 
 #include "ImGui/imgui.h"
@@ -129,14 +128,14 @@ void ModuleEditor::ShowMenuBar()
 			}			
 			ImGui::EndMenu();
 		}
-		if (ImGui::BeginMenu("Assets")) {
+		/*if (ImGui::BeginMenu("Assets")) {
 			if (ImGui::MenuItem("Create Cube"))App->renderer3D->DrawCubeWithIndices();
 			if (ImGui::MenuItem("Create Sphere"))App->renderer3D->DrawSphere(1, 12, 24);
 			if (ImGui::MenuItem("Create Pyramid"))App->renderer3D->DrawPyramid();
 			if (ImGui::MenuItem("Create Cylinder"))App->renderer3D->DrawCylinder(5,5,5);
 
 			ImGui::EndMenu();
-		}
+		}*/
 		if (ImGui::BeginMenu("Window")) {
 			if (ImGui::BeginMenu("Display"))
 			{

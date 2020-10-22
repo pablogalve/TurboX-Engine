@@ -39,16 +39,6 @@ public:
 	void DrawGridLine();
 	void DrawAxisLines();
 
-	void DrawCubeWithDirectMode();
-	void DrawCubeWithArrays();
-	void DrawCubeWithIndices();
-	void DrawPyramid();
-	void DrawSphere(float radius, unsigned int rings, unsigned int sectors);
-	void DrawCylinder(float radius, float height, uint sides);
-	void DrawCone(float radius, float height, uint sides);
-	void DrawMesh();
-	void SetMeshBuffer();
-
 public:
 
 	Light lights[MAX_LIGHTS];
@@ -59,18 +49,6 @@ public:
 	bool _cull_face = false;
 	bool _lighting = false;
 	bool _wireframe = false;
-
-	std::vector<GLfloat> cylinder_vertices;
-	std::vector<GLfloat> cylinder_normals;
-	std::vector<GLfloat> cylinder_texcoords;
-	std::vector<GLushort> cylinder_indices;
-
-	std::vector<GLfloat> cone_vertices;
-	std::vector<GLfloat> cone_normals;
-	std::vector<GLfloat> cone_texcoords;
-	std::vector<GLushort> cone_indices;
-
-	Mesh* mesh;
 
 	GLuint frameBuffer;
 	GLuint texColorBuffer;

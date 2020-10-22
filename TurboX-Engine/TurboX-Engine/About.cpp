@@ -50,10 +50,10 @@ void About::Draw()
 	if (ImGui::SmallButton("Open Website"))
 		ShellExecuteA(NULL, "open", "https://github.com/ocornut/imgui", NULL, NULL, SW_SHOWNORMAL);
 	
-	//MathGeoLib
-	ImGui::BulletText("MathGeoLib 1.5"); ImGui::SameLine();
-	if (ImGui::SmallButton("Open Website"))
-		ShellExecuteA(NULL, "open", "https://github.com/juj/MathGeoLib", NULL, NULL, SW_SHOWNORMAL);
+	////MathGeoLib
+	//ImGui::BulletText("MathGeoLib 1.5"); ImGui::SameLine();
+	//if (ImGui::SmallButton("Open Website"))
+	//	ShellExecuteA(NULL, "open", "https://github.com/juj/MathGeoLib", NULL, NULL, SW_SHOWNORMAL);
 
 	//Glew
 	ImGui::BulletText("Glew %d.%d.%d", GLEW_VERSION_MAJOR, GLEW_VERSION_MINOR, GLEW_VERSION_MICRO); ImGui::SameLine();

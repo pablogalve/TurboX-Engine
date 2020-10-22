@@ -154,7 +154,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				// In case if dropped file
 				dropped_filedir = e.drop.file;
 				App->importer->LoadFBX(dropped_filedir);
-				App->renderer3D->SetMeshBuffer();
+				//App->renderer3D->SetMeshBuffer();
 				break;
 			}
 			case SDL_WINDOWEVENT:
