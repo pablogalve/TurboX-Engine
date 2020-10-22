@@ -4,6 +4,7 @@
 #include "Globals.h"
 #include "glmath.h"
 #include "Light.h"
+#include "Cube.h"
 #include "glew\glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include <array>
@@ -54,7 +55,10 @@ public:
 	GLuint texColorBuffer;
 	GLuint renderBuffer;
 private:
+
 	int grid_size;
+
+	Cube cube;
 
 	SceneWindow* scene_window;
 };

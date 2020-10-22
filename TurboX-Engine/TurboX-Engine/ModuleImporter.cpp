@@ -1,11 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleImporter.h"
-#include "DeviL/include/ilut.h"
-#pragma comment (lib,"Libraries/DeviL/lib/DevIL.lib")
-#pragma comment (lib,"Libraries/DeviL/lib/ILU.lib")
-#pragma comment (lib,"Libraries/DeviL/lib/ILUT.lib")
-
 
 ModuleImporter::ModuleImporter(Application* app, bool start_enabled) : Module(app, start_enabled)
 {

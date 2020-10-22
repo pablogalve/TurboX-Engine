@@ -411,7 +411,28 @@
     <ClInclude Include="Resources.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="Libraries\DevIL\include\devil_cpp_wrapper.hpp">
+    <ClInclude Include="Mesh.h">
+      <Filter>Sources\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Sources\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Sources\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyramid.h">
+      <Filter>Sources\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Cylinder.h">
+      <Filter>Sources\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Cone.h">
+      <Filter>Sources\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomMesh.h">
+      <Filter>Sources\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\DevIL\include\config.h">
       <Filter>Libraries\DevIL</Filter>
     </ClInclude>
     <ClInclude Include="Libraries\DevIL\include\devil_internal_exports.h">
@@ -434,27 +455,6 @@
     </ClInclude>
     <ClInclude Include="Libraries\DevIL\include\ilut_config.h">
       <Filter>Libraries\DevIL</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Sphere.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Pyramid.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Cylinder.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Cone.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="CustomMesh.h">
-      <Filter>Sources\Meshes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

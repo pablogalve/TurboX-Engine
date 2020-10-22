@@ -19,7 +19,8 @@ bool ModuleRenderer3D::Start()
 	bool ret = true;
 
 	CreateGridLine(100);
-	App->importer->ourMesh.SetMeshBuffer();
+	//App->importer->ourMesh.SetMeshBuffer();
+	cube.LoadTexture("Assets/lenna.png");
 
 	return ret;
 }
@@ -111,7 +112,7 @@ bool ModuleRenderer3D::Init(JSON_Object* obj)
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
-		
+		glEnable(GL_TEXTURE_2D);
 	}
 
 	//FrameBuffer
@@ -172,7 +173,11 @@ update_status ModuleRenderer3D::Update(float dt)
 	DrawGridLine();
 	DrawAxisLines();
 
-	App->importer->ourMesh.Draw();
+	//App->importer->ourMesh.Draw();
+	
+	cube.Draw();
+
+
 
 	return ret;
 }

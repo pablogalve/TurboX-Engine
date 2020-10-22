@@ -88,7 +88,7 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Hierarchy.h" />
     <ClInclude Include="Inspector.h" />
-    <ClInclude Include="Libraries\DevIL\include\devil_cpp_wrapper.hpp" />
+    <ClInclude Include="Libraries\DevIL\include\config.h" />
     <ClInclude Include="Libraries\DevIL\include\devil_internal_exports.h" />
     <ClInclude Include="Libraries\DevIL\include\il.h" />
     <ClInclude Include="Libraries\DevIL\include\ilu.h" />

@@ -40,3 +40,5 @@ enum update_status
 #define TITLE "TurboX 3D Engine"
 #define CONFIG_FILE "config.JSON"
 #define PI 3.1415926f
+#define CHECKERS_WIDTH 64
+#define CHECKERS_HEIGHT 64
