@@ -43,6 +43,12 @@
     <Filter Include="Sources\Meshes">
       <UniqueIdentifier>{8cd6f615-a77f-4ebd-b25c-c45b77e9bd92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\GameObjects">
+      <UniqueIdentifier>{1c868fef-2508-4032-b358-93bde721ad13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\GameObjects\Components">
+      <UniqueIdentifier>{a7e4dda5-20d0-421a-9db4-3a1e54bd38c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -456,6 +462,12 @@
     <ClInclude Include="Libraries\DevIL\include\ilut_config.h">
       <Filter>Libraries\DevIL</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Sources\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Sources\GameObjects\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -577,6 +589,12 @@
     </ClCompile>
     <ClCompile Include="CustomMesh.cpp">
       <Filter>Sources\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Sources\GameObjects\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
