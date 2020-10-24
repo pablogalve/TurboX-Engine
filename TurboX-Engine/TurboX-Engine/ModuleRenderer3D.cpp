@@ -5,9 +5,12 @@
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	_depth_test = true;
+	_color_material = true;
 	_cull_face = true;
 	_lighting = true;
 	_wireframe = false;
+	_texture = true;
 }
 
 // Destructor
@@ -18,9 +21,15 @@ bool ModuleRenderer3D::Start()
 {
 	bool ret = true;
 
+	
 	CreateGridLine(100);
 	//App->importer->ourMesh.SetMeshBuffer();
-	cube.LoadTexture("Assets/lenna.png");
+	//cube.LoadTexture("Assets/lenna.png");
+	App->importer->LoadFBX("Assets/BakerHouse.fbx");
+	house = new CustomMesh();
+	house = &App->importer->ourMesh;
+	house->SetMeshBuffer();
+	house->LoadTexture("Assets/Baker_house.png");
 
 	return ret;
 }
@@ -170,14 +179,8 @@ update_status ModuleRenderer3D::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	DrawGridLine();
-	DrawAxisLines();
-
 	//App->importer->ourMesh.Draw();
-	
-	cube.Draw();
-
-
+	//cube.Draw();
 
 	return ret;
 }
@@ -185,9 +188,14 @@ update_status ModuleRenderer3D::Update(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+	DrawGridLine();
+	DrawAxisLines();
+
+	house->Draw();
+
 	glBindVertexArray(0);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glClear(GL_COLOR_BUFFER_BIT);	
+	glClear(GL_COLOR_BUFFER_BIT);
 
 	App->gui->Draw();
 	

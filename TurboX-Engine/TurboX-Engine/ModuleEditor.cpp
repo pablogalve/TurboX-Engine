@@ -377,6 +377,14 @@ void ModuleEditor::ShowConfigurationWindow()
 		{
 			App->renderer3D->SetWireframeMode(App->renderer3D->_wireframe);
 		}
+		if (ImGui::Checkbox("Depth test", &App->renderer3D->_depth_test))
+		{
+			App->renderer3D->GL_Enable(GL_DEPTH_TEST, App->renderer3D->_depth_test);
+		}
+		if (ImGui::Checkbox("Color material", &App->renderer3D->_color_material))
+		{
+			App->renderer3D->GL_Enable(GL_COLOR_MATERIAL, App->renderer3D->_color_material);
+		}
 	}
 
 	ImGui::End();
@@ -397,6 +405,15 @@ void ModuleEditor::ShowToolbarWindow()
 	if (ImGui::Checkbox("Wireframe", &App->renderer3D->_wireframe))
 		App->renderer3D->SetWireframeMode(App->renderer3D->_wireframe);
 	ImGui::SameLine();
+	if (ImGui::Checkbox("Texture", &App->renderer3D->_texture))
+		App->renderer3D->GL_Enable(GL_TEXTURE_2D, App->renderer3D->_texture);
+	ImGui::SameLine();
+	if (ImGui::Checkbox("Depth test", &App->renderer3D->_depth_test))
+		App->renderer3D->GL_Enable(GL_DEPTH_TEST, App->renderer3D->_depth_test);
+	ImGui::SameLine();
+	if (ImGui::Checkbox("Color material", &App->renderer3D->_color_material))
+		App->renderer3D->GL_Enable(GL_COLOR_MATERIAL, App->renderer3D->_color_material);
+	
 
 	ImGui::End();
 }

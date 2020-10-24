@@ -47,9 +47,12 @@ public:
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
+	bool _depth_test = false;
+	bool _color_material = false;
 	bool _cull_face = false;
 	bool _lighting = false;
 	bool _wireframe = false;
+	bool _texture = false;
 
 	GLuint frameBuffer;
 	GLuint texColorBuffer;
@@ -59,6 +62,6 @@ private:
 	int grid_size;
 
 	Cube cube;
-
+	CustomMesh* house;
 	SceneWindow* scene_window;
 };
