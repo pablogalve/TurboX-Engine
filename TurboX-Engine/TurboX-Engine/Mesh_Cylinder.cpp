@@ -1,14 +1,14 @@
-#include "Cylinder.h"
+#include "Mesh_Cylinder.h"
 
-Cylinder::Cylinder(float radius, float height, uint sides)
+Mesh_Cylinder::Mesh_Cylinder(float radius, float height, uint sides)
 {
 }
 
-Cylinder::~Cylinder()
+Mesh_Cylinder::~Mesh_Cylinder()
 {
 }
 
-void Cylinder::Draw()
+void Mesh_Cylinder::Draw()
 {
 	//Cylinder formulas:
 	//http://www.songho.ca/opengl/gl_cylinder.html

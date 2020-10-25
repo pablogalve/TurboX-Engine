@@ -1,14 +1,14 @@
-#include "Pyramid.h"
+#include "Mesh_Pyramid.h"
 
-Pyramid::Pyramid()
+Mesh_Pyramid::Mesh_Pyramid()
 {
 }
 
-Pyramid::~Pyramid()
+Mesh_Pyramid::~Mesh_Pyramid()
 {
 }
 
-void Pyramid::Draw()
+void Mesh_Pyramid::Draw()
 {
 	GLfloat vertices[] = {
 		1.f, 2.f, 1.f,

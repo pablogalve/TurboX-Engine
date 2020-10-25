@@ -420,24 +420,6 @@
     <ClInclude Include="Mesh.h">
       <Filter>Sources\Meshes</Filter>
     </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Sphere.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Pyramid.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Cylinder.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Cone.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="CustomMesh.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
     <ClInclude Include="Libraries\DevIL\include\config.h">
       <Filter>Libraries\DevIL</Filter>
     </ClInclude>
@@ -467,6 +449,36 @@
     </ClInclude>
     <ClInclude Include="Component.h">
       <Filter>Sources\GameObjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Component_Transformation.h">
+      <Filter>Sources\GameObjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Component_Mesh.h">
+      <Filter>Sources\GameObjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Component_Material.h">
+      <Filter>Sources\GameObjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Component_Light.h">
+      <Filter>Sources\GameObjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh_Cone.h">
+      <Filter>Sources\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh_Cube.h">
+      <Filter>Sources\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh_CustomMesh.h">
+      <Filter>Sources\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh_Cylinder.h">
+      <Filter>Sources\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh_Sphere.h">
+      <Filter>Sources\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh_Pyramid.h">
+      <Filter>Sources\Meshes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -572,29 +584,41 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Sources\Meshes</Filter>
     </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>Sources\Meshes</Filter>
-    </ClCompile>
-    <ClCompile Include="Sphere.cpp">
-      <Filter>Sources\Meshes</Filter>
-    </ClCompile>
-    <ClCompile Include="Pyramid.cpp">
-      <Filter>Sources\Meshes</Filter>
-    </ClCompile>
-    <ClCompile Include="Cylinder.cpp">
-      <Filter>Sources\Meshes</Filter>
-    </ClCompile>
-    <ClCompile Include="Cone.cpp">
-      <Filter>Sources\Meshes</Filter>
-    </ClCompile>
-    <ClCompile Include="CustomMesh.cpp">
-      <Filter>Sources\Meshes</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Sources\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>Sources\GameObjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Component_Transformation.cpp">
+      <Filter>Sources\GameObjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Component_Mesh.cpp">
+      <Filter>Sources\GameObjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Component_Material.cpp">
+      <Filter>Sources\GameObjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Component_Light.cpp">
+      <Filter>Sources\GameObjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh_Cone.cpp">
+      <Filter>Sources\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh_Cube.cpp">
+      <Filter>Sources\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh_CustomMesh.cpp">
+      <Filter>Sources\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh_Cylinder.cpp">
+      <Filter>Sources\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh_Sphere.cpp">
+      <Filter>Sources\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh_Pyramid.cpp">
+      <Filter>Sources\Meshes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

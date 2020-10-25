@@ -26,7 +26,7 @@ bool ModuleRenderer3D::Start()
 	//App->importer->ourMesh.SetMeshBuffer();
 	//cube.LoadTexture("Assets/lenna.png");
 	App->importer->LoadFBX("Assets/BakerHouse.fbx");
-	house = new CustomMesh();
+	house = new Mesh_CustomMesh();
 	house = &App->importer->ourMesh;
 	house->SetMeshBuffer();
 	house->LoadTexture("Assets/Baker_house.png");

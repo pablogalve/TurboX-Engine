@@ -2,11 +2,11 @@
 #include "Mesh.h"
 #include <vector>
 
-class Sphere : public Mesh
+class Mesh_Sphere : public Mesh
 {
 public:
-	Sphere(float _radius, unsigned int _rings, unsigned int _sectors);
-	~Sphere();
+	Mesh_Sphere(float _radius, unsigned int _rings, unsigned int _sectors);
+	~Mesh_Sphere();
 
 	void Draw() override;
 

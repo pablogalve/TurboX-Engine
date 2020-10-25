@@ -79,11 +79,15 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="Cone.h" />
+    <ClInclude Include="Component_Light.h" />
+    <ClInclude Include="Component_Material.h" />
+    <ClInclude Include="Component_Mesh.h" />
+    <ClInclude Include="Component_Transformation.h" />
+    <ClInclude Include="Mesh_Cone.h" />
     <ClInclude Include="Configuration.h" />
-    <ClInclude Include="Cube.h" />
-    <ClInclude Include="CustomMesh.h" />
-    <ClInclude Include="Cylinder.h" />
+    <ClInclude Include="Mesh_Cube.h" />
+    <ClInclude Include="Mesh_CustomMesh.h" />
+    <ClInclude Include="Mesh_Cylinder.h" />
     <ClInclude Include="Explorer.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="glmath.h" />
@@ -208,10 +212,10 @@
     <ClInclude Include="ModuleEditor.h" />
     <ClInclude Include="ModuleTexture.h" />
     <ClInclude Include="ModuleWindow.h" />
-    <ClInclude Include="Pyramid.h" />
+    <ClInclude Include="Mesh_Pyramid.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="SceneWindow.h" />
-    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="Mesh_Sphere.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WindowConfig.h" />
   </ItemGroup>
@@ -220,11 +224,15 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="Cone.cpp" />
+    <ClCompile Include="Component_Light.cpp" />
+    <ClCompile Include="Component_Material.cpp" />
+    <ClCompile Include="Component_Mesh.cpp" />
+    <ClCompile Include="Component_Transformation.cpp" />
+    <ClCompile Include="Mesh_Cone.cpp" />
     <ClCompile Include="Configuration.cpp" />
-    <ClCompile Include="Cube.cpp" />
-    <ClCompile Include="CustomMesh.cpp" />
-    <ClCompile Include="Cylinder.cpp" />
+    <ClCompile Include="Mesh_Cube.cpp" />
+    <ClCompile Include="Mesh_CustomMesh.cpp" />
+    <ClCompile Include="Mesh_Cylinder.cpp" />
     <ClCompile Include="Explorer.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glmath.cpp" />
@@ -252,10 +260,10 @@
     <ClCompile Include="ModuleEditor.cpp" />
     <ClCompile Include="ModuleTexture.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
-    <ClCompile Include="Pyramid.cpp" />
+    <ClCompile Include="Mesh_Pyramid.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="SceneWindow.cpp" />
-    <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="Mesh_Sphere.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WindowConfig.cpp" />
   </ItemGroup>

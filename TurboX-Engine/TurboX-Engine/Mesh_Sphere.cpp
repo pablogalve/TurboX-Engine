@@ -1,14 +1,14 @@
-#include "Sphere.h"
+#include "Mesh_Sphere.h"
 
-Sphere::Sphere(float _radius, unsigned int _rings, unsigned int _sectors)
+Mesh_Sphere::Mesh_Sphere(float _radius, unsigned int _rings, unsigned int _sectors)
 {
 }
 
-Sphere::~Sphere()
+Mesh_Sphere::~Mesh_Sphere()
 {
 }
 
-void Sphere::Draw()
+void Mesh_Sphere::Draw()
 {
 	std::vector<GLfloat> vertices;
 	std::vector<GLfloat> normals;

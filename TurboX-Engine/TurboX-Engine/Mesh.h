@@ -14,7 +14,6 @@
 #pragma comment (lib,"Libraries/DevIL/lib/ILUT.lib")
 #pragma comment (lib,"Libraries/DevIL/lib/ILU.lib")
 
-
 using namespace std;
 
 class Mesh

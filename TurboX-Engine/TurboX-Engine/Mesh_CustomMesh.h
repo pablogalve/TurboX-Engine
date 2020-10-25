@@ -1,11 +1,11 @@
 #pragma once
 #include "Mesh.h"
 
-class CustomMesh : public Mesh
+class Mesh_CustomMesh : public Mesh
 {
 public:
-	CustomMesh();
-	~CustomMesh();
+	Mesh_CustomMesh();
+	~Mesh_CustomMesh();
 
 	void Draw() override;
 	void SetMeshBuffer();

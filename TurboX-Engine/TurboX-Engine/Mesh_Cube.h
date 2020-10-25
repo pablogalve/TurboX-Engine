@@ -1,11 +1,11 @@
 #pragma once
 #include "Mesh.h"
 
-class Cube: public Mesh
+class Mesh_Cube: public Mesh
 {
 public:
-	Cube();
-	~Cube();
+	Mesh_Cube();
+	~Mesh_Cube();
 
 	void LoadTexture(const char* file_name) override;
 	void Draw() override;

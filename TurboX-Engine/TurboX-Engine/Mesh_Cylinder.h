@@ -1,11 +1,11 @@
 #pragma once
 #include "Mesh.h"
 
-class Cylinder : public Mesh
+class Mesh_Cylinder : public Mesh
 {
 public:
-	Cylinder(float radius, float height, uint sides);
-	~Cylinder();
+	Mesh_Cylinder(float radius, float height, uint sides);
+	~Mesh_Cylinder();
 
 	void Draw() override;
 

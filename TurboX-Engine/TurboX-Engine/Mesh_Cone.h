@@ -1,11 +1,11 @@
 #pragma once
 #include "Mesh.h"
 
-class Cone : public Mesh
+class Mesh_Cone : public Mesh
 {
 public:
-	Cone(float radius_base, float height, uint sides, float radius = 0.0f);
-	~Cone();
+	Mesh_Cone(float radius_base, float height, uint sides, float radius = 0.0f);
+	~Mesh_Cone();
 
 	void Draw() override;
 

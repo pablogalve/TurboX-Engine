@@ -1,7 +1,5 @@
 #include "Mesh.h"
 
-
-
 Mesh::Mesh()
 {
 	ilInit();

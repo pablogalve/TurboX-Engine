@@ -1,11 +1,11 @@
 #pragma once
 #include "Mesh.h"
 
-class Pyramid : public Mesh
+class Mesh_Pyramid : public Mesh
 {
 public:
-	Pyramid();
-	~Pyramid();
+	Mesh_Pyramid();
+	~Mesh_Pyramid();
 
 	void Draw() override;
 

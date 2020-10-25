@@ -9,7 +9,8 @@ public:
 		None,
 		Transform,
 		Mesh,
-		Material
+		Material,
+		Light
 	};
 public:
 	Component(Type type);

@@ -1,15 +1,15 @@
-#include "Cube.h"
+#include "Mesh_Cube.h"
 
-Cube::Cube()
+Mesh_Cube::Mesh_Cube()
 {
 	
 }
 
-Cube::~Cube()
+Mesh_Cube::~Mesh_Cube()
 {
 }
 
-void Cube::LoadTexture(const char* file_name)
+void Mesh_Cube::LoadTexture(const char* file_name)
 {
 	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	
@@ -45,7 +45,7 @@ void Cube::LoadTexture(const char* file_name)
 	
 }
 
-void Cube::Draw()
+void Mesh_Cube::Draw()
 {
 	//cube in direct mode
 	glBindTexture(GL_TEXTURE_2D, TextureID);
@@ -98,7 +98,7 @@ void Cube::Draw()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Cube::DrawCubeWithArrays()
+void Mesh_Cube::DrawCubeWithArrays()
 {
 	//Draw a cube with Vertex Arrays and glDrawArrays()
 	GLfloat vertices[] =
@@ -158,7 +158,7 @@ void Cube::DrawCubeWithArrays()
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-void Cube::DrawCubeWithIndices()
+void Mesh_Cube::DrawCubeWithIndices()
 {
 	GLfloat vertices[] = { 2.f, 2.f, 0.f,
 		0.f, 2.f, 0.f,

@@ -1,14 +1,14 @@
-#include "CustomMesh.h"
+#include "Mesh_CustomMesh.h"
 
-CustomMesh::CustomMesh()
+Mesh_CustomMesh::Mesh_CustomMesh()
 {
 }
 
-CustomMesh::~CustomMesh()
+Mesh_CustomMesh::~Mesh_CustomMesh()
 {
 }
 
-void CustomMesh::SetMeshBuffer()
+void Mesh_CustomMesh::SetMeshBuffer()
 {
 
 	glGenBuffers(1, (GLuint*)&(id_vertex));
@@ -36,7 +36,7 @@ void CustomMesh::SetMeshBuffer()
 
 }
 
-void CustomMesh::Draw()
+void Mesh_CustomMesh::Draw()
 {
 	
 	glEnableClientState(GL_VERTEX_ARRAY);
