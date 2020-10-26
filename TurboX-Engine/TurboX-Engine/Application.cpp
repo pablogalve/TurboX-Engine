@@ -10,6 +10,7 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	physics = new ModulePhysics3D(this);
 	gui = new ModuleGui(this);
+	scene = new ModuleScene(this);
 	importer = new ModuleImporter(this);
 	console = new ModuleConsole();
 	
@@ -26,6 +27,7 @@ Application::Application()
 	AddModule(importer);
 	AddModule(physics);
 	AddModule(gui);
+	AddModule(scene);
 
 	// Scenes
 	AddModule(editor);

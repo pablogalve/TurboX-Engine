@@ -17,6 +17,8 @@ public:
 public:	
 	std::string name;
 	vector<Component*> components;
+	vector<GameObject*> childs;
+	GameObject* parent;
 private:
 	bool active;
 };

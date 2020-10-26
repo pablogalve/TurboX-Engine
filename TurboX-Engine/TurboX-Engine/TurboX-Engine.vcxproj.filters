@@ -480,6 +480,9 @@
     <ClInclude Include="Mesh_Pyramid.h">
       <Filter>Sources\Meshes</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleScene.h">
+      <Filter>Sources\Modules\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -619,6 +622,9 @@
     </ClCompile>
     <ClCompile Include="Mesh_Pyramid.cpp">
       <Filter>Sources\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleScene.cpp">
+      <Filter>Sources\Modules\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

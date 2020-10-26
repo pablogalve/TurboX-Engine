@@ -3,6 +3,7 @@
 
 #include "ImGui/imgui.h"
 #include "Globals.h"
+#include <string>
 
 class WindowConfig 
 {
