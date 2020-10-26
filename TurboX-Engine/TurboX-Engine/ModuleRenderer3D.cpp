@@ -5,6 +5,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleConsole.h"
 #include "ModuleGui.h"
+#include "ModuleScene.h"
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -28,7 +29,7 @@ bool ModuleRenderer3D::Start()
 	//App->importer->ourMesh.SetMeshBuffer();
 	//cube.LoadTexture("Assets/lenna.png");
 	
-    App->importer->LoadFBX("Assets/BakerHouse.fbx");
+    App->importer->LoadFBX("Assets/cottage_fbx.fbx");
 	house = new C_Mesh(Component::Type::Mesh);
 	house = App->importer->ourMesh;
 	//house->owner->ChangeName("House");
@@ -195,7 +196,9 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	DrawAxisLines();
 
 	//TODO: Now it's drawing from a C_Mesh. We need to change it to a GameObject
-	house->Draw();
+	//house->Draw();
+
+	App->scene->DrawGameObjects(App->scene->GetRoot(), App->scene->GetRoot());
 
 	glBindVertexArray(0);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);

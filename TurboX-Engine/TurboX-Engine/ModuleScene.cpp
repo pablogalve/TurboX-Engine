@@ -10,11 +10,11 @@ ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, sta
 	root = new GameObject();
 	root->name = "Root";
 
-	gameobject1 = CreateGameObject("first child");
+	//gameobject1 = CreateGameObject("first child");
 
-	gameobject2 = CreateGameObject("second child");
+	//gameobject2 = CreateGameObject("second child");
 
-	gameobject3 = CreateGameObject("third child", gameobject1);
+	//gameobject3 = CreateGameObject("third child", gameobject1);
 }
 
 ModuleScene::~ModuleScene()
@@ -74,14 +74,22 @@ void ModuleScene::AddChild(GameObject* child, GameObject* parent)
 
 void ModuleScene::DrawGameObjects(GameObject* gameObject, GameObject* root)
 {
+	bool drawAgain = true;
+
 	if (gameObject != root)
 		gameObject->Draw();
+	else
+		drawAgain = true;
 	
-
-	for (uint i = 0; i < gameObject->childs.size(); i++)
+	if (drawAgain)
 	{
-		DrawGameObjects(gameObject, root);
-	}	
+		for (uint i = 0; i < gameObject->childs.size(); i++)
+		{
+			//if(gameObject->childs.empty() == false && gameObject->childs[i] != nullptr)
+			//if(gameObject->childs[i] != nullptr)
+			//	DrawGameObjects(gameObject->childs[i], root);
+		}
+	}
 }
 
 GameObject* ModuleScene::GetRoot()
