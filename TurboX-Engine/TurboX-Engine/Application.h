@@ -1,36 +1,41 @@
-#pragma once
+#ifndef __APPLICATION_H__
+#define __APPLICATION_H__
 
 #include "Globals.h"
 #include "Timer.h"
-#include "Module.h"
-#include "ModuleWindow.h"
-#include "ModuleInput.h"
-#include "ModuleAudio.h"
-#include "ModuleEditor.h"
-#include "ModuleRenderer3D.h"
-#include "ModuleCamera3D.h"
-#include "ModulePhysics3D.h"
-#include "ModuleGui.h"
-#include "ModuleImporter.h"
-#include "ModuleScene.h"
 #include "./JSON/parson.h"
 #include <vector>
 #include <list>
 
+class Module;
+
+class ModuleWindow;
+class ModuleInput;
+class ModuleAudio;
+class ModuleScene;
+class ModuleEditor;
+class ModuleRenderer3D;
+class ModuleCamera3D;
+class ModulePhysics3D;
+class ModuleGui;
+class ModuleScene;
+class ModuleConsole;
+class ModuleImporter;
+
 class Application
 {
 public:
-	ModuleWindow* window;
-	ModuleInput* input;
-	ModuleAudio* audio;
-	ModuleEditor* editor;
-	ModuleRenderer3D* renderer3D;
-	ModuleCamera3D* camera;
-	ModulePhysics3D* physics;
-	ModuleGui* gui;
-	ModuleScene* scene;
-	ModuleConsole* console;
-	ModuleImporter* importer;
+	ModuleWindow* window = NULL;
+	ModuleInput* input = NULL;
+	ModuleAudio* audio = NULL;
+	ModuleEditor* editor = NULL;
+	ModuleRenderer3D* renderer3D = NULL;
+	ModuleCamera3D* camera = NULL;
+	ModulePhysics3D* physics = NULL;
+	ModuleGui* gui = NULL;
+	ModuleScene* scene = NULL;
+	ModuleConsole* console = NULL;
+	ModuleImporter* importer = NULL;
 
 private:
 
@@ -55,3 +60,7 @@ private:
 	void FinishUpdate();
 	bool closeApp = false;
 };
+
+extern Application* App;
+
+#endif //__APPLICATION_H__

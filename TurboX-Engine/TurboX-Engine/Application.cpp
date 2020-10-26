@@ -1,5 +1,19 @@
 #include "Application.h"
 
+#include "Module.h"
+#include "ModuleWindow.h"
+#include "ModuleInput.h"
+#include "ModuleAudio.h"
+#include "ModuleEditor.h"
+#include "ModuleEditor.h"
+#include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
+#include "ModulePhysics3D.h"
+#include "ModuleGui.h"
+#include "ModuleScene.h"
+#include "ModuleImporter.h"
+#include "ModuleConsole.h"
+
 Application::Application()
 {
 	window = new ModuleWindow(this);

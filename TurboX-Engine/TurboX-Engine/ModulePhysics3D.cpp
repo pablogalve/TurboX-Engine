@@ -1,7 +1,8 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModulePhysics3D.h"
-
+#include "ModuleInput.h"
+#include "ModuleConsole.h"
 
 // TODO 1: ...and the 3 libraries based on how we compile (Debug or Release)
 // use the _DEBUG preprocessor define

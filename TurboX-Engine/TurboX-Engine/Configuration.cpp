@@ -1,4 +1,7 @@
 #include "Configuration.h"
+#include "ModuleWindow.h"
+#include "ModuleRenderer3D.h"
+#include "ModuleInput.h"
 
 Configuration::Configuration(Application* app, bool start_enabled) : Module(app, start_enabled)
 {

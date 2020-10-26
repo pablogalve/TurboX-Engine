@@ -3,6 +3,8 @@
 #include "ModuleEditor.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
+#include "ModuleInput.h"
 #include <string>
 
 #include "ImGui/imgui.h"
