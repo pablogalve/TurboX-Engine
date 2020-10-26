@@ -26,8 +26,6 @@ public:
 	virtual void Draw();
 	
 public:
-
 	ILuint ImageName;
 	uint TextureID;
 };
-

@@ -3,6 +3,9 @@
 
 #include "WindowConfig.h"
 
+class Application;
+class GameObject;
+
 class Hierarchy : WindowConfig
 {
 public:
@@ -10,6 +13,8 @@ public:
 	~Hierarchy();
 
 	void Draw() override;
+	void Draw(Application* App);
+	void DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags default_flags, GameObject* root);
 
 	void SetShowWindow() override;
 	bool GetShowWindow() override { return showWindow; };

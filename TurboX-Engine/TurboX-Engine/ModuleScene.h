@@ -17,9 +17,15 @@ public:
 	bool CleanUp();
 
 	GameObject* CreateGameObject();
+	void AddChild(GameObject* parent, GameObject* child);
+
+	GameObject* GetRoot();
 
 public:
+	GameObject* gameobject1;
+	GameObject* gameobject2;
 
+private:
 	GameObject* root;
 };
 

@@ -54,7 +54,7 @@ update_status ModuleEditor::Update(float dt)
 	if (showDemoWindow) ImGui::ShowDemoWindow();
 	if (about_window->GetShowWindow()) about_window->Draw();
 	if (showConsoleWindow)App->console->Draw("Console", &showConsoleWindow);	
-	if (hierarchy_window->GetShowWindow())hierarchy_window->Draw();
+	if (hierarchy_window->GetShowWindow())hierarchy_window->Draw(App);
 	if (scene_window->GetShowWindow())scene_window->Draw(App->renderer3D->texColorBuffer);
 	//if (toolbar_window->GetShowWindow())toolbar_window->Draw(App);
 	if (showToolbarWindow)ShowToolbarWindow();
