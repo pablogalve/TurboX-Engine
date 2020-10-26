@@ -1,4 +1,6 @@
 #include "Mesh_Cube.h"
+#include "Application.h"
+#include "ModuleScene.h"
 
 Mesh_Cube::Mesh_Cube()
 {
@@ -185,4 +187,9 @@ void Mesh_Cube::DrawCubeWithIndices()
 
 	// deactivate vertex arrays after drawing
 	glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+void Mesh_Cube::CreateMesh(std::string name)
+{
+	App->scene->CreateGameObject(name);
 }

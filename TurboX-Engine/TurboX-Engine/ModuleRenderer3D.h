@@ -62,6 +62,6 @@ private:
 	int grid_size;
 
 	Mesh_Cube cube;
-	Mesh_CustomMesh* house;
+	C_Mesh* house;
 	SceneWindow* scene_window;
 };

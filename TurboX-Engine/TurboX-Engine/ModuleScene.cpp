@@ -8,16 +8,13 @@ ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, sta
 	name = "Gui";
 
 	root = new GameObject();
-	root->name = "Options";
+	root->name = "Root";
 
-	gameobject1 = new GameObject();
-	gameobject1->name = "first child";
+	gameobject1 = CreateGameObject("first child");
 
-	gameobject2 = new GameObject();
-	gameobject2->name = "second child";
+	gameobject2 = CreateGameObject("second child");
 
-	AddChild(root, gameobject1);
-	AddChild(root, gameobject2);
+	gameobject3 = CreateGameObject("third child", gameobject1);
 }
 
 ModuleScene::~ModuleScene()
@@ -32,7 +29,6 @@ bool ModuleScene::Start()
 
 update_status ModuleScene::PreUpdate(float dt)
 {
-	
 	return UPDATE_CONTINUE;
 }
 
@@ -51,20 +47,41 @@ bool ModuleScene::CleanUp()
 	return ret;
 }
 
-GameObject* ModuleScene::CreateGameObject()
+GameObject* ModuleScene::CreateGameObject(std::string name, GameObject* parent)
 {
 	GameObject* newGameObject = nullptr;
+	newGameObject = new GameObject();
 
+	newGameObject->name = name;
 
+	if (parent == nullptr)
+		AddChild(newGameObject, root);	
+	else
+		AddChild(newGameObject, parent);
 
 	return newGameObject;
 }
 
-void ModuleScene::AddChild(GameObject* parent, GameObject* child)
+void ModuleScene::AddChild(GameObject* child, GameObject* parent)
 {
-	parent->childs.push_back(child);
+	if (parent == nullptr)
+		parent = root;
+	else
+		parent->childs.push_back(child);
 
 	child->parent = parent;
+}
+
+void ModuleScene::DrawGameObjects(GameObject* gameObject, GameObject* root)
+{
+	if (gameObject != root)
+		gameObject->Draw();
+	
+
+	for (uint i = 0; i < gameObject->childs.size(); i++)
+	{
+		DrawGameObjects(gameObject, root);
+	}	
 }
 
 GameObject* ModuleScene::GetRoot()

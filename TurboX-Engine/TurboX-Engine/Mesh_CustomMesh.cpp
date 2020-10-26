@@ -10,7 +10,6 @@ Mesh_CustomMesh::~Mesh_CustomMesh()
 
 void Mesh_CustomMesh::SetMeshBuffer()
 {
-
 	glGenBuffers(1, (GLuint*)&(id_vertex));
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_vertex * 3, vertex, GL_STATIC_DRAW);
@@ -32,13 +31,10 @@ void Mesh_CustomMesh::SetMeshBuffer()
 		glBindBuffer(GL_ARRAY_BUFFER, id_texcoords);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * num_texcoords * 2, texcoords, GL_STATIC_DRAW);
 	}
-	
-
 }
 
 void Mesh_CustomMesh::Draw()
-{
-	
+{	
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -67,6 +63,4 @@ void Mesh_CustomMesh::Draw()
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
-	
-
 }

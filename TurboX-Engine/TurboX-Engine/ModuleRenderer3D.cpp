@@ -23,16 +23,16 @@ ModuleRenderer3D::~ModuleRenderer3D()
 bool ModuleRenderer3D::Start()
 {
 	bool ret = true;
-
 	
 	CreateGridLine(100);
 	//App->importer->ourMesh.SetMeshBuffer();
 	//cube.LoadTexture("Assets/lenna.png");
-	App->importer->LoadFBX("Assets/BakerHouse.fbx");
-	house = new Mesh_CustomMesh();
-	house = &App->importer->ourMesh;
-	house->SetMeshBuffer();
-	house->LoadTexture("Assets/Baker_house.png");
+	
+    App->importer->LoadFBX("Assets/BakerHouse.fbx");
+	house = new C_Mesh(Component::Type::Mesh);
+	house = App->importer->ourMesh;
+	//house->owner->ChangeName("House");
+	//house->LoadTexture("Assets/Baker_house.png");
 
 	return ret;
 }
@@ -194,6 +194,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	DrawGridLine();
 	DrawAxisLines();
 
+	//TODO: Now it's drawing from a C_Mesh. We need to change it to a GameObject
 	house->Draw();
 
 	glBindVertexArray(0);

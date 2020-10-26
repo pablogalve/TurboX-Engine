@@ -5,7 +5,7 @@
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
-#include "Mesh_CustomMesh.h"
+#include "Component_Mesh.h"
 #pragma comment (lib, "Libraries/Assimp/libx86/assimp.lib")
 
 class ModuleImporter : public Module
@@ -22,9 +22,8 @@ public:
 
 public:
 
-	Mesh_CustomMesh ourMesh;
-
-
+	//Mesh_CustomMesh ourMesh;
+	C_Mesh* ourMesh;
 };
 
 #endif // __ModuleImporter_H__

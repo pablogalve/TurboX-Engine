@@ -1,6 +1,10 @@
 #pragma once
 #include "Mesh.h"
 
+#include <string>
+
+using namespace std;
+
 class Mesh_Cube: public Mesh
 {
 public:
@@ -12,6 +16,7 @@ public:
 	void DrawCubeWithArrays();
 	void DrawCubeWithIndices();
 
+	void CreateMesh(std::string name) override;
 public:
 
 	

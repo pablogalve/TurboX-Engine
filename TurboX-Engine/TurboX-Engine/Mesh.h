@@ -3,6 +3,7 @@
 #include "glew\glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include "DevIL/include/ilut.h"
+#include "GameObject.h"
 #include "glmath.h"
 #include <list>
 #include <vector>
@@ -16,7 +17,7 @@
 
 using namespace std;
 
-class Mesh
+class Mesh : public GameObject
 {
 public:
 	Mesh();
@@ -24,8 +25,12 @@ public:
 
 	virtual void LoadTexture(const char* file_name);
 	virtual void Draw();
+
+	virtual void CreateMesh(std::string name);
 	
 public:
 	ILuint ImageName;
 	uint TextureID;
+
+	GameObject* mesh;
 };

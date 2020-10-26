@@ -1,4 +1,6 @@
 #include "Mesh.h"
+#include "Application.h"
+#include "ModuleScene.h"
 
 Mesh::Mesh()
 {
@@ -6,7 +8,10 @@ Mesh::Mesh()
 	iluInit();
 	ilutInit();
 	ilutRenderer(ILUT_OPENGL);
+
+	
 }
+
 
 Mesh::~Mesh()
 {
@@ -15,6 +20,9 @@ Mesh::~Mesh()
 
 void Mesh::LoadTexture(const char* file_name)
 {
+	mesh = App->scene->CreateGameObject(file_name);
+	mesh->name = "Mesh";
+
 	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 
 	for (int i = 0; i < CHECKERS_HEIGHT; i++)
@@ -48,5 +56,9 @@ void Mesh::LoadTexture(const char* file_name)
 void Mesh::Draw()
 {
 
+}
+
+void Mesh::CreateMesh(std::string name)
+{
 }
 

@@ -16,14 +16,17 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	GameObject* CreateGameObject();
-	void AddChild(GameObject* parent, GameObject* child);
+	GameObject* CreateGameObject(std::string name, GameObject* parent = nullptr);
+	void AddChild(GameObject* child, GameObject* parent = nullptr);
+
+	void DrawGameObjects(GameObject* gameObject, GameObject* root);
 
 	GameObject* GetRoot();
 
 public:
 	GameObject* gameobject1;
 	GameObject* gameobject2;
+	GameObject* gameobject3;
 
 private:
 	GameObject* root;
