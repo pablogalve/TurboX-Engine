@@ -13,7 +13,7 @@ public:
 		Light
 	};
 public:
-	Component(Type type);
+	Component(Type type, GameObject* owner);
 	~Component();
 
 	virtual void Enable();

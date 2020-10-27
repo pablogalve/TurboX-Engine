@@ -33,7 +33,7 @@ void ModuleImporter::LoadFBX(char* file_path)
 {
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
 	
-	ourMesh = new C_Mesh(Component::Type::Mesh);
+	//ourMesh = new C_Mesh(Component::Type::Mesh, this);
 
 	if (scene != nullptr && scene->HasMeshes())
 	{

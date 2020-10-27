@@ -1,9 +1,9 @@
 #include "Component.h"
 
-Component::Component(Type type)
+Component::Component(Type type, GameObject* owner)
 {
 	active = true;
-	owner = nullptr;
+	this->owner = owner;
 }
 
 Component::~Component()

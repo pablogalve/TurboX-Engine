@@ -24,6 +24,12 @@ bool ModuleScene::Start()
 {
 	bool ret = true;
 
+	new_gameObject = new GameObject();
+	new_gameObject->CreateComponent(Component::Type::Mesh);
+	new_gameObject->mesh->LoadMesh("Assets/BakerHouse.fbx");
+
+	root->childs.push_back(new_gameObject);
+
 	return ret;
 }
 
@@ -34,6 +40,13 @@ update_status ModuleScene::PreUpdate(float dt)
 
 update_status ModuleScene::Update(float dt)
 {
+
+	return UPDATE_CONTINUE;
+}
+
+update_status ModuleScene::PostUpdate(float dt)
+{
+	DrawGameObjects(GetRoot(), GetRoot());
 
 	return UPDATE_CONTINUE;
 }
@@ -85,9 +98,7 @@ void ModuleScene::DrawGameObjects(GameObject* gameObject, GameObject* root)
 	{
 		for (uint i = 0; i < gameObject->childs.size(); i++)
 		{
-			//if(gameObject->childs.empty() == false && gameObject->childs[i] != nullptr)
-			//if(gameObject->childs[i] != nullptr)
-			//	DrawGameObjects(gameObject->childs[i], root);
+			DrawGameObjects(gameObject->childs[i], root);
 		}
 	}
 }

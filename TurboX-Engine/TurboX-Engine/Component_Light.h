@@ -5,7 +5,7 @@
 
 class C_Light : public Component {
 public:
-	C_Light(Component::Type type);
+	C_Light(Component::Type type, GameObject* owner);
 	~C_Light();
 };
 #endif // !__COMPONENT_LIGHT_H_

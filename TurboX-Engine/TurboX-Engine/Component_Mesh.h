@@ -3,14 +3,19 @@
 
 #include "Component.h"
 #include "Globals.h"
+#include "Assimp/include/cimport.h"
+#include "Assimp/include/scene.h"
+#include "Assimp/include/postprocess.h"
+#pragma comment (lib, "Libraries/Assimp/libx86/assimp.lib")
 
 class C_Mesh : public Component {
 public:
-	C_Mesh(Component::Type type);
+	C_Mesh(Component::Type type, GameObject* owner);
 	~C_Mesh();
 
 	void Draw();
 	void SetMeshBuffer();
+	void LoadMesh(char* file_path);
 public:
 	uint TextureID;
 

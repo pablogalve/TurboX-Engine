@@ -57,6 +57,8 @@ public:
 	GLuint frameBuffer;
 	GLuint texColorBuffer;
 	GLuint renderBuffer;
+
+	
 private:
 
 	int grid_size;

@@ -14,6 +14,7 @@ public:
 	bool Start();
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
+	update_status PostUpdate(float dt);
 	bool CleanUp();
 
 	GameObject* CreateGameObject(std::string name, GameObject* parent = nullptr);
@@ -27,6 +28,8 @@ public:
 	GameObject* gameobject1;
 	GameObject* gameobject2;
 	GameObject* gameobject3;
+
+	GameObject* new_gameObject;
 
 private:
 	GameObject* root;
