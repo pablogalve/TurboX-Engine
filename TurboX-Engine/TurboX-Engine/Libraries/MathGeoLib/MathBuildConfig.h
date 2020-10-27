@@ -17,8 +17,6 @@
 	@brief Specifies all build flags for the library. */
 #pragma once
 
-#define MATH_SILENT_ASSUME
-
 // If MATH_ENABLE_NAMESPACE is defined, all math symbols are put inside a namespace.
 #define MATH_ENABLE_NAMESPACE
 
@@ -65,7 +63,7 @@
 #ifdef _DEBUG
 // If MATH_ASSERT_CORRECTNESS is defined, special (and possibly rather costly) mathassert()
 // tests are enabled, which test the internal correctness of the library.
-//#define MATH_ASSERT_CORRECTNESS
+#define MATH_ASSERT_CORRECTNESS
 #endif
 
 // If FAIL_USING_EXCEPTIONS is defined, all mathassert(), assert() and assume() macros turn into

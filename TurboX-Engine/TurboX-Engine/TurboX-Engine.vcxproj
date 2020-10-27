@@ -83,6 +83,9 @@
     <ClInclude Include="Component_Material.h" />
     <ClInclude Include="Component_Mesh.h" />
     <ClInclude Include="Component_Transformation.h" />
+    <ClInclude Include="Libraries\MathGeoLib\MathBuildConfig.h" />
+    <ClInclude Include="Libraries\MathGeoLib\MathGeoLib.h" />
+    <ClInclude Include="Libraries\MathGeoLib\MathGeoLibFwd.h" />
     <ClInclude Include="Mesh_Cone.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="Mesh_Cube.h" />

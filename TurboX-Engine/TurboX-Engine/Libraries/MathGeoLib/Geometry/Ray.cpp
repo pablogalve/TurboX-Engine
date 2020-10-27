@@ -97,6 +97,17 @@ void Ray::Transform(const Quat &transform)
 	dir = transform.Transform(dir);
 }
 
+Ray Ray::ReturnTransform(const float4x4 & transform)
+{
+	float3 tmp_pos, tmp_dir;
+	tmp_pos = pos;
+	tmp_dir = dir;
+	tmp_pos = transform.TransformPos(tmp_pos);
+	tmp_dir = transform.TransformDir(tmp_dir);
+
+	return Ray(tmp_pos,tmp_dir);
+}
+
 bool Ray::Contains(const float3 &point, float distanceThreshold) const
 {
 	return ClosestPoint(point).DistanceSq(point) <= distanceThreshold;

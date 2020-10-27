@@ -24,6 +24,7 @@
 #undef Polygon
 #endif
 
+#include <time.h>
 #include "../Math/MathNamespace.h"
 
 MATH_BEGIN_NAMESPACE

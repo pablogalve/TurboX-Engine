@@ -85,7 +85,7 @@ public:
 	void Transform(const float3x4 &transform);
 	void Transform(const float4x4 &transform);
 	void Transform(const Quat &transform);
-
+	Ray  ReturnTransform(const float4x4 &transform);
 	/// Tests if the given object is fully contained on this ray.
 	/** @param distanceThreshold The magnitude of the epsilon test threshold to use. Since a Ray
 		is a 1D object in a 3D space, an epsilon threshold is used to allow errors caused by floating-point
