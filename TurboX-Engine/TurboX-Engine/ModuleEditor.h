@@ -36,7 +36,8 @@ private:
 	
 	void GetHardwareCaps();
 	void GetVramData(float& vram_budget, float& vram_usage, float& vram_available, float& vram_reserved);
-private:
+
+public:
 	About* about_window;
 	Hierarchy* hierarchy_window;
 	Explorer* explorer_window;
@@ -45,6 +46,7 @@ private:
 	Inspector* inspector_window;
 	//Configuration* config = new Configuration(App); //TODO: Gives error
 
+private:
 	bool showDemoWindow;
 	bool showConfigurationWindow;
 	bool showConsoleWindow;

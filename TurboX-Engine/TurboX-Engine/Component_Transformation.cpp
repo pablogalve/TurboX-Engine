@@ -2,6 +2,7 @@
 
 C_Transform::C_Transform(Component::Type type, GameObject* owner):Component(type, owner)
 {
+	this->owner = owner;
 }
 
 C_Transform::~C_Transform()

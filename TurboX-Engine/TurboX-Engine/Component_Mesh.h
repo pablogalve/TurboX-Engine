@@ -2,7 +2,6 @@
 #define __COMPONENT_MESH_H_
 
 #include "Component.h"
-#include "Globals.h"
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"

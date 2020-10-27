@@ -1,5 +1,7 @@
 #ifndef __COMPONENT_H_
-#define __COMPONENT_H
+#define __COMPONENT_H_
+
+#include "Globals.h"
 
 class GameObject;
 

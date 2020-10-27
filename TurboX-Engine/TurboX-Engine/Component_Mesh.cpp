@@ -10,23 +10,11 @@
 
 C_Mesh::C_Mesh(Component::Type type, GameObject* owner):Component(type, owner)
 {
-	owner = nullptr;
-	index = nullptr;
-	vertex = nullptr;
-	normals = nullptr;
-	texcoords = nullptr;
-
-	//App->scene->CreateGameObject("Custom Mesh");
 	this->owner = owner;
 }
 
 C_Mesh::~C_Mesh()
 {
-	delete owner;
-	delete index;
-	delete vertex;
-	delete normals;
-	delete texcoords;
 }
 
 void C_Mesh::Draw()

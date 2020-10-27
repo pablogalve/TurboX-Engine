@@ -26,17 +26,6 @@ bool ModuleRenderer3D::Start()
 	bool ret = true;
 	
 	CreateGridLine(100);
-	//App->importer->ourMesh.SetMeshBuffer();
-	//cube.LoadTexture("Assets/lenna.png");	
-	
-	
-    //App->importer->LoadFBX("Assets/cottage_fbx.fbx");
-	//house = new C_Mesh(Component::Type::Mesh, this);
-	//house = App->importer->ourMesh;
-	//house->owner->ChangeName("House");
-	//house->LoadTexture("Assets/Baker_house.png");
-	
-	//App->console->AddLog("Parent: %s", house->owner->name);
 
 	return ret;
 }

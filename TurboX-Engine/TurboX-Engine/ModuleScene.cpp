@@ -6,15 +6,6 @@
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "Gui";
-
-	root = new GameObject();
-	root->name = "Root";
-
-	//gameobject1 = CreateGameObject("first child");
-
-	//gameobject2 = CreateGameObject("second child");
-
-	//gameobject3 = CreateGameObject("third child", gameobject1);
 }
 
 ModuleScene::~ModuleScene()
@@ -24,11 +15,20 @@ bool ModuleScene::Start()
 {
 	bool ret = true;
 
+	root = new GameObject();
+	root->ChangeName("Root");	
+
 	new_gameObject = new GameObject();
 	new_gameObject->CreateComponent(Component::Type::Mesh);
+	new_gameObject->CreateComponent(Component::Type::Transform);
 	new_gameObject->mesh->LoadMesh("Assets/BakerHouse.fbx");
 
+	gameobject1 = new GameObject();
+	gameobject1->CreateComponent(Component::Type::Mesh);
+	gameobject1->mesh->LoadMesh("Assets/cottage_fbx.fbx");
+
 	root->childs.push_back(new_gameObject);
+	root->childs.push_back(gameobject1);
 
 	return ret;
 }

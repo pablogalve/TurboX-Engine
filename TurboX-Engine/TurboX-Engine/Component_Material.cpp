@@ -2,6 +2,7 @@
 
 C_Material::C_Material(Component::Type type, GameObject* owner):Component(type, owner)
 {
+	this->owner = owner;
 }
 
 C_Material::~C_Material()

@@ -5,8 +5,8 @@
 GameObject::GameObject()
 {	
 	active = true;
-	ChangeName("GameObjectTest");
-
+	ChangeName("Custom Mesh");
+	is_selected = false;
 }
 
 GameObject::~GameObject()
@@ -22,31 +22,32 @@ void GameObject::Update()
 Component* GameObject::CreateComponent(Component::Type type)
 {
 	Component* new_component = nullptr;
-	parent = App->scene->GetRoot();
+
 	switch (type)
 	{
 	case Component::Type::None:		
 		break;
 	case Component::Type::Transform:
-		//new_component = new C_Transform();
+		new_component = new C_Transform(Component::Type::Transform, this);
 		break;
 	case Component::Type::Mesh:
 		//new_component = new C_Mesh(Component::Type::Mesh, this);
 		mesh = new C_Mesh(Component::Type::Mesh, this);		
 		break;
 	case Component::Type::Material:
-		//new_component = new C_Material();
+		new_component = new C_Material(Component::Type::Material, this);
 		break;
 	case Component::Type::Light:
-		//new_component = new C_Material();
+		new_component = new C_Light(Component::Type::Light, this);
 		break;
 	default:
 		break;
 	}
 
-	components.push_back(new_component);
+	if(new_component)
+		components.push_back(new_component);
 
-	return nullptr;
+	return new_component;
 }
 
 void GameObject::Draw()
@@ -63,4 +64,19 @@ void GameObject::Draw()
 void GameObject::ChangeName(std::string _name)
 {
 	name = _name;
+}
+
+bool GameObject::Get_IsSelected()
+{
+	return is_selected;
+}
+
+void GameObject::Select()
+{
+	is_selected = true;
+}
+
+void GameObject::Unselect()
+{
+	is_selected = false;
 }

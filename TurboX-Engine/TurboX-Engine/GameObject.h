@@ -1,9 +1,15 @@
 #ifndef __GAMEOBJECT_H__
 #define __GAMEOBJECT_H__
 
-#include "Component_Mesh.h"
 #include <string>
 #include <vector>
+
+#include "Component_Mesh.h"
+#include "Component_Transformation.h"
+#include "Component_Light.h"
+#include "Component_Material.h"
+#include "Component.h"
+
 using namespace std;
 
 class GameObject {
@@ -23,8 +29,14 @@ public:
 	vector<GameObject*> childs;
 	GameObject* parent = NULL;
 	C_Mesh* mesh = NULL;
+
+	bool Get_IsSelected();
+	void Select();
+	void Unselect();
+	
 private:
 	bool active;	
+	bool is_selected;
 };
 
 #endif //!__GAMEOBJECT_H__
