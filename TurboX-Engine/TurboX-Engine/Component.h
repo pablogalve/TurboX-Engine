@@ -21,6 +21,7 @@ public:
 	virtual void Enable();
 	virtual void Update();
 	virtual void Disable();
+	virtual Component::Type GetComponentType();
 
 public:
 	GameObject* owner;

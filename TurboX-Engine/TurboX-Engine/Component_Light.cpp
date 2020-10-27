@@ -8,3 +8,8 @@ C_Light::C_Light(Component::Type type, GameObject* owner) : Component(type, owne
 C_Light::~C_Light()
 {
 }
+
+Component::Type C_Light::GetComponentType()
+{
+	return Component::Type::Light;
+}

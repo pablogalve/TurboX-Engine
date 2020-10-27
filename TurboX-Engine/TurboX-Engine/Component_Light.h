@@ -7,5 +7,9 @@ class C_Light : public Component {
 public:
 	C_Light(Component::Type type, GameObject* owner);
 	~C_Light();
+
+public:
+
+	Component::Type GetComponentType() override;
 };
 #endif // !__COMPONENT_LIGHT_H_

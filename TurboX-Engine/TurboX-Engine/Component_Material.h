@@ -7,5 +7,9 @@ class C_Material : public Component {
 public:
 	C_Material(Component::Type type, GameObject* owner);
 	~C_Material();
+
+public:
+
+	Component::Type GetComponentType() override;
 };
 #endif // !__COMPONENT_MATERIAL_H_

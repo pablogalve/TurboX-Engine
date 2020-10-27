@@ -1,7 +1,8 @@
 #include "Inspector.h"
 #include "Application.h"
 #include "ModuleEditor.h"
-
+#include "MathGeoLib/MathGeoLib.h"
+#include "GameObject.h"
 Inspector::Inspector()
 {
 }
@@ -13,24 +14,35 @@ Inspector::~Inspector()
 void Inspector::Draw()
 {
 	ImGui::Begin("Inspector");
-	
+
 	if (App->editor->hierarchy_window->selectedGameObjects.size() == 1) {
-		if (ImGui::CollapsingHeader("Transform"))
-		{
-			float p[3] = { 0.0f, 0.0f, 0.0f };
-			float r[3] = { 0.0f, 0.0f, 0.0f };
-			float s[3] = { 0.0f, 0.0f, 0.0f };
-			if (ImGui::InputFloat3("Position", p));
-			if (ImGui::InputFloat3("Rotation", r));
-			if (ImGui::InputFloat3("Scale", s));
-		}
-		if (ImGui::CollapsingHeader("Mesh"))
-		{
+		
+		
+		GameObject* gameObject = App->editor->hierarchy_window->selectedGameObjects[0];
 
-		}
-		if (ImGui::CollapsingHeader("Material"))
-		{
+		C_Transform* transform = (C_Transform*)gameObject->GetComponent(Component::Type::Transform);
 
+		
+		if (ImGui::CollapsingHeader("Transform") && transform != nullptr)
+		{
+			float3 pos = transform->GetPosition();
+			float3 scale = transform->GetScale();
+			float3 rotation = transform->GetEulerRotation();
+
+			if (ImGui::InputFloat3("Position", (float*)&pos))
+			{
+				
+			}
+
+			if (ImGui::InputFloat3("Rotation", (float*)&rotation))
+			{
+				
+			}
+
+			if (ImGui::InputFloat3("Scale", (float*)&scale))
+			{
+				
+			}
 		}
 	}	
 

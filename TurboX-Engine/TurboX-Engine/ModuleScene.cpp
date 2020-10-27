@@ -25,6 +25,7 @@ bool ModuleScene::Start()
 
 	gameobject1 = new GameObject();
 	gameobject1->CreateComponent(Component::Type::Mesh);
+	gameobject1->CreateComponent(Component::Type::Transform);
 	gameobject1->mesh->LoadMesh("Assets/cottage_fbx.fbx");
 
 	root->childs.push_back(new_gameObject);

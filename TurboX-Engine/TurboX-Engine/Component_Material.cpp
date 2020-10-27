@@ -8,3 +8,8 @@ C_Material::C_Material(Component::Type type, GameObject* owner):Component(type, 
 C_Material::~C_Material()
 {
 }
+
+Component::Type C_Material::GetComponentType()
+{
+	return Component::Type::Material;
+}

@@ -15,6 +15,9 @@ public:
 	void Draw();
 	void SetMeshBuffer();
 	void LoadMesh(char* file_path);
+
+	Component::Type GetComponentType() override;
+
 public:
 	uint TextureID;
 

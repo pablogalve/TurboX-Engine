@@ -50,6 +50,20 @@ Component* GameObject::CreateComponent(Component::Type type)
 	return new_component;
 }
 
+Component* GameObject::GetComponent(Component::Type type)
+{
+
+	for (int i = 0; i < components.size(); i++)
+	{
+		if (type == components[i]->GetComponentType())
+		{
+			return components[i];
+		}
+	}
+
+	return nullptr;
+}
+
 void GameObject::Draw()
 {
 	mesh->Draw();

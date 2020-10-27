@@ -141,3 +141,8 @@ void C_Mesh::LoadMesh(char* file_path)
 
 	SetMeshBuffer();
 }
+
+Component::Type C_Mesh::GetComponentType()
+{
+	return Component::Type::Mesh;
+}

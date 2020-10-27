@@ -11,9 +11,23 @@ public:
 
 public:
 
+	Component::Type GetComponentType() override;
+	float3 GetPosition();
+	float3 GetScale();
+	float3 GetEulerRotation();
+	Quat GetQuaternionRotation();
+
+public:
+
+	float4x4 transform;
+	float4x4 global_transform;
+	float4x4 global_transformT;
+
 	float3 position;
 	float3 scale;
-	Quat rotation;
+	float3 eulerRotation;
+	Quat quaternionRotation;
+	
 
 };
 #endif // !__COMPONENT_TRANSFORMATION_H_

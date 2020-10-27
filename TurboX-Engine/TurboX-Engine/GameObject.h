@@ -19,7 +19,7 @@ public:
 
 	void Update();
 	Component* CreateComponent(Component::Type type);
-
+	Component* GetComponent(Component::Type type);
 	void Draw();
 
 	void ChangeName(std::string _name);
@@ -33,6 +33,7 @@ public:
 	bool Get_IsSelected();
 	void Select();
 	void Unselect();
+
 	
 private:
 	bool active;	

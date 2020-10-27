@@ -21,3 +21,10 @@ void Component::Update()
 void Component::Disable()
 {
 }
+
+Component::Type Component::GetComponentType()
+{
+	return Component::Type::None;
+}
+
+
