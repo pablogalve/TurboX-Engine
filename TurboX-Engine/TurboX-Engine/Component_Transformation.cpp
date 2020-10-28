@@ -4,7 +4,7 @@ C_Transform::C_Transform(Component::Type type, GameObject* owner):Component(type
 {
 	this->owner = owner;
 	position = float3{ 0,0,0 };
-	scale = float3{ 0,0,0 };
+	scale = float3{ 1,1,1 };
 	eulerRotation = float3{ 0,0,0 };
 }
 

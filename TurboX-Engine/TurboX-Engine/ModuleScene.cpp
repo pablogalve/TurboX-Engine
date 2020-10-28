@@ -22,8 +22,8 @@ bool ModuleScene::Start()
 	new_gameObject->CreateComponent(Component::Type::Mesh);
 	new_gameObject->CreateComponent(Component::Type::Transform);
 	new_gameObject->CreateComponent(Component::Type::Material);
-	new_gameObject->mesh->LoadMesh("Assets/BakerHouse.fbx");
 	new_gameObject->material->LoadTexture("Assets/Baker_house.png");
+	new_gameObject->mesh->LoadMesh("Assets/BakerHouse.fbx");	
 
 	gameobject1 = new GameObject();
 	gameobject1->CreateComponent(Component::Type::Mesh);
@@ -82,8 +82,9 @@ GameObject* ModuleScene::CreateGameObject(std::string name, GameObject* parent)
 
 void ModuleScene::AddChild(GameObject* child, GameObject* parent)
 {
-	if (parent == nullptr)
+	if (parent == nullptr) {
 		parent = root;
+	}
 	else
 		parent->childs.push_back(child);
 

@@ -15,8 +15,9 @@ public:
 
 	void Draw();
 	void LoadCheckersTex();
-	void SetMeshBuffer();
+	void SetMeshBuffer(GameObject* parent);
 	void LoadMesh(char* file_path);
+	void LoadSingleMesh(char* file_path);
 
 	Component::Type GetComponentType() override;
 

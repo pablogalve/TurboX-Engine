@@ -11,6 +11,7 @@ C_Material::~C_Material()
 
 void C_Material::LoadTexture(const char* file_name)
 {
+	material_path = (std::string)file_name;
 	ilGenImages(1, &ImageName);
 	ilBindImage(ImageName);
 	ilLoadImage(file_name);

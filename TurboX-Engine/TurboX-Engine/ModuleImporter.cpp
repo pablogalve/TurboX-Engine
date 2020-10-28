@@ -93,5 +93,5 @@ void ModuleImporter::LoadFBX(char* file_path)
 		App->console->AddLog("Error loading scene % s", file_path);
 	}
 
-	ourMesh->SetMeshBuffer();
+	//ourMesh->SetMeshBuffer();
 }
