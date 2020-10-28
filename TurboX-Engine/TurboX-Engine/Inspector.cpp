@@ -48,6 +48,11 @@ void Inspector::Draw()
 		if(ImGui::CollapsingHeader("Mesh") && mesh != nullptr)
 		{
 			ImGui::Checkbox("Active", &mesh->active);
+
+			ImGui::Text("Index: %u", mesh->num_index);
+			ImGui::Text("Normals: %u", mesh->num_normals);
+			ImGui::Text("Vertices: %u", mesh->num_vertex);
+			ImGui::Text("Tex Coords: %u", mesh->num_texcoords);
 		}
 
 		C_Material* material = (C_Material*)gameObject->GetComponent(Component::Type::Material);

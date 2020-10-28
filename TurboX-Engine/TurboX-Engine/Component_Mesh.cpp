@@ -126,7 +126,7 @@ void C_Mesh::LoadMesh(char* file_path)
 				new_gameObject->CreateComponent(Component::Type::Mesh);
 				new_gameObject->CreateComponent(Component::Type::Material);
 				new_gameObject->material->LoadTexture((const char*)owner->material->GetMaterialPath().c_str());
-				App->scene->AddChild(new_gameObject, App->scene->GetRoot());
+				App->scene->AddChild(new_gameObject);
 
 				// copy vertices
 				new_gameObject->mesh->num_vertex = meshIterator->mNumVertices;

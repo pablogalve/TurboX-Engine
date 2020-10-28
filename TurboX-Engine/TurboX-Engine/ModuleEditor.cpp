@@ -191,21 +191,22 @@ void ModuleEditor::ShowConfigurationWindow()
 		char appName[50] = "TurboX Engine";
 		char appName2[50];
 
-
 		if (ImGui::InputText("App name", appName, 50, ImGuiInputTextFlags_EnterReturnsTrue)) {
-			int fd = 5;
+			
 		}
 		ImGui::InputText("Organization", "UPC CITM", 50);
 
 		//FPS
-		fps_log.erase(fps_log.begin());
+		if(fps_log.size() > 100)
+			fps_log.erase(fps_log.begin());
 		fps_log.push_back(ImGui::GetIO().Framerate);
 		char title[25];
 		sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
 		ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
 
 		//Milliseconds
-		ms_log.erase(ms_log.begin());
+		if (ms_log.size() > 100)
+			ms_log.erase(ms_log.begin());
 		ms_log.push_back(1 / (ImGui::GetIO().Framerate / 1000));
 		sprintf_s(title, 25, "Milliseconds %.1f", ms_log[ms_log.size() - 1]);
 		ImGui::PlotHistogram("##framerate", &ms_log[0], ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));
@@ -379,6 +380,9 @@ void ModuleEditor::ShowConfigurationWindow()
 		if (ImGui::Checkbox("Wireframe", &App->renderer3D->_wireframe))
 		{
 			App->renderer3D->SetWireframeMode(App->renderer3D->_wireframe);
+		}
+		if (ImGui::Checkbox("Texture", &App->renderer3D->_texture)) {
+			App->renderer3D->GL_Enable(GL_TEXTURE_2D, App->renderer3D->_texture);
 		}
 		if (ImGui::Checkbox("Depth test", &App->renderer3D->_depth_test))
 		{

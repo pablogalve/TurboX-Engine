@@ -4,6 +4,8 @@
 #include "ModuleImporter.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleConsole.h"
+#include "GameObject.h"
+#include "ModuleScene.h"
 #define MAX_KEYS 300
 
 ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -155,7 +157,14 @@ update_status ModuleInput::PreUpdate(float dt)
 			{      
 				// In case if dropped file
 				dropped_filedir = e.drop.file;
-				//App->importer->LoadFBX(dropped_filedir);
+				GameObject* imported_model;
+				imported_model = new GameObject();
+				imported_model->CreateComponent(Component::Type::Mesh);
+				imported_model->CreateComponent(Component::Type::Transform);
+				//imported_model->CreateComponent(Component::Type::Material);
+				//imported_model->material->LoadTexture("Assets/Baker_house.png");
+				imported_model->mesh->LoadMesh(dropped_filedir);
+				App->scene->AddChild(imported_model);
 				
 				break;
 			}

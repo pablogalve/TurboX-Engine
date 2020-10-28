@@ -18,22 +18,14 @@ bool ModuleScene::Start()
 	root = new GameObject();
 	root->ChangeName("Root");	
 
-	new_gameObject = new GameObject();
-	new_gameObject->CreateComponent(Component::Type::Mesh);
-	new_gameObject->CreateComponent(Component::Type::Transform);
-	new_gameObject->CreateComponent(Component::Type::Material);
-	new_gameObject->material->LoadTexture("Assets/Baker_house.png");
-	new_gameObject->mesh->LoadMesh("Assets/BakerHouse.fbx");	
+	baker_house_01 = new GameObject();
+	baker_house_01->CreateComponent(Component::Type::Mesh);
+	baker_house_01->CreateComponent(Component::Type::Transform);
+	baker_house_01->CreateComponent(Component::Type::Material);
+	baker_house_01->material->LoadTexture("Assets/Baker_house.png");
+	baker_house_01->mesh->LoadMesh("Assets/BakerHouse.fbx");	
 
-	gameobject1 = new GameObject();
-	gameobject1->CreateComponent(Component::Type::Mesh);
-	gameobject1->CreateComponent(Component::Type::Transform);
-	//gameobject1->CreateComponent(Component::Type::Material);
-	gameobject1->mesh->LoadMesh("Assets/cottage_fbx.fbx");
-	//gameobject1->material->LoadTexture("Assets/Baker_house.png");
-
-	root->childs.push_back(new_gameObject);
-	root->childs.push_back(gameobject1);
+	root->childs.push_back(baker_house_01);
 
 	return ret;
 }
@@ -82,11 +74,10 @@ GameObject* ModuleScene::CreateGameObject(std::string name, GameObject* parent)
 
 void ModuleScene::AddChild(GameObject* child, GameObject* parent)
 {
-	if (parent == nullptr) {
+	if (parent == nullptr)
 		parent = root;
-	}
-	else
-		parent->childs.push_back(child);
+	
+	parent->childs.push_back(child);
 
 	child->parent = parent;
 }
