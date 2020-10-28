@@ -402,9 +402,6 @@
     <ClInclude Include="ModuleEditor.h">
       <Filter>Sources\Modules\Game</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleTexture.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleImporter.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
@@ -472,9 +469,6 @@
       <Filter>Sources\GameObjects\Components</Filter>
     </ClInclude>
     <ClInclude Include="Component_Material.h">
-      <Filter>Sources\GameObjects\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Component_Light.h">
       <Filter>Sources\GameObjects\Components</Filter>
     </ClInclude>
     <ClInclude Include="Mesh_Cone.h">
@@ -743,9 +737,6 @@
     <ClCompile Include="ModuleEditor.cpp">
       <Filter>Sources\Modules\Game</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleTexture.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleImporter.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
@@ -789,9 +780,6 @@
       <Filter>Sources\GameObjects\Components</Filter>
     </ClCompile>
     <ClCompile Include="Component_Material.cpp">
-      <Filter>Sources\GameObjects\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Component_Light.cpp">
       <Filter>Sources\GameObjects\Components</Filter>
     </ClCompile>
     <ClCompile Include="Mesh_Cone.cpp">

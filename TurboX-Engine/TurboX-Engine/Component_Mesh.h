@@ -2,6 +2,7 @@
 #define __COMPONENT_MESH_H_
 
 #include "Component.h"
+#include "Component_Material.h"
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
@@ -13,12 +14,14 @@ public:
 	~C_Mesh();
 
 	void Draw();
+	void LoadCheckersTex();
 	void SetMeshBuffer();
 	void LoadMesh(char* file_path);
 
 	Component::Type GetComponentType() override;
 
 public:
+	
 	uint TextureID;
 
 	uint id_index = 0; // index in VRAM
@@ -36,5 +39,11 @@ public:
 	uint id_texcoords = 0;
 	uint num_texcoords = 0;
 	float* texcoords = NULL;
+
+	C_Material* material = nullptr;
+
+private:
+
+	bool isCheckersTexLoaded = false;
 };
 #endif // !__COMPONENT_LIGHT_H_

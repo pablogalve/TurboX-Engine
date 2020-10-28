@@ -31,20 +31,18 @@ Component* GameObject::CreateComponent(Component::Type type)
 		new_component = new C_Transform(Component::Type::Transform, this);
 		break;
 	case Component::Type::Mesh:
-		//new_component = new C_Mesh(Component::Type::Mesh, this);
-		mesh = new C_Mesh(Component::Type::Mesh, this);		
+		new_component = new C_Mesh(Component::Type::Mesh, this);
+		mesh = (C_Mesh*)new_component;
 		break;
 	case Component::Type::Material:
 		new_component = new C_Material(Component::Type::Material, this);
-		break;
-	case Component::Type::Light:
-		new_component = new C_Light(Component::Type::Light, this);
+		material = (C_Material*)new_component;
 		break;
 	default:
 		break;
 	}
 
-	if(new_component)
+	if (new_component)
 		components.push_back(new_component);
 
 	return new_component;

@@ -29,8 +29,6 @@ public:
 	virtual void CreateMesh(std::string name);
 	
 public:
-	ILuint ImageName;
-	uint TextureID;
+	
 
-	GameObject* mesh;
 };

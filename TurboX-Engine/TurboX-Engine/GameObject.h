@@ -6,7 +6,6 @@
 
 #include "Component_Mesh.h"
 #include "Component_Transformation.h"
-#include "Component_Light.h"
 #include "Component_Material.h"
 #include "Component.h"
 
@@ -29,6 +28,7 @@ public:
 	vector<GameObject*> childs;
 	GameObject* parent = NULL;
 	C_Mesh* mesh = NULL;
+	C_Material* material = NULL;
 
 	bool Get_IsSelected();
 	void Select();

@@ -44,6 +44,20 @@ void Inspector::Draw()
 				
 			}
 		}
+
+		C_Mesh* mesh = (C_Mesh*)gameObject->GetComponent(Component::Type::Mesh);
+
+		if(ImGui::CollapsingHeader("Mesh") && mesh != nullptr)
+		{
+			ImGui::Checkbox("Active", &mesh->active);
+		}
+
+		C_Material* material = (C_Material*)gameObject->GetComponent(Component::Type::Material);
+
+		if (ImGui::CollapsingHeader("Material") && material != nullptr)
+		{
+			ImGui::Checkbox("Active", &material->active);
+		}
 	}	
 
 	ImGui::End();

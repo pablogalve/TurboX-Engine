@@ -24,7 +24,6 @@ bool ModuleImporter::Init(JSON_Object* obj)
 // Called before quitting
 bool ModuleImporter::CleanUp()
 {
-	delete ourMesh;
 
 	return true;
 }

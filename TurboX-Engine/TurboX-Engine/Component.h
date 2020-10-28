@@ -25,9 +25,7 @@ public:
 
 public:
 	GameObject* owner;
-
-private:
-	bool active;
+	bool active = true;
 };
 
 #endif // !__COMPONENT_H_

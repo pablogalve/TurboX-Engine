@@ -21,12 +21,16 @@ bool ModuleScene::Start()
 	new_gameObject = new GameObject();
 	new_gameObject->CreateComponent(Component::Type::Mesh);
 	new_gameObject->CreateComponent(Component::Type::Transform);
+	new_gameObject->CreateComponent(Component::Type::Material);
 	new_gameObject->mesh->LoadMesh("Assets/BakerHouse.fbx");
+	new_gameObject->material->LoadTexture("Assets/Baker_house.png");
 
 	gameobject1 = new GameObject();
 	gameobject1->CreateComponent(Component::Type::Mesh);
 	gameobject1->CreateComponent(Component::Type::Transform);
+	//gameobject1->CreateComponent(Component::Type::Material);
 	gameobject1->mesh->LoadMesh("Assets/cottage_fbx.fbx");
+	//gameobject1->material->LoadTexture("Assets/Baker_house.png");
 
 	root->childs.push_back(new_gameObject);
 	root->childs.push_back(gameobject1);

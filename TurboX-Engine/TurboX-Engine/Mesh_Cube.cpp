@@ -13,7 +13,7 @@ Mesh_Cube::~Mesh_Cube()
 
 void Mesh_Cube::LoadTexture(const char* file_name)
 {
-	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
+	/*GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	
 	for (int i = 0; i < CHECKERS_HEIGHT; i++)
 	{
@@ -43,13 +43,13 @@ void Mesh_Cube::LoadTexture(const char* file_name)
 	ilBindImage(ImageName);
 	ilLoadImage(file_name);
 	TextureID = ilutGLBindTexImage();
-	ilDeleteImages(1, &ImageName);
+	ilDeleteImages(1, &ImageName);*/
 	
 }
 
 void Mesh_Cube::Draw()
 {
-	//cube in direct mode
+	/*//cube in direct mode
 	glBindTexture(GL_TEXTURE_2D, TextureID);
 	glBegin(GL_TRIANGLES);
 
@@ -97,7 +97,7 @@ void Mesh_Cube::Draw()
 	
 	glEnd();
 	glLineWidth(1.0f);
-	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);*/
 }
 
 void Mesh_Cube::DrawCubeWithArrays()
