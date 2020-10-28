@@ -3,6 +3,10 @@
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
 #include "ModuleConsole.h"
+#include "ModuleEditor.h"
+#include "Hierarchy.h"
+#include "GameObject.h"
+#include "MathGeoLib/MathGeoLib.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -16,6 +20,8 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 
 	Position = vec3(0.0f, 0.0f, 5.0f);
 	Reference = vec3(0.0f, 0.0f, 0.0f);
+
+	cameraLookingAtSelectedGameObject = false;
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -52,7 +58,26 @@ update_status ModuleCamera3D::Update(float dt)
 		speed = 10.0f * dt;
 
 	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
-	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
+	
+	// Focus the camera on the selected object
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT)
+	{
+		LookAtSelectedObject();		
+	}
+
+	//Orbit around selected object
+	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
+	{
+		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+		{
+			if (cameraLookingAtSelectedGameObject == false)
+				LookAtSelectedObject();
+			
+			Orbit();
+		}		
+	}
+	else
+		cameraLookingAtSelectedGameObject = false;
 
 	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
@@ -162,6 +187,64 @@ void ModuleCamera3D::Move(const vec3 &Movement)
 float* ModuleCamera3D::GetViewMatrix()
 {
 	return &ViewMatrix;
+}
+
+void ModuleCamera3D::Orbit()
+{
+	if (App->editor->hierarchy_window->selectedGameObjects.empty() == false) {
+		float3 selectedPosition = App->editor->hierarchy_window->selectedGameObjects[0]->transform->position;
+
+		//LookAt({ selectedPosition.x, selectedPosition.y, selectedPosition.z });
+
+		int dx = -App->input->GetMouseXMotion();
+		int dy = -App->input->GetMouseYMotion();
+
+		float Sensitivity = 0.25f;
+
+		Position -= Reference;
+
+		if (dx != 0)
+		{
+			float DeltaX = (float)dx * Sensitivity;
+
+			X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+			Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+			Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+		}
+
+		if (dy != 0)
+		{
+			float DeltaY = (float)dy * Sensitivity;
+
+			Y = rotate(Y, DeltaY, X);
+			Z = rotate(Z, DeltaY, X);
+
+			if (Y.y < 0.0f)
+			{
+				Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
+				Y = cross(Z, X);
+			}
+		}
+
+		Position = Reference + Z * length(Position);
+	}
+	else {
+		App->console->AddLog("You need to select a gameObject first");
+	}
+}
+
+void ModuleCamera3D::LookAtSelectedObject()
+{
+	if (App->editor->hierarchy_window->selectedGameObjects.empty() == false) {
+		float3 selectedPosition = App->editor->hierarchy_window->selectedGameObjects[0]->transform->position;
+
+		LookAt({ selectedPosition.x, selectedPosition.y, selectedPosition.z });
+		cameraLookingAtSelectedGameObject = true;
+	}
+	else {
+		App->console->AddLog("You need to select a gameObject first");
+	}
+	cameraLookingAtSelectedGameObject = true;
 }
 
 // -----------------------------------------------------------------
