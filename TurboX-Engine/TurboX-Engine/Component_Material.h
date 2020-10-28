@@ -21,6 +21,8 @@ public:
 	~C_Material();
 
 	void LoadTexture(const char* file_name);
+	//void UpdateTexture(const char* file_name);
+	void UnLoadTexture();
 	std::string GetMaterialPath() { return material_path; }
 public:
 

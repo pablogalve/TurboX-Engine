@@ -19,6 +19,11 @@ void C_Material::LoadTexture(const char* file_name)
 	ilDeleteImages(1, &ImageName);
 }
 
+void C_Material::UnLoadTexture()
+{
+	glBindBuffer(GL_TEXTURE_2D, 0);
+}
+
 Component::Type C_Material::GetComponentType()
 {
 	return Component::Type::Material;

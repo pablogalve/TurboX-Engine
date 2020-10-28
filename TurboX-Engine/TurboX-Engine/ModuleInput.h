@@ -21,6 +21,13 @@ struct Last_Inputs {
 	int last_input = 0;
 };
 
+enum class FileType {
+	FBX,
+	PNG,
+	DDS,
+	UNDEFINED
+};
+
 class ModuleInput : public Module
 {
 public:
@@ -65,6 +72,7 @@ public:
 
 	void AddLastInput(std::string name, Uint8 keyboard_num, std::string type);
 	void PrintLastInputs();
+	FileType GetFileType(std::string file);
 public:
 	Last_Inputs last_inputs[100];
 private:

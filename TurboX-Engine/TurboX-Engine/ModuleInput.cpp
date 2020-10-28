@@ -6,6 +6,7 @@
 #include "ModuleConsole.h"
 #include "GameObject.h"
 #include "ModuleScene.h"
+#include "ModuleEditor.h"
 #define MAX_KEYS 300
 
 ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -157,14 +158,63 @@ update_status ModuleInput::PreUpdate(float dt)
 			{      
 				// In case if dropped file
 				dropped_filedir = e.drop.file;
-				GameObject* imported_model;
-				imported_model = new GameObject();
-				imported_model->CreateComponent(Component::Type::Mesh);
-				imported_model->CreateComponent(Component::Type::Transform);
-				//imported_model->CreateComponent(Component::Type::Material);
-				//imported_model->material->LoadTexture("Assets/Baker_house.png");
-				imported_model->mesh->LoadMesh(dropped_filedir);
-				App->scene->AddChild(imported_model);
+
+				FileType fileType = GetFileType(dropped_filedir);
+
+				switch (fileType)
+				{
+				case FileType::FBX:
+					GameObject* imported_model;
+					imported_model = new GameObject();
+					imported_model->CreateComponent(Component::Type::Mesh);
+					imported_model->CreateComponent(Component::Type::Transform);
+					//imported_model->CreateComponent(Component::Type::Material);
+					//imported_model->material->LoadTexture("Assets/Baker_house.png");
+					imported_model->mesh->LoadMesh(dropped_filedir);
+					App->scene->AddChild(imported_model);
+					break;
+				case FileType::PNG:
+				{
+					if (App->editor->hierarchy_window->selectedGameObjects.empty() == false) {
+						GameObject* selectedGameObject = App->editor->hierarchy_window->selectedGameObjects[0];
+						if (selectedGameObject != nullptr)
+						{
+							selectedGameObject->CreateComponent(Component::Type::Material);
+							selectedGameObject->material->LoadTexture(dropped_filedir);
+						}
+					}
+					else {
+						App->console->AddLog("You must select a gameObject first!");
+					}
+				}
+					break;
+				case FileType::DDS:
+				{
+					if (App->editor->hierarchy_window->selectedGameObjects.empty() == false) {
+						GameObject* selectedGameObject = App->editor->hierarchy_window->selectedGameObjects[0];
+						if (selectedGameObject != nullptr)
+						{
+							if (selectedGameObject->material == nullptr) {
+								selectedGameObject->CreateComponent(Component::Type::Material);
+								selectedGameObject->material->LoadTexture(dropped_filedir);
+							}
+							else {
+								//TODO: Remove current texture
+								selectedGameObject->material->UnLoadTexture();
+								selectedGameObject->material->LoadTexture(dropped_filedir);
+							}							
+						}
+					}
+					else {
+						App->console->AddLog("You must select a gameObject first!");
+					}
+				}
+					break;
+				case FileType::UNDEFINED:
+					break;
+				default:
+					break;
+				}				
 				
 				break;
 			}
@@ -246,4 +296,27 @@ void ModuleInput::PrintLastInputs()
 			ImGui::Text("%s: %i - %s", _name.c_str(), _keyboard_num, _type.c_str());
 		}
 	}	
+}
+
+FileType ModuleInput::GetFileType(std::string file)
+{
+	if (file.length() > 4) {
+		std::string extensionType = file.substr(file.length() - 4);
+
+		if (extensionType == ".fbx" || extensionType == ".FBX")
+			return FileType::FBX;
+		else if (extensionType == ".png" || extensionType == ".PNG")
+			return FileType::PNG;
+		else if (extensionType == ".dds" || extensionType == ".DDS")
+			return FileType::DDS;
+		else {
+			return FileType::UNDEFINED;
+			App->console->AddLog("Error. Format is not supported in the engine.");
+		}
+	}
+	else {
+		return FileType::UNDEFINED;
+		App->console->AddLog("Error. Can't recognize format.");
+	}
+	
 }
