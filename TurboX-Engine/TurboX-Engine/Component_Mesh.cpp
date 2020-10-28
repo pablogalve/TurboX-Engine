@@ -20,38 +20,41 @@ C_Mesh::~C_Mesh()
 }
 
 void C_Mesh::Draw()
-{	
+{		
 	material = (C_Material*)owner->GetComponent(Component::Type::Material);
-	
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	if(num_normals > 0)
-	{
-		glEnableClientState(GL_NORMAL_ARRAY);
-		glBindBuffer(GL_ARRAY_BUFFER, id_normals);
-		glNormalPointer(GL_FLOAT, 0, NULL);
+	if (active == true) {			
+		
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+		if(num_normals > 0)
+		{
+			glEnableClientState(GL_NORMAL_ARRAY);
+			glBindBuffer(GL_ARRAY_BUFFER, id_normals);
+			glNormalPointer(GL_FLOAT, 0, NULL);
+		}
+
+		if (num_texcoords > 0)
+		{
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+			glBindBuffer(GL_ARRAY_BUFFER, id_texcoords);
+			glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+		}
+	
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
+	
+		if(material != nullptr && material->active)
+			glBindTexture(GL_TEXTURE_2D, material->TextureID);
+	
+		glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisableClientState(GL_VERTEX_ARRAY);
 	}
-
-	if (num_texcoords > 0)
-	{
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glBindBuffer(GL_ARRAY_BUFFER, id_texcoords);
-		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-	}
-	
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
-	
-	if(material != nullptr)
-		glBindTexture(GL_TEXTURE_2D, material->TextureID);
-	
-	glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void C_Mesh::LoadCheckersTex()
@@ -125,6 +128,7 @@ void C_Mesh::LoadMesh(char* file_path)
 				GameObject* new_gameObject = new GameObject();
 				new_gameObject->CreateComponent(Component::Type::Mesh);
 				new_gameObject->CreateComponent(Component::Type::Material);
+				new_gameObject->CreateComponent(Component::Type::Transform);
 				new_gameObject->material->LoadTexture((const char*)owner->material->GetMaterialPath().c_str());
 				App->scene->AddChild(new_gameObject);
 

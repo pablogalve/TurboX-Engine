@@ -59,7 +59,7 @@ void Inspector::Draw()
 
 		if (ImGui::CollapsingHeader("Material") && material != nullptr)
 		{
-			ImGui::Checkbox("Active", &material->active);
+			ImGui::Checkbox("Active ", &material->active);
 			ImGui::Text("File Path: "); ImGui::SameLine();
 			ImVec4 yellow(1.0f, 0.8f, 0.0f, 1.0f);
 			ImGui::TextColored(yellow, material->GetMaterialPath().c_str());

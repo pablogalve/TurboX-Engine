@@ -18,7 +18,6 @@ public:
 	Quat GetQuaternionRotation();
 
 public:
-
 	float4x4 transform;
 	float4x4 global_transform;
 	float4x4 global_transformT;

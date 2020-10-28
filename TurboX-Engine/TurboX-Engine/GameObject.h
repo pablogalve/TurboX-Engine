@@ -29,11 +29,11 @@ public:
 	GameObject* parent = NULL;
 	C_Mesh* mesh = NULL;
 	C_Material* material = NULL;
+	C_Transform* transform = NULL;
 
 	bool Get_IsSelected();
 	void Select();
 	void Unselect();
-
 	
 private:
 	bool active;	

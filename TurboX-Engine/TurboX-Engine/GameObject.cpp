@@ -29,6 +29,7 @@ Component* GameObject::CreateComponent(Component::Type type)
 		break;
 	case Component::Type::Transform:
 		new_component = new C_Transform(Component::Type::Transform, this);
+		transform = (C_Transform*)new_component;
 		break;
 	case Component::Type::Mesh:
 		new_component = new C_Mesh(Component::Type::Mesh, this);
