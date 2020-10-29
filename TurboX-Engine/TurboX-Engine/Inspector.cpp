@@ -53,6 +53,9 @@ void Inspector::Draw()
 			ImGui::Text("Normals: %u", mesh->num_normals);
 			ImGui::Text("Vertices: %u", mesh->num_vertex);
 			ImGui::Text("Tex Coords: %u", mesh->num_texcoords);
+
+			ImGui::Checkbox("Vertex Normals:", &mesh->vertex_normals_active);
+			ImGui::Checkbox("Face Normals:", &mesh->face_normals_active);
 		}
 
 		C_Material* material = (C_Material*)gameObject->GetComponent(Component::Type::Material);

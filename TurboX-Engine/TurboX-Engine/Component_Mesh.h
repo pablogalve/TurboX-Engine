@@ -21,6 +21,8 @@ public:
 
 	Component::Type GetComponentType() override;
 
+	void DrawFaceNormals();
+	void DrawVertexNormals();
 public:
 	
 	uint TextureID;
@@ -43,6 +45,8 @@ public:
 
 	C_Material* material = nullptr;
 
+	bool face_normals_active;
+	bool vertex_normals_active;
 private:
 
 	bool isCheckersTexLoaded = false;

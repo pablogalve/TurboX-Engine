@@ -13,6 +13,8 @@ C_Mesh::C_Mesh(Component::Type type, GameObject* owner):Component(type, owner)
 	this->owner = owner;
 	material = nullptr;
 	isCheckersTexLoaded = false;
+	face_normals_active = false;
+	vertex_normals_active = false;
 }
 
 C_Mesh::~C_Mesh()
@@ -48,12 +50,27 @@ void C_Mesh::Draw()
 		if(material != nullptr && material->active)
 			glBindTexture(GL_TEXTURE_2D, material->TextureID);
 	
+		if (vertex_normals_active) {
+			glBegin(GL_LINES);
+			glColor4f(0.66f, 1.0f, 0.16f, 1.0f); // Green
+			DrawVertexNormals();
+			glEnd();
+			glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Set color of everything back to white
+		}
+		if (face_normals_active) {
+			glBegin(GL_LINES);
+			glColor4f(0.0f, 1.0f, 1.0f, 1.0f); // Cyan
+			DrawFaceNormals();
+			glEnd();
+			glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Set color of everything back to white
+		}
+
 		glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisableClientState(GL_NORMAL_ARRAY);
-		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_VERTEX_ARRAY);		
 	}
 }
 
@@ -244,4 +261,36 @@ void C_Mesh::LoadSingleMesh(char* file_path)
 Component::Type C_Mesh::GetComponentType()
 {
 	return Component::Type::Mesh;
+}
+
+void C_Mesh::DrawFaceNormals()
+{
+	for (size_t i = 0; i < num_vertex * 3; i += 3)
+	{
+		float x = (vertex[i] + vertex[i + 3] + vertex[i + 6]) / 3;
+		float y = (vertex[i + 1] + vertex[i + 4] + vertex[i + 7]) / 3;
+		float z = (vertex[i + 2] + vertex[i + 5] + vertex[i + 8]) / 3;
+		glVertex3f(x, y, z);
+
+		float normal_x = normals[i];
+		float normal_y = normals[i + 1];
+		float normal_z = normals[i + 2];
+		glVertex3f(x + normal_x, y + normal_y, z + normal_z);
+	}
+}
+
+void C_Mesh::DrawVertexNormals()
+{
+	for (size_t i = 0; i < num_vertex * 3; i += 3)
+	{
+		float x = vertex[i];
+		float y = vertex[i + 1];
+		float z = vertex[i + 2];
+		glVertex3f(x, y, z);
+
+		float normal_x = normals[i];
+		float normal_y = normals[i + 1];
+		float normal_z = normals[i + 2];
+		glVertex3f(x + normal_x, y + normal_y, z + normal_z);
+	}
 }
