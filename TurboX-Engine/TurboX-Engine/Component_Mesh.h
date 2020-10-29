@@ -25,8 +25,6 @@ public:
 	void DrawVertexNormals();
 public:
 	
-	uint TextureID;
-
 	uint id_index = 0; // index in VRAM
 	uint num_index = 0;
 	uint* index = nullptr;
@@ -47,8 +45,6 @@ public:
 
 	bool face_normals_active;
 	bool vertex_normals_active;
-private:
 
-	bool isCheckersTexLoaded = false;
 };
 #endif // !__COMPONENT_LIGHT_H_

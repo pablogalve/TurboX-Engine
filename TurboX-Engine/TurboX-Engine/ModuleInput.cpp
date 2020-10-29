@@ -200,7 +200,6 @@ update_status ModuleInput::PreUpdate(float dt)
 							}
 							else {
 								//TODO: Remove current texture
-								selectedGameObject->material->UnLoadTexture();
 								selectedGameObject->material->LoadTexture(dropped_filedir);
 							}							
 						}

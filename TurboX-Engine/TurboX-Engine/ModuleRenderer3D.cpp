@@ -12,7 +12,7 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 	_depth_test = true;
 	_color_material = true;
 	_cull_face = true;
-	_lighting = true;
+	_lighting = false;
 	_wireframe = false;
 	_texture = true;
 }
@@ -115,9 +115,10 @@ bool ModuleRenderer3D::Init(JSON_Object* obj)
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
 		lights[0].Active(true);
-		glEnable(GL_LIGHTING);
+		glDisable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
 		glEnable(GL_TEXTURE_2D);
+		
 	}
 
 	//FrameBuffer

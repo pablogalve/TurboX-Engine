@@ -21,16 +21,21 @@ public:
 	~C_Material();
 
 	void LoadTexture(const char* file_name);
-	//void UpdateTexture(const char* file_name);
 	void UnLoadTexture();
+	void LoadDefaultTex();
+	
 	std::string GetMaterialPath() { return material_path; }
 public:
 
 	Component::Type GetComponentType() override;
 
 public:	
-	ILuint ImageName;
+	ILuint ImageName = 0;
+	ILuint CheckersImage = 0;
 	uint TextureID;
+	uint defaultTextureID;
+
+	bool defaultTex = false;
 private:
 	std::string material_path;
 };
