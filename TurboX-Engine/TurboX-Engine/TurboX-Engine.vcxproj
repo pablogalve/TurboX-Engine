@@ -257,11 +257,11 @@
     <ClInclude Include="Libraries\SDL\include\SDL_vulkan.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="ModuleFileSystem.h" />
     <ClInclude Include="ModuleScene.h" />
     <ClInclude Include="ModuleCamera3D.h" />
     <ClInclude Include="ModuleConsole.h" />
     <ClInclude Include="ModuleGui.h" />
-    <ClInclude Include="ModuleImporter.h" />
     <ClInclude Include="ModulePhysics3D.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
     <ClInclude Include="Module.h" />
@@ -338,8 +338,8 @@
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModuleCamera3D.cpp" />
     <ClCompile Include="ModuleConsole.cpp" />
+    <ClCompile Include="ModuleFileSystem.cpp" />
     <ClCompile Include="ModuleGui.cpp" />
-    <ClCompile Include="ModuleImporter.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModulePhysics3D.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />

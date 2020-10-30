@@ -1,9 +1,11 @@
+#include "Application.h"
 #include "Component_Mesh.h"
 #include "glew\glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include "ModuleScene.h"
 #include "Application.h"
 #include "ModuleConsole.h"
+#include "ModuleFileSystem.h"
 
 #pragma comment (lib, "Libraries/glew/glew32.lib")    /* link OpenGL Utility lib*/
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */

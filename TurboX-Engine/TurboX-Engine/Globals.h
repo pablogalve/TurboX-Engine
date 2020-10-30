@@ -38,7 +38,29 @@ enum update_status
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
 #define TITLE "TurboX 3D Engine"
+#define ORGANIZATION "UPC"
 #define CONFIG_FILE "config.JSON"
 #define PI 3.1415926f
 #define CHECKERS_WIDTH 64
 #define CHECKERS_HEIGHT 64
+
+// Deletes a buffer
+#define RELEASE( x )\
+    {\
+       if( x != nullptr )\
+       {\
+         delete x;\
+	     x = nullptr;\
+       }\
+    }
+
+// Deletes an array of buffers
+#define RELEASE_ARRAY( x )\
+	{\
+       if( x != nullptr )\
+       {\
+           delete[] x;\
+	       x = nullptr;\
+		 }\
+	 }
+

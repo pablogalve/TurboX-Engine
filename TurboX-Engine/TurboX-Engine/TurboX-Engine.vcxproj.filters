@@ -402,9 +402,6 @@
     <ClInclude Include="ModuleEditor.h">
       <Filter>Sources\Modules\Game</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleImporter.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="About.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
@@ -666,6 +663,9 @@
     <ClInclude Include="Libraries\MathGeoLib\Time\Clock.h">
       <Filter>Libraries\MathGeoLib\Time</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleFileSystem.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -736,9 +736,6 @@
     </ClCompile>
     <ClCompile Include="ModuleEditor.cpp">
       <Filter>Sources\Modules\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleImporter.cpp">
-      <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="About.cpp">
       <Filter>Sources\Editor</Filter>
@@ -892,6 +889,9 @@
     </ClCompile>
     <ClCompile Include="Libraries\MathGeoLib\Time\Clock.cpp">
       <Filter>Libraries\MathGeoLib\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFileSystem.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

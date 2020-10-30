@@ -1,6 +1,7 @@
 #include "Application.h"
 
 #include "Module.h"
+#include "ModuleFileSystem.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
@@ -11,11 +12,12 @@
 #include "ModulePhysics3D.h"
 #include "ModuleGui.h"
 #include "ModuleScene.h"
-#include "ModuleImporter.h"
 #include "ModuleConsole.h"
+
 
 Application::Application()
 {
+	file_system = new ModuleFileSystem(this);
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
 	audio = new ModuleAudio(this, true);
@@ -25,23 +27,23 @@ Application::Application()
 	physics = new ModulePhysics3D(this);
 	gui = new ModuleGui(this);
 	scene = new ModuleScene(this);
-	importer = new ModuleImporter(this);
 	console = new ModuleConsole();
 	
-
+	
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
 
 	// Main Modules
+	AddModule(file_system);
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
-	AddModule(importer);
 	AddModule(physics);
 	AddModule(gui);
 	AddModule(scene);
+	
 
 	// Scenes
 	AddModule(editor);

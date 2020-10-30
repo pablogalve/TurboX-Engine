@@ -9,6 +9,7 @@
 
 class Module;
 
+class ModuleFileSystem;
 class ModuleWindow;
 class ModuleInput;
 class ModuleAudio;
@@ -20,11 +21,11 @@ class ModulePhysics3D;
 class ModuleGui;
 class ModuleScene;
 class ModuleConsole;
-class ModuleImporter;
 
 class Application
 {
 public:
+	ModuleFileSystem* file_system = NULL;
 	ModuleWindow* window = NULL;
 	ModuleInput* input = NULL;
 	ModuleAudio* audio = NULL;
@@ -35,7 +36,6 @@ public:
 	ModuleGui* gui = NULL;
 	ModuleScene* scene = NULL;
 	ModuleConsole* console = NULL;
-	ModuleImporter* importer = NULL;
 
 private:
 
