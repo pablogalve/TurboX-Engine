@@ -92,7 +92,7 @@ void Hierarchy::OpenPopUpWindow()
 		{
 			if (selectedGameObjects.empty() == false) {
 				selectedGameObjects[0]->DeleteGameObject();
-				//App->scene->DestroyGameObject(selectedGameObjects[0]);
+				App->scene->DestroyGameObject(selectedGameObjects[0]);
 			}
 			open_pop_up = false;
 		}

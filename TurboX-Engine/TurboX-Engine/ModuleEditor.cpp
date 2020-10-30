@@ -5,6 +5,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
+#include "ModuleScene.h"
 #include <string>
 
 #include "ImGui/imgui.h"
@@ -132,9 +133,63 @@ void ModuleEditor::ShowMenuBar()
 		}
 		if (ImGui::BeginMenu("Assets")) {
 			if (ImGui::MenuItem("Create Cube")) {
-				Mesh_Cube* mesh = new Mesh_Cube();
-				mesh->CreateMesh("Cube");	
-				delete mesh;
+				GameObject* cube;
+				cube = new GameObject();
+				cube->CreateComponent(Component::Type::Mesh);
+				cube->CreateComponent(Component::Type::Transform);
+				cube->CreateComponent(Component::Type::Material);
+				cube->mesh->LoadMesh("Assets/Cube.fbx");
+				App->scene->AddChild(cube);
+			}
+			if (ImGui::MenuItem("Create Sphere"))
+			{
+				GameObject* sphere;
+				sphere = new GameObject();
+				sphere->CreateComponent(Component::Type::Mesh);
+				sphere->CreateComponent(Component::Type::Transform);
+				sphere->CreateComponent(Component::Type::Material);
+				sphere->mesh->LoadMesh("Assets/Sphere.fbx");
+				App->scene->AddChild(sphere);
+			}
+			if (ImGui::MenuItem("Create Cone"))
+			{
+				GameObject* cone;
+				cone = new GameObject();
+				cone->CreateComponent(Component::Type::Mesh);
+				cone->CreateComponent(Component::Type::Transform);
+				cone->CreateComponent(Component::Type::Material);
+				cone->mesh->LoadMesh("Assets/Cone.fbx");
+				App->scene->AddChild(cone);
+			}
+			if (ImGui::MenuItem("Create Cylinder"))
+			{
+				GameObject* cylinder;
+				cylinder = new GameObject();
+				cylinder->CreateComponent(Component::Type::Mesh);
+				cylinder->CreateComponent(Component::Type::Transform);
+				cylinder->CreateComponent(Component::Type::Material);
+				cylinder->mesh->LoadMesh("Assets/Cylinder.fbx");
+				App->scene->AddChild(cylinder);
+			}
+			if (ImGui::MenuItem("Create Pyramid"))
+			{
+				GameObject* pyramid;
+				pyramid = new GameObject();
+				pyramid->CreateComponent(Component::Type::Mesh);
+				pyramid->CreateComponent(Component::Type::Transform);
+				pyramid->CreateComponent(Component::Type::Material);
+				pyramid->mesh->LoadMesh("Assets/Pyramid.fbx");
+				App->scene->AddChild(pyramid);
+			}
+			if (ImGui::MenuItem("Create Plane"))
+			{
+				GameObject* plane;
+				plane = new GameObject();
+				plane->CreateComponent(Component::Type::Mesh);
+				plane->CreateComponent(Component::Type::Transform);
+				plane->CreateComponent(Component::Type::Material);
+				plane->mesh->LoadMesh("Assets/Plane.fbx");
+				App->scene->AddChild(plane);
 			}
 
 			ImGui::EndMenu();
