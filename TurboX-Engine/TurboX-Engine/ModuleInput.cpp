@@ -179,8 +179,14 @@ update_status ModuleInput::PreUpdate(float dt)
 						GameObject* selectedGameObject = App->editor->hierarchy_window->selectedGameObjects[0];
 						if (selectedGameObject != nullptr)
 						{
-							selectedGameObject->CreateComponent(Component::Type::Material);
-							selectedGameObject->material->LoadTexture(dropped_filedir);
+							if (selectedGameObject->material == nullptr) {
+								selectedGameObject->CreateComponent(Component::Type::Material);
+								selectedGameObject->material->LoadTexture(dropped_filedir);
+							}
+							else {
+								//TODO: Remove current texture
+								selectedGameObject->material->LoadTexture(dropped_filedir);
+							}
 						}
 					}
 					else {

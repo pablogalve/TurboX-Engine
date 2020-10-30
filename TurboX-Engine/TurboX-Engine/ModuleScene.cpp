@@ -2,6 +2,8 @@
 #include "ModuleScene.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "Hierarchy.h"
+#include "ModuleEditor.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -45,6 +47,9 @@ update_status ModuleScene::PostUpdate(float dt)
 {
 	DrawGameObjects(GetRoot(), GetRoot());
 
+	if(App->editor->hierarchy_window->selectedGameObjects.empty() == false)
+		DestroyGameObject(App->editor->hierarchy_window->selectedGameObjects[0]);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -70,6 +75,30 @@ GameObject* ModuleScene::CreateGameObject(std::string name, GameObject* parent)
 		AddChild(newGameObject, parent);
 
 	return newGameObject;
+}
+
+void ModuleScene::DestroyGameObject(GameObject* selectedGameObject)
+{
+	if (selectedGameObject->GetToDelete()) {
+
+		selectedGameObject->mesh = nullptr;
+		delete selectedGameObject->mesh;
+		selectedGameObject->material = nullptr;
+		delete selectedGameObject->material;
+
+		for (int i = 0; i < selectedGameObject->childs.size(); ++i)
+			delete selectedGameObject->childs[i];
+
+		selectedGameObject->childs.clear();
+
+		for (int i = 0; i < selectedGameObject->components.size(); ++i)
+			delete selectedGameObject->components[i];
+
+		selectedGameObject->components.clear();
+
+		selectedGameObject = nullptr;
+		delete selectedGameObject;
+	}	
 }
 
 void ModuleScene::AddChild(GameObject* child, GameObject* parent)

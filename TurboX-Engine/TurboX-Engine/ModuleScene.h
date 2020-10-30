@@ -18,6 +18,7 @@ public:
 	bool CleanUp();
 
 	GameObject* CreateGameObject(std::string name, GameObject* parent = nullptr);
+	void DestroyGameObject(GameObject* selectedGameObject);
 	void AddChild(GameObject* child, GameObject* parent = nullptr);
 
 	void DrawGameObjects(GameObject* gameObject, GameObject* root);

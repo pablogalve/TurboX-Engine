@@ -13,7 +13,7 @@ C_Mesh::C_Mesh(Component::Type type, GameObject* owner):Component(type, owner)
 	this->owner = owner;
 	material = nullptr;
 	face_normals_active = false;
-	vertex_normals_active = false;
+	vertex_normals_active = false;	
 }
 
 C_Mesh::~C_Mesh()
@@ -54,7 +54,7 @@ void C_Mesh::Draw()
 			}
 			else
 			{
-				glBindTexture(GL_TEXTURE_2D, material->TextureID);
+				glBindTexture(GL_TEXTURE_2D, material->textureID);
 			}
 		}
 			
@@ -99,7 +99,7 @@ void C_Mesh::SetMeshBuffer(GameObject* parent)
 		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * parent->mesh->num_normals * 3, parent->mesh->normals, GL_STATIC_DRAW);
 	}
 
-	if (num_texcoords > 0)
+	if (parent->mesh->num_texcoords > 0)
 	{
 		glGenBuffers(1, (GLuint*) & (parent->mesh->id_texcoords));
 		glBindBuffer(GL_ARRAY_BUFFER, parent->mesh->id_texcoords);

@@ -18,6 +18,7 @@ public:
 	void Draw() override;
 	void Draw(Application* App);
 	void DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags default_flags, GameObject* root);
+	void OpenPopUpWindow();
 
 	void SetShowWindow() override;
 	bool GetShowWindow() override { return showWindow; };
@@ -28,6 +29,7 @@ public:
 
 public:
 	std::vector<GameObject*> selectedGameObjects;
+	bool open_pop_up;
 };
 
 #endif // !__HIERARCHY_H_

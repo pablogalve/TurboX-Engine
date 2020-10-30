@@ -5,8 +5,8 @@
 TurboX-Engine is a 3D Game Engine built from the ground in C++ and OpenGL. We are two future game developers that are currently studying at CITM (Barcelona, Spain).
 
 ## Team Members
-- Macià Dalmau Roig [github.com/maciadalmau](github.com/maciadalmau)
-- Pablo Galve Millán [github.com/pablogalve](github.com/pablogalve)
+- Macià Dalmau Roig [github.com/maciadalmau](https://github.com/maciadalmau)
+- Pablo Galve Millán [github.com/pablogalve](https://github.com/pablogalve)
 
 ## Engine Controls:
 

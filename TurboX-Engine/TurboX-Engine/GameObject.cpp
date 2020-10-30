@@ -7,16 +7,23 @@ GameObject::GameObject()
 	active = true;
 	ChangeName("Custom Mesh");
 	is_selected = false;
+	to_delete = false;
 }
 
 GameObject::~GameObject()
 {
-	mesh = nullptr;
+	/*mesh = nullptr;
 	delete mesh;
-}
 
-void GameObject::Update()
-{
+	for (int i = 0; i < childs.size(); ++i)
+		delete childs[i];
+
+	childs.clear();
+
+	for (int i = 0; i < components.size(); ++i)
+		delete components[i];
+
+	components.clear();*/
 }
 
 Component* GameObject::CreateComponent(Component::Type type)
@@ -47,6 +54,19 @@ Component* GameObject::CreateComponent(Component::Type type)
 		components.push_back(new_component);
 
 	return new_component;
+}
+
+void GameObject::DestroyComponent()
+{
+	Component::Type type;
+
+	for (int i = 0; i < components.size(); i++)
+	{
+		if (type == components[i]->GetComponentType())
+		{
+			components[i]->Disable();
+		}
+	}
 }
 
 Component* GameObject::GetComponent(Component::Type type)

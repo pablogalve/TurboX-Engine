@@ -3,6 +3,10 @@
 C_Material::C_Material(Component::Type type, GameObject* owner):Component(type, owner)
 {
 	this->owner = owner;
+	imageName = 0;
+	checkersImage = 0;
+	defaultTex = false;
+	material_path = "";
 	LoadDefaultTex();
 }
 
@@ -11,23 +15,21 @@ C_Material::~C_Material()
 }
 
 void C_Material::LoadTexture(const char* file_name)
-{
-	
+{	
 	material_path = (std::string)file_name;
-	ilGenImages(1, &ImageName);
-	ilBindImage(ImageName);
+	ilGenImages(1, &imageName);
+	ilBindImage(imageName);
 	ilLoadImage(file_name);
-	TextureID = ilutGLBindTexImage();
-	ilDeleteImages(1, &ImageName);
-	
+	textureID = ilutGLBindTexImage();
+	ilDeleteImages(1, &imageName);	
 }
 
 void C_Material::UnLoadTexture()
 {
-	if (TextureID != 0)
+	if (textureID != 0)
 	{
-		glDeleteTextures(1, &TextureID);
-		TextureID = 0;
+		glDeleteTextures(1, &textureID);
+		textureID = 0;
 	}
 }
 	
@@ -60,9 +62,7 @@ void C_Material::LoadDefaultTex()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkerImage);
-
-	
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkerImage);	
 }
 
 

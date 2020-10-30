@@ -16,12 +16,15 @@ public:
 	GameObject();
 	~GameObject();
 
-	void Update();
 	Component* CreateComponent(Component::Type type);
+	void DestroyComponent();
 	Component* GetComponent(Component::Type type);
 	void Draw();
 
 	void ChangeName(std::string _name);
+
+	void DeleteGameObject() { to_delete = true; }
+	bool GetToDelete() { return to_delete; };
 public:	
 	std::string name;
 	vector<Component*> components;
@@ -34,10 +37,10 @@ public:
 	bool Get_IsSelected();
 	void Select();
 	void Unselect();
-	
 private:
 	bool active;	
 	bool is_selected;
+	bool to_delete;
 };
 
 #endif //!__GAMEOBJECT_H__
