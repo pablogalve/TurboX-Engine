@@ -109,7 +109,8 @@ typedef int aiBool;
  */
 ASSIMP_API const C_STRUCT aiScene* aiImportFile(
     const char* pFile,
-    unsigned int pFlags);
+    unsigned int pFlags
+);
 
 // --------------------------------------------------------------------------------
 /** Reads the given file using user-defined I/O functions and returns

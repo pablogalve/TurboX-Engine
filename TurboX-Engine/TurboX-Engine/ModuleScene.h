@@ -26,7 +26,7 @@ public:
 	GameObject* GetRoot();
 
 public:
-	GameObject* baker_house_01;
+	GameObject* baker_house;
 
 private:
 	GameObject* root;

@@ -17,8 +17,12 @@ ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled) : Modul
 	PHYSFS_init(base_path);
 	SDL_free(base_path);
 
-	// workaround VS string directory mess
+	//AddPath("Game");
 	AddPath(".");
+	AddPath("Assets");
+	if (PHYSFS_setWriteDir(".") == 0)
+		MY_LOG("File System error while creating write dir: %s\n", PHYSFS_getLastError());
+	// workaround VS string directory mess
 
 	// Generate IO interfaces
 	CreateAssimpIO();

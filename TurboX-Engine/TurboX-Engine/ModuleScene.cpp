@@ -20,14 +20,14 @@ bool ModuleScene::Start()
 	root = new GameObject();
 	root->ChangeName("Root");	
 
-	baker_house_01 = new GameObject();
-	baker_house_01->CreateComponent(Component::Type::Mesh);
-	baker_house_01->CreateComponent(Component::Type::Transform);
-	baker_house_01->CreateComponent(Component::Type::Material);
-	baker_house_01->material->LoadTexture("Assets/Baker_house.png");
-	baker_house_01->mesh->LoadMesh("Assets/BakerHouse.fbx");	
+	baker_house = new GameObject();
+	baker_house->CreateComponent(Component::Type::Mesh);
+	baker_house->CreateComponent(Component::Type::Transform);
+	baker_house->CreateComponent(Component::Type::Material);
+	baker_house->material->LoadTexture("Baker_house.png");
+	baker_house->mesh->LoadMesh("Assets/BakerHouse.fbx");	
 
-	root->childs.push_back(baker_house_01);
+	root->childs.push_back(baker_house);
 
 	return ret;
 }
