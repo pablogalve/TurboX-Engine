@@ -75,7 +75,7 @@ void Inspector::Draw()
 			ImGui::Text("File Path: "); ImGui::SameLine();
 			ImVec4 yellow(1.0f, 0.8f, 0.0f, 1.0f);
 			ImGui::TextColored(yellow, material->GetMaterialPath().c_str());
-			ImGui::Checkbox("Default Texture: ", &material->defaultTex);
+			ImGui::Checkbox("Default Texture", &material->defaultTex);
 
 		}
 	}	

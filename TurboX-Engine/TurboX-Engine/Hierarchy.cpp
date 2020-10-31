@@ -86,6 +86,7 @@ void Hierarchy::OpenPopUpWindow()
 		open_pop_up = false;
 
 	ImGui::OpenPopup("Hierarchy Tools");
+
 	if (ImGui::BeginPopup("Hierarchy Tools"))
 	{
 		if (ImGui::MenuItem("Delete"))
@@ -94,7 +95,7 @@ void Hierarchy::OpenPopUpWindow()
 				selectedGameObjects[0]->DeleteGameObject();
 				App->scene->DestroyGameObject(selectedGameObjects[0]);
 			}
-			open_pop_up = false;
+			ImGui::CloseCurrentPopup();
 		}
 
 		ImGui::EndPopup();

@@ -20,22 +20,12 @@ void C_Material::LoadTexture(const char* file_name)
 {	
 	material_path = (std::string)file_name;
 
-	char* buffer = nullptr;
-	std::string full_path = "Assets/";
-	full_path.append(file_name);
-
-	uint size = App->file_system->Load(full_path.c_str(), &buffer);
-
 	ilGenImages(1, &imageName);
 	ilBindImage(imageName);
+	ilLoadImage(file_name);
+	textureID = ilutGLBindTexImage();
+	ilDeleteImages(1, &imageName);
 
-	if (ilLoadL(IL_TYPE_UNKNOWN, (const void*)buffer, size))
-	{
-		textureID = ilutGLBindTexImage();
-		ilDeleteImages(1, &imageName);
-	}
-	
-	RELEASE_ARRAY(buffer);
 }
 
 void C_Material::UnLoadTexture()

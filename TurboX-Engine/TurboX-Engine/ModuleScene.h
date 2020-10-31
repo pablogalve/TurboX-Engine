@@ -27,6 +27,7 @@ public:
 
 public:
 	GameObject* baker_house;
+	GameObject* airplane;
 
 private:
 	GameObject* root;
