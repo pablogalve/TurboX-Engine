@@ -12,18 +12,7 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	/*mesh = nullptr;
-	delete mesh;
-
-	for (int i = 0; i < childs.size(); ++i)
-		delete childs[i];
-
-	childs.clear();
-
-	for (int i = 0; i < components.size(); ++i)
-		delete components[i];
-
-	components.clear();*/
+	
 }
 
 Component* GameObject::CreateComponent(Component::Type type)

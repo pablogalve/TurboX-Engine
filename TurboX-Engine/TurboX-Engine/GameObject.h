@@ -29,6 +29,7 @@ public:
 	std::string name;
 	vector<Component*> components;
 	vector<GameObject*> childs;
+	vector<GameObject*> game_objects;
 	GameObject* parent = NULL;
 	C_Mesh* mesh = NULL;
 	C_Material* material = NULL;
@@ -37,7 +38,7 @@ public:
 	bool Get_IsSelected();
 	void Select();
 	void Unselect();
-private:
+public:
 	bool active;	
 	bool is_selected;
 	bool to_delete;

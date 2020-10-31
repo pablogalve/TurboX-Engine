@@ -13,6 +13,9 @@ public:
 
 	void SetShowWindow() override;
 	bool GetShowWindow() override { return showWindow; };
+
+public:
+	char nameBuffer[256];
 };
 
 #endif // !__INSPECTOR_H_

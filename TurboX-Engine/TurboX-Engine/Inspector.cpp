@@ -20,7 +20,16 @@ void Inspector::Draw()
 		GameObject* gameObject = App->editor->hierarchy_window->selectedGameObjects[0];
 
 		C_Transform* transform = (C_Transform*)gameObject->GetComponent(Component::Type::Transform);
-				
+		
+		ImGui::Checkbox("Enabled", &gameObject->active); ImGui::SameLine();
+		
+		strcpy(nameBuffer, gameObject->name.c_str());
+
+		if(ImGui::InputText(" ", nameBuffer, IM_ARRAYSIZE(nameBuffer)))
+		{
+			gameObject->name.assign(nameBuffer);
+		}
+
 		if (ImGui::CollapsingHeader("Transform") && transform != nullptr)
 		{
 			float3 pos = transform->GetPosition();
