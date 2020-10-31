@@ -109,16 +109,25 @@ void C_Mesh::SetMeshBuffer(GameObject* parent)
 	}
 }
 
-void C_Mesh::LoadMesh(char* file_path)
+void C_Mesh::LoadMesh(char* file_path, GameObject* gameObject)
 {
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
 
 	if (scene != nullptr && scene->HasMeshes()) {
 		if (scene->mNumMeshes == 1) {
 			LoadSingleMesh(file_path);
+			App->scene->AddChild(gameObject);
 		}
 		else {
-			LoadSingleMesh(file_path);
+			GameObject* parent;
+			parent = new GameObject();
+			parent->CreateComponent(Component::Type::Mesh);
+			parent->CreateComponent(Component::Type::Material);
+			parent->CreateComponent(Component::Type::Transform);
+			parent->ChangeName(gameObject->name);
+			App->scene->AddChild(parent);
+
+			LoadSingleMesh(file_path, parent);
 			// Use scene->mNumMeshes to iterate on scene->mMeshes array
 			for (int i = 1; i < scene->mNumMeshes; i++)
 			{
@@ -128,8 +137,10 @@ void C_Mesh::LoadMesh(char* file_path)
 				new_gameObject->CreateComponent(Component::Type::Mesh);
 				new_gameObject->CreateComponent(Component::Type::Material);
 				new_gameObject->CreateComponent(Component::Type::Transform);
-				new_gameObject->material->LoadTexture((const char*)owner->material->GetMaterialPath().c_str());
-				App->scene->AddChild(new_gameObject);
+				if(owner->material != nullptr)
+					new_gameObject->material->LoadTexture((const char*)owner->material->GetMaterialPath().c_str());
+				App->scene->AddChild(new_gameObject, parent);
+				new_gameObject->ChangeName(gameObject->name);
 
 				// copy vertices
 				new_gameObject->mesh->num_vertex = meshIterator->mNumVertices;
@@ -186,7 +197,7 @@ void C_Mesh::LoadMesh(char* file_path)
 	}
 }
 
-void C_Mesh::LoadSingleMesh(char* file_path)
+void C_Mesh::LoadSingleMesh(char* file_path, GameObject* new_parent)
 {
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
 	
@@ -235,6 +246,19 @@ void C_Mesh::LoadSingleMesh(char* file_path)
 			texcoords[v + 1] = meshIterator->mTextureCoords[0][i].y;
 		}
 	}
+
+	if (new_parent != nullptr) {
+		App->scene->AddChild(this->owner, new_parent);
+		GameObject* root = App->scene->GetRoot();
+		for (size_t i = 0; i < root->childs.size(); i++)
+		{
+			if (root->childs[i]->parent != root) {
+				root->childs.erase(root->childs.begin() + i);
+			}
+		}
+	}
+		
+
 	SetMeshBuffer(owner);		
 
 	aiReleaseImport(scene);

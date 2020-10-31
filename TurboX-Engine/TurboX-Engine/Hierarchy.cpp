@@ -36,7 +36,7 @@ void Hierarchy::Draw(Application* App)
 void Hierarchy::DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags default_flags, GameObject* root)
 {	
 	bool drawAgain = true;
-
+		
 	ImGuiTreeNodeFlags flags = default_flags;	
 	
 	if (gameObject->childs.empty()) {
@@ -67,15 +67,15 @@ void Hierarchy::DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags defaul
 			DeselectAll();
 			SelectSingle(gameObject);
 		}
-	}	
+	}
 
 	if (drawAgain)
 	{
 		for (uint i = 0; i < gameObject->childs.size(); i++)
 		{
 			DrawGameObject(gameObject->childs[i], flags, root);
-		}		
-	}		
+		}
+	}
 }
 
 void Hierarchy::OpenPopUpWindow()

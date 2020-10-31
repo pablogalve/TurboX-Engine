@@ -171,10 +171,9 @@ update_status ModuleInput::PreUpdate(float dt)
 					imported_model = new GameObject();
 					imported_model->CreateComponent(Component::Type::Mesh);
 					imported_model->CreateComponent(Component::Type::Transform);
-					imported_model->CreateComponent(Component::Type::Material);
-					imported_model->mesh->LoadMesh(dropped_filedir);
-					imported_model->material->LoadTexture(dropped_filedir);
-					App->scene->AddChild(imported_model);
+					//imported_model->CreateComponent(Component::Type::Material);
+					//imported_model->material->LoadTexture(dropped_filedir);
+					imported_model->mesh->LoadMesh(dropped_filedir, imported_model);
 					break;
 				case FileType::PNG:
 				{

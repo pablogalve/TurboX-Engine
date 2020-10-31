@@ -25,17 +25,16 @@ bool ModuleScene::Start()
 	baker_house->CreateComponent(Component::Type::Transform);
 	baker_house->CreateComponent(Component::Type::Material);
 	baker_house->material->LoadTexture("Assets/Baker_house.png");
-	baker_house->mesh->LoadMesh("Assets/BakerHouse.fbx");	
-
-	root->childs.push_back(baker_house);
-
+	baker_house->ChangeName("Baker house");
+	baker_house->mesh->LoadMesh("Assets/BakerHouse.fbx", baker_house);
+	
 	airplane = new GameObject();
 	airplane->CreateComponent(Component::Type::Mesh);
 	airplane->CreateComponent(Component::Type::Transform);
 	airplane->CreateComponent(Component::Type::Material);
 	airplane->material->LoadTexture("Assets/airplane.dds");
-	airplane->mesh->LoadMesh("Assets/airplane.fbx");
-	root->childs.push_back(airplane);
+	airplane->ChangeName("Airplane");
+	airplane->mesh->LoadMesh("Assets/airplane.fbx", airplane);
 
 	return ret;
 }
@@ -89,8 +88,18 @@ void ModuleScene::DestroyGameObject(GameObject* selectedGameObject)
 		selectedGameObject->components.clear();
 
 		for (int i = 0; i < root->childs.size(); i++)
-		{
-			if(root->childs[i] == selectedGameObject)
+		{	
+			if (root->childs[i]->childs.empty() == false)
+			{
+				for (size_t j = 0; j < root->childs[i]->childs.size(); j++)
+				{
+					if (root->childs[i]->childs[j] == selectedGameObject)
+					{
+						root->childs[i]->childs.erase(root->childs[i]->childs.begin() + j);
+					}
+				}
+			}	
+			if (root->childs[i] == selectedGameObject)
 			{
 				root->childs.erase(root->childs.begin() + i);
 			}
@@ -109,12 +118,10 @@ void ModuleScene::DestroyGameObject(GameObject* selectedGameObject)
 			if (App->editor->hierarchy_window->selectedGameObjects[i] == selectedGameObject)
 			{
 				App->editor->hierarchy_window->selectedGameObjects.erase(App->editor->hierarchy_window->selectedGameObjects.begin() + i);
-				
 			}
 
 		}
-		delete selectedGameObject;
-			
+		delete selectedGameObject;			
 	}
 }
 
