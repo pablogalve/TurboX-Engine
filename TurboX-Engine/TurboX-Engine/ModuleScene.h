@@ -17,7 +17,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	GameObject* CreateGameObject(std::string name, GameObject* parent = nullptr);
+	GameObject* CreateGameObject(std::string name, char* mesh_path = nullptr, char* texture_path = nullptr, GameObject* parent = nullptr);
 	void DestroyGameObject(GameObject* selectedGameObject);
 	void AddChild(GameObject* child, GameObject* parent = nullptr);
 

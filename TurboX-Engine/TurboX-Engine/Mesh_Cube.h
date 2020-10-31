@@ -15,9 +15,4 @@ public:
 	void Draw() override;
 	void DrawCubeWithArrays();
 	void DrawCubeWithIndices();
-
-	void CreateMesh(std::string name) override;
-public:
-
-	
 };

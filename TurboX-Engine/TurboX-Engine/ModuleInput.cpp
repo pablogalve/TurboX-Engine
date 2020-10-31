@@ -168,12 +168,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				{
 				case FileType::FBX:
 					GameObject* imported_model;
-					imported_model = new GameObject();
-					imported_model->CreateComponent(Component::Type::Mesh);
-					imported_model->CreateComponent(Component::Type::Transform);
-					//imported_model->CreateComponent(Component::Type::Material);
-					//imported_model->material->LoadTexture(dropped_filedir);
-					imported_model->mesh->LoadMesh(dropped_filedir, imported_model);
+					imported_model = App->scene->CreateGameObject("Imported model", dropped_filedir);
 					break;
 				case FileType::PNG:
 				{

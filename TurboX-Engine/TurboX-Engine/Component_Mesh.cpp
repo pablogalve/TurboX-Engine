@@ -122,7 +122,6 @@ void C_Mesh::LoadMesh(char* file_path, GameObject* gameObject)
 			GameObject* parent;
 			parent = new GameObject();
 			parent->CreateComponent(Component::Type::Mesh);
-			parent->CreateComponent(Component::Type::Material);
 			parent->CreateComponent(Component::Type::Transform);
 			parent->ChangeName(gameObject->name);
 			App->scene->AddChild(parent);

@@ -17,24 +17,9 @@ bool ModuleScene::Start()
 {
 	bool ret = true;
 
-	root = new GameObject();
-	root->ChangeName("Root");	
-
-	baker_house = new GameObject();
-	baker_house->CreateComponent(Component::Type::Mesh);
-	baker_house->CreateComponent(Component::Type::Transform);
-	baker_house->CreateComponent(Component::Type::Material);
-	baker_house->material->LoadTexture("Assets/Baker_house.png");
-	baker_house->ChangeName("Baker house");
-	baker_house->mesh->LoadMesh("Assets/BakerHouse.fbx", baker_house);
-	
-	airplane = new GameObject();
-	airplane->CreateComponent(Component::Type::Mesh);
-	airplane->CreateComponent(Component::Type::Transform);
-	airplane->CreateComponent(Component::Type::Material);
-	airplane->material->LoadTexture("Assets/airplane.dds");
-	airplane->ChangeName("Airplane");
-	airplane->mesh->LoadMesh("Assets/airplane.fbx", airplane);
+	root = CreateGameObject("Root");
+	baker_house = CreateGameObject("Baker House", "Assets/BakerHouse.fbx", "Assets/Baker_house.png");	
+	airplane = CreateGameObject("Airplane", "Assets/airplane.fbx", "Assets/airplane.dds");
 
 	return ret;
 }
@@ -66,17 +51,26 @@ bool ModuleScene::CleanUp()
 	return ret;
 }
 
-GameObject* ModuleScene::CreateGameObject(std::string name, GameObject* parent)
+GameObject* ModuleScene::CreateGameObject(std::string name, char* mesh_path, char* texture_path, GameObject* parent)
 {
 	GameObject* newGameObject = nullptr;
 	newGameObject = new GameObject();
+	newGameObject->ChangeName(name);
 
-	newGameObject->name = name;
+	// Transform
+	newGameObject->CreateComponent(Component::Type::Transform);
 
-	if (parent == nullptr)
-		AddChild(newGameObject, root);	
-	else
-		AddChild(newGameObject, parent);
+	// Texture
+	if (texture_path != nullptr) {
+		newGameObject->CreateComponent(Component::Type::Material);
+		newGameObject->material->LoadTexture(texture_path);
+	}
+
+	// Mesh
+	if (mesh_path != nullptr) {
+		newGameObject->CreateComponent(Component::Type::Mesh);
+		newGameObject->mesh->LoadMesh(mesh_path, newGameObject);
+	}	
 
 	return newGameObject;
 }
