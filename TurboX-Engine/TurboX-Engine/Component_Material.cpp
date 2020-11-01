@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "ModuleFileSystem.h"
 #include "Component_Material.h"
+#include "ModuleInput.h"
 
 C_Material::C_Material(Component::Type type, GameObject* owner):Component(type, owner)
 {
@@ -24,6 +25,27 @@ C_Material::~C_Material()
 void C_Material::LoadTexture(const char* file_name)
 {	
 	material_path = (std::string)file_name;
+
+	/*char* buffer = nullptr;
+	uint size = App->file_system->Load(file_name, &buffer);
+	ILenum type = IL_TYPE_UNKNOWN;
+	ilGenImages(1, &imageName);
+	ilBindImage(imageName);
+	
+	if(App->input->GetFileType(material_path) == FileType::PNG)
+	{
+		type = IL_PNG;
+	}
+	else if(App->input->GetFileType(material_path) == FileType::DDS)
+	{
+		type = IL_DDS;
+	}
+
+	ilLoadL(type, buffer, size);
+	Width = ilGetInteger(IL_IMAGE_WIDTH);
+	Height = ilGetInteger(IL_IMAGE_HEIGHT);
+	textureID = ilutGLBindTexImage();
+	ilDeleteImages(1, &imageName);*/
 
 	ilGenImages(1, &imageName);
 	ilBindImage(imageName);

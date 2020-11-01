@@ -23,7 +23,8 @@ void W_Inspector::Draw()
 		
 		ImVec4 yellow(1.0f, 0.8f, 0.0f, 1.0f);
 
-		ImGui::Checkbox("Enabled", &gameObject->mesh->active); ImGui::SameLine();
+		if(gameObject->mesh != nullptr)
+			ImGui::Checkbox("Enabled", &gameObject->mesh->active); ImGui::SameLine();
 		
 		strcpy(nameBuffer, gameObject->name.c_str());
 
