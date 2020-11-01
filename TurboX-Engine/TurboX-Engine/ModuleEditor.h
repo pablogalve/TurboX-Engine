@@ -14,6 +14,7 @@
 #include "SceneWindow.h"
 #include "Resources.h"
 #include "Inspector.h"
+#include "theme.h"
 
 typedef int GLint;
 
@@ -44,6 +45,7 @@ public:
 	SceneWindow* scene_window;
 	Resources* resources_window;
 	Inspector* inspector_window;
+	Theme* theme_window;
 	//Configuration* config = new Configuration(App); //TODO: Gives error
 
 private:

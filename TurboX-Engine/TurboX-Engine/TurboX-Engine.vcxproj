@@ -273,6 +273,7 @@
     <ClInclude Include="Resources.h" />
     <ClInclude Include="SceneWindow.h" />
     <ClInclude Include="Mesh_Sphere.h" />
+    <ClInclude Include="theme.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WindowConfig.h" />
   </ItemGroup>
@@ -350,6 +351,7 @@
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="SceneWindow.cpp" />
     <ClCompile Include="Mesh_Sphere.cpp" />
+    <ClCompile Include="theme.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WindowConfig.cpp" />
   </ItemGroup>

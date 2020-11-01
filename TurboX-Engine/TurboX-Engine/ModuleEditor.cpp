@@ -27,6 +27,7 @@ ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, s
 	scene_window = new SceneWindow();
 	resources_window = new Resources();
 	inspector_window = new Inspector();	
+	theme_window = new Theme();
 	//config = new Configuration(app, true);
 }
 
@@ -65,6 +66,7 @@ update_status ModuleEditor::Update(float dt)
 	if (explorer_window->GetShowWindow()) explorer_window->Draw();
 	if (resources_window->GetShowWindow())resources_window->Draw();
 	if (showConfigurationWindow)ShowConfigurationWindow();
+	if (theme_window->GetShowWindow())theme_window->Draw();
 
 	return UPDATE_CONTINUE;
 }
@@ -82,6 +84,7 @@ bool ModuleEditor::CleanUp()
 	delete inspector_window;
 	delete resources_window;
 	delete scene_window;
+	delete theme_window;
 
 	return ret;
 }
@@ -129,6 +132,15 @@ void ModuleEditor::ShowMenuBar()
 			{
 				App->CloseApp();
 			}			
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("Edit"))
+		{
+			if (ImGui::BeginMenu("Styling"))
+			{
+				if (ImGui::MenuItem("Theme", nullptr, theme_window->GetShowWindow())) theme_window->SetShowWindow();
+				ImGui::EndMenu();
+			}
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Assets")) {
