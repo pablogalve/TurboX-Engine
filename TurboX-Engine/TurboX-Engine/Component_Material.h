@@ -30,9 +30,11 @@ public:
 public:	
 	ILuint imageName;
 	ILuint checkersImage;
+	ILuint Width;
+	ILuint Height;
 	uint textureID;
 	uint defaultTextureID;
-
+	
 	bool defaultTex;
 private:
 	string material_path;

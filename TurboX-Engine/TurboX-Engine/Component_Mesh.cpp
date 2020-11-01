@@ -111,6 +111,7 @@ void C_Mesh::SetMeshBuffer(GameObject* parent)
 
 void C_Mesh::LoadMesh(char* file_path, GameObject* gameObject)
 {
+
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
 
 	if (scene != nullptr && scene->HasMeshes()) {

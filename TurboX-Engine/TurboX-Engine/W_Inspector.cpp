@@ -21,6 +21,8 @@ void W_Inspector::Draw()
 
 		C_Transform* transform = (C_Transform*)gameObject->GetComponent(Component::Type::Transform);
 		
+		ImVec4 yellow(1.0f, 0.8f, 0.0f, 1.0f);
+
 		ImGui::Checkbox("Enabled", &gameObject->active); ImGui::SameLine();
 		
 		strcpy(nameBuffer, gameObject->name.c_str());
@@ -52,16 +54,21 @@ void W_Inspector::Draw()
 			}
 		}
 
+		
 		C_Mesh* mesh = (C_Mesh*)gameObject->GetComponent(Component::Type::Mesh);
 
 		if(ImGui::CollapsingHeader("Mesh") && mesh != nullptr)
 		{
 			ImGui::Checkbox("Active", &mesh->active);
 
-			ImGui::Text("Index: %u", mesh->num_index);
-			ImGui::Text("Normals: %u", mesh->num_normals);
-			ImGui::Text("Vertices: %u", mesh->num_vertex);
-			ImGui::Text("Tex Coords: %u", mesh->num_texcoords);
+			ImGui::Text("Index: "); ImGui::SameLine();
+			ImGui::TextColored(yellow, "%u", mesh->num_index);
+			ImGui::Text("Normals: "); ImGui::SameLine();
+			ImGui::TextColored(yellow, "%u", mesh->num_normals);
+			ImGui::Text("Vertices: "); ImGui::SameLine();
+			ImGui::TextColored(yellow, "%u", mesh->num_vertex);
+			ImGui::Text("Tex Coords: "); ImGui::SameLine();
+			ImGui::TextColored(yellow, "%u", mesh->num_texcoords);
 
 			ImGui::Checkbox("Vertex Normals:", &mesh->vertex_normals_active);
 			ImGui::Checkbox("Face Normals:", &mesh->face_normals_active);
@@ -73,8 +80,11 @@ void W_Inspector::Draw()
 		{
 			ImGui::Checkbox("Active ", &material->active);
 			ImGui::Text("File Path: "); ImGui::SameLine();
-			ImVec4 yellow(1.0f, 0.8f, 0.0f, 1.0f);
 			ImGui::TextColored(yellow, material->GetMaterialPath().c_str());
+			ImGui::Text("Widht: "); ImGui::SameLine();
+			ImGui::TextColored(yellow, "%u", material->Width);
+			ImGui::Text("Height: "); ImGui::SameLine();
+			ImGui::TextColored(yellow, "%u", material->Height);
 			ImGui::Checkbox("Default Texture", &material->defaultTex);
 
 		}
