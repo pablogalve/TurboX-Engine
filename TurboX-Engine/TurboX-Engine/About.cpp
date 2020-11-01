@@ -13,6 +13,8 @@ About::~About()
 
 void About::Draw() 
 {
+	ImVec4 yellow(1.0f, 0.8f, 0.0f, 1.0f); //We'll use yellow to print the results
+
 	if (!ImGui::Begin("About", &showWindow))
 	{
 		ImGui::End();
@@ -31,8 +33,12 @@ void About::Draw()
 	ImGui::Text("3rd Party Libraries used:");
 
 	//SDL Version
-	ImGui::BulletText("SDL %d.%d.%d", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL); ImGui::SameLine();
-	if (ImGui::SmallButton("Open Website"))
+	SDL_version sdl_version;
+	SDL_GetVersion(&sdl_version);
+	ImGui::BulletText("SDL Version:");
+	ImGui::SameLine();
+	ImGui::TextColored(yellow, "%d.%d.%d", sdl_version.major, sdl_version.minor, sdl_version.patch); ImGui::SameLine();
+	if (ImGui::SmallButton("Open SDL Website"))
 		ShellExecuteA(NULL, "open", "https://libsdl.org/", NULL, NULL, SW_SHOWNORMAL);
 
 	//OpenGL
@@ -41,24 +47,40 @@ void About::Draw()
 	glGetIntegerv(GL_MAJOR_VERSION, &major);
 	glGetIntegerv(GL_MINOR_VERSION, &minor);
 
-	ImGui::BulletText("OpenGL %i.%i", major, minor); ImGui::SameLine();
-	if (ImGui::SmallButton("Open Website"))
+	ImGui::BulletText("OpenGL ", major, minor); ImGui::SameLine();
+	ImGui::TextColored(yellow, "%d.%d.%d", sdl_version.major, sdl_version.minor, sdl_version.patch); ImGui::SameLine();
+	if (ImGui::SmallButton("Open OpenGL Website"))
 		ShellExecuteA(NULL, "open", "https://www.opengl.org/", NULL, NULL, SW_SHOWNORMAL);
 
 	//ImGui Version
-	ImGui::BulletText("ImGui %s", ImGui::GetVersion()); ImGui::SameLine();
-	if (ImGui::SmallButton("Open Website"))
+	ImGui::BulletText("ImGui "); ImGui::SameLine();
+	ImGui::TextColored(yellow, "%s", ImGui::GetVersion()); ImGui::SameLine();
+	if (ImGui::SmallButton("Open ImGui Website"))
 		ShellExecuteA(NULL, "open", "https://github.com/ocornut/imgui", NULL, NULL, SW_SHOWNORMAL);
-	
+
 	////MathGeoLib
-	//ImGui::BulletText("MathGeoLib 1.5"); ImGui::SameLine();
-	//if (ImGui::SmallButton("Open Website"))
-	//	ShellExecuteA(NULL, "open", "https://github.com/juj/MathGeoLib", NULL, NULL, SW_SHOWNORMAL);
+	ImGui::BulletText("MathGeoLib "); ImGui::SameLine();
+	ImGui::TextColored(yellow, "1.5"); ImGui::SameLine();
+	if (ImGui::SmallButton("Open MathGeoLib Website"))
+		ShellExecuteA(NULL, "open", "https://github.com/juj/MathGeoLib", NULL, NULL, SW_SHOWNORMAL);
 
 	//Glew
-	ImGui::BulletText("Glew %d.%d.%d", GLEW_VERSION_MAJOR, GLEW_VERSION_MINOR, GLEW_VERSION_MICRO); ImGui::SameLine();
-	if (ImGui::SmallButton("Open Website"))
+	ImGui::BulletText("Glew "); ImGui::SameLine();
+	ImGui::TextColored(yellow, "%d.%d.%d", GLEW_VERSION_MAJOR, GLEW_VERSION_MINOR, GLEW_VERSION_MICRO); ImGui::SameLine();
+	if (ImGui::SmallButton("Open Glew Website"))
 		ShellExecuteA(NULL, "open", "https://github.com/nigels-com/glew", NULL, NULL, SW_SHOWNORMAL);
+
+	//DevIL
+	ImGui::BulletText("DevIL "); ImGui::SameLine();
+	ImGui::TextColored(yellow, "1.8.0"); ImGui::SameLine();
+	if (ImGui::SmallButton("Open DevIL Website"))
+		ShellExecuteA(NULL, "open", "http://openil.sourceforge.net/", NULL, NULL, SW_SHOWNORMAL);
+
+	//Assimp
+	ImGui::BulletText("Assimp "); ImGui::SameLine();
+	ImGui::TextColored(yellow, "3.1.1"); ImGui::SameLine();
+	if (ImGui::SmallButton("Open Assimp Website"))
+		ShellExecuteA(NULL, "open", "http://openil.sourceforge.net/", NULL, NULL, SW_SHOWNORMAL);
 
 	ImGui::Separator();
 

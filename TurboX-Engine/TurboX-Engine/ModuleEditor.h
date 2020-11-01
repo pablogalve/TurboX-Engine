@@ -46,7 +46,7 @@ public:
 	Resources* resources_window;
 	Inspector* inspector_window;
 	Theme* theme_window;
-	//Configuration* config = new Configuration(App); //TODO: Gives error
+	//Configuration* config;
 
 private:
 	bool showDemoWindow;

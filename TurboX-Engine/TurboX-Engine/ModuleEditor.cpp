@@ -145,22 +145,22 @@ void ModuleEditor::ShowMenuBar()
 		}
 		if (ImGui::BeginMenu("Assets")) {
 			if (ImGui::MenuItem("Create Cube")) {
-				App->scene->CreateGameObject("Cube", "Assets/Cube.fbx");
+				App->scene->CreateGameObject("Cube", "Assets/Primitives/Cube.fbx");
 			}
 			if (ImGui::MenuItem("Create Sphere")){
-				App->scene->CreateGameObject("Sphere", "Assets/Sphere.fbx");
+				App->scene->CreateGameObject("Sphere", "Assets/Primitives/Sphere.fbx");
 			}
 			if (ImGui::MenuItem("Create Cone")){
-				App->scene->CreateGameObject("Cone", "Assets/Cone.fbx");
+				App->scene->CreateGameObject("Cone", "Assets/Primitives/Cone.fbx");
 			}
 			if (ImGui::MenuItem("Create Cylinder")){
-				App->scene->CreateGameObject("Cylinder", "Assets/Cylinder.fbx");
+				App->scene->CreateGameObject("Cylinder", "Assets/Primitives/Cylinder.fbx");
 			}
 			if (ImGui::MenuItem("Create Pyramid")){
-				App->scene->CreateGameObject("Pyramid", "Assets/Pyramid.fbx");
+				App->scene->CreateGameObject("Pyramid", "Assets/Primitives/Pyramid.fbx");
 			}
 			if (ImGui::MenuItem("Create Plane")){
-				App->scene->CreateGameObject("Plane", "Assets/Plane.fbx");
+				App->scene->CreateGameObject("Plane", "Assets/Primitives/Plane.fbx");
 			}
 
 			ImGui::EndMenu();
@@ -332,14 +332,6 @@ void ModuleEditor::ShowConfigurationWindow()
 		//Hardware Detection		
 		GetHardwareCaps();
 
-		//SDL Version
-		SDL_version sdl_version;
-		SDL_GetVersion(&sdl_version);
-		ImGui::Text("SDL Version:");
-		ImGui::SameLine();
-		ImGui::TextColored(yellow, "%d.%d.%d", sdl_version.major, sdl_version.minor, sdl_version.patch);
-		ImGui::Separator();
-
 		//CPUs
 		ImGui::Text("CPUs: ");
 		ImGui::SameLine();
@@ -392,6 +384,60 @@ void ModuleEditor::ShowConfigurationWindow()
 		ImGui::Text("VRAM Reserved: ");
 		ImGui::SameLine();
 		ImGui::TextColored(yellow, "%.1f Mb", vram_reserved);
+	}
+	if (ImGui::CollapsingHeader("Software"))
+	{
+		ImGui::Text("3rd Party Libraries used:");
+
+		//SDL Version
+		SDL_version sdl_version;
+		SDL_GetVersion(&sdl_version);
+		ImGui::BulletText("SDL Version:");
+		ImGui::SameLine();
+		ImGui::TextColored(yellow, "%d.%d.%d", sdl_version.major, sdl_version.minor, sdl_version.patch); ImGui::SameLine();
+		if (ImGui::SmallButton("Open SDL Website"))
+			ShellExecuteA(NULL, "open", "https://libsdl.org/", NULL, NULL, SW_SHOWNORMAL);
+
+		//OpenGL
+		int major = 0;
+		int minor = 0;
+		glGetIntegerv(GL_MAJOR_VERSION, &major);
+		glGetIntegerv(GL_MINOR_VERSION, &minor);
+
+		ImGui::BulletText("OpenGL ", major, minor); ImGui::SameLine();
+		ImGui::TextColored(yellow, "%d.%d.%d", sdl_version.major, sdl_version.minor, sdl_version.patch); ImGui::SameLine();
+		if (ImGui::SmallButton("Open OpenGL Website"))
+			ShellExecuteA(NULL, "open", "https://www.opengl.org/", NULL, NULL, SW_SHOWNORMAL);
+
+		//ImGui Version
+		ImGui::BulletText("ImGui "); ImGui::SameLine();
+		ImGui::TextColored(yellow, "%s", ImGui::GetVersion()); ImGui::SameLine();
+		if (ImGui::SmallButton("Open ImGui Website"))
+			ShellExecuteA(NULL, "open", "https://github.com/ocornut/imgui", NULL, NULL, SW_SHOWNORMAL);
+
+		////MathGeoLib
+		ImGui::BulletText("MathGeoLib "); ImGui::SameLine();
+		ImGui::TextColored(yellow, "1.5"); ImGui::SameLine();
+		if (ImGui::SmallButton("Open MathGeoLib Website"))
+			ShellExecuteA(NULL, "open", "https://github.com/juj/MathGeoLib", NULL, NULL, SW_SHOWNORMAL);
+
+		//Glew
+		ImGui::BulletText("Glew "); ImGui::SameLine();
+		ImGui::TextColored(yellow, "%d.%d.%d", GLEW_VERSION_MAJOR, GLEW_VERSION_MINOR, GLEW_VERSION_MICRO); ImGui::SameLine();
+		if (ImGui::SmallButton("Open Glew Website"))
+			ShellExecuteA(NULL, "open", "https://github.com/nigels-com/glew", NULL, NULL, SW_SHOWNORMAL);
+
+		//DevIL
+		ImGui::BulletText("DevIL "); ImGui::SameLine();
+		ImGui::TextColored(yellow, "1.8.0"); ImGui::SameLine();
+		if (ImGui::SmallButton("Open DevIL Website"))
+			ShellExecuteA(NULL, "open", "http://openil.sourceforge.net/", NULL, NULL, SW_SHOWNORMAL);
+
+		//Assimp
+		ImGui::BulletText("Assimp "); ImGui::SameLine();
+		ImGui::TextColored(yellow, "3.1.1"); ImGui::SameLine();
+		if (ImGui::SmallButton("Open Assimp Website"))
+			ShellExecuteA(NULL, "open", "http://openil.sourceforge.net/", NULL, NULL, SW_SHOWNORMAL);
 	}
 	if (ImGui::CollapsingHeader("Renderer"))
 	{

@@ -18,8 +18,8 @@ bool ModuleScene::Start()
 	bool ret = true;
 
 	root = CreateGameObject("Root");
-	baker_house = CreateGameObject("Baker House", "Assets/BakerHouse.fbx", "Assets/Baker_house.png");	
-	airplane = CreateGameObject("Airplane", "Assets/airplane.fbx", "Assets/airplane.dds");
+	baker_house = CreateGameObject("Baker House", "Assets/Models/BakerHouse.fbx", "Assets/Textures/Baker_house.png");	
+	airplane = CreateGameObject("Airplane", "Assets/Models/airplane.fbx", "Assets/Textures/airplane.dds");
 
 	return ret;
 }
