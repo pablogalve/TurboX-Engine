@@ -23,7 +23,7 @@ void W_Inspector::Draw()
 		
 		ImVec4 yellow(1.0f, 0.8f, 0.0f, 1.0f);
 
-		ImGui::Checkbox("Enabled", &gameObject->active); ImGui::SameLine();
+		ImGui::Checkbox("Enabled", &gameObject->mesh->active); ImGui::SameLine();
 		
 		strcpy(nameBuffer, gameObject->name.c_str());
 
@@ -38,20 +38,51 @@ void W_Inspector::Draw()
 			float3 scale = transform->GetScale();
 			float3 rotation = transform->GetEulerRotation();
 
-			if (ImGui::InputFloat3("Position", (float*)&pos))
-			{
-				
-			}
+			ImGui::Columns(4, "Transform");
+			
+			ImGui::NextColumn();
+			ImGui::Text("X"); ImGui::NextColumn();
+			ImGui::Text("Y"); ImGui::NextColumn();
+			ImGui::Text("Z"); ImGui::NextColumn();
+			ImGui::Separator();
 
-			if (ImGui::InputFloat3("Rotation", (float*)&rotation))
-			{
-				
-			}
+			// Position
+			ImGui::AlignTextToFramePadding();
+			ImGui::Text("Position"); ImGui::NextColumn();
+			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
+			ImGui::DragFloat("##PositionX", &pos.x, 0, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
 
-			if (ImGui::InputFloat3("Scale", (float*)&scale))
-			{
-				
-			}
+			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
+			ImGui::DragFloat("##PositionY", &pos.y, 0, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
+
+			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
+			ImGui::DragFloat("##PositionZ", &pos.z, 0, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
+
+			// Rotation
+			ImGui::AlignTextToFramePadding();
+			ImGui::Text("Rotation"); ImGui::NextColumn();
+			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
+			ImGui::DragFloat("##RotationX", &rotation.x, 0, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
+
+			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
+			ImGui::DragFloat("##RotationY", &rotation.y, 0, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
+
+			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
+			ImGui::DragFloat("##RotationZ", &rotation.z, 0, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
+
+			// Scale
+			ImGui::AlignTextToFramePadding();
+			ImGui::Text("Scale"); ImGui::NextColumn();
+			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
+			ImGui::DragFloat("##ScaleX", &scale.x, 0, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
+
+			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
+			ImGui::DragFloat("##ScaleY", &scale.y, 0, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
+
+			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
+			ImGui::DragFloat("##ScaleZ", &scale.z, 0.05f, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
+			
+			ImGui::Columns(1);
 		}
 
 		

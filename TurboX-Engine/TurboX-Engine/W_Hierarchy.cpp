@@ -15,15 +15,6 @@ void W_Hierarchy::Draw()
 {
 	ImGui::Begin("Hierarchy");
 
-	//ImGui::TreeNodeEx();
-
-	ImGui::End();
-}
-
-void W_Hierarchy::Draw(Application* App)
-{
-	ImGui::Begin("Hierarchy");		
-
 	if (open_pop_up)
 		OpenPopUpWindow();
 

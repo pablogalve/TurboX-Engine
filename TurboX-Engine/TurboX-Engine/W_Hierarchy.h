@@ -16,7 +16,6 @@ public:
 	~W_Hierarchy();
 
 	void Draw() override;
-	void Draw(Application* App);
 	void DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags default_flags, GameObject* root);
 	void OpenPopUpWindow();
 
