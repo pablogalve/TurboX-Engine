@@ -30,10 +30,10 @@ public:
 	vector<Component*> components;
 	vector<GameObject*> childs;
 	vector<GameObject*> game_objects;
-	GameObject* parent = NULL;
-	C_Mesh* mesh = NULL;
-	C_Material* material = NULL;
-	C_Transform* transform = NULL;
+	GameObject* parent;
+	C_Mesh* mesh;
+	C_Material* material;
+	C_Transform* transform;
 
 	bool Get_IsSelected();
 	void Select();

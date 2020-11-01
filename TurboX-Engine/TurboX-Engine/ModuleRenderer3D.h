@@ -3,7 +3,6 @@
 #include "Globals.h"
 #include "glmath.h"
 #include "Light.h"
-#include "Mesh_Cube.h"
 #include "glew\glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include <array>
@@ -56,13 +55,9 @@ public:
 	GLuint frameBuffer;
 	GLuint texColorBuffer;
 	GLuint renderBuffer;
-
 	
 private:
-
 	int grid_size;
 
-	Mesh_Cube cube;
-	C_Mesh* house;
 	SceneWindow* scene_window;
 };

@@ -40,9 +40,6 @@
     <Filter Include="Libraries\DevIL">
       <UniqueIdentifier>{f2b6b0e5-5d9a-46e5-9178-963ac7efc6a2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Meshes">
-      <UniqueIdentifier>{8cd6f615-a77f-4ebd-b25c-c45b77e9bd92}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\GameObjects">
       <UniqueIdentifier>{1c868fef-2508-4032-b358-93bde721ad13}</UniqueIdentifier>
     </Filter>
@@ -426,9 +423,6 @@
     <ClInclude Include="Resources.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
     <ClInclude Include="Libraries\DevIL\include\config.h">
       <Filter>Libraries\DevIL</Filter>
     </ClInclude>
@@ -467,24 +461,6 @@
     </ClInclude>
     <ClInclude Include="Component_Material.h">
       <Filter>Sources\GameObjects\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh_Cone.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh_Cube.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh_CustomMesh.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh_Cylinder.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh_Sphere.h">
-      <Filter>Sources\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh_Pyramid.h">
-      <Filter>Sources\Meshes</Filter>
     </ClInclude>
     <ClInclude Include="ModuleScene.h">
       <Filter>Sources\Modules\Game</Filter>
@@ -764,9 +740,6 @@
     <ClCompile Include="Resources.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Sources\Meshes</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Sources\GameObjects</Filter>
     </ClCompile>
@@ -781,24 +754,6 @@
     </ClCompile>
     <ClCompile Include="Component_Material.cpp">
       <Filter>Sources\GameObjects\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh_Cone.cpp">
-      <Filter>Sources\Meshes</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh_Cube.cpp">
-      <Filter>Sources\Meshes</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh_CustomMesh.cpp">
-      <Filter>Sources\Meshes</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh_Cylinder.cpp">
-      <Filter>Sources\Meshes</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh_Sphere.cpp">
-      <Filter>Sources\Meshes</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh_Pyramid.cpp">
-      <Filter>Sources\Meshes</Filter>
     </ClCompile>
     <ClCompile Include="ModuleScene.cpp">
       <Filter>Sources\Modules\Game</Filter>

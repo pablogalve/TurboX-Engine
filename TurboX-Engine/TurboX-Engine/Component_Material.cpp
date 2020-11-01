@@ -4,6 +4,11 @@
 
 C_Material::C_Material(Component::Type type, GameObject* owner):Component(type, owner)
 {
+	ilInit();
+	iluInit();
+	ilutInit();
+	ilutRenderer(ILUT_OPENGL);
+
 	this->owner = owner;
 	imageName = 0;
 	checkersImage = 0;

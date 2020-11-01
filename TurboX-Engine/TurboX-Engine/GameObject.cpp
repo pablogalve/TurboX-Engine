@@ -8,6 +8,11 @@ GameObject::GameObject()
 	ChangeName("Custom Mesh");
 	is_selected = false;
 	to_delete = false;
+
+	mesh = nullptr;
+	material = nullptr;
+	transform = nullptr;
+	parent = nullptr;
 }
 
 GameObject::~GameObject()

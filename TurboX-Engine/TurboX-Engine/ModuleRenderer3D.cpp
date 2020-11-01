@@ -176,9 +176,6 @@ update_status ModuleRenderer3D::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	//App->importer->ourMesh.Draw();
-	//cube.Draw();
-
 	return ret;
 }
 
@@ -187,12 +184,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	DrawGridLine();
 	DrawAxisLines();
-
-	//new_gameObject->Draw();
-	//TODO: Now it's drawing from a C_Mesh. We need to change it to a GameObject
-	//house->Draw();
-
-	//App->scene->DrawGameObjects(App->scene->GetRoot(), App->scene->GetRoot());
 
 	glBindVertexArray(0);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
