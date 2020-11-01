@@ -238,8 +238,12 @@ void ModuleCamera3D::LookAtSelectedObject()
 	if (App->editor->hierarchy_window->selectedGameObjects.empty() == false) {
 		float3 selectedPosition = App->editor->hierarchy_window->selectedGameObjects[0]->transform->position;
 
+		Position.x = selectedPosition.x + 5;
+		Position.y = selectedPosition.y + 5;
+		Position.z = selectedPosition.z + 5;
 		LookAt({ selectedPosition.x, selectedPosition.y, selectedPosition.z });
 		cameraLookingAtSelectedGameObject = true;
+
 	}
 	else {
 		App->console->AddLog("You need to select a gameObject first");

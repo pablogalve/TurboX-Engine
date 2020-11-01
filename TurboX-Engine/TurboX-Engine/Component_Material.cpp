@@ -28,6 +28,8 @@ void C_Material::LoadTexture(const char* file_name)
 	ilGenImages(1, &imageName);
 	ilBindImage(imageName);
 	ilLoadImage(file_name);
+	Width = ilGetInteger(IL_IMAGE_WIDTH);
+	Height = ilGetInteger(IL_IMAGE_HEIGHT);
 	textureID = ilutGLBindTexImage();
 	ilDeleteImages(1, &imageName);
 
