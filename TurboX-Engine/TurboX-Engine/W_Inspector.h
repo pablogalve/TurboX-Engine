@@ -3,11 +3,11 @@
 
 #include "WindowConfig.h"
 
-class Inspector : WindowConfig
+class W_Inspector : WindowConfig
 {
 public:
-	Inspector();
-	~Inspector();
+	W_Inspector();
+	~W_Inspector();
 
 	void Draw() override;
 

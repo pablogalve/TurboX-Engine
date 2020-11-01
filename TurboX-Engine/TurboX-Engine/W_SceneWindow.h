@@ -6,11 +6,11 @@
 
 #pragma comment (lib, "Libraries/glew/glew32.lib")    /* link OpenGL Utility lib     */
 
-class SceneWindow : WindowConfig
+class W_SceneWindow : WindowConfig
 {
 public:
-	SceneWindow();
-	~SceneWindow();
+	W_SceneWindow();
+	~W_SceneWindow();
 
 	void Draw(GLuint texture);
 

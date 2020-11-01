@@ -1,15 +1,15 @@
-#include "SceneWindow.h"
+#include "W_SceneWindow.h"
 
-SceneWindow::SceneWindow()
+W_SceneWindow::W_SceneWindow()
 {
 }
 
-SceneWindow::~SceneWindow()
+W_SceneWindow::~W_SceneWindow()
 {
 	
 }
 
-void SceneWindow::Draw(GLuint texture)
+void W_SceneWindow::Draw(GLuint texture)
 {
 	ImGui::Begin("Scene");
 
@@ -19,7 +19,7 @@ void SceneWindow::Draw(GLuint texture)
 	ImGui::End();
 }
 
-void SceneWindow::SetShowWindow()
+void W_SceneWindow::SetShowWindow()
 {
 	showWindow = !showWindow;
 }

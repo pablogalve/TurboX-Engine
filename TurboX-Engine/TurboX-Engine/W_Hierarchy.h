@@ -9,11 +9,11 @@ using namespace std;
 class Application;
 class GameObject;
 
-class Hierarchy : WindowConfig
+class W_Hierarchy : WindowConfig
 {
 public:
-	Hierarchy();
-	~Hierarchy();
+	W_Hierarchy();
+	~W_Hierarchy();
 
 	void Draw() override;
 	void Draw(Application* App);

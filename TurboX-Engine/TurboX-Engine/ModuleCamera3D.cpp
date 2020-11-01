@@ -4,7 +4,7 @@
 #include "ModuleInput.h"
 #include "ModuleConsole.h"
 #include "ModuleEditor.h"
-#include "Hierarchy.h"
+#include "W_Hierarchy.h"
 #include "GameObject.h"
 #include "MathGeoLib/MathGeoLib.h"
 

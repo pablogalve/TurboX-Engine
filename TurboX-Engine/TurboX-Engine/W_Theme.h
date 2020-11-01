@@ -3,11 +3,11 @@
 
 #include "WindowConfig.h"
 
-class Theme : WindowConfig
+class W_Theme : WindowConfig
 {
 public:
-	Theme();
-	~Theme();
+	W_Theme();
+	~W_Theme();
 
 	void Draw() override;
 

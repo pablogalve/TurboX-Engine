@@ -1,16 +1,16 @@
-#include "theme.h"
+#include "W_Theme.h"
 
-Theme::Theme()
+W_Theme::W_Theme()
 {
 	showWindow = false;
 	current_theme = Themes::DARK;
 }
 
-Theme::~Theme()
+W_Theme::~W_Theme()
 {	
 }
 
-void Theme::Draw()
+void W_Theme::Draw()
 {
 	ImGui::Begin("Editor Theme");
 
@@ -51,7 +51,7 @@ void Theme::Draw()
 	ImGui::End();
 }
 
-void Theme::SetShowWindow()
+void W_Theme::SetShowWindow()
 {
 	showWindow = !showWindow;
 }

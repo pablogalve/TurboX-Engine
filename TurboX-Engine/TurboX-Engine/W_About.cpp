@@ -1,17 +1,17 @@
-#include "About.h"
+#include "W_About.h"
 #include "SDL/include/SDL.h"
 #include "glew/glew.h"
 
-About::About()
+W_About::W_About()
 {
 	showWindow = false;
 }
 
-About::~About()
+W_About::~W_About()
 {
 }
 
-void About::Draw() 
+void W_About::Draw() 
 {
 	ImVec4 yellow(1.0f, 0.8f, 0.0f, 1.0f); //We'll use yellow to print the results
 
@@ -116,7 +116,7 @@ void About::Draw()
 	ImGui::End();
 }
 
-void About::SetShowWindow()
+void W_About::SetShowWindow()
 {
 	showWindow = !showWindow;
 }

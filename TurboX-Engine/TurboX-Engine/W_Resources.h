@@ -1,13 +1,13 @@
-#ifndef __ABOUT_H_
-#define __ABOUT_H_
+#ifndef __RESOURCES_H_
+#define __RESOURCES_H_
 
 #include "WindowConfig.h"
 
-class About : WindowConfig
+class W_Resources : WindowConfig
 {
 public:
-	About();
-	~About();
+	W_Resources();
+	~W_Resources();
 
 	void Draw() override;
 
@@ -15,4 +15,4 @@ public:
 	bool GetShowWindow() override { return showWindow; };
 };
 
-#endif // !__ABOUT_H_
+#endif // !__RESOURCES_H_

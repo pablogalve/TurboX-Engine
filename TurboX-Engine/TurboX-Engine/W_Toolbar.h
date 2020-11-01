@@ -1,13 +1,13 @@
-#ifndef __RESOURCES_H_
-#define __RESOURCES_H_
+#ifndef __TOOLBAR_H_
+#define __TOOLBAR_H_
 
 #include "WindowConfig.h"
 
-class Resources : WindowConfig
+class W_Toolbar : WindowConfig
 {
 public:
-	Resources();
-	~Resources();
+	W_Toolbar();
+	~W_Toolbar();
 
 	void Draw() override;
 
@@ -15,4 +15,4 @@ public:
 	bool GetShowWindow() override { return showWindow; };
 };
 
-#endif // !__RESOURCES_H_
+#endif // !__TOOLBAR_H_

@@ -8,7 +8,7 @@
 #include <array>
 #include <cmath>
 #include <vector>
-#include "SceneWindow.h"
+#include "W_SceneWindow.h"
 
 #pragma comment (lib, "Libraries/glew/glew32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -59,5 +59,5 @@ public:
 private:
 	int grid_size;
 
-	SceneWindow* scene_window;
+	W_SceneWindow* scene_window;
 };

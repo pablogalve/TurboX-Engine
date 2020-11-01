@@ -7,11 +7,11 @@
 
 #include <vector>
 
-class Configuration : WindowConfig, public Module
+class W_Configuration : WindowConfig
 {
 public:
-	Configuration(Application* app, bool start_enabled = true);
-	~Configuration();
+	W_Configuration();
+	~W_Configuration();
 
 	void Draw() override;
 

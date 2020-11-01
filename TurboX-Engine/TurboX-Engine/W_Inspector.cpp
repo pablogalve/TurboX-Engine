@@ -1,17 +1,17 @@
-#include "Inspector.h"
+#include "W_Inspector.h"
 #include "Application.h"
 #include "ModuleEditor.h"
 #include "MathGeoLib/MathGeoLib.h"
 #include "GameObject.h"
-Inspector::Inspector()
+W_Inspector::W_Inspector()
 {
 }
 
-Inspector::~Inspector()
+W_Inspector::~W_Inspector()
 {
 }
 
-void Inspector::Draw()
+void W_Inspector::Draw()
 {
 	ImGui::Begin("Inspector");
 
@@ -83,7 +83,7 @@ void Inspector::Draw()
 	ImGui::End();
 }
 
-void Inspector::SetShowWindow()
+void W_Inspector::SetShowWindow()
 {
 	showWindow = !showWindow;
 }

@@ -1,17 +1,17 @@
-#include "Hierarchy.h"
+#include "W_Hierarchy.h"
 #include "ModuleScene.h"
 #include "Application.h"
 
-Hierarchy::Hierarchy()
+W_Hierarchy::W_Hierarchy()
 {
 	open_pop_up = false;
 }
 
-Hierarchy::~Hierarchy()
+W_Hierarchy::~W_Hierarchy()
 {
 }
 
-void Hierarchy::Draw()
+void W_Hierarchy::Draw()
 {
 	ImGui::Begin("Hierarchy");
 
@@ -20,7 +20,7 @@ void Hierarchy::Draw()
 	ImGui::End();
 }
 
-void Hierarchy::Draw(Application* App)
+void W_Hierarchy::Draw(Application* App)
 {
 	ImGui::Begin("Hierarchy");		
 
@@ -33,7 +33,7 @@ void Hierarchy::Draw(Application* App)
 	ImGui::End();
 }
 
-void Hierarchy::DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags default_flags, GameObject* root)
+void W_Hierarchy::DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags default_flags, GameObject* root)
 {	
 	bool drawAgain = true;
 		
@@ -78,7 +78,7 @@ void Hierarchy::DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags defaul
 	}
 }
 
-void Hierarchy::OpenPopUpWindow()
+void W_Hierarchy::OpenPopUpWindow()
 {
 	if (ImGui::IsMouseReleased(0) || ImGui::IsMouseReleased(2))
 		open_pop_up = false;
@@ -102,18 +102,18 @@ void Hierarchy::OpenPopUpWindow()
 	}
 }
 
-void Hierarchy::SetShowWindow()
+void W_Hierarchy::SetShowWindow()
 {
 	showWindow = !showWindow;
 }
 
-void Hierarchy::SelectSingle(GameObject* gameObject)
+void W_Hierarchy::SelectSingle(GameObject* gameObject)
 {
 	gameObject->Select();
 	selectedGameObjects.push_back(gameObject);
 }
 
-void Hierarchy::UnSelectSingle(GameObject* gameObject)
+void W_Hierarchy::UnSelectSingle(GameObject* gameObject)
 {
 	gameObject->Unselect();
 
@@ -128,7 +128,7 @@ void Hierarchy::UnSelectSingle(GameObject* gameObject)
 	}
 }
 
-void Hierarchy::DeselectAll()
+void W_Hierarchy::DeselectAll()
 {
 	for (size_t i = 0; i < selectedGameObjects.size(); i++)
 	{

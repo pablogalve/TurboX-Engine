@@ -7,14 +7,15 @@
 #include <string>
 
 //Include WindowConfig panels
-#include "About.h"
-#include "Hierarchy.h"
-//#include "Configuration.h"
-#include "Explorer.h"
-#include "SceneWindow.h"
-#include "Resources.h"
-#include "Inspector.h"
-#include "theme.h"
+#include "W_About.h"
+#include "W_Hierarchy.h"
+#include "W_Configuration.h"
+#include "W_Explorer.h"
+#include "W_SceneWindow.h"
+#include "W_Resources.h"
+#include "W_Inspector.h"
+#include "W_Theme.h"
+#include "W_Toolbar.h"
 
 typedef int GLint;
 
@@ -32,30 +33,22 @@ private:
 	void CreateDockSpace();
 
 	void ShowMenuBar();
-	void ShowConfigurationWindow();
-	void ShowToolbarWindow();	
-	
-	void GetHardwareCaps();
-	void GetVramData(float& vram_budget, float& vram_usage, float& vram_available, float& vram_reserved);
+	void ShowToolbarWindow();
 
 public:
-	About* about_window;
-	Hierarchy* hierarchy_window;
-	Explorer* explorer_window;
-	SceneWindow* scene_window;
-	Resources* resources_window;
-	Inspector* inspector_window;
-	Theme* theme_window;
-	//Configuration* config;
+	W_About* about_window;
+	W_Hierarchy* hierarchy_window;
+	W_Explorer* explorer_window;
+	W_SceneWindow* scene_window;
+	W_Resources* resources_window;
+	W_Inspector* inspector_window;
+	W_Theme* theme_window;
+	W_Configuration* config_window;
+	W_Toolbar* toolbar_window;
 
 private:
 	bool showDemoWindow;
 	bool showConfigurationWindow;
 	bool showConsoleWindow;
 	bool showToolbarWindow;
-
-	std::vector<float> fps_log;
-	std::vector<float> ms_log;
-
-	std::vector<std::string> caps_log;
 };

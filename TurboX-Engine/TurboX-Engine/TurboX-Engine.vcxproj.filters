@@ -399,28 +399,7 @@
     <ClInclude Include="ModuleEditor.h">
       <Filter>Sources\Modules\Game</Filter>
     </ClInclude>
-    <ClInclude Include="About.h">
-      <Filter>Sources\Editor</Filter>
-    </ClInclude>
     <ClInclude Include="WindowConfig.h">
-      <Filter>Sources\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Hierarchy.h">
-      <Filter>Sources\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Explorer.h">
-      <Filter>Sources\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Configuration.h">
-      <Filter>Sources\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneWindow.h">
-      <Filter>Sources\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Inspector.h">
-      <Filter>Sources\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Resources.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
     <ClInclude Include="Libraries\DevIL\include\config.h">
@@ -642,7 +621,31 @@
     <ClInclude Include="ModuleFileSystem.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="theme.h">
+    <ClInclude Include="W_About.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="W_Configuration.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="W_Explorer.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="W_Inspector.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="W_Resources.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="W_Theme.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="W_SceneWindow.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="W_Hierarchy.h">
+      <Filter>Sources\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="W_Toolbar.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
   </ItemGroup>
@@ -715,30 +718,6 @@
     </ClCompile>
     <ClCompile Include="ModuleEditor.cpp">
       <Filter>Sources\Modules\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="About.cpp">
-      <Filter>Sources\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowConfig.cpp">
-      <Filter>Sources\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Hierarchy.cpp">
-      <Filter>Sources\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Explorer.cpp">
-      <Filter>Sources\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Configuration.cpp">
-      <Filter>Sources\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneWindow.cpp">
-      <Filter>Sources\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Inspector.cpp">
-      <Filter>Sources\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Resources.cpp">
-      <Filter>Sources\Editor</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Sources\GameObjects</Filter>
@@ -851,7 +830,34 @@
     <ClCompile Include="ModuleFileSystem.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="theme.cpp">
+    <ClCompile Include="W_About.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="W_Configuration.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="W_Explorer.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="W_Hierarchy.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="W_Inspector.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="W_SceneWindow.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowConfig.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="W_Theme.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="W_Resources.cpp">
+      <Filter>Sources\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="W_Toolbar.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
   </ItemGroup>

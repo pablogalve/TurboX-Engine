@@ -75,7 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="About.h" />
+    <ClInclude Include="W_About.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
@@ -140,13 +140,13 @@
     <ClInclude Include="Libraries\MathGeoLib\Math\sse_mathfun.h" />
     <ClInclude Include="Libraries\MathGeoLib\Math\TransformOps.h" />
     <ClInclude Include="Libraries\MathGeoLib\Time\Clock.h" />
-    <ClInclude Include="Configuration.h" />
-    <ClInclude Include="Explorer.h" />
+    <ClInclude Include="W_Configuration.h" />
+    <ClInclude Include="W_Explorer.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
-    <ClInclude Include="Hierarchy.h" />
-    <ClInclude Include="Inspector.h" />
+    <ClInclude Include="W_Hierarchy.h" />
+    <ClInclude Include="W_Inspector.h" />
     <ClInclude Include="Libraries\DevIL\include\config.h" />
     <ClInclude Include="Libraries\DevIL\include\devil_internal_exports.h" />
     <ClInclude Include="Libraries\DevIL\include\il.h" />
@@ -264,14 +264,16 @@
     <ClInclude Include="ModuleInput.h" />
     <ClInclude Include="ModuleEditor.h" />
     <ClInclude Include="ModuleWindow.h" />
-    <ClInclude Include="Resources.h" />
-    <ClInclude Include="SceneWindow.h" />
-    <ClInclude Include="theme.h" />
+    <ClInclude Include="W_Resources.h" />
+    <ClInclude Include="W_SceneWindow.h" />
+    <ClInclude Include="W_Theme.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WindowConfig.h" />
+    <ClInclude Include="W_Toolbar.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="About.cpp" />
+    <ClCompile Include="W_Toolbar.cpp" />
+    <ClCompile Include="W_About.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -308,12 +310,12 @@
     <ClCompile Include="Libraries\MathGeoLib\Math\SSEMath.cpp" />
     <ClCompile Include="Libraries\MathGeoLib\Math\TransformOps.cpp" />
     <ClCompile Include="Libraries\MathGeoLib\Time\Clock.cpp" />
-    <ClCompile Include="Configuration.cpp" />
-    <ClCompile Include="Explorer.cpp" />
+    <ClCompile Include="W_Configuration.cpp" />
+    <ClCompile Include="W_Explorer.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glmath.cpp" />
-    <ClCompile Include="Hierarchy.cpp" />
-    <ClCompile Include="Inspector.cpp" />
+    <ClCompile Include="W_Hierarchy.cpp" />
+    <ClCompile Include="W_Inspector.cpp" />
     <ClCompile Include="Libraries\ImGui\imgui.cpp" />
     <ClCompile Include="Libraries\ImGui\imgui_demo.cpp" />
     <ClCompile Include="Libraries\ImGui\imgui_draw.cpp" />
@@ -335,9 +337,9 @@
     <ClCompile Include="ModuleEditor.cpp" />
     <ClCompile Include="ModuleScene.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
-    <ClCompile Include="Resources.cpp" />
-    <ClCompile Include="SceneWindow.cpp" />
-    <ClCompile Include="theme.cpp" />
+    <ClCompile Include="W_Resources.cpp" />
+    <ClCompile Include="W_SceneWindow.cpp" />
+    <ClCompile Include="W_Theme.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WindowConfig.cpp" />
   </ItemGroup>

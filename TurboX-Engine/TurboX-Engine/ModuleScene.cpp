@@ -2,7 +2,7 @@
 #include "ModuleScene.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
-#include "Hierarchy.h"
+#include "W_Hierarchy.h"
 #include "ModuleEditor.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)

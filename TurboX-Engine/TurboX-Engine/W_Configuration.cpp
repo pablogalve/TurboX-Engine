@@ -1,20 +1,20 @@
-#include "Configuration.h"
+#include "W_Configuration.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleInput.h"
 
-Configuration::Configuration(Application* app, bool start_enabled) : Module(app, start_enabled)
+W_Configuration::W_Configuration()
 {
 	fps_log.resize(100);
 	ms_log.resize(100);
 	caps_log.resize(0);
 }
 
-Configuration::~Configuration()
+W_Configuration::~W_Configuration()
 {
 }
 
-void Configuration::Draw()
+void W_Configuration::Draw()
 {
 	ImGui::Begin("Configuration");
 
@@ -27,21 +27,22 @@ void Configuration::Draw()
 		char appName[50] = "TurboX Engine";
 		char appName2[50];
 
-
 		if (ImGui::InputText("App name", appName, 50, ImGuiInputTextFlags_EnterReturnsTrue)) {
-			int fd = 5;
+
 		}
 		ImGui::InputText("Organization", "UPC CITM", 50);
 
 		//FPS
-		fps_log.erase(fps_log.begin());
+		if (fps_log.size() > 100)
+			fps_log.erase(fps_log.begin());
 		fps_log.push_back(ImGui::GetIO().Framerate);
 		char title[25];
 		sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
 		ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
 
 		//Milliseconds
-		ms_log.erase(ms_log.begin());
+		if (ms_log.size() > 100)
+			ms_log.erase(ms_log.begin());
 		ms_log.push_back(1 / (ImGui::GetIO().Framerate / 1000));
 		sprintf_s(title, 25, "Milliseconds %.1f", ms_log[ms_log.size() - 1]);
 		ImGui::PlotHistogram("##framerate", &ms_log[0], ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));
@@ -141,14 +142,6 @@ void Configuration::Draw()
 		//Hardware Detection		
 		GetHardwareCaps();
 
-		//SDL Version
-		SDL_version sdl_version;
-		SDL_GetVersion(&sdl_version);
-		ImGui::Text("SDL Version:");
-		ImGui::SameLine();
-		ImGui::TextColored(yellow, "%d.%d.%d", sdl_version.major, sdl_version.minor, sdl_version.patch);
-		ImGui::Separator();
-
 		//CPUs
 		ImGui::Text("CPUs: ");
 		ImGui::SameLine();
@@ -202,6 +195,60 @@ void Configuration::Draw()
 		ImGui::SameLine();
 		ImGui::TextColored(yellow, "%.1f Mb", vram_reserved);
 	}
+	if (ImGui::CollapsingHeader("Software"))
+	{
+		ImGui::Text("3rd Party Libraries used:");
+
+		//SDL Version
+		SDL_version sdl_version;
+		SDL_GetVersion(&sdl_version);
+		ImGui::BulletText("SDL Version:");
+		ImGui::SameLine();
+		ImGui::TextColored(yellow, "%d.%d.%d", sdl_version.major, sdl_version.minor, sdl_version.patch); ImGui::SameLine();
+		if (ImGui::SmallButton("Open SDL Website"))
+			ShellExecuteA(NULL, "open", "https://libsdl.org/", NULL, NULL, SW_SHOWNORMAL);
+
+		//OpenGL
+		int major = 0;
+		int minor = 0;
+		glGetIntegerv(GL_MAJOR_VERSION, &major);
+		glGetIntegerv(GL_MINOR_VERSION, &minor);
+
+		ImGui::BulletText("OpenGL ", major, minor); ImGui::SameLine();
+		ImGui::TextColored(yellow, "%d.%d.%d", sdl_version.major, sdl_version.minor, sdl_version.patch); ImGui::SameLine();
+		if (ImGui::SmallButton("Open OpenGL Website"))
+			ShellExecuteA(NULL, "open", "https://www.opengl.org/", NULL, NULL, SW_SHOWNORMAL);
+
+		//ImGui Version
+		ImGui::BulletText("ImGui "); ImGui::SameLine();
+		ImGui::TextColored(yellow, "%s", ImGui::GetVersion()); ImGui::SameLine();
+		if (ImGui::SmallButton("Open ImGui Website"))
+			ShellExecuteA(NULL, "open", "https://github.com/ocornut/imgui", NULL, NULL, SW_SHOWNORMAL);
+
+		////MathGeoLib
+		ImGui::BulletText("MathGeoLib "); ImGui::SameLine();
+		ImGui::TextColored(yellow, "1.5"); ImGui::SameLine();
+		if (ImGui::SmallButton("Open MathGeoLib Website"))
+			ShellExecuteA(NULL, "open", "https://github.com/juj/MathGeoLib", NULL, NULL, SW_SHOWNORMAL);
+
+		//Glew
+		ImGui::BulletText("Glew "); ImGui::SameLine();
+		ImGui::TextColored(yellow, "%d.%d.%d", GLEW_VERSION_MAJOR, GLEW_VERSION_MINOR, GLEW_VERSION_MICRO); ImGui::SameLine();
+		if (ImGui::SmallButton("Open Glew Website"))
+			ShellExecuteA(NULL, "open", "https://github.com/nigels-com/glew", NULL, NULL, SW_SHOWNORMAL);
+
+		//DevIL
+		ImGui::BulletText("DevIL "); ImGui::SameLine();
+		ImGui::TextColored(yellow, "1.8.0"); ImGui::SameLine();
+		if (ImGui::SmallButton("Open DevIL Website"))
+			ShellExecuteA(NULL, "open", "http://openil.sourceforge.net/", NULL, NULL, SW_SHOWNORMAL);
+
+		//Assimp
+		ImGui::BulletText("Assimp "); ImGui::SameLine();
+		ImGui::TextColored(yellow, "3.1.1"); ImGui::SameLine();
+		if (ImGui::SmallButton("Open Assimp Website"))
+			ShellExecuteA(NULL, "open", "http://openil.sourceforge.net/", NULL, NULL, SW_SHOWNORMAL);
+	}
 	if (ImGui::CollapsingHeader("Renderer"))
 	{
 		if (ImGui::Checkbox("Cull Face", &App->renderer3D->_cull_face))
@@ -216,8 +263,7 @@ void Configuration::Draw()
 		{
 			App->renderer3D->SetWireframeMode(App->renderer3D->_wireframe);
 		}
-		if (ImGui::Checkbox("Texture", &App->renderer3D->_texture))
-		{
+		if (ImGui::Checkbox("Texture", &App->renderer3D->_texture)) {
 			App->renderer3D->GL_Enable(GL_TEXTURE_2D, App->renderer3D->_texture);
 		}
 		if (ImGui::Checkbox("Depth test", &App->renderer3D->_depth_test))
@@ -233,12 +279,12 @@ void Configuration::Draw()
 	ImGui::End();
 }
 
-void Configuration::SetShowWindow()
+void W_Configuration::SetShowWindow()
 {
 	showWindow = !showWindow;
 }
 
-void Configuration::GetHardwareCaps()
+void W_Configuration::GetHardwareCaps()
 {
 	if (SDL_Has3DNow())caps_log.push_back("3DNow");
 	if (SDL_HasAVX())caps_log.push_back("AVX");
@@ -253,7 +299,7 @@ void Configuration::GetHardwareCaps()
 	if (SDL_HasSSE42())caps_log.push_back("SSE42");
 }
 
-void Configuration::GetVramData(float& vram_budget, float& vram_usage, float& vram_available, float& vram_reserved)
+void W_Configuration::GetVramData(float& vram_budget, float& vram_usage, float& vram_available, float& vram_reserved)
 {
 	// NVIDIA Documentation:
 	// http://developer.download.nvidia.com/opengl/specs/GL_NVX_gpu_memory_info.txt

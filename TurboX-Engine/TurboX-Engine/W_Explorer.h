@@ -3,11 +3,11 @@
 
 #include "WindowConfig.h"
 
-class Explorer : WindowConfig
+class W_Explorer : WindowConfig
 {
 public:
-	Explorer();
-	~Explorer();
+	W_Explorer();
+	~W_Explorer();
 
 	void Draw() override;
 
