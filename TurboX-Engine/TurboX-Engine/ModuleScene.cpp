@@ -18,8 +18,9 @@ bool ModuleScene::Start()
 	bool ret = true;
 
 	root = CreateGameObject("Root");
-	baker_house = CreateGameObject("Baker House", "Assets/Models/BakerHouse.fbx", "Assets/Textures/Baker_house.png");	
-	airplane = CreateGameObject("Airplane", "Assets/Models/airplane.fbx", "Assets/Textures/airplane.dds");
+	//baker_house = CreateGameObject("Baker House", "Assets/Models/BakerHouse.fbx", "Assets/Textures/Baker_house.png");	
+	//airplane = CreateGameObject("Airplane", "Assets/Models/airplane.fbx", "Assets/Textures/airplane.dds");
+	street = CreateGameObject("Street", "Assets/Models/street/street2.fbx");
 
 	return ret;
 }
@@ -45,6 +46,10 @@ update_status ModuleScene::PostUpdate(float dt)
 bool ModuleScene::CleanUp()
 {
 	bool ret = true;
+
+	delete baker_house;
+	delete airplane;
+	delete street;
 
 	delete root;
 
