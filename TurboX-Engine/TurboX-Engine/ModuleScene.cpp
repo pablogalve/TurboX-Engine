@@ -47,8 +47,8 @@ bool ModuleScene::CleanUp()
 {
 	bool ret = true;
 
-	delete baker_house;
-	delete airplane;
+	//delete baker_house;
+	//delete airplane;
 	delete street;
 
 	delete root;

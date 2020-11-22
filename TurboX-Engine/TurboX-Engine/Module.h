@@ -5,7 +5,6 @@
 
 class Application;
 
-
 class Module
 {
 private :

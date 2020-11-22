@@ -47,7 +47,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>C:\Users\macia\Documents\GitHub\GameEngine\TurboX-Engine\TurboX-Engine\Libraries;G:\GitHub\TurboX-Engine\TurboX-Engine\TurboX-Engine\Libraries;C:\Users\Pablo Galve\OneDrive\Documentos\GitHub\TurboX-Engine\TurboX-Engine\TurboX-Engine\Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Pablo\Documents\GitHub\TurboX-Engine\TurboX-Engine\TurboX-Engine\Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -75,6 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ModuleResources.h" />
     <ClInclude Include="W_About.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
@@ -272,6 +273,7 @@
     <ClInclude Include="W_Toolbar.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ModuleResources.cpp" />
     <ClCompile Include="W_Toolbar.cpp" />
     <ClCompile Include="W_About.cpp" />
     <ClCompile Include="Application.cpp" />

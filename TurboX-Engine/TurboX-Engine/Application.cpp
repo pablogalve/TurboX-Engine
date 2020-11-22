@@ -13,7 +13,7 @@
 #include "ModuleGui.h"
 #include "ModuleScene.h"
 #include "ModuleConsole.h"
-
+#include "ModuleResources.h"
 
 Application::Application()
 {
@@ -28,7 +28,7 @@ Application::Application()
 	gui = new ModuleGui(this);
 	scene = new ModuleScene(this);
 	console = new ModuleConsole();
-	
+	resources = new ModuleResources(this);
 	
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -43,7 +43,7 @@ Application::Application()
 	AddModule(physics);
 	AddModule(gui);
 	AddModule(scene);
-	
+	AddModule(resources);
 
 	// Scenes
 	AddModule(editor);

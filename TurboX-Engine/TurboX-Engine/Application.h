@@ -21,6 +21,7 @@ class ModulePhysics3D;
 class ModuleGui;
 class ModuleScene;
 class ModuleConsole;
+class ModuleResources;
 
 class Application
 {
@@ -36,6 +37,7 @@ public:
 	ModuleGui* gui = NULL;
 	ModuleScene* scene = NULL;
 	ModuleConsole* console = NULL;
+	ModuleResources* resources = NULL;
 
 private:
 
