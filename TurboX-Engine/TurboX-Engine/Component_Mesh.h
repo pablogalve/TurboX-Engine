@@ -14,7 +14,6 @@ public:
 	~C_Mesh();
 
 	void Draw();
-	void LoadCheckersTex();
 	void SetMeshBuffer(GameObject* parent);
 	void LoadMesh(char* file_path, GameObject* gameObject = nullptr);
 	void LoadSingleMesh(char* file_path, GameObject* new_parent = nullptr);
@@ -46,5 +45,7 @@ public:
 	bool face_normals_active;
 	bool vertex_normals_active;
 
+	string mesh_path;
+	string file_name;
 };
 #endif // !__COMPONENT_LIGHT_H_

@@ -4,8 +4,12 @@
 #include "ModuleInput.h"
 #include "ModuleFileSystem.h"
 #include "Resource_Model.h"
+#include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
+#include "Assimp/include/postprocess.h"
+#pragma comment (lib, "Libraries/Assimp/libx86/assimp.lib")
 #include "Importer_Model.h"
+#include "ModuleScene.h"
 
 ModuleResources::ModuleResources(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -32,16 +36,18 @@ bool ModuleResources::CleanUp()
 	return true;
 }
 
-uint64 ModuleResources::ImportFileFromAssets(const char* path)
+void ModuleResources::ImportFileFromAssets(const char* path)
 {
+	const aiScene* scene = nullptr;
 	FileType fileType = App->input->GetFileType(path);
 	ResourceType type = GetResourceTypeFromFileExtension(fileType);
-	uint64 resourceID = 0;
 
 	char* buffer = nullptr;
-	uint64 fileSize = 0;
+	uint64 fileSize = App->file_system->Load(path, &buffer);
 
-	fileSize = App->file_system->Load(path, &buffer);
+	scene = aiImportFileFromMemory(buffer, fileSize, aiProcessPreset_TargetRealtime_MaxQuality, nullptr);
+
+	aiNode* node = scene->mRootNode;
 
 	switch (type)
 	{
@@ -52,12 +58,12 @@ uint64 ModuleResources::ImportFileFromAssets(const char* path)
 		}
 		case (ResourceType::MODEL):
 		{
-
+			Importer::Model::Import(scene, node, App->scene->GetRoot(), path);
 			break;
 		}
 	}
 
-	return resourceID;
+	aiReleaseImport(scene);
 }
 
 ResourceType ModuleResources::GetResourceTypeFromFileExtension(FileType fileType) const
@@ -82,11 +88,4 @@ ResourceType ModuleResources::GetResourceTypeFromFileExtension(FileType fileType
 	}
 
 	return ResourceType();
-}
-
-void ModuleResources::ImportModel(const char* buffer, uint size, Resource* model)
-{
-	Resource_Model* resource_model = (Resource_Model*)model;
-	const aiScene* scene = Importer::Model::ProcessAssimpScene(buffer, size);
-	Importer::Model::Import(scene, resource_model);
 }

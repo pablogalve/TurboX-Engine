@@ -8,6 +8,7 @@ enum class FileType;
 
 enum class ResourceType {
 	MODEL,
+	MESH,
 	TEXTURE,
 	UNKNOWN,
 };
@@ -22,9 +23,7 @@ public:
 	update_status Update(float dt)override;
 	bool CleanUp()override;
 
-	uint64 ImportFileFromAssets(const char* path);
+	void ImportFileFromAssets(const char* path);
 
 	ResourceType GetResourceTypeFromFileExtension(FileType fileType) const;
-
-	void ImportModel(const char* buffer, uint size, Resource* model);
 };

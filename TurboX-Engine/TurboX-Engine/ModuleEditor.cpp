@@ -143,22 +143,22 @@ void ModuleEditor::ShowMenuBar()
 		}
 		if (ImGui::BeginMenu("Assets")) {
 			if (ImGui::MenuItem("Create Cube")) {
-				App->scene->CreateGameObject("Cube", "Assets/Primitives/Cube.fbx");
+				App->scene->CreateGameObject("Cube", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Cube.fbx");
 			}
 			if (ImGui::MenuItem("Create Sphere")){
-				App->scene->CreateGameObject("Sphere", "Assets/Primitives/Sphere.fbx");
+				App->scene->CreateGameObject("Sphere", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Sphere.fbx");
 			}
 			if (ImGui::MenuItem("Create Cone")){
-				App->scene->CreateGameObject("Cone", "Assets/Primitives/Cone.fbx");
+				App->scene->CreateGameObject("Cone", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Cone.fbx");
 			}
 			if (ImGui::MenuItem("Create Cylinder")){
-				App->scene->CreateGameObject("Cylinder", "Assets/Primitives/Cylinder.fbx");
+				App->scene->CreateGameObject("Cylinder", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Cylinder.fbx");
 			}
 			if (ImGui::MenuItem("Create Pyramid")){
-				App->scene->CreateGameObject("Pyramid", "Assets/Primitives/Pyramid.fbx");
+				App->scene->CreateGameObject("Pyramid", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Pyramid.fbx");
 			}
 			if (ImGui::MenuItem("Create Plane")){
-				App->scene->CreateGameObject("Plane", "Assets/Primitives/Plane.fbx");
+				App->scene->CreateGameObject("Plane", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Plane.fbx");
 			}
 
 			ImGui::EndMenu();

@@ -17,10 +17,10 @@ bool ModuleScene::Start()
 {
 	bool ret = true;
 
-	root = CreateGameObject("Root");
+	root = CreateGameObject("Root", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 });
 	//baker_house = CreateGameObject("Baker House", "Assets/Models/BakerHouse.fbx", "Assets/Textures/Baker_house.png");	
 	//airplane = CreateGameObject("Airplane", "Assets/Models/airplane.fbx", "Assets/Textures/airplane.dds");
-	street = CreateGameObject("Street", "Assets/Models/street/street2.fbx");
+	street = CreateGameObject("Street", {0,0,0}, {0,0,0,1}, {1,1,1}, App->scene->GetRoot(), "Assets/Models/street/street2.fbx");
 
 	return ret;
 }
@@ -56,7 +56,7 @@ bool ModuleScene::CleanUp()
 	return ret;
 }
 
-GameObject* ModuleScene::CreateGameObject(std::string name, char* mesh_path, char* texture_path, GameObject* parent)
+GameObject* ModuleScene::CreateGameObject(std::string name, float3 position, Quat rotation, float3 scale, GameObject* parent, char* mesh_path, char* texture_path)
 {
 	GameObject* newGameObject = nullptr;
 	newGameObject = new GameObject();

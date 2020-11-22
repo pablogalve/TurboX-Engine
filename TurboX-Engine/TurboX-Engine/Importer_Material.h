@@ -1,14 +1,15 @@
 #pragma once
 
 #include "Globals.h"
+#include <string>
 
 class C_Material;
 struct aiMaterial;
 
 namespace Importer {
-	namespace Materials {
-		//void Import(const aiMaterial* material, Material* ourMaterial);
-		//uint64 Save(const Material* ourMaterial, char** fileBuffer);
-		//void Load(const char* fileBuffer, Material* ourMaterial);
+	namespace Textures {
+		void Import(C_Material* mat, std::string file, bool imported);
+		uint Save(const C_Material* mat, char** filebuffer);
+		void Load(const char* fileBuffer, C_Material* mat, uint size);
 	}
 }

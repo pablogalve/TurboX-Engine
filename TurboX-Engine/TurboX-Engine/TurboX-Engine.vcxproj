@@ -76,6 +76,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Importer_Material.h" />
+    <ClInclude Include="Importer_Mesh.h" />
     <ClInclude Include="Importer_Model.h" />
     <ClInclude Include="ModuleResources.h" />
     <ClInclude Include="Resource.h" />
@@ -279,6 +280,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Importer_Material.cpp" />
+    <ClCompile Include="Importer_Mesh.cpp" />
     <ClCompile Include="Importer_Model.cpp" />
     <ClCompile Include="ModuleResources.cpp" />
     <ClCompile Include="Resource.cpp" />

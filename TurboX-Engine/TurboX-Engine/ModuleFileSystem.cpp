@@ -107,6 +107,15 @@ const char* ModuleFileSystem::GetWriteDir() const
 	return PHYSFS_getWriteDir();
 }
 
+std::string ModuleFileSystem::GetPathFile(std::string file)
+{
+	int pos = file.find_last_of('\\');
+	if (pos == -1)
+		pos = file.find_last_of('/');
+	file = file.substr(0, pos + 1);
+	return file;
+}
+
 void ModuleFileSystem::DiscoverFiles(const char* directory, vector<string>& file_list, vector<string>& dir_list) const
 {
 	char** rc = PHYSFS_enumerateFiles(directory);

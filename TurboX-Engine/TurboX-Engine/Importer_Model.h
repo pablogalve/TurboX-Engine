@@ -1,22 +1,19 @@
 #pragma once
 
 #include "Globals.h"
+#include "MathGeoLib/Math/float4x4.h"
 
 struct aiScene;
+struct aiNode;
 class C_Material;
 struct aiMaterial;
 class Resource_Model;
+class GameObject;
 
 namespace Importer {
 	namespace Model {
-		const aiScene* ProcessAssimpScene(const char* buffer, uint size);
-		void Import(const aiScene* scene, Resource_Model* model);
+		void Import(const aiScene* scene, aiNode* node, GameObject* parent, std::string file, float4x4 transfor_heredated = float4x4::identity);
 		uint64 Save(const Resource_Model* model, char** buffer);
 		void Load(const char* buffer, Resource_Model* model);
-
-		namespace Private
-		{
-			void ImportNodeData(const aiScene* scene, const aiNode* node, Resource_Model* model, uint64 parentID);
-		}
 	}
 }
