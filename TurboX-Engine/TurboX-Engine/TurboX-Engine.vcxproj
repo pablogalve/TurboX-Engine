@@ -75,7 +75,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Importer_Material.h" />
+    <ClInclude Include="Importer_Model.h" />
     <ClInclude Include="ModuleResources.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="Resource_Material.h" />
+    <ClInclude Include="Resource_Model.h" />
     <ClInclude Include="W_About.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
@@ -273,7 +278,12 @@
     <ClInclude Include="W_Toolbar.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Importer_Material.cpp" />
+    <ClCompile Include="Importer_Model.cpp" />
     <ClCompile Include="ModuleResources.cpp" />
+    <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="Resource_Material.cpp" />
+    <ClCompile Include="Resource_Model.cpp" />
     <ClCompile Include="W_Toolbar.cpp" />
     <ClCompile Include="W_About.cpp" />
     <ClCompile Include="Application.cpp" />

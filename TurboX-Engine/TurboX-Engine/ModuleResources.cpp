@@ -3,6 +3,9 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "ModuleFileSystem.h"
+#include "Resource_Model.h"
+#include "Assimp/include/scene.h"
+#include "Importer_Model.h"
 
 ModuleResources::ModuleResources(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -79,4 +82,11 @@ ResourceType ModuleResources::GetResourceTypeFromFileExtension(FileType fileType
 	}
 
 	return ResourceType();
+}
+
+void ModuleResources::ImportModel(const char* buffer, uint size, Resource* model)
+{
+	Resource_Model* resource_model = (Resource_Model*)model;
+	const aiScene* scene = Importer::Model::ProcessAssimpScene(buffer, size);
+	Importer::Model::Import(scene, resource_model);
 }

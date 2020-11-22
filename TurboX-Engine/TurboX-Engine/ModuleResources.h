@@ -2,6 +2,7 @@
 
 #include "Module.h"
 #include "Globals.h"
+#include "Resource.h"
 
 enum class FileType;
 
@@ -24,4 +25,6 @@ public:
 	uint64 ImportFileFromAssets(const char* path);
 
 	ResourceType GetResourceTypeFromFileExtension(FileType fileType) const;
+
+	void ImportModel(const char* buffer, uint size, Resource* model);
 };
