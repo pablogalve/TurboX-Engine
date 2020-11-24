@@ -20,7 +20,7 @@ bool ModuleScene::Start()
 	root = CreateGameObject("Root", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 });
 	//baker_house = CreateGameObject("Baker House", "Assets/Models/BakerHouse.fbx", "Assets/Textures/Baker_house.png");	
 	//airplane = CreateGameObject("Airplane", "Assets/Models/airplane.fbx", "Assets/Textures/airplane.dds");
-	street = CreateGameObject("Street", {0,0,0}, {0,0,0,1}, {1,1,1}, App->scene->GetRoot(), "Assets/Models/street/street2.fbx");
+	//street = CreateGameObject("Street", {0,0,0}, {0,0,0,1}, {1,1,1}, App->scene->GetRoot(), "Assets/Models/street/street2.fbx");
 
 	return ret;
 }
@@ -47,10 +47,6 @@ bool ModuleScene::CleanUp()
 {
 	bool ret = true;
 
-	//delete baker_house;
-	//delete airplane;
-	delete street;
-
 	delete root;
 
 	return ret;
@@ -62,20 +58,13 @@ GameObject* ModuleScene::CreateGameObject(std::string name, float3 position, Qua
 	newGameObject = new GameObject();
 	newGameObject->ChangeName(name);
 
-	// Transform
-	newGameObject->CreateComponent(Component::Type::Transform);
-
-	// Texture
-	if (texture_path != nullptr) {
-		newGameObject->CreateComponent(Component::Type::Material);
-		newGameObject->material->LoadTexture(texture_path);
+	if (newGameObject != nullptr)
+	{
+		if (parent != nullptr) {
+			App->scene->AddChild(newGameObject, parent);
+		}
+		
 	}
-
-	// Mesh
-	if (mesh_path != nullptr) {
-		newGameObject->CreateComponent(Component::Type::Mesh);
-		newGameObject->mesh->LoadMesh(mesh_path, newGameObject);
-	}	
 
 	return newGameObject;
 }

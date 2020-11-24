@@ -3,8 +3,8 @@
 #include "Globals.h"
 #include <string>
 
-class C_Material;
 struct aiMaterial;
+class C_Material;
 
 namespace Importer {
 	namespace Textures {

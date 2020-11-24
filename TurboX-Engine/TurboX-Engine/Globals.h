@@ -7,6 +7,14 @@
 #include <windows.h>
 #include <stdio.h>
 
+#define LIBRARY_PATH "Library/"
+#define FOLDERS_PATH "Library/Folders/"
+#define MESHES_PATH "Library/Meshes/"
+#define MATERIALS_PATH "Library/Materials/"
+#define TEXTURES_PATH "Library/Textures/"
+#define MODELS_PATH "Library/Models/"
+
+
 #define MY_LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
 
 void log(const char file[], int line, const char* format, ...);

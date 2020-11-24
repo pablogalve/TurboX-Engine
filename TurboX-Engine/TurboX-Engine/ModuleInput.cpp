@@ -8,6 +8,7 @@
 #include "ModuleEditor.h"
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_sdl.h"
+#include "ModuleResources.h"
 #define MAX_KEYS 300
 
 ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -167,8 +168,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				switch (fileType)
 				{
 				case FileType::FBX:
-					GameObject* imported_model;
-					imported_model = App->scene->CreateGameObject("Imported model", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), dropped_filedir);
+					App->resources->ImportFileFromAssets(dropped_filedir);
 					break;
 				case FileType::PNG:
 				{

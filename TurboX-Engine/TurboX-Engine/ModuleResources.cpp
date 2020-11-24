@@ -7,9 +7,11 @@
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
-#pragma comment (lib, "Libraries/Assimp/libx86/assimp.lib")
 #include "Importer_Model.h"
 #include "ModuleScene.h"
+#include "GameObject.h"
+
+#pragma comment (lib, "Libraries/Assimp/libx86/assimp.lib")
 
 ModuleResources::ModuleResources(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -38,14 +40,22 @@ bool ModuleResources::CleanUp()
 
 void ModuleResources::ImportFileFromAssets(const char* path)
 {
-	const aiScene* scene = nullptr;
 	FileType fileType = App->input->GetFileType(path);
 	ResourceType type = GetResourceTypeFromFileExtension(fileType);
 
-	char* buffer = nullptr;
-	uint64 fileSize = App->file_system->Load(path, &buffer);
+	const aiScene* scene = nullptr;
 
-	scene = aiImportFileFromMemory(buffer, fileSize, aiProcessPreset_TargetRealtime_MaxQuality, nullptr);
+	char* buffer = nullptr;
+	uint size = App->file_system->Load(path, &buffer);
+
+	if (buffer != nullptr)
+	{
+		scene = aiImportFileFromMemory(buffer, size, aiProcessPreset_TargetRealtime_MaxQuality, NULL);
+	}
+	else
+	{
+		scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
+	}
 
 	aiNode* node = scene->mRootNode;
 

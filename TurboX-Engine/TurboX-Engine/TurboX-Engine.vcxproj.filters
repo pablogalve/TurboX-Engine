@@ -675,6 +675,9 @@
     <ClInclude Include="Importer_Mesh.h">
       <Filter>Sources\Importers</Filter>
     </ClInclude>
+    <ClInclude Include="PathNode.h">
+      <Filter>Sources\Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">

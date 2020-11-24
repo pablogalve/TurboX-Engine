@@ -29,6 +29,9 @@ public:
 	update_status Update(float dt) override;
 	bool CleanUp() override;
 
+	const char* GetTitleName() const;
+	const char* GetOrganizationName() const;
+
 private:
 	void CreateDockSpace();
 
@@ -51,4 +54,7 @@ private:
 	bool showConfigurationWindow;
 	bool showConsoleWindow;
 	bool showToolbarWindow;
+
+	std::string title;
+	std::string organization;
 };

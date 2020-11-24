@@ -3,7 +3,6 @@
 #include "glew\glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include "ModuleScene.h"
-#include "Application.h"
 #include "ModuleConsole.h"
 #include "ModuleFileSystem.h"
 
@@ -24,91 +23,97 @@ C_Mesh::~C_Mesh()
 
 void C_Mesh::Draw()
 {		
-	material = (C_Material*)owner->GetComponent(Component::Type::Material);
-
-	if (active == true) {			
-		
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
-		glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-		if(num_normals > 0)
+	if (this != nullptr) 
+	{
+		if (active == true)
 		{
-			glEnableClientState(GL_NORMAL_ARRAY);
-			glBindBuffer(GL_ARRAY_BUFFER, id_normals);
-			glNormalPointer(GL_FLOAT, 0, NULL);
-		}
 
-		if (num_texcoords > 0)
-		{
-			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			glBindBuffer(GL_ARRAY_BUFFER, id_texcoords);
-			glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-		}
-	
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
-	
-		if(material != nullptr && material->active)
-		{
-			if (material->defaultTex)
+			glEnableClientState(GL_VERTEX_ARRAY);
+			glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+			glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+			if (num_normals > 0)
 			{
-				glBindTexture(GL_TEXTURE_2D, material->defaultTextureID);
+				glEnableClientState(GL_NORMAL_ARRAY);
+				glBindBuffer(GL_ARRAY_BUFFER, id_normals);
+				glNormalPointer(GL_FLOAT, 0, NULL);
 			}
-			else
+
+			if (num_texcoords > 0)
 			{
-				glBindTexture(GL_TEXTURE_2D, material->textureID);
+				material = (C_Material*)owner->GetComponent(Component::Type::Material);
+
+				glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+				glBindBuffer(GL_ARRAY_BUFFER, id_texcoords);
+				glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 			}
-		}
-			
-		if (vertex_normals_active) {
-			glBegin(GL_LINES);
-			glColor4f(0.66f, 1.0f, 0.16f, 1.0f); // Green
-			DrawVertexNormals();
-			glEnd();
-			glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Set color of everything back to white
-		}
-		if (face_normals_active) {
-			glBegin(GL_LINES);
-			glColor4f(0.0f, 1.0f, 1.0f, 1.0f); // Cyan
-			DrawFaceNormals();
-			glEnd();
-			glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Set color of everything back to white
-		}
 
-		glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL);
-		glBindTexture(GL_TEXTURE_2D, 0);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
 
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		glDisableClientState(GL_NORMAL_ARRAY);
-		glDisableClientState(GL_VERTEX_ARRAY);		
+			if (material != nullptr && material->active)
+			{
+				if (material->defaultTex)
+				{
+					glBindTexture(GL_TEXTURE_2D, material->defaultTextureID);
+				}
+				else
+				{
+					glBindTexture(GL_TEXTURE_2D, material->textureID);
+				}
+			}
+
+			if (vertex_normals_active) {
+				glBegin(GL_LINES);
+				glColor4f(0.66f, 1.0f, 0.16f, 1.0f); // Green
+				DrawVertexNormals();
+				glEnd();
+				glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Set color of everything back to white
+			}
+			if (face_normals_active) {
+				glBegin(GL_LINES);
+				glColor4f(0.0f, 1.0f, 1.0f, 1.0f); // Cyan
+				DrawFaceNormals();
+				glEnd();
+				glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Set color of everything back to white
+			}
+
+			glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL);
+			glBindTexture(GL_TEXTURE_2D, 0);
+
+			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+			glDisableClientState(GL_NORMAL_ARRAY);
+			glDisableClientState(GL_VERTEX_ARRAY);
+		}
 	}
+	
 }
 
-void C_Mesh::SetMeshBuffer(GameObject* parent)
+void C_Mesh::SetMeshBuffer()
 {
-	glGenBuffers(1, (GLuint*) & (parent->mesh->id_vertex));
-	glBindBuffer(GL_ARRAY_BUFFER, parent->mesh->id_vertex);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * parent->mesh->num_vertex * 3, parent->mesh->vertex, GL_STATIC_DRAW);
+	glGenBuffers(1, (GLuint*) & (id_vertex));
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_vertex * 3, vertex, GL_STATIC_DRAW);
 
-	glGenBuffers(1, (GLuint*) & (parent->mesh->id_index));
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, parent->mesh->id_index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * parent->mesh->num_index, parent->mesh->index, GL_STATIC_DRAW);
+	glGenBuffers(1, (GLuint*) & (id_index));
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_index, index, GL_STATIC_DRAW);
 
-	if (parent->mesh->num_normals > 0)
+	if (num_normals > 0)
 	{
-		glGenBuffers(1, (GLuint*) & (parent->mesh->id_normals));
-		glBindBuffer(GL_ARRAY_BUFFER, parent->mesh->id_normals);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * parent->mesh->num_normals * 3, parent->mesh->normals, GL_STATIC_DRAW);
+		glGenBuffers(1, (GLuint*) & (id_normals));
+		glBindBuffer(GL_ARRAY_BUFFER, id_normals);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * num_normals * 3, normals, GL_STATIC_DRAW);
 	}
 
-	if (parent->mesh->num_texcoords > 0)
+	if (num_texcoords > 0)
 	{
-		glGenBuffers(1, (GLuint*) & (parent->mesh->id_texcoords));
-		glBindBuffer(GL_ARRAY_BUFFER, parent->mesh->id_texcoords);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * parent->mesh->num_texcoords * 2, parent->mesh->texcoords, GL_STATIC_DRAW);
+		glGenBuffers(1, (GLuint*) & (id_texcoords));
+		glBindBuffer(GL_ARRAY_BUFFER, id_texcoords);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * num_texcoords * 2, texcoords, GL_STATIC_DRAW);
 	}
 }
 
+/*
 void C_Mesh::LoadMesh(char* file_path, GameObject* gameObject)
 {
 
@@ -275,6 +280,7 @@ void C_Mesh::LoadSingleMesh(char* file_path, GameObject* new_parent)
 
 	aiReleaseImport(scene);
 }
+*/
 
 Component::Type C_Mesh::GetComponentType()
 {

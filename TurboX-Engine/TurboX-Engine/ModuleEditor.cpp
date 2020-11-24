@@ -28,6 +28,9 @@ ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, s
 	theme_window = new W_Theme();
 	config_window = new W_Configuration();
 	toolbar_window = new W_Toolbar();
+
+	title = TITLE;
+	organization = ORGANIZATION;
 }
 
 ModuleEditor::~ModuleEditor()
@@ -143,22 +146,22 @@ void ModuleEditor::ShowMenuBar()
 		}
 		if (ImGui::BeginMenu("Assets")) {
 			if (ImGui::MenuItem("Create Cube")) {
-				App->scene->CreateGameObject("Cube", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Cube.fbx");
+				//App->scene->CreateGameObject("Cube", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Cube.fbx");
 			}
 			if (ImGui::MenuItem("Create Sphere")){
-				App->scene->CreateGameObject("Sphere", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Sphere.fbx");
+				//App->scene->CreateGameObject("Sphere", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Sphere.fbx");
 			}
 			if (ImGui::MenuItem("Create Cone")){
-				App->scene->CreateGameObject("Cone", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Cone.fbx");
+				//App->scene->CreateGameObject("Cone", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Cone.fbx");
 			}
 			if (ImGui::MenuItem("Create Cylinder")){
-				App->scene->CreateGameObject("Cylinder", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Cylinder.fbx");
+				//App->scene->CreateGameObject("Cylinder", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Cylinder.fbx");
 			}
 			if (ImGui::MenuItem("Create Pyramid")){
-				App->scene->CreateGameObject("Pyramid", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Pyramid.fbx");
+				//App->scene->CreateGameObject("Pyramid", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Pyramid.fbx");
 			}
 			if (ImGui::MenuItem("Create Plane")){
-				App->scene->CreateGameObject("Plane", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Plane.fbx");
+				//App->scene->CreateGameObject("Plane", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Plane.fbx");
 			}
 
 			ImGui::EndMenu();
@@ -200,4 +203,14 @@ void ModuleEditor::ShowMenuBar()
 
 		ImGui::EndMainMenuBar();
 	}
+}
+
+const char* ModuleEditor::GetTitleName() const
+{
+	return title.c_str();
+}
+
+const char* ModuleEditor::GetOrganizationName() const
+{
+	return organization.c_str();
 }

@@ -5,7 +5,6 @@
 
 struct aiScene;
 struct aiNode;
-class C_Material;
 struct aiMaterial;
 class Resource_Model;
 class GameObject;

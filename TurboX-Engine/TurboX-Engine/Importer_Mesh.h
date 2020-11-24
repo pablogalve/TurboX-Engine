@@ -3,8 +3,8 @@
 #include "Globals.h"
 
 struct aiMesh;
-class C_Mesh;
 struct aiMaterial;
+class C_Mesh;
 
 namespace Importer {
 	namespace Mesh {
