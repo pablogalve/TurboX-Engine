@@ -497,7 +497,7 @@ std::string ModuleFileSystem::GetFileName(std::string file, bool has_filename_ex
 {
 	if (has_filename_extension) {
 		do {
-			file.pop_back();
+			file.pop_back();			
 		} while (file.back() != '.');
 		file.pop_back();
 	}

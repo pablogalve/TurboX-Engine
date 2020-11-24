@@ -36,7 +36,8 @@ void Importer::Model::Import(const aiScene* scene, aiNode* node, GameObject* par
 	transform_heredated.Decompose(pos, rot, scale);
 
 	if (node->mNumChildren > 1 || node->mNumMeshes != 0) {
-		game_object = App->scene->CreateGameObject(file, pos, rot, scale, parent);
+		std::string gameobject_name = App->file_system->GetFileName(file, true);
+		game_object = App->scene->CreateGameObject(gameobject_name, pos, rot, scale, parent);
 		transform_heredated = float4x4::identity;
 	}
 
