@@ -67,6 +67,9 @@
     <Filter Include="Sources\Resources">
       <UniqueIdentifier>{e95b3f26-3fc4-4bf8-a29f-3c5cea7abe17}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\FileManager">
+      <UniqueIdentifier>{5e7628fb-eb91-4f26-a854-386b137e13fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -678,6 +681,9 @@
     <ClInclude Include="PathNode.h">
       <Filter>Sources\Containers</Filter>
     </ClInclude>
+    <ClInclude Include="Config_JSON.h">
+      <Filter>Sources\FileManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -910,6 +916,9 @@
     </ClCompile>
     <ClCompile Include="Importer_Mesh.cpp">
       <Filter>Sources\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="Config_JSON.cpp">
+      <Filter>Sources\FileManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

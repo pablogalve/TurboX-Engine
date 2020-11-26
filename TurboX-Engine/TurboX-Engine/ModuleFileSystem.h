@@ -10,7 +10,7 @@ int close_sdl_rwops(SDL_RWops* rw);
 struct aiFileIO;
 
 //struct BASS_FILEPROCS;
-class Config;
+class Config_JSON_Object;
 struct PathNode;
 
 class ModuleFileSystem : public Module

@@ -75,6 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Config_JSON.h" />
     <ClInclude Include="Importer_Material.h" />
     <ClInclude Include="Importer_Mesh.h" />
     <ClInclude Include="Importer_Model.h" />
@@ -280,6 +281,7 @@
     <ClInclude Include="W_Toolbar.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Config_JSON.cpp" />
     <ClCompile Include="Importer_Material.cpp" />
     <ClCompile Include="Importer_Mesh.cpp" />
     <ClCompile Include="Importer_Model.cpp" />
