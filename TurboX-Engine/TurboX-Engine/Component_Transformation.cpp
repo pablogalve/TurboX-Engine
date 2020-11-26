@@ -32,13 +32,37 @@ float3 C_Transform::GetScale()
 	return scale;
 }
 
+void C_Transform::SetRotation(float3 rot)
+{
+	rotationVec = rot;
+}
+
+void C_Transform::SetQuaternionRotation(Quat quatRot)
+{
+	rotation = quatRot;
+}
+
+void C_Transform::SetPosition(float3 pos)
+{
+	position = pos;
+}
+
+void C_Transform::SetScale(float3 scl)
+{
+	scale = scl;
+}
+
 float3 C_Transform::GetEulerRotation()
 {
-
 	return rotationVec;
 }
 
 Quat C_Transform::GetQuaternionRotation()
 {
 	return rotation;
+}
+
+void C_Transform::RecalculateMatrix()
+{
+	localMatrix.Set(float4x4::FromTRS(position, rotation, scale));
 }

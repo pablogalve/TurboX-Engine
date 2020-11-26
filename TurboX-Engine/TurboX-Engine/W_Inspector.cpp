@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleEditor.h"
 #include "MathGeoLib/MathGeoLib.h"
+#include "MathGeoLib/Math/float3.h"
 #include "GameObject.h"
 W_Inspector::W_Inspector()
 {
@@ -38,6 +39,7 @@ void W_Inspector::Draw()
 			float3 pos = transform->GetPosition();
 			float3 scale = transform->GetScale();
 			float3 rotation = transform->GetEulerRotation();
+			Quat quatRot = transform->GetQuaternionRotation();
 
 			ImGui::Columns(4, "Transform");
 			
@@ -51,38 +53,91 @@ void W_Inspector::Draw()
 			ImGui::AlignTextToFramePadding();
 			ImGui::Text("Position"); ImGui::NextColumn();
 			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
-			ImGui::DragFloat("##PositionX", &pos.x, 0, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
+			if(ImGui::DragFloat("##PositionX", &pos.x, 0.05f, 0.f, 0.f, "%.2f"))
+			{
+				transform->SetPosition(pos);
+				transform->RecalculateMatrix();
+			}
+			ImGui::NextColumn();
 
 			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
-			ImGui::DragFloat("##PositionY", &pos.y, 0, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
+			if (ImGui::DragFloat("##PositionY", &pos.y, 0.05f, 0.f, 0.f, "%.2f"))
+			{
+				transform->SetPosition(pos);
+				transform->RecalculateMatrix();
+			}
+			ImGui::NextColumn();
 
 			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
-			ImGui::DragFloat("##PositionZ", &pos.z, 0, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
+			if(ImGui::DragFloat("##PositionZ", &pos.z, 0.05f, 0.f, 0.f, "%.2f"))
+			{
+				transform->SetPosition(pos);
+				transform->RecalculateMatrix();
+			}
+			ImGui::NextColumn();
 
 			// Rotation
 			ImGui::AlignTextToFramePadding();
 			ImGui::Text("Rotation"); ImGui::NextColumn();
 			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
-			ImGui::DragFloat("##RotationX", &rotation.x, 0, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
+
+			if(ImGui::DragFloat("##RotationX", &rotation.x, 0.05f, 0.f, 0.f, "%.2f"))
+			{
+				transform->SetRotation(rotation);
+				rotation *= DEGTORAD;
+				quatRot = quatRot.FromEulerXYZ(rotation.x, rotation.y, rotation.z);
+				transform->SetQuaternionRotation(quatRot);
+				transform->RecalculateMatrix();
+			}
+			ImGui::NextColumn();
 
 			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
-			ImGui::DragFloat("##RotationY", &rotation.y, 0, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
+			if(ImGui::DragFloat("##RotationY", &rotation.y, 0.05f, 0.f, 0.f, "%.2f"))
+			{
+				transform->SetRotation(rotation);
+				rotation *= DEGTORAD;
+				quatRot = quatRot.FromEulerXYZ(rotation.x, rotation.y, rotation.z);
+				transform->SetQuaternionRotation(quatRot);
+				transform->RecalculateMatrix();
+			}
+			ImGui::NextColumn();
 
 			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
-			ImGui::DragFloat("##RotationZ", &rotation.z, 0, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
-
+			if(ImGui::DragFloat("##RotationZ", &rotation.z, 0.05f, 0.f, 0.f, "%.2f"))
+			{
+				transform->SetRotation(rotation);
+				rotation *= DEGTORAD;
+				quatRot = quatRot.FromEulerXYZ(rotation.x, rotation.y, rotation.z);
+				transform->SetQuaternionRotation(quatRot);
+				transform->RecalculateMatrix();
+			}
+			ImGui::NextColumn();
 			// Scale
 			ImGui::AlignTextToFramePadding();
 			ImGui::Text("Scale"); ImGui::NextColumn();
 			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
-			ImGui::DragFloat("##ScaleX", &scale.x, 0, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
+			if(ImGui::DragFloat("##ScaleX", &scale.x, 0.05f, 0.f, 0.f, "%.2f"))
+			{
+				transform->SetScale(scale);
+				transform->RecalculateMatrix();
+			}
+			ImGui::NextColumn();
 
 			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
-			ImGui::DragFloat("##ScaleY", &scale.y, 0, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
+			if(ImGui::DragFloat("##ScaleY", &scale.y, 0.05f, 0.f, 0.f, "%.2f"))
+			{
+				transform->SetScale(scale);
+				transform->RecalculateMatrix();
+			}
+			ImGui::NextColumn();
 
 			ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
-			ImGui::DragFloat("##ScaleZ", &scale.z, 0.05f, 0.f, 0.f, "%.2f"); ImGui::NextColumn();
-			
+			if(ImGui::DragFloat("##ScaleZ", &scale.z, 0.05f, 0.f, 0.f, "%.2f"))
+			{
+				transform->SetScale(scale);
+				transform->RecalculateMatrix();
+			}
+			ImGui::NextColumn();
 			ImGui::Columns(1);
 		}
 

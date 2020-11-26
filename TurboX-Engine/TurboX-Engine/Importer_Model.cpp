@@ -32,7 +32,8 @@ void Importer::Model::Import(const aiScene* scene, aiNode* node, GameObject* par
 	float3 scale = { scaling.x,scaling.y,scaling.z };
 
 	GameObject* game_object = parent;
-
+	
+	C_Transform* transform = (C_Transform*)game_object->CreateComponent(Component::Type::Transform);
 
 	if (node->mNumChildren > 1 || node->mNumMeshes != 0) {
 		std::string gameobject_name = App->file_system->GetFileName(file, true);

@@ -15,7 +15,12 @@ public:
 	float3 GetPosition();
 	float3 GetScale();
 	float3 GetEulerRotation();
+	void SetPosition(float3 pos);
+	void SetScale(float3 scl);
+	void SetRotation(float3 rot);
+	void SetQuaternionRotation(Quat quadRot);
 	Quat GetQuaternionRotation();
+	void RecalculateMatrix();
 
 public:
 	float3 position = { 0.0f,0.0f,0.0f };
