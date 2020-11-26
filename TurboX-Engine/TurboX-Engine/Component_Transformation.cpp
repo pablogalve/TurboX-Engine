@@ -5,7 +5,10 @@ C_Transform::C_Transform(Component::Type type, GameObject* owner):Component(type
 	this->owner = owner;
 	position = float3{ 0,0,0 };
 	scale = float3{ 1,1,1 };
-	eulerRotation = float3{ 0,0,0 };
+	rotationVec = float3{ 0,0,0 };
+	localMatrix = float4x4::identity;
+	globalMatrix = float4x4::identity;
+	rotation = Quat{ 0.0f,0.0f,0.0f,1.0f };
 }
 
 C_Transform::~C_Transform()
@@ -32,10 +35,10 @@ float3 C_Transform::GetScale()
 float3 C_Transform::GetEulerRotation()
 {
 
-	return eulerRotation;
+	return rotationVec;
 }
 
 Quat C_Transform::GetQuaternionRotation()
 {
-	return quaternionRotation;
+	return rotation;
 }

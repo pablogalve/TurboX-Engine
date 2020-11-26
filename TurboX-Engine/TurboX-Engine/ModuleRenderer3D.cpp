@@ -6,6 +6,9 @@
 #include "ModuleConsole.h"
 #include "ModuleGui.h"
 #include "ModuleScene.h"
+#include "GameObject.h"
+#include "Component.h"
+#include "Component_Transformation.h"
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -169,6 +172,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 
+	CalculateGlobalMatrix(App->scene->root);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -292,5 +297,28 @@ void ModuleRenderer3D::DrawAxisLines()
 
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Set color of everything back to white
 	glPopMatrix();
+}
+
+void ModuleRenderer3D::CalculateGlobalMatrix(GameObject* gameObject)
+{
+	C_Transform* transform = (C_Transform*)gameObject->GetComponent(Component::Type::Transform);
+
+	if (transform != nullptr)
+	{
+		if (gameObject->parent == nullptr)
+		{
+			transform->globalMatrix = transform->localMatrix;
+		}
+		else
+		{
+			transform->globalMatrix = ((C_Transform*)gameObject->parent->GetComponent(Component::Type::Transform))->globalMatrix * transform->localMatrix;
+		}
+
+
+		for (std::vector<GameObject*>::iterator it_c = gameObject->childs.begin(); it_c != gameObject->childs.end(); it_c++)
+		{
+			CalculateGlobalMatrix((*it_c));
+		}
+	}
 }
 

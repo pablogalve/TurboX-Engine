@@ -13,6 +13,7 @@
 #include "Component.h"
 #include "Component_Mesh.h"
 #include "Component_Material.h"
+#include "Component_Transformation.h"
 #include <stdio.h>
 
 #pragma comment (lib, "Libraries/Assimp/libx86/assimp.lib")
@@ -32,17 +33,21 @@ void Importer::Model::Import(const aiScene* scene, aiNode* node, GameObject* par
 
 	GameObject* game_object = parent;
 
-	transform_heredated = transform_heredated * float4x4::FromTRS(pos, rot, scale);
-	transform_heredated.Decompose(pos, rot, scale);
 
 	if (node->mNumChildren > 1 || node->mNumMeshes != 0) {
 		std::string gameobject_name = App->file_system->GetFileName(file, true);
 		game_object = App->scene->CreateGameObject(gameobject_name, pos, rot, scale, parent);
-		transform_heredated = float4x4::identity;
 	}
 
 	if (node->mNumMeshes > 0)
 	{
+
+		C_Transform* transform = (C_Transform*)game_object->CreateComponent(Component::Type::Transform);
+
+		game_object->transform->position = pos;
+		game_object->transform->scale = scale;
+		game_object->transform->rotation = rot;
+		game_object->transform->localMatrix.Set(float4x4::FromTRS(pos, rot, scale));
 
 		C_Mesh* mesh = (C_Mesh*)game_object->CreateComponent(Component::Type::Mesh);
 		aiMesh* ai_mesh = scene->mMeshes[node->mMeshes[0]];

@@ -31,8 +31,6 @@ public:
 	GameObject* baker_house;
 	GameObject* airplane;
 	GameObject* street;
-
-private:
 	GameObject* root;
 };
 

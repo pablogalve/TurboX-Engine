@@ -16,6 +16,8 @@
 using namespace std;
 #define MAX_LIGHTS 8
 
+class GameObject;
+
 class ModuleRenderer3D : public Module
 {
 public:
@@ -37,6 +39,8 @@ public:
 	void CreateGridLine(int size);
 	void DrawGridLine();
 	void DrawAxisLines();
+
+	void CalculateGlobalMatrix(GameObject* gameObject);
 
 public:
 

@@ -18,14 +18,14 @@ public:
 	Quat GetQuaternionRotation();
 
 public:
-	float4x4 transform;
-	float4x4 global_transform;
-	float4x4 global_transformT;
+	float3 position = { 0.0f,0.0f,0.0f };
+	float3 rotationVec = { 0.0f,0.0f,0.0f };
+	float3 scale = { 1.0f,1.0f,1.0f };
 
-	float3 position;
-	float3 scale;
-	float3 eulerRotation;
-	Quat quaternionRotation;
+	float4x4 localMatrix = float4x4::identity;
+	float4x4 globalMatrix = float4x4::identity;
+
+	Quat rotation = { 0.0f,0.0f,0.0f,1.0f };
 	
 
 };

@@ -79,8 +79,14 @@ Component* GameObject::GetComponent(Component::Type type)
 
 void GameObject::Draw()
 {
-	mesh->Draw();
-
+	if (mesh != nullptr)
+	{
+		glPushMatrix();
+		glMultMatrixf((float*)transform->globalMatrix.Transposed().v);
+		mesh->Draw();
+		glPopMatrix();
+	}
+	
 	for (size_t i = 0; i < childs.size(); i++)
 	{
 		if (childs[i]->active)
