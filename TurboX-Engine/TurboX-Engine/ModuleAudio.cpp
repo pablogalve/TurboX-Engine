@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "ModuleAudio.h"
 
-
 ModuleAudio::ModuleAudio(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "Audio";
@@ -13,11 +12,10 @@ ModuleAudio::~ModuleAudio()
 {}
 
 // Called before render is available
-bool ModuleAudio::Init(JSON_Object* obj)
+bool ModuleAudio::Init(Config_JSON_Node* obj)
 {
 	
 	bool ret = true;
-	json_object_clear(obj);
 	return ret;
 }
 

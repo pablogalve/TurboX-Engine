@@ -2,6 +2,7 @@
 
 #include "./JSON/parson.h"
 #include <string>
+#include "Config_JSON.h"
 
 class Application;
 
@@ -22,7 +23,7 @@ public:
 	virtual ~Module()
 	{}
 
-	virtual bool Init(JSON_Object* obj)
+	virtual bool Init(Config_JSON_Node* obj)
 	{
 		return true; 
 	}

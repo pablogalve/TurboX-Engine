@@ -9,6 +9,7 @@
 #include <cmath>
 #include <vector>
 #include "W_SceneWindow.h"
+#include "Config_JSON.h"
 
 #pragma comment (lib, "Libraries/glew/glew32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -25,7 +26,7 @@ public:
 	~ModuleRenderer3D();
 
 	bool Start()override;
-	bool Init(JSON_Object* obj)override;
+	bool Init(Config_JSON_Node* obj)override;
 	update_status PreUpdate(float dt)override;
 	update_status Update(float dt)override;
 	update_status PostUpdate(float dt)override;

@@ -24,7 +24,7 @@ ModuleWindow::~ModuleWindow()
 }
 
 // Called before render is available
-bool ModuleWindow::Init(JSON_Object* obj)
+bool ModuleWindow::Init(Config_JSON_Node* obj)
 {
 	//LOG("Init SDL window & surface");
 	bool ret = true;
@@ -78,8 +78,6 @@ bool ModuleWindow::Init(JSON_Object* obj)
 			screen_surface = SDL_GetWindowSurface(window);
 		}
 	}
-
-	json_object_clear(obj);
 
 	return ret;
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-
+#include "Config_JSON.h"
 
 class DebugDrawer;
 
@@ -12,7 +12,7 @@ public:
 	~ModulePhysics3D();
 
 	bool Start()override;
-	bool Init(JSON_Object* obj)override;
+	bool Init(Config_JSON_Node* obj)override;
 	update_status PreUpdate(float dt)override;
 	update_status Update(float dt)override;
 	update_status PostUpdate(float dt)override;

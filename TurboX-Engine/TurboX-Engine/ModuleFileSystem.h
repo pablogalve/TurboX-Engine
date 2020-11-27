@@ -2,6 +2,7 @@
 #define __MODULEFILESYSTEM_H__
 
 #include "Module.h"
+#include "Config_JSON.h"
 #include <vector>
 
 struct SDL_RWops;
@@ -10,7 +11,7 @@ int close_sdl_rwops(SDL_RWops* rw);
 struct aiFileIO;
 
 //struct BASS_FILEPROCS;
-class Config_JSON_Object;
+class Config_JSON_Node;
 struct PathNode;
 
 class ModuleFileSystem : public Module
@@ -23,7 +24,7 @@ public:
 	~ModuleFileSystem();
 
 	// Called before render is available
-	bool Init(JSON_Object* obj) override;
+	bool Init(Config_JSON_Node* obj) override;
 
 	// Called before quitting
 	bool CleanUp() override;

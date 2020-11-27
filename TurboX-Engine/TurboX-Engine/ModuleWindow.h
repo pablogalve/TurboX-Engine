@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "SDL/include/SDL.h"
+#include "Config_JSON.h"
 
 class Application;
 
@@ -15,7 +16,7 @@ public:
 	// Destructor
 	virtual ~ModuleWindow();
 
-	bool Init(JSON_Object* obj)override;
+	bool Init(Config_JSON_Node* obj)override;
 	bool CleanUp()override;
 
 	void SetTitle(const char* title);

@@ -34,7 +34,7 @@ bool ModuleRenderer3D::Start()
 }
 
 // Called before render is available
-bool ModuleRenderer3D::Init(JSON_Object* obj)
+bool ModuleRenderer3D::Init(Config_JSON_Node* obj)
 {
 	App->console->AddLog("Creating 3D Renderer context");
 	//LOG("Creating 3D Renderer context");
@@ -152,7 +152,6 @@ bool ModuleRenderer3D::Init(JSON_Object* obj)
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	json_object_clear(obj);
 	return ret;
 }
 // PreUpdate: clear buffer

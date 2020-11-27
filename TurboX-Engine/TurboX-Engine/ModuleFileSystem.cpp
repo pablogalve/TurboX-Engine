@@ -35,7 +35,7 @@ ModuleFileSystem::~ModuleFileSystem()
 }
 
 // Called before render is available
-bool ModuleFileSystem::Init(JSON_Object* obj)
+bool ModuleFileSystem::Init(Config_JSON_Node* obj)
 {
 	MY_LOG("Loading File System");
 	bool ret = true;
