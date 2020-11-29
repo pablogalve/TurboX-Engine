@@ -21,7 +21,7 @@ ModulePhysics3D::~ModulePhysics3D()
 	delete debug_draw;
 }
 
-bool ModulePhysics3D::Init(Config_JSON_Node* obj)
+bool ModulePhysics3D::Init()
 {
 	bool ret = true;
 

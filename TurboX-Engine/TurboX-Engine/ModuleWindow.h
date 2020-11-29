@@ -16,7 +16,7 @@ public:
 	// Destructor
 	virtual ~ModuleWindow();
 
-	bool Init(Config_JSON_Node* obj)override;
+	bool Init()override;
 	bool CleanUp()override;
 
 	void SetTitle(const char* title);

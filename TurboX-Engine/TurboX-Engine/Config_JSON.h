@@ -21,6 +21,7 @@ public:
 	bool GetBool(const char* name, bool default = false);
 	const char* GetString(const char* name, const char* default = "");
 	Config_JSON_Array GetArray(const char* name);
+	Config_JSON_Node GetNode(const char* name) const;
 
 	void SetNumber(const char* name, double number);
 	void SetBool(const char* name, bool boolean);
@@ -39,9 +40,6 @@ public:
 	void AddNumber(double number);
 	void AddString(char* string);
 	void AddBool(bool boolean);
-
-	Config_JSON_Node GetNodeInArray(const char* name);
-	Config_JSON_Node GetNodeAt(int index);
 private:
 	JSON_Array* json_array;
 	uint size = 0;

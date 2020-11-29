@@ -23,7 +23,7 @@ public:
 	virtual ~Module()
 	{}
 
-	virtual bool Init(Config_JSON_Node* obj)
+	virtual bool Init()
 	{
 		return true; 
 	}

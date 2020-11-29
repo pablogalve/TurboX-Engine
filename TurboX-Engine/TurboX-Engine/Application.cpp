@@ -1,5 +1,4 @@
 #include "Application.h"
-
 #include "Module.h"
 #include "ModuleFileSystem.h"
 #include "ModuleWindow.h"
@@ -69,17 +68,18 @@ bool Application::Init()
 
 	char* buffer = nullptr;
 	uint size = file_system->Load("Library/Config/config.json", &buffer);
-	
-	Config_JSON_Node config(buffer);
-
+	const char* test = buffer;
+	Config_JSON_Node config(test);
+	Config_JSON_Node node = config.GetNode("modules_settings");
 	// Call Init() in all modules	
-	Config_JSON_Array modules_json_array(config.GetArray("modules_settings"));
+	//Config_JSON_Array modules_json_array(config.GetArray("modules_settings"));
+
 
 	for (uint i = 0; i < modules_list.size(); i++)
 	{
-		Config_JSON_Node module_config(modules_json_array.GetNodeInArray(modules_list[i]->name.c_str()));
-
-		ret = modules_list[i]->Init(&module_config);
+		console->AddLog("Success with %s", modules_list[i]->name.c_str());
+		
+		ret = modules_list[i]->Init();
 	}
 
 	console->AddLog("-------------- Application Start --------------");

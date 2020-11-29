@@ -13,7 +13,7 @@ public:
 	ModuleAudio(Application* app, bool start_enabled = true);
 	~ModuleAudio();
 
-	bool Init(Config_JSON_Node* obj)override;
+	bool Init()override;
 	bool CleanUp()override;
 
 	// Play a music file

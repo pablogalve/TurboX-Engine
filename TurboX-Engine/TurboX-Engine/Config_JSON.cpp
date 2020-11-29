@@ -11,7 +11,7 @@ Config_JSON_Node::Config_JSON_Node()
 Config_JSON_Node::Config_JSON_Node(const char* buffer)
 {
 	root_value = json_parse_string(buffer);
-	if (root_value)
+	if (root_value != nullptr)
 	{
 		node = json_value_get_object(root_value);
 	}
@@ -64,6 +64,11 @@ Config_JSON_Array Config_JSON_Node::GetArray(const char* name)
 		return nullptr;	
 }
 
+Config_JSON_Node Config_JSON_Node::GetNode(const char* name) const
+{
+	return Config_JSON_Node(json_object_get_object(node, name));
+}
+
 void Config_JSON_Node::SetNumber(const char* name, double number)
 {
 	json_object_set_number(node, name, number);
@@ -106,24 +111,4 @@ void Config_JSON_Array::AddBool(bool boolean)
 {
 	json_array_append_boolean(json_array, boolean);
 	size++;
-}
-
-Config_JSON_Node Config_JSON_Array::GetNodeInArray(const char* name)
-{
-	for (size_t i = 0; i < json_array_get_count(json_array); i++)
-	{
-		JSON_Object* object = json_array_get_object(json_array, i);
-		const char* object_name = json_object_get_string(object, "name");
-
-		if (strcmp(name, object_name) == 0)
-			return Config_JSON_Node(object);
-	}
-	
-	App->console->AddLog("JSON node '%s' could not be found", name);
-}
-
-Config_JSON_Node Config_JSON_Array::GetNodeAt(int index)
-{
-	JSON_Object* object = json_array_get_object(json_array, index);
-	return Config_JSON_Node(object);
 }

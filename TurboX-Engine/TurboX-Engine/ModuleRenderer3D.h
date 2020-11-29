@@ -26,7 +26,7 @@ public:
 	~ModuleRenderer3D();
 
 	bool Start()override;
-	bool Init(Config_JSON_Node* obj)override;
+	bool Init()override;
 	update_status PreUpdate(float dt)override;
 	update_status Update(float dt)override;
 	update_status PostUpdate(float dt)override;

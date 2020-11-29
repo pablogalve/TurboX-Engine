@@ -12,7 +12,7 @@ ModuleAudio::~ModuleAudio()
 {}
 
 // Called before render is available
-bool ModuleAudio::Init(Config_JSON_Node* obj)
+bool ModuleAudio::Init()
 {
 	
 	bool ret = true;

@@ -35,7 +35,7 @@ ModuleFileSystem::~ModuleFileSystem()
 }
 
 // Called before render is available
-bool ModuleFileSystem::Init(Config_JSON_Node* obj)
+bool ModuleFileSystem::Init()
 {
 	MY_LOG("Loading File System");
 	bool ret = true;
@@ -309,7 +309,7 @@ uint ModuleFileSystem::Load(const char* file, char** buffer) const
 			uint readed = (uint)PHYSFS_read(fs_file, *buffer, 1, size);
 			if (readed != size)
 			{
-				MY_LOG("File System error while reading from file %s: %s\n", file, PHYSFS_getLastError());
+				App->console->AddLog("File System error while reading from file %s: %s\n", file, PHYSFS_getLastError());
 				RELEASE_ARRAY(buffer);
 			}
 			else
@@ -321,10 +321,10 @@ uint ModuleFileSystem::Load(const char* file, char** buffer) const
 		}
 
 		if (PHYSFS_close(fs_file) == 0)
-			MY_LOG("File System error while closing file %s: %s\n", file, PHYSFS_getLastError());
+			App->console->AddLog("File System error while closing file %s: %s\n", file, PHYSFS_getLastError());
 	}
 	else
-		MY_LOG("File System error while opening file %s: %s\n", file, PHYSFS_getLastError());
+		App->console->AddLog("File System error while opening file %s: %s\n", file, PHYSFS_getLastError());
 
 	return ret;
 }
