@@ -26,7 +26,7 @@ ModuleInput::~ModuleInput()
 }
 
 // Called before render is available
-bool ModuleInput::Init(JSON_Object* obj)
+bool ModuleInput::Init()
 {
 
 	App->console->AddLog("Init SDL input event system");
@@ -40,9 +40,7 @@ bool ModuleInput::Init(JSON_Object* obj)
 		//LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
-
-	json_object_clear(obj);
-
+	
 	SDL_EventState(SDL_DROPFILE, SDL_ENABLE);
 
 	return ret;

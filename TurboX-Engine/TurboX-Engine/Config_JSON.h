@@ -6,20 +6,24 @@
 
 class Config_JSON_Array;
 
-class Config_JSON_Object
+class Config_JSON_Node
 {
 
 public:
-	Config_JSON_Object();						
-	Config_JSON_Object(const char* buffer);		
-	Config_JSON_Object(JSON_Object* obj);		
-	~Config_JSON_Object();
+	Config_JSON_Node();						
+	Config_JSON_Node(const char* buffer);		
+	Config_JSON_Node(JSON_Object* obj);		
+	~Config_JSON_Node();
 
 	void Release();
+	
+	float GetNumber(const char* name, double default = -1.0f);
+	bool GetBool(const char* name, bool default = false);
+	const char* GetString(const char* name, const char* default = "");
+	Config_JSON_Array GetArray(const char* name);
+	Config_JSON_Node GetNode(const char* name) const;
 
 	void SetNumber(const char* name, double number);
-	void SetInt(const char* name, int number);
-	void SetFloat(const char* name, float number);
 	void SetBool(const char* name, bool boolean);
 	void SetString(const char* name, const char* string);
 private:
@@ -34,8 +38,6 @@ public:
 	Config_JSON_Array(JSON_Array* arr);
 
 	void AddNumber(double number);
-	void AddInt(int number);
-	void AddFloat(float number);
 	void AddString(char* string);
 	void AddBool(bool boolean);
 private:

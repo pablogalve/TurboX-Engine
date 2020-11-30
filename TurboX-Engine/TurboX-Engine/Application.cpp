@@ -1,5 +1,4 @@
 #include "Application.h"
-
 #include "Module.h"
 #include "ModuleFileSystem.h"
 #include "ModuleWindow.h"
@@ -14,6 +13,7 @@
 #include "ModuleScene.h"
 #include "ModuleConsole.h"
 #include "ModuleResources.h"
+#include "Config_JSON.h"
 
 Application::Application()
 {
@@ -54,9 +54,11 @@ Application::Application()
 
 Application::~Application()
 {
-	for (std::list < Module* > ::reverse_iterator item = modules_list.rbegin(); item != modules_list.rend(); item++) {
-		delete (*item);
+	for (uint i = 0; i < modules_list.size(); i++)
+	{
+		delete modules_list[i];
 	}
+
 	modules_list.clear();
 }
 
@@ -64,51 +66,29 @@ bool Application::Init()
 {
 	bool ret = true;
 
-	JSON_Value* config;
-	JSON_Object* objModules = nullptr;
-
-	if (config = json_parse_file(CONFIG_FILE)) {
-		
-		JSON_Object* obj;
-		JSON_Object* appObj;
-
-		obj = json_value_get_object(config);
-		appObj = json_object_get_object(obj, "App");
-
-		const char* title = json_object_get_string(appObj, "Name");
-		window->SetTitle((char*)title);
-
-		objModules = obj;
-		json_object_clear(appObj);
-		obj = nullptr;
-		json_object_clear(obj);
-
-	}
-
-	// Call Init() in all modules
-
-	std::list<Module*>::iterator item = modules_list.begin();
+	char* buffer = nullptr;
+	uint size = file_system->Load("Library/Config/config.json", &buffer);
+	const char* test = buffer;
+	Config_JSON_Node config(test);
+	Config_JSON_Node node = config.GetNode("modules_settings");
+	// Call Init() in all modules	
+	//Config_JSON_Array modules_json_array(config.GetArray("modules_settings"));
 
 
-	while (item != modules_list.end() && ret == true)
+	for (uint i = 0; i < modules_list.size(); i++)
 	{
-		ret = (*item)->Init(json_object_get_object(objModules, (*item)->name.c_str()));
-		item++;
+		console->AddLog("Success with %s", modules_list[i]->name.c_str());
+		
+		ret = modules_list[i]->Init();
 	}
 
 	console->AddLog("-------------- Application Start --------------");
 
 	// After all Init calls we call Start() in all modules
-	item = modules_list.begin();
-
-	while (item != modules_list.end() && ret == true)
+	for (int i = 0; i < modules_list.size() && ret == true; i++)
 	{
-		ret = (*item)->Start();
-		item++;
+		ret = modules_list[i]->Start();
 	}
-	
-	json_object_clear(objModules);
-	json_value_free(config);
 
 	ms_timer.Start();
 	return ret;
@@ -133,14 +113,17 @@ update_status Application::Update()
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
 	
-	for (std::list<Module*>::iterator item = modules_list.begin(); item != modules_list.end() && ret == UPDATE_CONTINUE; item++) {
-		ret = (*item)->PreUpdate(dt);
+	for (uint i = 0; i < modules_list.size() && ret == UPDATE_CONTINUE; i++)
+	{
+		ret = modules_list[i]->PreUpdate(dt);
 	}
-	for (std::list<Module*>::iterator item = modules_list.begin(); item != modules_list.end() && ret == UPDATE_CONTINUE; item++) {
-		ret = (*item)->Update(dt);
+	for (uint i = 0; i < modules_list.size() && ret == UPDATE_CONTINUE; i++)
+	{
+		ret = modules_list[i]->Update(dt);
 	}
-	for (std::list<Module*>::iterator item = modules_list.begin(); item != modules_list.end() && ret == UPDATE_CONTINUE; item++) {
-		ret = (*item)->PostUpdate(dt);
+	for (uint i = 0; i < modules_list.size() && ret == UPDATE_CONTINUE; i++)
+	{
+		ret = modules_list[i]->PostUpdate(dt);
 	}
 
 	if (closeApp)
@@ -152,14 +135,11 @@ update_status Application::Update()
 
 bool Application::CleanUp()
 {
-	bool ret = true;
-	
-	std::list<Module*>::reverse_iterator item = modules_list.rbegin();
+	bool ret = true;	
 
-	while (item != modules_list.rend() && ret == true)
+	for (uint i = 0; i < modules_list.size(); i++)
 	{
-		ret = (*item)->CleanUp();
-		item++;
+		ret = modules_list[i]->CleanUp();
 	}
 
 	delete console;

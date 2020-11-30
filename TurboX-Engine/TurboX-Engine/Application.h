@@ -43,7 +43,7 @@ private:
 
 	Timer	ms_timer;
 	float	dt;
-	std::list<Module*> modules_list;
+	std::vector<Module*> modules_list;
 
 public:
 

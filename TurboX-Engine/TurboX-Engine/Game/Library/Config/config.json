@@ -1,0 +1,49 @@
+{
+  "App": [
+      {
+          "Name": "TurboX-Engine",
+          "Organization": "UPC-CITM",
+          "Version": 0.3
+      }
+  ],
+  "Window": [
+      {
+          "Brightness": 1,
+          "Fullscreen": false,
+          "Resizable": true,
+          "Borderless": false,
+          "Fullscreen Desktop": false,
+          "Width": 1646,
+          "Height": 864
+      }
+  ],
+  "Camera": [
+      {}
+  ],
+  "Input": [
+      {}
+  ],
+  "fileSystem": [
+      {}
+  ],
+  "Audio": [
+      {}
+  ],
+  "textures": [
+      {}
+  ],
+  "scene": [
+      {}
+  ],
+  "": [
+      {}
+  ],
+  "Gui": [
+      {}
+  ],
+  "Render": [
+      {
+          "VSync": true
+      }
+  ]
+}

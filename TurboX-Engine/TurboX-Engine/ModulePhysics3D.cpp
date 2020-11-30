@@ -21,11 +21,10 @@ ModulePhysics3D::~ModulePhysics3D()
 	delete debug_draw;
 }
 
-bool ModulePhysics3D::Init(JSON_Object* obj)
+bool ModulePhysics3D::Init()
 {
 	bool ret = true;
 
-	json_object_clear(obj);//clear obj to free memory
 	return ret;
 }
 

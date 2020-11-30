@@ -2,6 +2,7 @@
 #define __ModuleAudio_H__
 
 #include "Module.h"
+#include "Config_JSON.h"
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
 
@@ -12,7 +13,7 @@ public:
 	ModuleAudio(Application* app, bool start_enabled = true);
 	~ModuleAudio();
 
-	bool Init(JSON_Object* obj)override;
+	bool Init()override;
 	bool CleanUp()override;
 
 	// Play a music file
