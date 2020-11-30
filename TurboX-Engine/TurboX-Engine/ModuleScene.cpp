@@ -8,6 +8,8 @@
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "Gui";
+	root = new GameObject();
+	root->name = "root";
 }
 
 ModuleScene::~ModuleScene()
@@ -16,11 +18,6 @@ ModuleScene::~ModuleScene()
 bool ModuleScene::Start()
 {
 	bool ret = true;
-
-	root = CreateGameObject("Root", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 });
-	//baker_house = CreateGameObject("Baker House", "Assets/Models/BakerHouse.fbx", "Assets/Textures/Baker_house.png");	
-	//airplane = CreateGameObject("Airplane", "Assets/Models/airplane.fbx", "Assets/Textures/airplane.dds");
-	//street = CreateGameObject("Street", {0,0,0}, {0,0,0,1}, {1,1,1}, App->scene->GetRoot(), "Assets/Models/street/street2.fbx");
 
 	return ret;
 }
@@ -144,4 +141,24 @@ void ModuleScene::DrawGameObjects(GameObject* gameObject, GameObject* root)
 GameObject* ModuleScene::GetRoot()
 {
 	return root;
+}
+
+GameObject* ModuleScene::AddGameObject(const char* name)
+{
+	GameObject* ret = new GameObject();
+	ret->name = name;
+	ret->parent = root;
+	root->childs.push_back(ret);
+
+	return ret;
+}
+
+GameObject* ModuleScene::AddGameObject(const char* name, GameObject* parent)
+{
+	GameObject* ret = new GameObject();
+	ret->name = name;
+	ret->parent = parent;
+	parent->childs.push_back(ret);
+
+	return ret;
 }

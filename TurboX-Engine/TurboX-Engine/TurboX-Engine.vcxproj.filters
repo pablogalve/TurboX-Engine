@@ -61,12 +61,6 @@
     <Filter Include="Libraries\MathGeoLib\Time">
       <UniqueIdentifier>{4fef12ad-1b2a-4632-8a27-6e8958118c66}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Importers">
-      <UniqueIdentifier>{3e399306-8448-461d-97e5-07efca00727d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Resources">
-      <UniqueIdentifier>{e95b3f26-3fc4-4bf8-a29f-3c5cea7abe17}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\FileManager">
       <UniqueIdentifier>{5e7628fb-eb91-4f26-a854-386b137e13fa}</UniqueIdentifier>
     </Filter>
@@ -660,24 +654,6 @@
     <ClInclude Include="ModuleResources.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Importer_Material.h">
-      <Filter>Sources\Importers</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource_Material.h">
-      <Filter>Sources\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Sources\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource_Model.h">
-      <Filter>Sources\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Importer_Model.h">
-      <Filter>Sources\Importers</Filter>
-    </ClInclude>
-    <ClInclude Include="Importer_Mesh.h">
-      <Filter>Sources\Importers</Filter>
-    </ClInclude>
     <ClInclude Include="PathNode.h">
       <Filter>Sources\Containers</Filter>
     </ClInclude>
@@ -898,24 +874,6 @@
     </ClCompile>
     <ClCompile Include="ModuleResources.cpp">
       <Filter>Sources\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Importer_Material.cpp">
-      <Filter>Sources\Importers</Filter>
-    </ClCompile>
-    <ClCompile Include="Resource_Material.cpp">
-      <Filter>Sources\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="Resource.cpp">
-      <Filter>Sources\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="Resource_Model.cpp">
-      <Filter>Sources\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="Importer_Model.cpp">
-      <Filter>Sources\Importers</Filter>
-    </ClCompile>
-    <ClCompile Include="Importer_Mesh.cpp">
-      <Filter>Sources\Importers</Filter>
     </ClCompile>
     <ClCompile Include="Config_JSON.cpp">
       <Filter>Sources\FileManager</Filter>

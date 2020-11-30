@@ -7,14 +7,6 @@
 #include <windows.h>
 #include <stdio.h>
 
-#define LIBRARY_PATH "Library/"
-#define FOLDERS_PATH "Library/Folders/"
-#define MESHES_PATH "Library/Meshes/"
-#define MATERIALS_PATH "Library/Materials/"
-#define TEXTURES_PATH "Library/Textures/"
-#define MODELS_PATH "Library/Models/"
-
-
 #define MY_LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
 
 void log(const char file[], int line, const char* format, ...);
@@ -52,23 +44,13 @@ enum update_status
 #define CHECKERS_WIDTH 64
 #define CHECKERS_HEIGHT 64
 
-// Deletes a buffer
-#define RELEASE( x )\
-    {\
-       if( x != nullptr )\
-       {\
-         delete x;\
-	     x = nullptr;\
-       }\
-    }
-
-// Deletes an array of buffers
-#define RELEASE_ARRAY( x )\
-	{\
-       if( x != nullptr )\
-       {\
-           delete[] x;\
-	       x = nullptr;\
-		 }\
-	 }
-
+#define NUM_PATHS 6
+#define TEXTURES_PATH "Assets/Textures/"
+#define MODELS_PATH "Assets/3DModels/"
+#define AUDIO_PATH "Assets/Audio/"
+#define LIB_TEXTURES_PATH "Library/Textures/"
+#define LIB_MODELS_PATH "Library/3DModels/"
+#define SETTINGS_PATH "Settings/"
+#define OWN_FILE_FORMAT ".pei"
+#define DDS_FORMAT ".dds"
+#define FBX_FORMAT ".fbx"

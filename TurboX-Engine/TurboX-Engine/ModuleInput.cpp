@@ -168,7 +168,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				switch (fileType)
 				{
 				case FileType::FBX:
-					App->resources->ImportFileFromAssets(dropped_filedir);
+					App->resources->ImportFBXandLoad(dropped_filedir);
 					break;
 				case FileType::PNG:
 				{

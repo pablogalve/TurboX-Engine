@@ -42,6 +42,7 @@ public:
 
 	void CalculateGlobalMatrix(GameObject* gameObject);
 
+	inline bool GetLoadFBXTest()const { return _loadFBXTest; }
 public:
 
 	Light lights[MAX_LIGHTS];
@@ -55,6 +56,7 @@ public:
 	bool _lighting = false;
 	bool _wireframe = false;
 	bool _texture = false;
+	bool _loadFBXTest = false;
 
 	GLuint frameBuffer;
 	GLuint texColorBuffer;

@@ -25,6 +25,10 @@ public:
 
 	void DeleteGameObject() { to_delete = true; }
 	bool GetToDelete() { return to_delete; };
+
+	void SetParent(GameObject* parent);
+	void AddChildren(GameObject* child);
+
 public:	
 	std::string name;
 	vector<Component*> components;

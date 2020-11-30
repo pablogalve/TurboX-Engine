@@ -81,10 +81,10 @@ void GameObject::Draw()
 {
 	if (mesh != nullptr)
 	{
-		glPushMatrix();
-		glMultMatrixf((float*)transform->globalMatrix.Transposed().v);
+		//glPushMatrix();
+		//glMultMatrixf((float*)transform->globalMatrix.Transposed().v);
 		mesh->Draw();
-		glPopMatrix();
+		//glPopMatrix();
 	}
 	
 	for (size_t i = 0; i < childs.size(); i++)
@@ -113,3 +113,33 @@ void GameObject::Unselect()
 {
 	is_selected = false;
 }
+
+void GameObject::AddChildren(GameObject* child)
+{
+	for (int i = 0; i < childs.size(); i++) {
+		if (childs[i] == child) {
+			return;
+		}
+	}
+	this->childs.push_back(child);
+	child->SetParent(this);
+}
+
+void GameObject::SetParent(GameObject* _parent)
+{
+
+	if (parent != nullptr) {
+		if (parent = _parent) {
+			return;
+		}
+		for (std::vector<GameObject*>::iterator iterator = parent->childs.begin(); iterator != parent->childs.end(); iterator++) {
+			if (this == (*iterator)) {
+				parent->childs.erase(iterator);
+				break;
+			}
+		}
+	}
+	parent = _parent;
+	parent->AddChildren(this);
+}
+

@@ -155,7 +155,7 @@ void W_Inspector::Draw()
 			ImGui::Text("Vertices: "); ImGui::SameLine();
 			ImGui::TextColored(yellow, "%u", mesh->num_vertex);
 			ImGui::Text("Tex Coords: "); ImGui::SameLine();
-			ImGui::TextColored(yellow, "%u", mesh->num_texcoords);
+			ImGui::TextColored(yellow, "%u", mesh->num_textureCoords);
 
 			ImGui::Checkbox("Vertex Normals:", &mesh->vertex_normals_active);
 			ImGui::Checkbox("Face Normals:", &mesh->face_normals_active);

@@ -2,11 +2,18 @@
 #define __COMPONENT_MESH_H_
 
 #include "Component.h"
+#include "Globals.h"
+#include "MathGeoLib/Math/MathAll.h"
+#include "MathGeoLib/Geometry/AABB.h"
 #include "Component_Material.h"
+#include "Component_Transformation.h"
+#include <array>
+#include <vector>
+
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
-#pragma comment (lib, "Libraries/Assimp/libx86/assimp.lib")
+#include "Assimp/include/cfileio.h"
 
 class C_Mesh : public Component {
 public:
@@ -14,38 +21,32 @@ public:
 	~C_Mesh();
 
 	void Draw();
-	void SetMeshBuffer();
-	//void LoadMesh(char* file_path, GameObject* gameObject = nullptr);
-	//void LoadSingleMesh(char* file_path, GameObject* new_parent = nullptr);
+	void SetMeshBuffer();;
 
 	Component::Type GetComponentType() override;
 
-	void DrawFaceNormals();
-	void DrawVertexNormals();
 public:
 	
-	uint id_index = 0; // index in VRAM
+	uint id_index = -1;
 	uint num_index = 0;
 	uint* index = nullptr;
 
-	uint id_vertex = 0; // unique vertex in VRAM
+	uint id_vertex = -1;
 	uint num_vertex = 0;
-	float* vertex = nullptr;
+	float3* vertex = nullptr;
 
-	uint id_normals = 0;
+	uint id_normals = -1;
 	uint num_normals = 0;
-	float* normals = NULL;
+	float3* normals = nullptr;
 
-	uint id_texcoords = 0;
-	uint num_texcoords = 0;
-	float* texcoords = NULL;
+	uint num_textureCoords = 0;
+	float2* texturesCoords = nullptr;
 
 	C_Material* material = nullptr;
+	C_Transform* transform = nullptr;
 
 	bool face_normals_active;
 	bool vertex_normals_active;
 
-	string mesh_path;
-	string file_name;
 };
 #endif // !__COMPONENT_LIGHT_H_

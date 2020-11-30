@@ -13,8 +13,7 @@ C_Mesh::C_Mesh(Component::Type type, GameObject* owner):Component(type, owner)
 {
 	this->owner = owner;
 	material = nullptr;
-	face_normals_active = false;
-	vertex_normals_active = false;	
+
 }
 
 C_Mesh::~C_Mesh()
@@ -22,67 +21,38 @@ C_Mesh::~C_Mesh()
 }
 
 void C_Mesh::Draw()
-{		
+{	
 	if (this != nullptr) 
 	{
 		if (active == true)
 		{
-
 			glEnableClientState(GL_VERTEX_ARRAY);
-			glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
-			glVertexPointer(3, GL_FLOAT, 0, NULL);
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-			if (num_normals > 0)
-			{
-				glEnableClientState(GL_NORMAL_ARRAY);
-				glBindBuffer(GL_ARRAY_BUFFER, id_normals);
-				glNormalPointer(GL_FLOAT, 0, NULL);
+			if (num_index == 0) {// if the mesh has no index
+				glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+				glVertexPointer(3, GL_FLOAT, 0, NULL);
+				glDrawArrays(GL_TRIANGLES, 0, num_vertex);
+				glBindBuffer(GL_ARRAY_BUFFER, 0); //resets the buffer
+			}
+			else {
+
+				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index); // test: before it was 2 lines upper
+				glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+				glVertexPointer(3, GL_FLOAT, 0, NULL);
+				GLenum error = glGetError();
+
+				glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL);
+
+				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+				glBindBuffer(GL_ARRAY_BUFFER, 0);
+				glBindTexture(GL_TEXTURE_2D, 0);
+
 			}
 
-			if (num_texcoords > 0)
-			{
-				material = (C_Material*)owner->GetComponent(Component::Type::Material);
-
-				glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-				glBindBuffer(GL_ARRAY_BUFFER, id_texcoords);
-				glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-			}
-
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
-
-			if (material != nullptr && material->active)
-			{
-				if (material->defaultTex)
-				{
-					glBindTexture(GL_TEXTURE_2D, material->defaultTextureID);
-				}
-				else
-				{
-					glBindTexture(GL_TEXTURE_2D, material->textureID);
-				}
-			}
-
-			if (vertex_normals_active) {
-				glBegin(GL_LINES);
-				glColor4f(0.66f, 1.0f, 0.16f, 1.0f); // Green
-				DrawVertexNormals();
-				glEnd();
-				glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Set color of everything back to white
-			}
-			if (face_normals_active) {
-				glBegin(GL_LINES);
-				glColor4f(0.0f, 1.0f, 1.0f, 1.0f); // Cyan
-				DrawFaceNormals();
-				glEnd();
-				glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Set color of everything back to white
-			}
-
-			glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL);
-			glBindTexture(GL_TEXTURE_2D, 0);
-
-			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-			glDisableClientState(GL_NORMAL_ARRAY);
 			glDisableClientState(GL_VERTEX_ARRAY);
+			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
 		}
 	}
 	
@@ -90,231 +60,26 @@ void C_Mesh::Draw()
 
 void C_Mesh::SetMeshBuffer()
 {
-	glGenBuffers(1, (GLuint*) & (id_vertex));
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_vertex * 3, vertex, GL_STATIC_DRAW);
+	glGenBuffers(1, (GLuint*)&(id_vertex));
+	glGenBuffers(1, (GLuint*)&(id_normals));// generates 1 buffer. then it assign a GLuint to its mem adress.
 
-	glGenBuffers(1, (GLuint*) & (id_index));
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_index, index, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertex); // set the type of buffer
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * num_vertex, &vertex[0], GL_STATIC_DRAW);
 
-	if (num_normals > 0)
-	{
-		glGenBuffers(1, (GLuint*) & (id_normals));
-		glBindBuffer(GL_ARRAY_BUFFER, id_normals);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * num_normals * 3, normals, GL_STATIC_DRAW);
-	}
 
-	if (num_texcoords > 0)
-	{
-		glGenBuffers(1, (GLuint*) & (id_texcoords));
-		glBindBuffer(GL_ARRAY_BUFFER, id_texcoords);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * num_texcoords * 2, texcoords, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, id_normals);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * num_normals, &normals[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	if (num_index > 0) {
+		glGenBuffers(1, (GLuint*)&(id_index));
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_index, &index[0], GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 }
-
-/*
-void C_Mesh::LoadMesh(char* file_path, GameObject* gameObject)
-{
-
-	const aiScene* scene = nullptr;
-
-	char* buffer = nullptr;
-	uint size = App->file_system->Load(file_path, &buffer);
-
-	if (buffer != nullptr)
-	{
-		scene = aiImportFileFromMemory(buffer, size, aiProcessPreset_TargetRealtime_MaxQuality, NULL);
-	}
-	else
-	{
-		scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
-	}
-
-	if (scene != nullptr && scene->HasMeshes()) {
-		if (scene->mNumMeshes == 1) {
-			LoadSingleMesh(file_path);
-			App->scene->AddChild(gameObject);
-		}
-		else {
-			GameObject* parent;
-			parent = new GameObject();
-			parent->CreateComponent(Component::Type::Mesh);
-			parent->CreateComponent(Component::Type::Transform);
-			parent->ChangeName(gameObject->name);
-			App->scene->AddChild(parent);
-
-			LoadSingleMesh(file_path, parent);
-			// Use scene->mNumMeshes to iterate on scene->mMeshes array
-			for (int i = 1; i < scene->mNumMeshes; i++)
-			{
-				aiMesh* meshIterator = scene->mMeshes[i];
-
-				GameObject* new_gameObject = new GameObject();
-				new_gameObject->CreateComponent(Component::Type::Mesh);
-				new_gameObject->CreateComponent(Component::Type::Material);
-				new_gameObject->CreateComponent(Component::Type::Transform);
-				if(owner->material != nullptr)
-					new_gameObject->material->LoadTexture((const char*)owner->material->GetMaterialPath().c_str());
-				App->scene->AddChild(new_gameObject, parent);
-				new_gameObject->ChangeName(gameObject->name);
-
-				// copy vertices
-				new_gameObject->mesh->num_vertex = meshIterator->mNumVertices;
-				new_gameObject->mesh->vertex = new float[new_gameObject->mesh->num_vertex * 3];
-				memcpy(new_gameObject->mesh->vertex, meshIterator->mVertices, sizeof(float) * new_gameObject->mesh->num_vertex * 3);
-				MY_LOG("New mesh with %d vertices", new_gameObject->mesh->num_vertex);
-				App->console->AddLog("New mesh with %d vertices", new_gameObject->mesh->num_vertex);
-
-				// copy faces
-				if (meshIterator->HasFaces())
-				{
-					new_gameObject->mesh->num_index = meshIterator->mNumFaces * 3;
-					new_gameObject->mesh->index = new uint[new_gameObject->mesh->num_index]; // assume each face is a triangle
-					for (uint i = 0; i < meshIterator->mNumFaces; ++i)
-					{
-						if (meshIterator->mFaces[i].mNumIndices != 3)
-						{
-							MY_LOG("WARNING, geometry face with != 3 indices!");
-							App->console->AddLog("WARNING, geometry face with != 3 indices!");
-						}
-						else
-						{
-							memcpy(&new_gameObject->mesh->index[i * 3], meshIterator->mFaces[i].mIndices, 3 * sizeof(uint));
-						}
-					}
-				}
-
-				if (meshIterator->HasNormals())
-				{
-					new_gameObject->mesh->num_normals = meshIterator->mNumVertices;
-					new_gameObject->mesh->normals = new float[new_gameObject->mesh->num_normals * 3];
-					memcpy(new_gameObject->mesh->normals, meshIterator->mNormals, sizeof(float) * new_gameObject->mesh->num_normals * 3);
-				}
-
-				if (meshIterator->HasTextureCoords(0))
-				{
-					new_gameObject->mesh->num_texcoords = meshIterator->mNumVertices;
-					new_gameObject->mesh->texcoords = new float[new_gameObject->mesh->num_texcoords * 2];
-					for (unsigned int i = 0, v = 0; i < new_gameObject->mesh->num_texcoords; i++, v += 2)
-					{
-						new_gameObject->mesh->texcoords[v] = meshIterator->mTextureCoords[0][i].x;
-						new_gameObject->mesh->texcoords[v + 1] = meshIterator->mTextureCoords[0][i].y;
-					}
-				}
-				SetMeshBuffer(new_gameObject);
-			}
-
-			aiReleaseImport(scene);
-		}
-		
-	}	else {
-		MY_LOG("Error loading scene % s", file_path);
-		App->console->AddLog("Error loading scene % s", file_path);
-	}
-}
-
-void C_Mesh::LoadSingleMesh(char* file_path, GameObject* new_parent)
-{
-	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
-	
-	aiMesh* meshIterator = scene->mMeshes[0];
-
-	// copy vertices
-	num_vertex = meshIterator->mNumVertices;
-	vertex = new float[num_vertex * 3];
-	memcpy(vertex, meshIterator->mVertices, sizeof(float) * num_vertex * 3);
-	MY_LOG("New mesh with %d vertices", num_vertex);
-	App->console->AddLog("New mesh with %d vertices", num_vertex);
-
-	// copy faces
-	if (meshIterator->HasFaces())
-	{
-		num_index = meshIterator->mNumFaces * 3;
-		index = new uint[num_index]; // assume each face is a triangle
-		for (uint i = 0; i < meshIterator->mNumFaces; ++i)
-		{
-			if (meshIterator->mFaces[i].mNumIndices != 3)
-			{
-				MY_LOG("WARNING, geometry face with != 3 indices!");
-				App->console->AddLog("WARNING, geometry face with != 3 indices!");
-			}
-			else
-			{
-				memcpy(&index[i * 3], meshIterator->mFaces[i].mIndices, 3 * sizeof(uint));
-			}
-		}
-	}
-
-	if (meshIterator->HasNormals())
-	{
-		num_normals = meshIterator->mNumVertices;
-		normals = new float[num_normals * 3];
-		memcpy(normals, meshIterator->mNormals, sizeof(float) * num_normals * 3);
-	}
-
-	if (meshIterator->HasTextureCoords(0))
-	{
-		num_texcoords = meshIterator->mNumVertices;
-		texcoords = new float[num_texcoords * 2];
-		for (unsigned int i = 0, v = 0; i < num_texcoords; i++, v += 2)
-		{
-			texcoords[v] = meshIterator->mTextureCoords[0][i].x;
-			texcoords[v + 1] = meshIterator->mTextureCoords[0][i].y;
-		}
-	}
-
-	if (new_parent != nullptr) {
-		App->scene->AddChild(this->owner, new_parent);
-		GameObject* root = App->scene->GetRoot();
-		for (size_t i = 0; i < root->childs.size(); i++)
-		{
-			if (root->childs[i]->parent != root) {
-				root->childs.erase(root->childs.begin() + i);
-			}
-		}
-	}
-		
-
-	SetMeshBuffer(owner);		
-
-	aiReleaseImport(scene);
-}
-*/
 
 Component::Type C_Mesh::GetComponentType()
 {
 	return Component::Type::Mesh;
-}
-
-void C_Mesh::DrawFaceNormals()
-{
-	for (size_t i = 0; i < num_vertex * 3; i += 3)
-	{
-		float x = (vertex[i] + vertex[i + 3] + vertex[i + 6]) / 3;
-		float y = (vertex[i + 1] + vertex[i + 4] + vertex[i + 7]) / 3;
-		float z = (vertex[i + 2] + vertex[i + 5] + vertex[i + 8]) / 3;
-		glVertex3f(x, y, z);
-
-		float normal_x = normals[i];
-		float normal_y = normals[i + 1];
-		float normal_z = normals[i + 2];
-		glVertex3f(x + normal_x, y + normal_y, z + normal_z);
-	}
-}
-
-void C_Mesh::DrawVertexNormals()
-{
-	for (size_t i = 0; i < num_vertex * 3; i += 3)
-	{
-		float x = vertex[i];
-		float y = vertex[i + 1];
-		float z = vertex[i + 2];
-		glVertex3f(x, y, z);
-
-		float normal_x = normals[i];
-		float normal_y = normals[i + 1];
-		float normal_z = normals[i + 2];
-		glVertex3f(x + normal_x, y + normal_y, z + normal_z);
-	}
 }

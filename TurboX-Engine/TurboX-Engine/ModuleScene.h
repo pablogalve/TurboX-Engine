@@ -26,6 +26,9 @@ public:
 	void DrawGameObjects(GameObject* gameObject, GameObject* root);
 
 	GameObject* GetRoot();
+	GameObject* AddGameObject(const char* name);
+	GameObject* AddGameObject(const char* name, GameObject* parent);
+
 
 public:
 	GameObject* baker_house;
