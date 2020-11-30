@@ -13,7 +13,7 @@ C_Mesh::C_Mesh(Component::Type type, GameObject* owner):Component(type, owner)
 {
 	this->owner = owner;
 	material = nullptr;
-
+	vertex_normals_active = false;
 }
 
 C_Mesh::~C_Mesh()
@@ -42,6 +42,22 @@ void C_Mesh::Draw()
 				glVertexPointer(3, GL_FLOAT, 0, NULL);
 				GLenum error = glGetError();
 
+				if (num_normals > 0)
+				{
+					glEnableClientState(GL_NORMAL_ARRAY);
+					glBindBuffer(GL_ARRAY_BUFFER, id_normals);
+					glNormalPointer(GL_FLOAT, 0, NULL);
+				}
+
+				if (vertex_normals_active)
+				{
+					glBegin(GL_LINES);
+					glColor4f(0.66f, 1.0f, 0.16f, 1.0f); // Green
+					DrawVertexNormals();
+					glEnd();
+					glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Set color of everything back to white
+				}
+
 				glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL);
 
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -50,8 +66,10 @@ void C_Mesh::Draw()
 
 			}
 
+			glDisableClientState(GL_NORMAL_ARRAY);
 			glDisableClientState(GL_VERTEX_ARRAY);
 			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
 
 		}
 	}
@@ -82,4 +100,16 @@ void C_Mesh::SetMeshBuffer()
 Component::Type C_Mesh::GetComponentType()
 {
 	return Component::Type::Mesh;
+}
+
+void C_Mesh::DrawVertexNormals()
+{
+	for (int j = 0; j < num_normals; j++)
+	{
+		glBegin(GL_LINES);
+		glVertex3f(vertex[j].x, vertex[j].y, vertex[j].z);
+		glVertex3f(vertex[j].x - normals[j].x, vertex[j].y - normals[j].y, vertex[j].z - normals[j].z);
+		glLineWidth(1.0f);
+		glEnd();
+	}
 }

@@ -167,7 +167,7 @@ void W_Inspector::Draw()
 			ImGui::TextColored(yellow, "%u", mesh->num_textureCoords);
 
 			ImGui::Checkbox("Vertex Normals:", &mesh->vertex_normals_active);
-			ImGui::Checkbox("Face Normals:", &mesh->face_normals_active);
+			//ImGui::Checkbox("Face Normals:", &mesh->face_normals_active);
 		}
 
 		C_Material* material = (C_Material*)gameObject->GetComponent(Component::Type::Material);
