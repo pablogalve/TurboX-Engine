@@ -44,6 +44,10 @@ Component* GameObject::CreateComponent(Component::Type type)
 		new_component = new C_Material(Component::Type::Material, this);
 		material = (C_Material*)new_component;
 		break;
+	case Component::Type::Camera:
+		new_component = new C_Camera(Component::Type::Camera, this);
+		camera = (C_Camera*)new_component;
+		break;
 	default:
 		break;
 	}
@@ -89,6 +93,16 @@ void GameObject::Draw()
 		glMultMatrixf((float*)transform->globalMatrix.Transposed().v);
 		mesh->Draw();
 		glPopMatrix();
+	}
+
+	if(camera != nullptr)
+	{
+		camera->DrawFrustum();
+
+		/*if (this != nullptr)
+		{
+			camera->frustum.SetWorldMatrix(transform->globalMatrix.Float3x4Part());
+		}*/
 	}
 
 	if (is_selected)

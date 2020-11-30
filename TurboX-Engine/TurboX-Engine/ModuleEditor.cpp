@@ -144,7 +144,12 @@ void ModuleEditor::ShowMenuBar()
 			}
 			ImGui::EndMenu();
 		}
-		if (ImGui::BeginMenu("Assets")) {
+		if (ImGui::BeginMenu("Assets")) 
+		{
+			if (ImGui::MenuItem("Create Camera"))
+			{
+				App->scene->AddCamera();
+			}
 			if (ImGui::MenuItem("Create Cube")) {
 				//App->scene->CreateGameObject("Cube", { 0,0,0 }, { 0,0,0,1 }, { 1,1,1 }, App->scene->GetRoot(), "Assets/Primitives/Cube.fbx");
 			}

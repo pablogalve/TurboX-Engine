@@ -660,6 +660,9 @@
     <ClInclude Include="Config_JSON.h">
       <Filter>Sources\FileManager</Filter>
     </ClInclude>
+    <ClInclude Include="Component_Camera.h">
+      <Filter>Sources\GameObjects\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -877,6 +880,9 @@
     </ClCompile>
     <ClCompile Include="Config_JSON.cpp">
       <Filter>Sources\FileManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Component_Camera.cpp">
+      <Filter>Sources\GameObjects\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

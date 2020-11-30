@@ -162,3 +162,30 @@ GameObject* ModuleScene::AddGameObject(const char* name, GameObject* parent)
 
 	return ret;
 }
+
+void ModuleScene::AddCamera()
+{
+	GameObject* newGameObject = new GameObject();
+	newGameObject->name = "Camera";
+	newGameObject->SetParent(root);
+
+	float3 pos = float3::zero;
+	float3 scale = float3::one;
+	Quat rot = Quat::identity;
+
+	newGameObject->transform->position = pos;
+	newGameObject->transform->scale = scale;
+	newGameObject->transform->rotation = rot;
+	newGameObject->transform->localMatrix.Set(float4x4::FromTRS(pos, rot, scale));
+
+	newGameObject->CreateComponent(Component::Type::Camera);
+
+	newGameObject->camera->frustum.farPlaneDistance = 100.0f;
+	newGameObject->camera->frustum.verticalFov = DEGTORAD * 30.0f;
+	newGameObject->camera->setAspectRatio(16.0f / 9.0f);
+	newGameObject->camera->RecalculateBB();
+
+	newGameObject->boundingBox = newGameObject->camera->cameraBB;
+}
+
+

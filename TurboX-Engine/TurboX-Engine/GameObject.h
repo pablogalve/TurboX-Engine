@@ -7,6 +7,7 @@
 #include "Component_Mesh.h"
 #include "Component_Transformation.h"
 #include "Component_Material.h"
+#include "Component_Camera.h"
 #include "Component.h"
 
 using namespace std;
@@ -41,6 +42,7 @@ public:
 	C_Mesh* mesh;
 	C_Material* material;
 	C_Transform* transform;
+	C_Camera* camera;
 
 	AABB boundingBox;
 
