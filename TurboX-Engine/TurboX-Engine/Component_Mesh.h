@@ -25,6 +25,8 @@ public:
 
 	Component::Type GetComponentType() override;
 
+	void DrawVertexNormals();
+
 public:
 	
 	uint id_index = -1;
@@ -45,7 +47,6 @@ public:
 	C_Material* material = nullptr;
 	C_Transform* transform = nullptr;
 
-	bool face_normals_active;
 	bool vertex_normals_active;
 
 };

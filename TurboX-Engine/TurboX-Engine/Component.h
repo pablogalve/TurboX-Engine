@@ -12,6 +12,7 @@ public:
 		Transform,
 		Mesh,
 		Material,
+		Camera,
 		Light
 	};
 public:

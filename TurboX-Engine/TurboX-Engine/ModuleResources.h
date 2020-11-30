@@ -21,7 +21,7 @@
 #pragma comment (lib, "Libraries/Assimp/libx86/assimp.lib")
 
 
-class ModuleResources : public Module
+class SceneImporter : public Module
 {
 public:
 	
@@ -55,12 +55,14 @@ public:
 	};
 
 public:
-	ModuleResources(Application* app, bool start_enabled = true);
-	~ModuleResources();
+	SceneImporter(Application* app, bool start_enabled = true);
+	~SceneImporter();
 
 	bool Start()override;
 	update_status Update(float dt)override;
 	bool CleanUp()override;
+
+	void LoadFBXScene(const char* FBXpath);
 
 	void ImportFBXtoPEI(const char* path);
 	void ImportFBXandLoad(const char* fbxPath);
@@ -70,4 +72,7 @@ public:
 
 private:
 	void ImportFromMesh(const aiScene* currSc, aiMesh* new_mesh, std::ofstream* dataFile);
+
+	GameObject* ImportNodeRecursive(aiNode* node, const aiScene* scene, GameObject* parent);//imports .fbx hierarchy (1.1)
+
 };

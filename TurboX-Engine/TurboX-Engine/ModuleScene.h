@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "MathGeoLib/Math/Quat.h"
 #include "MathGeoLib/Math/float3.h"
+#include <vector>
 
 class ModuleScene : public Module
 {
@@ -29,12 +30,15 @@ public:
 	GameObject* AddGameObject(const char* name);
 	GameObject* AddGameObject(const char* name, GameObject* parent);
 
+	void AddCamera();
 
 public:
 	GameObject* baker_house;
 	GameObject* airplane;
 	GameObject* street;
 	GameObject* root;
+
+	std::vector<GameObject*> cameras;
 };
 
 #endif

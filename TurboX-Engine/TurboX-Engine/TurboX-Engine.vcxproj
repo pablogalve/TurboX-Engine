@@ -75,6 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Component_Camera.h" />
     <ClInclude Include="Config_JSON.h" />
     <ClInclude Include="ModuleResources.h" />
     <ClInclude Include="PathNode.h" />
@@ -275,6 +276,7 @@
     <ClInclude Include="W_Toolbar.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component_Camera.cpp" />
     <ClCompile Include="Config_JSON.cpp" />
     <ClCompile Include="ModuleResources.cpp" />
     <ClCompile Include="W_Toolbar.cpp" />

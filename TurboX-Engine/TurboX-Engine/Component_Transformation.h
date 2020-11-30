@@ -32,6 +32,7 @@ public:
 
 	Quat rotation = { 0.0f,0.0f,0.0f,1.0f };
 	
+	bool changed = false;
 
 };
 #endif // !__COMPONENT_TRANSFORMATION_H_
