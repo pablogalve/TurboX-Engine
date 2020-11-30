@@ -5086,16 +5086,16 @@ bool ImGui::BeginChildEx(const char* name, ImGuiID id, const ImVec2& size_arg, b
     SetNextWindowSize(size);
 
     // Build up name. If you need to append to a same child from multiple location in the ID stack, use BeginChild(ImGuiID id) with a stable value.
-    char title[256];
+    char engine_name[256];
     if (name)
-        ImFormatString(title, IM_ARRAYSIZE(title), "%s/%s_%08X", parent_window->Name, name, id);
+        ImFormatString(engine_name, IM_ARRAYSIZE(engine_name), "%s/%s_%08X", parent_window->Name, name, id);
     else
-        ImFormatString(title, IM_ARRAYSIZE(title), "%s/%08X", parent_window->Name, id);
+        ImFormatString(engine_name, IM_ARRAYSIZE(engine_name), "%s/%08X", parent_window->Name, id);
 
     const float backup_border_size = g.Style.ChildBorderSize;
     if (!border)
         g.Style.ChildBorderSize = 0.0f;
-    bool ret = Begin(title, NULL, flags);
+    bool ret = Begin(engine_name, NULL, flags);
     g.Style.ChildBorderSize = backup_border_size;
 
     ImGuiWindow* child_window = g.CurrentWindow;
@@ -14280,21 +14280,21 @@ void ImGui::DockSpace(ImGuiID id, const ImVec2& size_arg, ImGuiDockNodeFlags fla
     window_flags |= ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar;
     window_flags |= ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse;
 
-    char title[256];
-    ImFormatString(title, IM_ARRAYSIZE(title), "%s/DockSpace_%08X", window->Name, id);
+    char engine_name[256];
+    ImFormatString(engine_name, IM_ARRAYSIZE(engine_name), "%s/DockSpace_%08X", window->Name, id);
 
     // FIXME-DOCK: What is the reason for not simply calling BeginChild()?
     if (node->Windows.Size > 0 || node->IsSplitNode())
         PushStyleColor(ImGuiCol_ChildBg, IM_COL32(0, 0, 0, 0));
     PushStyleVar(ImGuiStyleVar_ChildBorderSize, 0.0f);
-    Begin(title, NULL, window_flags);
+    Begin(engine_name, NULL, window_flags);
     PopStyleVar();
     if (node->Windows.Size > 0 || node->IsSplitNode())
         PopStyleColor();
 
     ImGuiWindow* host_window = g.CurrentWindow;
     host_window->DockNodeAsHost = node;
-    host_window->ChildId = window->GetID(title);
+    host_window->ChildId = window->GetID(engine_name);
     node->HostWindow = host_window;
     node->OnlyNodeWithWindows = NULL;
 

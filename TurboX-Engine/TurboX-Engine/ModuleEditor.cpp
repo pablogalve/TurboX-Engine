@@ -28,9 +28,6 @@ ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, s
 	theme_window = new W_Theme();
 	config_window = new W_Configuration();
 	toolbar_window = new W_Toolbar();
-
-	title = TITLE;
-	organization = ORGANIZATION;
 }
 
 ModuleEditor::~ModuleEditor()
@@ -203,14 +200,4 @@ void ModuleEditor::ShowMenuBar()
 
 		ImGui::EndMainMenuBar();
 	}
-}
-
-const char* ModuleEditor::GetTitleName() const
-{
-	return title.c_str();
-}
-
-const char* ModuleEditor::GetOrganizationName() const
-{
-	return organization.c_str();
 }

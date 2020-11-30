@@ -19,7 +19,7 @@ public:
 	bool Init()override;
 	bool CleanUp()override;
 
-	void SetTitle(const char* title);
+	void SetTitle(const char* engine_name);
 	void SetBrightness(float bright);
 	void SetSize(uint w, uint h);
 	void SetFullscreen(bool fullscreen);
@@ -33,7 +33,6 @@ public:
 
 	float GetBrightness() const { return _brightness; }
 	void GetSize(int& h, int& w)const;
-	std::string GetWindowTitle() const { return _title; }
 
 public:
 	//The window we'll be rendering to
@@ -51,9 +50,6 @@ public:
 	int _brightness = DEFAULT_BRIGHTNESS;
 	uint _w;
 	uint _h;
-
-	std::string _title = TITLE;
-
 };
 
 #endif // __ModuleWindow_H__

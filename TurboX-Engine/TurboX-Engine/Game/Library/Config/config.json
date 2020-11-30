@@ -7,15 +7,7 @@
       }
   ],
   "Window": [
-      {
-          "Brightness": 1,
-          "Fullscreen": false,
-          "Resizable": true,
-          "Borderless": false,
-          "Fullscreen Desktop": false,
-          "Width": 1646,
-          "Height": 864
-      }
+      {}
   ],
   "Camera": [
       {}

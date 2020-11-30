@@ -1,48 +1,36 @@
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
 
-#include "JSON/parson.h"
 #include "Globals.h"
+#include "Math.h"
+#include "JSON/parson.h"
 
-class Config_JSON_Array;
-
-class Config_JSON_Node
-{
-
-public:
-	Config_JSON_Node();						
-	Config_JSON_Node(const char* buffer);		
-	Config_JSON_Node(JSON_Object* obj);		
-	~Config_JSON_Node();
-
-	void Release();
-	
-	float GetNumber(const char* name, double default = -1.0f);
-	bool GetBool(const char* name, bool default = false);
-	const char* GetString(const char* name, const char* default = "");
-	Config_JSON_Array GetArray(const char* name);
-	Config_JSON_Node GetNode(const char* name) const;
-
-	void SetNumber(const char* name, double number);
-	void SetBool(const char* name, bool boolean);
-	void SetString(const char* name, const char* string);
-private:
-	JSON_Value* root_value = nullptr;
-	JSON_Object* node = nullptr;
-};
-
-class Config_JSON_Array
+class Config
 {
 public:
-	Config_JSON_Array();
-	Config_JSON_Array(JSON_Array* arr);
+	Config();
+	Config(const char* jsonName);
+	Config(JSON_Object* section);
+	~Config();
 
-	void AddNumber(double number);
-	void AddString(char* string);
-	void AddBool(bool boolean);
+	uint Save(char** buffer) const;
+
+	double GetNumber(const char* field, double default = 0.0, int index = -1) const;
+	bool GetBool(const char* field, bool default, int index = -1) const;
+	const char* GetString(const char* field, const char* default = nullptr, int index = -1) const;
+
+	uint GetArraySize(const char* field) const;
+	Config GetArray(const char* field, int index) const;
+
 private:
-	JSON_Array* json_array;
-	uint size = 0;
-};
+	JSON_Value* FindValue(const char* field, int index) const;
 
+private:
+
+	JSON_Value* valueRoot = nullptr;
+	JSON_Object* root = nullptr;
+	JSON_Array* array = nullptr;
+
+	bool to_delete = false;
+};
 #endif //__CONFIG_H__

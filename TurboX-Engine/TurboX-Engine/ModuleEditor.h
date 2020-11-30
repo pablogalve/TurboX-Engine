@@ -4,7 +4,6 @@
 #include "ModuleConsole.h"
 
 #include <vector>
-#include <string>
 
 //Include WindowConfig panels
 #include "W_About.h"
@@ -29,14 +28,10 @@ public:
 	update_status Update(float dt) override;
 	bool CleanUp() override;
 
-	const char* GetTitleName() const;
-	const char* GetOrganizationName() const;
-
 private:
 	void CreateDockSpace();
 
 	void ShowMenuBar();
-	void ShowToolbarWindow();
 
 public:
 	W_About* about_window;
@@ -54,7 +49,4 @@ private:
 	bool showConfigurationWindow;
 	bool showConsoleWindow;
 	bool showToolbarWindow;
-
-	std::string title;
-	std::string organization;
 };

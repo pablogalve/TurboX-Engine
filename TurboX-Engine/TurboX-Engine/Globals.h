@@ -37,9 +37,7 @@ enum update_status
 #define WIN_BORDERLESS false
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
-#define TITLE "TurboX 3D Engine"
-#define ORGANIZATION "UPC"
-#define CONFIG_FILE "config.JSON"
+#define CONFIG_FILE "Library/Config/config.json"
 #define PI 3.1415926f
 #define CHECKERS_WIDTH 64
 #define CHECKERS_HEIGHT 64
@@ -54,3 +52,12 @@ enum update_status
 #define OWN_FILE_FORMAT ".pei"
 #define DDS_FORMAT ".dds"
 #define FBX_FORMAT ".fbx"
+
+#define RELEASE_ARRAY( x )\
+	{\
+       if( x != nullptr )\
+       {\
+           delete[] x;\
+	       x = nullptr;\
+		 }\
+	 }

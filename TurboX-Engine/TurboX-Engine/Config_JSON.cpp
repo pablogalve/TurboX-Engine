@@ -1,114 +1,104 @@
 #include "Config_JSON.h"
-#include "Application.h"
-#include "ModuleConsole.h"
 
-Config_JSON_Node::Config_JSON_Node()
+//#include "mmgr/mmgr.h"
+
+Config::Config()
 {
-	root_value = json_value_init_object();
-	node = json_value_get_object(root_value);
+	valueRoot = json_value_init_object();
+	root = json_value_get_object(valueRoot);
+	to_delete = true;
 }
 
-Config_JSON_Node::Config_JSON_Node(const char* buffer)
+
+Config::Config(const char* jsonName)
 {
-	root_value = json_parse_string(buffer);
-	if (root_value != nullptr)
-	{
-		node = json_value_get_object(root_value);
+	valueRoot = json_parse_string(jsonName);
+	if (valueRoot != nullptr) {
+		root = json_value_get_object(valueRoot);
+		to_delete = true;
 	}
 }
 
-Config_JSON_Node::Config_JSON_Node(JSON_Object* obj) : node(obj)
+Config::Config(JSON_Object* section) : root(section)
+{}
+
+
+Config::~Config()
 {
+	if (to_delete == true) {
+		json_value_free(valueRoot);
+	}
 }
 
-Config_JSON_Node::~Config_JSON_Node()
+uint Config::Save(char** buffer) const
 {
-	Release();
+	uint written = json_serialization_size(valueRoot);
+	*buffer = new char[written];
+	json_serialize_to_buffer(valueRoot, *buffer, written);
+	return written;
 }
 
-void Config_JSON_Node::Release()
+JSON_Value* Config::FindValue(const char* field, int index) const
 {
-	//if (root_value)	
-	//	json_value_free(root_value);	
+	if (index < 0) {
+		return json_object_get_value(root, field);
+	}
+
+	JSON_Array* array = json_object_get_array(root, field);
+	if (array != nullptr) {
+		return json_array_get_value(array, index);
+	}
+	return nullptr;
 }
 
-float Config_JSON_Node::GetNumber(const char* name, double default)
+double Config::GetNumber(const char* field, double default, int index) const
 {
-	if (json_object_has_value(node, name) == 1)
-		return json_object_get_number(node, name);
-	else
-		return default;
+	JSON_Value* value = FindValue(field, index);
+
+	if (value && json_value_get_type(value) == JSONNumber) {
+		return json_value_get_number(value);
+	}
+
+	return default;
 }
 
-bool Config_JSON_Node::GetBool(const char* name, bool default)
+bool Config::GetBool(const char* field, bool default, int index) const
 {
-	if (json_object_has_value(node, name) == 1)
-		return json_object_get_boolean(node, name);
-	else
-		return default;
+	JSON_Value* value = FindValue(field, index);
+
+	if (value && json_value_get_type(value) == JSONBoolean) {
+		return json_value_get_boolean(value) != 0;
+	}
+
+	return default;
 }
 
-const char* Config_JSON_Node::GetString(const char* name, const char* default)
+const char* Config::GetString(const char* field, const char* default, int index) const
 {
-	if (json_object_has_value(node, name) == 1)
-		return json_object_get_string(node, name);
-	else
-		return default;
+	JSON_Value* value = FindValue(field, index);
+
+	if (value && json_value_get_type(value) == JSONString) {
+		return json_value_get_string(value);
+	}
+
+	return default;
 }
 
-Config_JSON_Array Config_JSON_Node::GetArray(const char* name)
+uint Config::GetArraySize(const char* field) const
 {
-	if (json_object_has_value(node, name) == 1)
-		return json_object_get_array(node, name);
-	else
-		return nullptr;	
+	JSON_Array* array = json_object_get_array(root, field);
+	if (array == nullptr) {
+		return -1;
+	}
+	int num = json_array_get_count(array);
+	return num;
 }
 
-Config_JSON_Node Config_JSON_Node::GetNode(const char* name) const
+Config Config::GetArray(const char* field, int index) const
 {
-	return Config_JSON_Node(json_object_get_object(node, name));
-}
-
-void Config_JSON_Node::SetNumber(const char* name, double number)
-{
-	json_object_set_number(node, name, number);
-}
-
-void Config_JSON_Node::SetBool(const char* name, bool boolean)
-{
-	json_object_set_boolean(node, name, boolean);
-}
-
-void Config_JSON_Node::SetString(const char* name, const char* string)
-{
-	json_object_set_string(node, name, string);
-}
-
-Config_JSON_Array::Config_JSON_Array()
-{
-	json_array = json_value_get_array(json_value_init_array());
-}
-
-Config_JSON_Array::Config_JSON_Array(JSON_Array* arr)
-{
-	json_array = nullptr;
-	size = json_array_get_count(arr);
-}
-
-void Config_JSON_Array::AddNumber(double number)
-{
-	json_array_append_number(json_array, number);
-	size++;
-}
-
-void Config_JSON_Array::AddString(char* string)
-{
-	json_array_append_string(json_array, string);
-	size++;
-}
-
-void Config_JSON_Array::AddBool(bool boolean)
-{
-	json_array_append_boolean(json_array, boolean);
-	size++;
+	JSON_Array* array = json_object_get_array(root, field);
+	if (array != nullptr) {
+		return Config(json_array_get_object(array, index));
+	}
+	return Config((JSON_Object*) nullptr);
 }

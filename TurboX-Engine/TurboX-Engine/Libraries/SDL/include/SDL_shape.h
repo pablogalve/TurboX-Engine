@@ -63,7 +63,7 @@ extern "C" {
  *
  *  \sa SDL_DestroyWindow()
  */
-extern DECLSPEC SDL_Window * SDLCALL SDL_CreateShapedWindow(const char *title,unsigned int x,unsigned int y,unsigned int w,unsigned int h,Uint32 flags);
+extern DECLSPEC SDL_Window * SDLCALL SDL_CreateShapedWindow(const char *engine_name,unsigned int x,unsigned int y,unsigned int w,unsigned int h,Uint32 flags);
 
 /**
  * \brief Return whether the given window is a shaped window.

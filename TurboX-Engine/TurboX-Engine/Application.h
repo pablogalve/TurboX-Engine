@@ -6,6 +6,7 @@
 #include "./JSON/parson.h"
 #include <vector>
 #include <list>
+#include <string>
 
 class Module;
 
@@ -55,12 +56,32 @@ public:
 	bool CleanUp();
 	void CloseApp();
 
+	void LoadEngine();
+	void SaveEngine();
+
+	bool LoadEngineNow();
+	bool SaveEngineNow() const;
+
+	void SetEngineName(const char* newName);
+	const char* GetEngineName() const;
+	void SetOrganizationName(const char* newName);
+	const char* GetOrganizationName() const;
+	void SetEngineVersion(double newVersion);
+	double GetEngineVersion() const;
 private:
 
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
 	bool closeApp = false;
+
+private:
+	mutable bool		want_to_save;
+	bool				want_to_load;
+
+	std::string			engine_name;
+	std::string			organization_name;
+	double				current_version;
 };
 
 extern Application* App;

@@ -20,7 +20,7 @@ public:
 	
 	void ClearLog();
 	void AddLog(const char* fmt, ...) IM_FMTARGS(2);
-	void Draw(const char* title, bool* p_open);
+	void Draw(const char* engine_name, bool* p_open);
 	void ExecCommand(const char* command_line);
 
 	static int TextEditCallbackStub(ImGuiInputTextCallbackData* data); // In C++11 you are better off using lambdas for this sort of forwarding callbacks

@@ -512,7 +512,7 @@ extern DECLSPEC Uint32 SDLCALL SDL_GetWindowPixelFormat(SDL_Window * window);
  *  \sa SDL_GL_LoadLibrary()
  *  \sa SDL_Vulkan_LoadLibrary()
  */
-extern DECLSPEC SDL_Window * SDLCALL SDL_CreateWindow(const char *title,
+extern DECLSPEC SDL_Window * SDLCALL SDL_CreateWindow(const char *engine_name,
                                                       int x, int y, int w,
                                                       int h, Uint32 flags);
 
@@ -548,7 +548,7 @@ extern DECLSPEC Uint32 SDLCALL SDL_GetWindowFlags(SDL_Window * window);
  *  \sa SDL_GetWindowTitle()
  */
 extern DECLSPEC void SDLCALL SDL_SetWindowTitle(SDL_Window * window,
-                                                const char *title);
+                                                const char *engine_name);
 
 /**
  *  \brief Get the title of a window, in UTF-8 format.

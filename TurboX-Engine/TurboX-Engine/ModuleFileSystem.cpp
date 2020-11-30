@@ -75,6 +75,7 @@ uint ModuleFileSystem::writeFile(const char* fileName, const void* data, uint by
 
 uint ModuleFileSystem::readFile(const char* fileName, char** data)
 {
+	NormalizePath((char*)fileName);
 	PHYSFS_file* file = PHYSFS_openRead(fileName);
 	uint ret = 0;
 
@@ -86,22 +87,22 @@ uint ModuleFileSystem::readFile(const char* fileName, char** data)
 		{
 			*data = new char[size];
 			uint readed = (uint)PHYSFS_read(file, *data, 1, size);
-			delete[] data;
+
 			if (readed != size)
 			{
 				MY_LOG("File System error while reading from file %s: %s\n", file, PHYSFS_getLastError());
-
+				PHYSFS_close(file);
 				return ret;
 			}
 			else
 
 				ret = readed;
 		}
-		PHYSFS_close(file);
+
 	}
 	else
 		MY_LOG("File System error while opening file %s: %s\n", file, PHYSFS_getLastError());
-
+	PHYSFS_close(file);
 	return ret;
 }
 

@@ -34,10 +34,10 @@ void ModuleConsole::AddLog(const char* fmt, ...) IM_FMTARGS(2) {
 	Items.push_back(Strdup(buf));
 }
 
-void ModuleConsole::Draw(const char* title, bool* p_open)
+void ModuleConsole::Draw(const char* engine_name, bool* p_open)
 {
 	ImGui::SetNextWindowSize(ImVec2(520, 600), ImGuiCond_FirstUseEver);
-	if (!ImGui::Begin(title, p_open))
+	if (!ImGui::Begin(engine_name, p_open))
 	{
 		ImGui::End();
 		return;

@@ -1,6 +1,7 @@
 #include "W_About.h"
 #include "SDL/include/SDL.h"
 #include "glew/glew.h"
+#include "Application.h"
 
 W_About::W_About()
 {
@@ -21,7 +22,7 @@ void W_About::Draw()
 		return;
 	}
 
-	ImGui::Text("TurboX Engine v0.1");
+	ImGui::Text("%s v%.2lf", App->GetEngineName(), App->GetEngineVersion());
 	ImGui::Text("The next generation 3D Game Engine");
 	ImGui::Text("Authors: ");
 	if (ImGui::SmallButton("Pablo Galve"))

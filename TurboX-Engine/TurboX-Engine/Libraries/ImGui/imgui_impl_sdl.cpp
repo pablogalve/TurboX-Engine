@@ -611,10 +611,10 @@ static void ImGui_ImplSDL2_SetWindowSize(ImGuiViewport* viewport, ImVec2 size)
     SDL_SetWindowSize(data->Window, (int)size.x, (int)size.y);
 }
 
-static void ImGui_ImplSDL2_SetWindowTitle(ImGuiViewport* viewport, const char* title)
+static void ImGui_ImplSDL2_SetWindowTitle(ImGuiViewport* viewport, const char* engine_name)
 {
     ImGuiViewportDataSDL2* data = (ImGuiViewportDataSDL2*)viewport->PlatformUserData;
-    SDL_SetWindowTitle(data->Window, title);
+    SDL_SetWindowTitle(data->Window, engine_name);
 }
 
 #if SDL_HAS_WINDOW_ALPHA

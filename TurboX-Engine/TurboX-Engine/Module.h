@@ -52,4 +52,8 @@ public:
 	{ 
 		return true; 
 	}
+
+	virtual bool LoadSettings(Config* data) {
+		return true;
+	}
 };
