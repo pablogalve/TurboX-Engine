@@ -15,6 +15,8 @@ GameObject::GameObject()
 	parent = nullptr;
 
 	CreateComponent(Component::Type::Transform);
+
+	boundingBox = AABB({ 0,0,0 }, { 0,0,0 });
 }
 
 GameObject::~GameObject()
@@ -83,12 +85,27 @@ void GameObject::Draw()
 {
 	if (mesh != nullptr)
 	{
-		//glPushMatrix();
-		//glMultMatrixf((float*)transform->globalMatrix.Transposed().v);
+		glPushMatrix();
+		glMultMatrixf((float*)transform->globalMatrix.Transposed().v);
 		mesh->Draw();
-		//glPopMatrix();
+		glPopMatrix();
+	}
+
+	if (is_selected)
+	{
+		DrawBB(boundingBox, { 0, 0.5f, 1 });
 	}
 	
+	if (transform != nullptr && transform->changed)
+	{
+		GameObject* bigParent = this;
+		while (bigParent->parent != nullptr)
+			bigParent = bigParent->parent;
+		bigParent->RecalculateBB();
+
+		transform->changed = false;
+	}
+
 	for (size_t i = 0; i < childs.size(); i++)
 	{
 		if (childs[i]->active)
@@ -143,5 +160,82 @@ void GameObject::SetParent(GameObject* _parent)
 	}
 	parent = _parent;
 	parent->AddChildren(this);
+}
+
+void GameObject::RecalculateBB()
+{
+	if (transform != nullptr)
+	{
+		boundingBox.SetNegativeInfinity();
+
+		if (childs.size() > 0)
+		{
+			for (std::vector<GameObject*>::iterator it_c = childs.begin(); it_c != childs.end(); it_c++)
+			{
+				(*it_c)->RecalculateBB();
+				if ((*it_c)->boundingBox.IsFinite())
+					boundingBox.Enclose((*it_c)->boundingBox);
+			}
+		}
+
+		if (mesh != nullptr)
+		{
+			boundingBox.Enclose((float3*)mesh->vertex, mesh->num_vertex);
+		}
+
+		if (childs.size() <= 0)
+		{
+			boundingBox.TransformAsAABB(transform->globalMatrix);
+		}
+	}
+}
+
+void GameObject::DrawBB(const AABB& BB, vec color) const
+{
+	glLineWidth(1.5f);
+	glColor3f(color.x, color.y, color.z);
+
+	glBegin(GL_LINES);
+
+	glVertex3f(BB.CornerPoint(0).x, BB.CornerPoint(0).y, BB.CornerPoint(0).z);
+	glVertex3f(BB.CornerPoint(1).x, BB.CornerPoint(1).y, BB.CornerPoint(1).z);
+
+	glVertex3f(BB.CornerPoint(0).x, BB.CornerPoint(0).y, BB.CornerPoint(0).z);
+	glVertex3f(BB.CornerPoint(2).x, BB.CornerPoint(2).y, BB.CornerPoint(2).z);
+
+	glVertex3f(BB.CornerPoint(0).x, BB.CornerPoint(0).y, BB.CornerPoint(0).z);
+	glVertex3f(BB.CornerPoint(4).x, BB.CornerPoint(4).y, BB.CornerPoint(4).z);
+
+	glVertex3f(BB.CornerPoint(3).x, BB.CornerPoint(3).y, BB.CornerPoint(3).z);
+	glVertex3f(BB.CornerPoint(1).x, BB.CornerPoint(1).y, BB.CornerPoint(1).z);
+
+	glVertex3f(BB.CornerPoint(3).x, BB.CornerPoint(3).y, BB.CornerPoint(3).z);
+	glVertex3f(BB.CornerPoint(2).x, BB.CornerPoint(2).y, BB.CornerPoint(2).z);
+
+	glVertex3f(BB.CornerPoint(3).x, BB.CornerPoint(3).y, BB.CornerPoint(3).z);
+	glVertex3f(BB.CornerPoint(7).x, BB.CornerPoint(7).y, BB.CornerPoint(7).z);
+
+	glVertex3f(BB.CornerPoint(6).x, BB.CornerPoint(6).y, BB.CornerPoint(6).z);
+	glVertex3f(BB.CornerPoint(2).x, BB.CornerPoint(2).y, BB.CornerPoint(2).z);
+
+	glVertex3f(BB.CornerPoint(6).x, BB.CornerPoint(6).y, BB.CornerPoint(6).z);
+	glVertex3f(BB.CornerPoint(4).x, BB.CornerPoint(4).y, BB.CornerPoint(4).z);
+
+	glVertex3f(BB.CornerPoint(6).x, BB.CornerPoint(6).y, BB.CornerPoint(6).z);
+	glVertex3f(BB.CornerPoint(7).x, BB.CornerPoint(7).y, BB.CornerPoint(7).z);
+
+	glVertex3f(BB.CornerPoint(5).x, BB.CornerPoint(5).y, BB.CornerPoint(5).z);
+	glVertex3f(BB.CornerPoint(1).x, BB.CornerPoint(1).y, BB.CornerPoint(1).z);
+
+	glVertex3f(BB.CornerPoint(5).x, BB.CornerPoint(5).y, BB.CornerPoint(5).z);
+	glVertex3f(BB.CornerPoint(4).x, BB.CornerPoint(4).y, BB.CornerPoint(4).z);
+
+	glVertex3f(BB.CornerPoint(5).x, BB.CornerPoint(5).y, BB.CornerPoint(5).z);
+	glVertex3f(BB.CornerPoint(7).x, BB.CornerPoint(7).y, BB.CornerPoint(7).z);
+
+	glEnd();
+
+	glColor3f(1, 1, 1);
+	glLineWidth(1.0f);
 }
 

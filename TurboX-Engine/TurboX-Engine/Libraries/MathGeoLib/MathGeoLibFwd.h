@@ -103,3 +103,5 @@ class VertexBuffer;
 #ifdef MATH_ENABLE_STL_SUPPORT
 #include <iosfwd>
 #endif
+
+typedef float3 vec;

@@ -64,7 +64,6 @@ public:
 
 	void LoadFBXScene(const char* FBXpath);
 
-	C_Mesh* ImportMeshToResource(aiMesh* mesh, const char* peiName);
 	void ImportFBXtoPEI(const char* path);
 	void ImportFBXandLoad(const char* fbxPath);
 	void LoadPEI(const char* fileName);

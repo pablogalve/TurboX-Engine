@@ -489,10 +489,16 @@ GameObject* SceneImporter::ImportNodeRecursive(aiNode* node, const aiScene* scen
 					MY_LOG("Error loading mesh");
 				}
 
+
+				//Calculate bounding box
+				nodeGO->boundingBox.SetNegativeInfinity();
+				nodeGO->boundingBox.Enclose((float3*)compMesh->vertex, compMesh->num_vertex);
+
 				compMesh->SetMeshBuffer();
 				compMesh = nullptr;
 				mesh = nullptr;
 				material = nullptr;
+
 			}
 		}
 	}

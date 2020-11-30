@@ -57,6 +57,7 @@ void W_Inspector::Draw()
 			{
 				transform->SetPosition(pos);
 				transform->RecalculateMatrix();
+				transform->changed = true;
 			}
 			ImGui::NextColumn();
 
@@ -65,6 +66,7 @@ void W_Inspector::Draw()
 			{
 				transform->SetPosition(pos);
 				transform->RecalculateMatrix();
+				transform->changed = true;
 			}
 			ImGui::NextColumn();
 
@@ -73,6 +75,7 @@ void W_Inspector::Draw()
 			{
 				transform->SetPosition(pos);
 				transform->RecalculateMatrix();
+				transform->changed = true;
 			}
 			ImGui::NextColumn();
 
@@ -88,6 +91,7 @@ void W_Inspector::Draw()
 				quatRot = quatRot.FromEulerXYZ(rotation.x, rotation.y, rotation.z);
 				transform->SetQuaternionRotation(quatRot);
 				transform->RecalculateMatrix();
+				transform->changed = true;
 			}
 			ImGui::NextColumn();
 
@@ -99,6 +103,7 @@ void W_Inspector::Draw()
 				quatRot = quatRot.FromEulerXYZ(rotation.x, rotation.y, rotation.z);
 				transform->SetQuaternionRotation(quatRot);
 				transform->RecalculateMatrix();
+				transform->changed = true;
 			}
 			ImGui::NextColumn();
 
@@ -110,6 +115,7 @@ void W_Inspector::Draw()
 				quatRot = quatRot.FromEulerXYZ(rotation.x, rotation.y, rotation.z);
 				transform->SetQuaternionRotation(quatRot);
 				transform->RecalculateMatrix();
+				transform->changed = true;
 			}
 			ImGui::NextColumn();
 			// Scale
@@ -120,6 +126,7 @@ void W_Inspector::Draw()
 			{
 				transform->SetScale(scale);
 				transform->RecalculateMatrix();
+				transform->changed = true;
 			}
 			ImGui::NextColumn();
 
@@ -128,6 +135,7 @@ void W_Inspector::Draw()
 			{
 				transform->SetScale(scale);
 				transform->RecalculateMatrix();
+				transform->changed = true;
 			}
 			ImGui::NextColumn();
 
@@ -136,6 +144,7 @@ void W_Inspector::Draw()
 			{
 				transform->SetScale(scale);
 				transform->RecalculateMatrix();
+				transform->changed = true;
 			}
 			ImGui::NextColumn();
 			ImGui::Columns(1);
