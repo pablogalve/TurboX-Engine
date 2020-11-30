@@ -28,7 +28,7 @@ Application::Application()
 	gui = new ModuleGui(this);
 	scene = new ModuleScene(this);
 	console = new ModuleConsole();
-	resources = new ModuleResources(this);
+	resources = new SceneImporter(this);
 	
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order

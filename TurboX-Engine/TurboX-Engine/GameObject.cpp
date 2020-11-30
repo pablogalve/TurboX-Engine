@@ -13,6 +13,8 @@ GameObject::GameObject()
 	material = nullptr;
 	transform = nullptr;
 	parent = nullptr;
+
+	CreateComponent(Component::Type::Transform);
 }
 
 GameObject::~GameObject()

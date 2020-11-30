@@ -12,31 +12,31 @@
 #include "GameObject.h"
 #pragma comment (lib, "Libraries/Assimp/libx86/assimp.lib")
 
-ModuleResources::ModuleResources(Application* app, bool start_enabled) : Module(app, start_enabled)
+SceneImporter::SceneImporter(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "Resources";
 }
 
-ModuleResources::~ModuleResources()
+SceneImporter::~SceneImporter()
 {
 }
 
-bool ModuleResources::Start()
+bool SceneImporter::Start()
 {
 	return true;
 }
 
-update_status ModuleResources::Update(float dt)
+update_status SceneImporter::Update(float dt)
 {
 
 	return UPDATE_CONTINUE;
 }
 
-bool ModuleResources::CleanUp()
+bool SceneImporter::CleanUp()
 {
 	return true;
 }
-void ModuleResources::ImportFBXandLoad(const char* fbxPath)
+void SceneImporter::ImportFBXandLoad(const char* fbxPath)
 {
 	ImportFBXtoPEI(fbxPath);
 
@@ -47,7 +47,7 @@ void ModuleResources::ImportFBXandLoad(const char* fbxPath)
 	LoadPEI(PEIPath.c_str());
 }
 
-void ModuleResources::ImportFBXtoPEI(const char* FBXpath)
+void SceneImporter::ImportFBXtoPEI(const char* FBXpath)
 {
 
 
@@ -79,7 +79,7 @@ void ModuleResources::ImportFBXtoPEI(const char* FBXpath)
 		std::ofstream dataFile(fileName.c_str(), std::fstream::out | std::fstream::binary);
 		MY_LOG("Creating PEI file");
 
-		ModuleResources::dataScene newScene;
+		SceneImporter::dataScene newScene;
 
 		const aiNode* node = scene->mRootNode; // NEEDTO delete pointer?
 
@@ -140,11 +140,11 @@ void ModuleResources::ImportFBXtoPEI(const char* FBXpath)
 }
 
 
-void ModuleResources::ImportFromMesh(const aiScene* currSc, aiMesh* new_mesh, std::ofstream* dataFile)
+void SceneImporter::ImportFromMesh(const aiScene* currSc, aiMesh* new_mesh, std::ofstream* dataFile)
 {
 	bool error = false;
 
-	ModuleResources::dataMesh newMesh;
+	SceneImporter::dataMesh newMesh;
 	newMesh.num_vertex = new_mesh->mNumVertices; //-----------vertex
 	newMesh.vertex = new float3[newMesh.num_vertex];
 	memcpy(newMesh.vertex, new_mesh->mVertices, sizeof(float3) * newMesh.num_vertex);
@@ -237,7 +237,7 @@ void ModuleResources::ImportFromMesh(const aiScene* currSc, aiMesh* new_mesh, st
 
 }
 
-void ModuleResources::LoadPEI(const char* fileName)
+void SceneImporter::LoadPEI(const char* fileName)
 {
 
 
@@ -383,16 +383,138 @@ void ModuleResources::LoadPEI(const char* fileName)
 	dataFile.close();
 }
 
+void SceneImporter::LoadFBXScene(const char* FBXpath)
+{
+	Timer loadTime;
 
-void ModuleResources::LoadFBX(const char* path)
+	std::string fullFBXPath;// = MODELS_PATH;
+	fullFBXPath += FBXpath;
+
+	std::string modelName;
+
+	App->file_system->GetNameFromPath(fullFBXPath.c_str(), nullptr, &modelName, nullptr, nullptr);
+
+	const aiScene* scene = aiImportFile(fullFBXPath.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
+
+	if (scene == nullptr) {
+		scene = aiImportFile(FBXpath, aiProcessPreset_TargetRealtime_MaxQuality);
+		if (scene == nullptr) {
+			MY_LOG("Error loading fbx from Assets/3DModels folder.");
+			aiReleaseImport(scene);
+
+			return;
+		}
+	}
+	else {
+		GameObject* GO;
+		GO = App->scene->AddGameObject(modelName.c_str());
+		GameObject* GOchild = ImportNodeRecursive(scene->mRootNode, scene, GO);
+
+
+		GOchild = nullptr;
+		GO = nullptr;
+		aiReleaseImport(scene);
+		MY_LOG("Loaded succesfully fbx from %s. Loading time: %.1fms", FBXpath, loadTime.Read());
+	}
+}
+
+GameObject* SceneImporter::ImportNodeRecursive(aiNode* node, const aiScene* scene, GameObject* parent)
+{
+	GameObject* nodeGO = nullptr;
+
+
+	if (node->mMetaData != nullptr) { // to get the gameobject not a transform matrix
+
+		nodeGO = new GameObject();
+		nodeGO->name = node->mName.C_Str();
+		nodeGO->SetParent(parent);
+
+		aiVector3D position;
+		aiQuaternion rotation;
+		aiVector3D scale;
+		node->mTransformation.Decompose(scale, rotation, position);
+
+		nodeGO->transform->SetPosition(float3(position.x, position.y, position.z));
+		nodeGO->transform->SetScale(float3(scale.x, scale.y, scale.z));
+		nodeGO->transform->SetQuaternionRotation(Quat(rotation.x, rotation.y, rotation.z, rotation.w));
+
+
+		if (node->mNumMeshes > 0)
+		{
+			for (uint i = 0; i < node->mNumMeshes; i++)
+			{
+
+				aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+				aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+
+				std::string meshName = nodeGO->name;
+
+				C_Mesh* compMesh = (C_Mesh*)nodeGO->CreateComponent(Component::Type::Mesh);
+				
+				compMesh->num_vertex = mesh->mNumVertices;
+				compMesh->vertex = new float3[compMesh->num_vertex];
+				memcpy(compMesh->vertex, mesh->mVertices, sizeof(float3) * compMesh->num_vertex);
+				MY_LOG("New mesh with %d vertices", compMesh->num_vertex);
+
+				if (mesh->HasFaces()) {
+					compMesh->num_index = mesh->mNumFaces * 3;
+					compMesh->index = new uint[compMesh->num_index]; // assume each face is a triangle
+					for (uint i = 0; i < mesh->mNumFaces; ++i) {
+						if (mesh->mFaces[i].mNumIndices != 3) {
+							MY_LOG("WARNING, geometry face with != 3 indices!");
+
+						}
+						else {
+							memcpy(&compMesh->index[i * 3], mesh->mFaces[i].mIndices, 3 * sizeof(uint));
+						}
+					}
+				}
+				if (mesh->HasNormals()) {
+					compMesh->num_normals = mesh->mNumVertices;
+					compMesh->normals = new float3[compMesh->num_normals];
+					memcpy(compMesh->normals, mesh->mNormals, sizeof(float3) * compMesh->num_normals);
+					MY_LOG("New mesh with %d normals", compMesh->num_normals);
+				}
+				if (mesh->GetNumUVChannels() > 0) {
+					compMesh->num_textureCoords = compMesh->num_vertex;
+					compMesh->texturesCoords = new float2[compMesh->num_textureCoords];
+
+					for (int i = 0; i < (compMesh->num_textureCoords); i++) {
+						compMesh->texturesCoords[i].x = mesh->mTextureCoords[0][i].x;
+						compMesh->texturesCoords[i].y = mesh->mTextureCoords[0][i].y;
+					}
+					MY_LOG("New mesh with %d UVs", compMesh->num_textureCoords);
+				}
+				else {
+					MY_LOG("Error loading mesh");
+				}
+
+				compMesh->SetMeshBuffer();
+				compMesh = nullptr;
+				mesh = nullptr;
+				material = nullptr;
+			}
+		}
+	}
+	if (!nodeGO) { nodeGO = parent; }
+	for (uint i = 0; i < node->mNumChildren; i++) // recursivity
+	{
+		GameObject* child = ImportNodeRecursive(node->mChildren[i], scene, nodeGO);
+
+	}
+	return nodeGO;
+}
+
+void SceneImporter::LoadFBX(const char* path)
 {
 
 	Timer timerLoader;
 	std::string fbxName = MODELS_PATH;
 	fbxName += path;
 	const aiScene* scene = aiImportFile(fbxName.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
-	//---checks if fbx path exist
-	if (scene == nullptr) {
+	
+	if (scene == nullptr) 
+	{
 		MY_LOG("Error loading scene %s", aiGetErrorString());
 		aiReleaseImport(scene);
 		return;
@@ -479,3 +601,4 @@ void ModuleResources::LoadFBX(const char* path)
 	}
 	aiReleaseImport(scene);
 }
+
