@@ -67,7 +67,7 @@ bool Application::Init()
 	bool ret = true;
 
 	char* buffer = nullptr;
-	uint size = file_system->Load("Library/Config/config.json", &buffer);
+	//uint size = file_system->Load("Library/Config/config.json", &buffer);
 	const char* test = buffer;
 	Config_JSON_Node config(test);
 	Config_JSON_Node node = config.GetNode("modules_settings");
