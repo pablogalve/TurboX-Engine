@@ -8,11 +8,13 @@ GameObject::GameObject()
 	ChangeName("Custom Mesh");
 	is_selected = false;
 	to_delete = false;
+	culling = false;
 
 	mesh = nullptr;
 	material = nullptr;
 	transform = nullptr;
 	parent = nullptr;
+	camera = nullptr;
 
 	CreateComponent(Component::Type::Transform);
 
@@ -87,15 +89,20 @@ Component* GameObject::GetComponent(Component::Type type)
 
 void GameObject::Draw()
 {
-	if (mesh != nullptr)
+
+	if (culling) 
 	{
-		glPushMatrix();
-		glMultMatrixf((float*)transform->globalMatrix.Transposed().v);
-		mesh->Draw();
-		glPopMatrix();
+		if (mesh != nullptr)
+		{
+			glPushMatrix();
+			glMultMatrixf((float*)transform->globalMatrix.Transposed().v);
+			mesh->Draw();
+			glPopMatrix();
+		}
+
 	}
 
-	if(camera != nullptr)
+	if (camera != nullptr)
 	{
 		camera->DrawFrustum();
 

@@ -53,6 +53,7 @@ public:
 	bool active;	
 	bool is_selected;
 	bool to_delete;
+	bool culling;
 };
 
 #endif //!__GAMEOBJECT_H__

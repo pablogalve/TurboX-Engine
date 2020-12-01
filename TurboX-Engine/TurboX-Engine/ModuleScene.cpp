@@ -5,11 +5,13 @@
 #include "W_Hierarchy.h"
 #include "ModuleEditor.h"
 
+
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "Gui";
 	root = new GameObject();
 	root->name = "root";
+
 }
 
 ModuleScene::~ModuleScene()
@@ -17,6 +19,7 @@ ModuleScene::~ModuleScene()
 
 bool ModuleScene::Start()
 {
+
 	bool ret = true;
 
 	return ret;
@@ -29,6 +32,8 @@ update_status ModuleScene::PreUpdate(float dt)
 
 update_status ModuleScene::Update(float dt)
 {
+
+	FrustumCulling(GetRoot(), GetRoot());
 
 	return UPDATE_CONTINUE;
 }
@@ -138,6 +143,32 @@ void ModuleScene::DrawGameObjects(GameObject* gameObject, GameObject* root)
 	}
 }
 
+void ModuleScene::FrustumCulling(GameObject* gameObject, GameObject* root)
+{
+	for (std::vector<GameObject*>::iterator it_c = cameras.begin(); it_c != cameras.end(); it_c++)
+	{
+		GameObject* sceneCamera = (*it_c);
+
+		if (sceneCamera != nullptr)
+		{
+			if (sceneCamera->camera->ContainsAABB(gameObject->boundingBox))
+			{
+				gameObject->culling = true;
+			}
+			else
+			{
+				gameObject->culling = false;
+			}
+
+			for (uint i = 0; i < gameObject->childs.size(); i++)
+			{
+				FrustumCulling(gameObject->childs[i], root);
+			}
+
+		}
+	}
+}
+
 GameObject* ModuleScene::GetRoot()
 {
 	return root;
@@ -186,6 +217,8 @@ void ModuleScene::AddCamera()
 	newGameObject->camera->RecalculateBB();
 
 	newGameObject->boundingBox = newGameObject->camera->cameraBB;
+
+	cameras.push_back(newGameObject);
 }
 
 

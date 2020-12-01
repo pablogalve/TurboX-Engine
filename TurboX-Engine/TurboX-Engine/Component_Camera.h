@@ -12,6 +12,8 @@ public:
 	
 	void DrawFrustum();
 
+	bool ContainsAABB(const AABB& boundingBox);
+
 	void RecalculateBB();
 
 	void CameraBB();

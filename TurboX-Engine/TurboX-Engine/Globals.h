@@ -53,11 +53,20 @@ enum update_status
 #define DDS_FORMAT ".dds"
 #define FBX_FORMAT ".fbx"
 
-#define RELEASE_ARRAY( x )\
+#define RELEASE( x )\
+{\
+    if( x != NULL )\
 	{\
-       if( x != nullptr )\
-       {\
-           delete[] x;\
-	       x = nullptr;\
-		 }\
-	 }
+      delete x;\
+	  x = NULL;\
+	}\
+}
+
+#define RELEASE_ARRAY( x )\
+{\
+    if( x != NULL )\
+	{\
+      delete[] x;\
+	  x = NULL;\
+	}\
+}
