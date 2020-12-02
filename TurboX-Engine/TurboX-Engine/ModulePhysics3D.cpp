@@ -77,3 +77,8 @@ bool ModulePhysics3D::LoadSettings(Config* data)
 	debug = data->GetBool("debug", true);
 	return true;
 }
+
+bool ModulePhysics3D::SaveSettings(Config* data) const
+{
+	return true;
+}

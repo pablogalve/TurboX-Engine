@@ -95,12 +95,12 @@ bool ModuleWindow::CleanUp()
 
 bool ModuleWindow::LoadSettings(Config* data)
 {
-	SetBrightness(data->GetNumber("Brightness", DEFAULT_BRIGHTNESS));
+	SetBrightness(data->GetFloat("Brightness", DEFAULT_BRIGHTNESS));
 	SetFullscreen(data->GetBool("Fullscreen", WIN_FULLSCREEN));
 	SetResizable(data->GetBool("Resizable", WIN_RESIZABLE));
 	SetBorderless(data->GetBool("Borderless", WIN_BORDERLESS));
 	SetFullscreenDesktop(data->GetBool("Fullscreen Desktop", WIN_FULLSCREEN_DESKTOP));
-	SetSize(data->GetNumber("Width", SCREEN_WIDTH), data->GetNumber("Height", SCREEN_HEIGHT));
+	SetSize(data->GetUInt("Width", SCREEN_WIDTH), data->GetUInt("Height", SCREEN_HEIGHT));
 
 	return true;
 }

@@ -16,12 +16,21 @@ public:
 	uint Save(char** buffer) const;
 
 	double GetNumber(const char* field, double default = 0.0, int index = -1) const;
+	float GetFloat(const char* field, float default = 0.0f, int index = -1) const;
 	bool GetBool(const char* field, bool default, int index = -1) const;
+	int GetInt(const char* field, int default = 0, int index = -1) const;
+	uint GetUInt(const char* field, uint default = 0, int index = -1) const;
 	const char* GetString(const char* field, const char* default = nullptr, int index = -1) const;
 
 	uint GetArraySize(const char* field) const;
 	Config GetArray(const char* field, int index) const;
 
+	bool AddFloat(const char* field, float value);
+	bool AddBool(const char* field, bool value);
+	bool AddInt(const char* field, int value);
+	bool AddUInt(const char* field, uint value);
+	bool AddString(const char* field, const char* string);
+	bool AddArray(const char* array_name);
 private:
 	JSON_Value* FindValue(const char* field, int index) const;
 

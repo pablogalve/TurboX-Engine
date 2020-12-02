@@ -53,7 +53,12 @@ public:
 		return true; 
 	}
 
-	virtual bool LoadSettings(Config* data) {
+	virtual bool LoadSettings(Config* data) 
+	{
+		return true;
+	}
+	virtual bool SaveSettings(Config* data) const
+	{
 		return true;
 	}
 };
