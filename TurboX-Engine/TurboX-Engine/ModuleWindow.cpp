@@ -105,6 +105,19 @@ bool ModuleWindow::LoadSettings(Config* data)
 	return true;
 }
 
+bool ModuleWindow::SaveSettings(Config* data) const
+{
+	data->AddFloat("Brightness", _brightness);
+	data->AddBool("Fullscreen", _fullscreen);
+	data->AddBool("Resizable", _resizable);
+	data->AddBool("Borderless", _borderless);
+	data->AddBool("Fullscreen Desktop", _fullDesktop);
+	data->AddUInt("Width", _w);
+	data->AddUInt("Height", _h);
+
+	return true;
+}
+
 void ModuleWindow::SetTitle(const char* engine_name)
 {
 	SDL_SetWindowTitle(window, engine_name);

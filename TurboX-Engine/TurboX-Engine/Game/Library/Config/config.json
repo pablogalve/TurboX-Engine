@@ -1,59 +1,62 @@
 {
-  "App": [
-      {
-          "Name": "TurboX-Engine",
-          "Organization": "UPC-CITM",
-          "Version": 0.3
-      }
-  ],
-  "Window": [
-      {
-        "Brightness": 1,
-        "Fullscreen": false,
-        "Resizable": true,
-        "Borderless": false,
-        "Fullscreen Desktop": false,
-        "Width": 1280,
-        "Height": 720
-      }
-  ],
-  "Input": [
-      {}
-  ],
-  "FileSystem": [
-      {}
-  ],
-  "Audio": [
-      {}
-  ],
-  "Scene": [
-      {}
-  ],
-  "Gui": [
-      {}
-  ],
-  "Renderer3D": [
-      {
-          "depth_test": true,
-          "color_material": true,
-          "cull_face": true,
-          "lighting": true,
-          "wireframe": false,
-          "texture": true
-      }
-  ],
-  "Physics": [
-    {
-        "debug": true
-    }
-  ],
-  "Resources": [
-    {}
-  ],
-  "Editor": [
-    {
-        "show_Demo_Window": false,
-        "show_Console_Window": true
-    }
-  ]
+    "App": [
+        {
+            "Name": "TurboX-Engine",
+            "Organization": "UPC-CITM",
+            "Version": 0.30000001192092896
+        }
+    ],
+    "FileSystem": [
+        {}
+    ],
+    "Window": [
+        {
+            "Brightness": 1,
+            "Fullscreen": false,
+            "Resizable": true,
+            "Borderless": false,
+            "Fullscreen Desktop": false,
+            "Width": 1280,
+            "Height": 720
+        }
+    ],
+    "Camera": [
+        {}
+    ],
+    "Input": [
+        {}
+    ],
+    "Audio": [
+        {}
+    ],
+    "Physics": [
+        {
+            "debug": true
+        }
+    ],
+    "Gui": [
+        {}
+    ],
+    "Scene": [
+        {}
+    ],
+    "Resources": [
+        {}
+    ],
+    "Editor": [
+        {
+            "show_Demo_Window": false,
+            "show_Console_Window": true
+        }
+    ],
+    "Renderer3D": [
+        {
+            "depth_test": true,
+            "color_material": true,
+            "cull_face": true,
+            "lighting": true,
+            "wireframe": false,
+            "texture": true
+        }
+    ]
 }

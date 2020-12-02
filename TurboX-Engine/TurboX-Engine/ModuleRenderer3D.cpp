@@ -217,6 +217,18 @@ bool ModuleRenderer3D::LoadSettings(Config* data)
 	return true;
 }
 
+bool ModuleRenderer3D::SaveSettings(Config* data) const
+{
+	data->AddBool("depth_test", _depth_test);
+	data->AddBool("color_material", _color_material);
+	data->AddBool("cull_face", _cull_face);
+	data->AddBool("lighting", _lighting);
+	data->AddBool("wireframe", _wireframe);
+	data->AddBool("texture", _texture);
+
+	return true;
+}
+
 void ModuleRenderer3D::OnResize(int width, int height)
 {
 	glViewport(0, 0, width, height);

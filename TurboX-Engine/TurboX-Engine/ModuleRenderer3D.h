@@ -32,6 +32,7 @@ public:
 	update_status PostUpdate(float dt)override;
 	bool CleanUp()override;
 	bool LoadSettings(Config* data)override;
+	bool SaveSettings(Config* data)const override;
 
 	void OnResize(int width, int height);
 

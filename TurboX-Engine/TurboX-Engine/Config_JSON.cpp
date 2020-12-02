@@ -168,3 +168,11 @@ bool Config::AddArray(const char* array_name)
 
 	return json_object_set_value(root, array_name, va) == JSONSuccess;
 }
+
+bool Config::AddArrayChild(const Config& config)
+{
+	if (array != nullptr) {
+		return json_array_append_value(array, json_value_deep_copy(config.valueRoot)) == JSONSuccess;
+	}
+	return false;
+}

@@ -183,15 +183,45 @@ bool Application::LoadEngineNow()
 	{
 		Config elem = conf.GetArray(modules_list[i]->name.c_str(), 0);
 		ret = modules_list[i]->LoadSettings(&elem);
-		console->AddLog("Load Engine Now %s", modules_list[i]->name.c_str());
 	}
 	want_to_load = false;
+
+	console->AddLog("Loading settings from config.json");
+
 	return ret;
 }
 
 bool Application::SaveEngineNow() const
 {
-	return false;
+	bool ret = false;
+
+	Config save;
+
+	save.AddArray("App");
+	Config appdata;
+	appdata.AddString("Name", engine_name.c_str());
+	appdata.AddString("Organization", organization_name.c_str());
+	appdata.AddFloat("Version", current_version);
+	save.AddArrayChild(appdata);
+
+	for (uint i = 0; i < modules_list.size(); i++)
+	{
+		Config module;
+		save.AddArray(modules_list[i]->name.c_str());
+
+		ret &= modules_list[i]->SaveSettings(&module);
+		save.AddArrayChild(module);
+	}
+
+	char* buffer = nullptr;
+	uint size = save.Save(&buffer);
+
+	App->file_system->writeFile(CONFIG_FILE, buffer, size);
+	console->AddLog("Saving settings to config.json");
+
+	want_to_save = false;
+
+	return ret;
 }
 
 void Application::SetEngineName(const char* newName)

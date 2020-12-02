@@ -31,6 +31,7 @@ public:
 	bool AddUInt(const char* field, uint value);
 	bool AddString(const char* field, const char* string);
 	bool AddArray(const char* array_name);
+	bool AddArrayChild(const Config& config);
 private:
 	JSON_Value* FindValue(const char* field, int index) const;
 

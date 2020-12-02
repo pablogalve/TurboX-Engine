@@ -93,6 +93,14 @@ bool ModuleEditor::LoadSettings(Config* data)
 	return true;
 }
 
+bool ModuleEditor::SaveSettings(Config* data) const
+{
+	data->AddBool("show_Demo_Window", showDemoWindow);
+	data->AddBool("show_Console_Window", showConsoleWindow);
+
+	return true;
+}
+
 void ModuleEditor::CreateDockSpace()
 {
 	static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
@@ -132,6 +140,14 @@ void ModuleEditor::ShowMenuBar()
 	{
 		if (ImGui::BeginMenu("File"))
 		{
+			if (ImGui::MenuItem("Save Settings"))
+			{
+				App->SaveEngine();
+			}
+			if (ImGui::MenuItem("Load Settings"))
+			{
+				App->LoadEngine();
+			}
 			if (ImGui::MenuItem("Exit", "ESC"))
 			{
 				App->CloseApp();

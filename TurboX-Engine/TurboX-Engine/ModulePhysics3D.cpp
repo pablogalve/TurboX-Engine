@@ -80,5 +80,7 @@ bool ModulePhysics3D::LoadSettings(Config* data)
 
 bool ModulePhysics3D::SaveSettings(Config* data) const
 {
+	data->AddBool("debug", debug);
+
 	return true;
 }

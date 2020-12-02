@@ -28,6 +28,7 @@ public:
 	update_status Update(float dt) override;
 	bool CleanUp() override;
 	bool LoadSettings(Config* data)override;
+	bool SaveSettings(Config* data)const override;
 
 private:
 	void CreateDockSpace();
