@@ -17,8 +17,6 @@
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "Editor";
-	showDemoWindow = false;
-	showConsoleWindow = true;
 
 	about_window = new W_About();
 	hierarchy_window = new W_Hierarchy();
@@ -86,6 +84,13 @@ bool ModuleEditor::CleanUp()
 	delete theme_window;
 
 	return ret;
+}
+
+bool ModuleEditor::LoadSettings(Config* data)
+{
+	showDemoWindow = data->GetBool("show_Demo_Window", false);
+	showConsoleWindow = data->GetBool("show_Console_Window", false);
+	return true;
 }
 
 void ModuleEditor::CreateDockSpace()

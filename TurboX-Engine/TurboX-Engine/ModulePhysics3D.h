@@ -17,6 +17,7 @@ public:
 	update_status Update(float dt)override;
 	update_status PostUpdate(float dt)override;
 	bool CleanUp()override;
+	bool LoadSettings(Config* data)override;
 
 private:
 
