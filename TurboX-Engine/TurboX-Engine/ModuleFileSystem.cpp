@@ -7,7 +7,7 @@
 
 ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	name = "fileSystem";
+	name = "FileSystem";
 
 	// needs to be created before Init so other modules can use it
 	char* base_path = SDL_GetBasePath();

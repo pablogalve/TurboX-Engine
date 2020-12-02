@@ -7,11 +7,6 @@ ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, s
 	window = NULL;
 	screen_surface = NULL;
 
-	_fullscreen = WIN_FULLSCREEN;
-	_resizable = WIN_RESIZABLE;
-	_borderless = WIN_BORDERLESS;
-	_fullDesktop = WIN_FULLSCREEN_DESKTOP;
-
 	_w = SCREEN_WIDTH;
 	_h = SCREEN_HEIGHT;
 
@@ -95,6 +90,18 @@ bool ModuleWindow::CleanUp()
 
 	//Quit SDL subsystems
 	SDL_Quit();
+	return true;
+}
+
+bool ModuleWindow::LoadSettings(Config* data)
+{
+	SetBrightness(data->GetNumber("Brightness", DEFAULT_BRIGHTNESS));
+	SetFullscreen(data->GetBool("Fullscreen", WIN_FULLSCREEN));
+	SetResizable(data->GetBool("Resizable", WIN_RESIZABLE));
+	SetBorderless(data->GetBool("Borderless", WIN_BORDERLESS));
+	SetFullscreenDesktop(data->GetBool("Fullscreen Desktop", WIN_FULLSCREEN_DESKTOP));
+	SetSize(data->GetNumber("Width", SCREEN_WIDTH), data->GetNumber("Height", SCREEN_HEIGHT));
+
 	return true;
 }
 

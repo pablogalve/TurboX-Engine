@@ -12,12 +12,7 @@
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	_depth_test = true;
-	_color_material = true;
-	_cull_face = true;
-	_lighting = true;
-	_wireframe = false;
-	_texture = true;
+	name = "Renderer3D";
 }
 
 // Destructor
@@ -206,6 +201,18 @@ bool ModuleRenderer3D::CleanUp()
 	//LOG("Destroying 3D Renderer");
 	glDeleteFramebuffers(1, &frameBuffer);
 	SDL_GL_DeleteContext(context);
+
+	return true;
+}
+
+bool ModuleRenderer3D::LoadSettings(Config* data)
+{
+	_depth_test = data->GetBool("depth_test", true);
+	_color_material = data->GetBool("color_material", true);
+	_cull_face = data->GetBool("cull_face", true);
+	_lighting = data->GetBool("lighting", true);
+	_wireframe = data->GetBool("wireframe", true);
+	_texture = data->GetBool("texture", true);
 
 	return true;
 }

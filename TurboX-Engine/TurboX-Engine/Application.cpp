@@ -71,9 +71,7 @@ bool Application::Init()
 	LoadEngineNow();
 
 	for (uint i = 0; i < modules_list.size(); i++)
-	{
-		console->AddLog("Success with %s", modules_list[i]->name.c_str());
-		
+	{		
 		ret = modules_list[i]->Init();
 	}
 
@@ -185,7 +183,7 @@ bool Application::LoadEngineNow()
 	{
 		Config elem = conf.GetArray(modules_list[i]->name.c_str(), 0);
 		ret = modules_list[i]->LoadSettings(&elem);
-		console->AddLog("Success with %s", modules_list[i]->name.c_str());
+		console->AddLog("Load Engine Now %s", modules_list[i]->name.c_str());
 	}
 	want_to_load = false;
 	return ret;

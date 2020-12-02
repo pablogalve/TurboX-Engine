@@ -7,35 +7,48 @@
       }
   ],
   "Window": [
-      {}
-  ],
-  "Camera": [
-      {}
+      {
+        "Brightness": 1,
+        "Fullscreen": false,
+        "Resizable": true,
+        "Borderless": false,
+        "Fullscreen Desktop": false,
+        "Width": 1280,
+        "Height": 720
+      }
   ],
   "Input": [
       {}
   ],
-  "fileSystem": [
+  "FileSystem": [
       {}
   ],
   "Audio": [
       {}
   ],
-  "textures": [
-      {}
-  ],
-  "scene": [
-      {}
-  ],
-  "": [
+  "Scene": [
       {}
   ],
   "Gui": [
       {}
   ],
-  "Render": [
+  "Renderer3D": [
       {
-          "VSync": true
+          "depth_test": true,
+          "color_material": true,
+          "cull_face": true,
+          "lighting": true,
+          "wireframe": false,
+          "texture": true
       }
+  ],
+  "Physics": [
+    {}
+  ],
+  "Resources": [
+    {}
+  ],
+  "Editor": [
+    {}
   ]
 }

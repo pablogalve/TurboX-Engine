@@ -8,7 +8,7 @@
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	name = "Gui";
+	name = "Scene";
 	root = new GameObject();
 	root->name = "root";
 

@@ -18,6 +18,7 @@ public:
 
 	bool Init()override;
 	bool CleanUp()override;
+	bool LoadSettings(Config* data)override;
 
 	void SetTitle(const char* engine_name);
 	void SetBrightness(float bright);

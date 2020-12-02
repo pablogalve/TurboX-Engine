@@ -31,6 +31,7 @@ public:
 	update_status Update(float dt)override;
 	update_status PostUpdate(float dt)override;
 	bool CleanUp()override;
+	bool LoadSettings(Config* data)override;
 
 	void OnResize(int width, int height);
 
@@ -51,13 +52,13 @@ public:
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
-	bool _depth_test = false;
-	bool _color_material = false;
-	bool _cull_face = false;
-	bool _lighting = false;
-	bool _wireframe = false;
-	bool _texture = false;
-	bool _loadFBXTest = false;
+	bool _depth_test;
+	bool _color_material;
+	bool _cull_face;
+	bool _lighting;
+	bool _wireframe;
+	bool _texture;
+	bool _loadFBXTest;
 
 	GLuint frameBuffer;
 	GLuint texColorBuffer;
