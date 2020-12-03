@@ -4,6 +4,7 @@
 #include "MathGeoLib/MathGeoLib.h"
 #include "MathGeoLib/Math/float3.h"
 #include "GameObject.h"
+
 W_Inspector::W_Inspector()
 {
 }
@@ -185,6 +186,30 @@ void W_Inspector::Draw()
 			ImGui::Checkbox("Default Texture", &material->defaultTex);
 
 		}
+
+		C_Camera* camera = (C_Camera*)gameObject->GetComponent(Component::Type::Camera);
+
+		if (ImGui::CollapsingHeader("Camera") && camera != nullptr)
+		{
+			ImGui::DragFloat("Near Plane", &camera->frustum.nearPlaneDistance, 0.05f, 0.f, 0.f, "%.2f");
+			ImGui::DragFloat("Far Plane", &camera->frustum.farPlaneDistance, 0.05f, 0.f, 0.f, "%.2f");
+
+			float aspectRatio = camera->frustum.AspectRatio();
+			float fov = camera->frustum.verticalFov * RADTODEG;
+
+			if (ImGui::DragFloat("FOV", &fov, 0.05f, 0.f, 0.f, "%.2f"))
+			{
+				camera->frustum.verticalFov = fov * DEGTORAD;
+				camera->setAspectRatio(aspectRatio);
+			}
+
+			if (ImGui::DragFloat("Aspect Ratio", &aspectRatio, 0.05f, 0.f, 0.f, "%.2f"))
+			{
+				camera->setAspectRatio(aspectRatio);
+			}
+
+		}
+
 	}	
 
 	ImGui::End();

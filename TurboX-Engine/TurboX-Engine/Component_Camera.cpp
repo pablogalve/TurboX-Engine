@@ -27,6 +27,11 @@ C_Camera::~C_Camera()
 {
 }
 
+Component::Type C_Camera::GetComponentType()
+{
+	return Component::Type::Camera;
+}
+
 float* C_Camera::getViewMatrix()
 {
 	static float4x4 matrix;

@@ -8,6 +8,8 @@ public:
 	C_Camera(Component::Type type, GameObject* owner);
 	~C_Camera();
 
+	Component::Type GetComponentType() override;
+
 	float* getViewMatrix();
 	float* getProjectionMatrix();
 
