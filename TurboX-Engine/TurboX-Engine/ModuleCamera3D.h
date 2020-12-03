@@ -2,6 +2,28 @@
 #include "Module.h"
 #include "Globals.h"
 #include "glmath.h"
+#include "MathGeoLib/MathGeoLib.h"
+#include <queue>
+
+class C_Camera;
+class GameObject;
+
+struct HitGameObject
+{
+	HitGameObject(GameObject* GO, float distance) : GO(GO), distance(distance)
+	{}
+
+	GameObject* GO = nullptr;
+	float distance = 0.0f;
+};
+
+struct OrderCrit
+{
+	bool operator()(const HitGameObject* Obj_1, const HitGameObject* Obj_2)const
+	{
+		return Obj_1->distance > Obj_2->distance;
+	}
+};
 
 class ModuleCamera3D : public Module
 {
@@ -13,20 +35,33 @@ public:
 	update_status Update(float dt)override;
 	bool CleanUp()override;
 
-	void Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference = false);
-	void LookAt(const vec3 &Spot);
-	void Move(const vec3 &Movement);
-	float* GetViewMatrix();
+	void OnResize(int width, int height);
 
-	void Orbit();
-	void LookAtSelectedObject();
+	void Look(const vec& Position, const vec& Reference, bool RotateAroundReference = false);
+	void LookAt(const vec &Spot);
+	void Move(const vec &Movement);
+	void FitCamera(const AABB& boundingBox);
+	vec GetMovementFactor();
+
+	GameObject* CheckMousePick();
+	void fillHitGameObjects(GameObject* current, std::priority_queue<HitGameObject*, std::vector<HitGameObject*>, OrderCrit>& gameObjects, LineSegment ray);
+	GameObject* checkCloserGameObjects(std::priority_queue<HitGameObject*, std::vector<HitGameObject*>, OrderCrit>& queue, LineSegment ray, float distance = -1);
+	float hitsTriangle(GameObject* gameObject, LineSegment ray);
 private:
 
 	void CalculateViewMatrix();
 
 public:
 	
-	vec3 X, Y, Z, Position, Reference;
+	vec X, Y, Z, Position, Reference;
+
+	float cameraSpeed = 0;
+	float mouseSensitivity = 0;
+	float wheelSensitivity = 0;
+	float zoomDistance = 0;
+	AABB BBtoLook;
+
+	C_Camera* camera = nullptr;
 
 private:
 

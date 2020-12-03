@@ -36,6 +36,8 @@ public:
 	float GetBrightness() const { return _brightness; }
 	void GetSize(int& h, int& w)const;
 
+	void OnResize(int width, int height);
+
 public:
 	//The window we'll be rendering to
 	SDL_Window* window;
@@ -50,8 +52,10 @@ public:
 	bool _fullDesktop;
 
 	int _brightness = DEFAULT_BRIGHTNESS;
-	uint _w;
-	uint _h;
+	int height = 0;
+	int width = 0;
+	int screen_margin_w = 0;
+	int screen_margin_h = 0;
 };
 
 #endif // __ModuleWindow_H__

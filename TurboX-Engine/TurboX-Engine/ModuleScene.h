@@ -4,7 +4,10 @@
 #include "Module.h"
 #include "GameObject.h"
 #include "MathGeoLib/MathGeoLib.h"
+#include "ImGuizmo/ImGuizmo.h"
 #include <vector>
+
+using namespace std;
 
 class ModuleScene : public Module
 {
@@ -29,8 +32,11 @@ public:
 	GameObject* GetRoot();
 	GameObject* AddGameObject(const char* name);
 	GameObject* AddGameObject(const char* name, GameObject* parent);
+	void selectGameObject(GameObject* gameObject);
 
 	void AddCamera();
+
+	void DrawGuizmo(ImGuizmo::OPERATION operation);
 
 public:
 
@@ -38,6 +44,10 @@ public:
 	GameObject* root;
 
 	std::vector<GameObject*> cameras;
+
+	GameObject* selected_GO = nullptr;
+
+	ImGuizmo::OPERATION guizmoOperation;
 
 };
 

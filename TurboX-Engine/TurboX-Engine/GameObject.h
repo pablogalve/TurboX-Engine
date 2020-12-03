@@ -32,6 +32,8 @@ public:
 
 	void SetParent(GameObject* parent);
 	void AddChildren(GameObject* child);
+	void setSelected(bool selected);
+	void setChildSelected(bool selected);
 
 public:	
 	std::string name;
@@ -54,6 +56,10 @@ public:
 	bool is_selected;
 	bool to_delete;
 	bool culling;
+	bool child_selected;
+	bool isStatic;
+
+
 };
 
 #endif //!__GAMEOBJECT_H__

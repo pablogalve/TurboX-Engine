@@ -146,6 +146,7 @@ void W_Inspector::Draw()
 				transform->RecalculateMatrix();
 				transform->changed = true;
 			}
+
 			ImGui::NextColumn();
 			ImGui::Columns(1);
 		}

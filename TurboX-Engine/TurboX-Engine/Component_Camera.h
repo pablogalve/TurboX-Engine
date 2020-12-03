@@ -8,6 +8,9 @@ public:
 	C_Camera(Component::Type type, GameObject* owner);
 	~C_Camera();
 
+	float* getViewMatrix();
+	float* getProjectionMatrix();
+
 	void setAspectRatio(float aspectRatio);
 	
 	void DrawFrustum();

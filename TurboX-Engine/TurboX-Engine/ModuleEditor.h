@@ -46,6 +46,11 @@ public:
 	W_Configuration* config_window;
 	W_Toolbar* toolbar_window;
 
+	float sceneX = 0.0f;
+	float sceneY = 0.0f;
+	float sceneW = 0.0f;
+	float sceneH = 0.0f;
+
 private:
 	bool showDemoWindow;
 	bool showConfigurationWindow;

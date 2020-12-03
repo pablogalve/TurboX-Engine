@@ -64,6 +64,9 @@
     <Filter Include="Sources\FileManager">
       <UniqueIdentifier>{5e7628fb-eb91-4f26-a854-386b137e13fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Libraries\ImGuizmo">
+      <UniqueIdentifier>{4345b012-bda7-4d50-84ab-06e2e82b0f41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -663,6 +666,9 @@
     <ClInclude Include="Component_Camera.h">
       <Filter>Sources\GameObjects\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Libraries\ImGuizmo\ImGuizmo.h">
+      <Filter>Libraries\ImGuizmo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -883,6 +889,9 @@
     </ClCompile>
     <ClCompile Include="Component_Camera.cpp">
       <Filter>Sources\GameObjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\ImGuizmo\ImGuizmo.cpp">
+      <Filter>Libraries\ImGuizmo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

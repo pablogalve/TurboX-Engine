@@ -35,6 +35,9 @@ bool ModuleGui::Start()
 	// Setup style
 	ImGui::StyleColorsDark();
 
+	ImGuizmo::Enable(false);
+
+
 	return ret;
 }
 
@@ -44,6 +47,7 @@ update_status ModuleGui::PreUpdate(float dt)
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
+	ImGuizmo::BeginFrame();
 
 	return UPDATE_CONTINUE;
 }

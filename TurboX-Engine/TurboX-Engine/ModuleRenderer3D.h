@@ -10,6 +10,7 @@
 #include <vector>
 #include "W_SceneWindow.h"
 #include "Config_JSON.h"
+#include "MathGeoLib/MathGeoLib.h"
 
 #pragma comment (lib, "Libraries/glew/glew32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -60,11 +61,15 @@ public:
 	bool _wireframe;
 	bool _texture;
 	bool _loadFBXTest;
+	bool changedFOV = false;
 
 	GLuint frameBuffer;
 	GLuint texColorBuffer;
 	GLuint renderBuffer;
 	
+	//Clicking ray debug
+	float3 clickA = float3::zero;
+	float3 clickB = float3::zero;
 private:
 	int grid_size;
 

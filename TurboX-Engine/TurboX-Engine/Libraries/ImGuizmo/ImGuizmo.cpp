@@ -509,7 +509,6 @@ namespace ImGuizmo
       matrix_t mViewMat;
       matrix_t mProjectionMat;
       matrix_t mModel;
-	  matrix_t mModelGlobal;
       matrix_t mModelInverse;
       matrix_t mModelSource;
       matrix_t mModelSourceInverse;
@@ -787,7 +786,7 @@ namespace ImGuizmo
       return trf.w;
    }
 
-   static void ComputeContext(const float *view, const float *projection, float *matrix, float* globalMatrix, MODE mode)
+   static void ComputeContext(const float *view, const float *projection, float *matrix, MODE mode)
    {
       gContext.mMode = mode;
       gContext.mViewMat = *(matrix_t*)view;
@@ -797,7 +796,6 @@ namespace ImGuizmo
       {
          gContext.mModel = *(matrix_t*)matrix;
          gContext.mModel.OrthoNormalize();
-		 gContext.mModelGlobal = *(matrix_t*)globalMatrix;
       }
       else
       {
@@ -806,10 +804,10 @@ namespace ImGuizmo
       gContext.mModelSource = *(matrix_t*)matrix;
       gContext.mModelScaleOrigin.Set(gContext.mModelSource.v.right.Length(), gContext.mModelSource.v.up.Length(), gContext.mModelSource.v.dir.Length());
 
-      gContext.mModelInverse.Inverse(gContext.mModelGlobal);
+      gContext.mModelInverse.Inverse(gContext.mModel);
       gContext.mModelSourceInverse.Inverse(gContext.mModelSource);
       gContext.mViewProjection = gContext.mViewMat * gContext.mProjectionMat;
-      gContext.mMVP = gContext.mModelGlobal * gContext.mViewProjection;
+      gContext.mMVP = gContext.mModel * gContext.mViewProjection;
 
       matrix_t viewInverse;
       viewInverse.Inverse(gContext.mViewMat);
@@ -945,7 +943,7 @@ namespace ImGuizmo
    static float ComputeAngleOnPlan()
    {
       const float len = IntersectRayPlane(gContext.mRayOrigin, gContext.mRayVector, gContext.mTranslationPlan);
-      vec_t localPos = Normalized(gContext.mRayOrigin + gContext.mRayVector * len - gContext.mModelGlobal.v.position);
+      vec_t localPos = Normalized(gContext.mRayOrigin + gContext.mRayVector * len - gContext.mModel.v.position);
 
       vec_t perpendicularVector;
       perpendicularVector.Cross(gContext.mRotationVectorSource, gContext.mTranslationPlan);
@@ -973,7 +971,7 @@ namespace ImGuizmo
      }
      else
      {
-        cameraToModelNormalized = Normalized(gContext.mModelGlobal.v.position - gContext.mCameraEye);
+        cameraToModelNormalized = Normalized(gContext.mModel.v.position - gContext.mCameraEye);
      }
 
       cameraToModelNormalized.TransformVector(gContext.mModelInverse);
@@ -994,19 +992,19 @@ namespace ImGuizmo
             circlePos[i] = worldToPos(pos, gContext.mMVP);
          }
 
-         float radiusAxis = sqrtf( (ImLengthSqr(worldToPos(gContext.mModelGlobal.v.position, gContext.mViewProjection) - circlePos[0]) ));
+         float radiusAxis = sqrtf( (ImLengthSqr(worldToPos(gContext.mModel.v.position, gContext.mViewProjection) - circlePos[0]) ));
          if(radiusAxis > gContext.mRadiusSquareCenter)
            gContext.mRadiusSquareCenter = radiusAxis;
 
          drawList->AddPolyline(circlePos, halfCircleSegmentCount, colors[3 - axis], false, 2);
       }
-      drawList->AddCircle(worldToPos(gContext.mModelGlobal.v.position, gContext.mViewProjection), gContext.mRadiusSquareCenter, colors[0], 64, 3.f);
+      drawList->AddCircle(worldToPos(gContext.mModel.v.position, gContext.mViewProjection), gContext.mRadiusSquareCenter, colors[0], 64, 3.f);
 
       if (gContext.mbUsing)
       {
          ImVec2 circlePos[halfCircleSegmentCount +1];
 
-         circlePos[0] = worldToPos(gContext.mModelGlobal.v.position, gContext.mViewProjection);
+         circlePos[0] = worldToPos(gContext.mModel.v.position, gContext.mViewProjection);
          for (unsigned int i = 1; i < halfCircleSegmentCount; i++)
          {
             float ng = gContext.mRotationAngle * ((float)(i-1) / (float)(halfCircleSegmentCount -1));
@@ -1015,7 +1013,7 @@ namespace ImGuizmo
             vec_t pos;
             pos.TransformPoint(gContext.mRotationVectorSource, rotateVectorMatrix);
             pos *= gContext.mScreenFactor;
-            circlePos[i] = worldToPos(pos + gContext.mModelGlobal.v.position, gContext.mViewProjection);
+            circlePos[i] = worldToPos(pos + gContext.mModel.v.position, gContext.mViewProjection);
          }
          drawList->AddConvexPolyFilled(circlePos, halfCircleSegmentCount, 0x801080FF);
          drawList->AddPolyline(circlePos, halfCircleSegmentCount, 0xFF1080FF, true, 2);
@@ -1113,7 +1111,7 @@ namespace ImGuizmo
       ImU32 colors[7];
       ComputeColors(colors, type, TRANSLATE);
 
-      const ImVec2 origin = worldToPos(gContext.mModelGlobal.v.position, gContext.mViewProjection);
+      const ImVec2 origin = worldToPos(gContext.mModel.v.position, gContext.mViewProjection);
 
       // draw
       bool belowAxisLimit = false;
@@ -1166,7 +1164,7 @@ namespace ImGuizmo
       if (gContext.mbUsing)
       {
          ImVec2 sourcePosOnScreen = worldToPos(gContext.mMatrixOrigin, gContext.mViewProjection);
-         ImVec2 destinationPosOnScreen = worldToPos(gContext.mModelGlobal.v.position, gContext.mViewProjection);
+         ImVec2 destinationPosOnScreen = worldToPos(gContext.mModel.v.position, gContext.mViewProjection);
          vec_t dif = { destinationPosOnScreen.x - sourcePosOnScreen.x, destinationPosOnScreen.y - sourcePosOnScreen.y, 0.f, 0.f };
          dif.Normalize();
          dif *= 5.f;
@@ -1451,16 +1449,16 @@ namespace ImGuizmo
          vec_t dirPlaneX, dirPlaneY, dirAxis;
          bool belowAxisLimit, belowPlaneLimit;
          ComputeTripodAxisAndVisibility(i, dirAxis, dirPlaneX, dirPlaneY, belowAxisLimit, belowPlaneLimit);
-		 dirAxis.TransformVector(gContext.mModelGlobal);
-		 dirPlaneX.TransformVector(gContext.mModelGlobal);
-		 dirPlaneY.TransformVector(gContext.mModelGlobal);
+		 dirAxis.TransformVector(gContext.mModel);
+		 dirPlaneX.TransformVector(gContext.mModel);
+		 dirPlaneY.TransformVector(gContext.mModel);
 
-       const float len = IntersectRayPlane(gContext.mRayOrigin, gContext.mRayVector, BuildPlan(gContext.mModelGlobal.v.position, dirAxis));
+       const float len = IntersectRayPlane(gContext.mRayOrigin, gContext.mRayVector, BuildPlan(gContext.mModel.v.position, dirAxis));
        vec_t posOnPlan = gContext.mRayOrigin + gContext.mRayVector * len;
 
        const ImVec2 posOnPlanScreen = worldToPos(posOnPlan, gContext.mViewProjection);
-       const ImVec2 axisStartOnScreen = worldToPos(gContext.mModelGlobal.v.position + dirAxis * gContext.mScreenFactor * 0.1f, gContext.mViewProjection);
-       const ImVec2 axisEndOnScreen = worldToPos(gContext.mModelGlobal.v.position + dirAxis * gContext.mScreenFactor, gContext.mViewProjection);
+       const ImVec2 axisStartOnScreen = worldToPos(gContext.mModel.v.position + dirAxis * gContext.mScreenFactor * 0.1f, gContext.mViewProjection);
+       const ImVec2 axisEndOnScreen = worldToPos(gContext.mModel.v.position + dirAxis * gContext.mScreenFactor, gContext.mViewProjection);
 
        vec_t closestPointOnAxis = PointOnSegment(makeVect(posOnPlanScreen), makeVect(axisStartOnScreen), makeVect(axisEndOnScreen));
 
@@ -1480,15 +1478,15 @@ namespace ImGuizmo
       if (dist >= (gContext.mRadiusSquareCenter - 1.0f) && dist < (gContext.mRadiusSquareCenter + 1.0f))
          type = ROTATE_SCREEN;
 
-      const vec_t planNormals[] = { gContext.mModelGlobal.v.right, gContext.mModelGlobal.v.up, gContext.mModelGlobal.v.dir};
+      const vec_t planNormals[] = { gContext.mModel.v.right, gContext.mModel.v.up, gContext.mModel.v.dir};
 
       for (unsigned int i = 0; i < 3 && type == NONE; i++)
       {
          // pickup plan
-         vec_t pickupPlan = BuildPlan(gContext.mModelGlobal.v.position, planNormals[i]);
+         vec_t pickupPlan = BuildPlan(gContext.mModel.v.position, planNormals[i]);
 
          const float len = IntersectRayPlane(gContext.mRayOrigin, gContext.mRayVector, pickupPlan);
-         vec_t localPos = gContext.mRayOrigin + gContext.mRayVector * len - gContext.mModelGlobal.v.position;
+         vec_t localPos = gContext.mRayOrigin + gContext.mRayVector * len - gContext.mModel.v.position;
 
          if (Dot(Normalized(localPos), gContext.mRayVector) > FLT_EPSILON)
             continue;
@@ -1523,24 +1521,24 @@ namespace ImGuizmo
          vec_t dirPlaneX, dirPlaneY, dirAxis;
          bool belowAxisLimit, belowPlaneLimit;
          ComputeTripodAxisAndVisibility(i, dirAxis, dirPlaneX, dirPlaneY, belowAxisLimit, belowPlaneLimit);
-		 dirAxis.TransformVector(gContext.mModelGlobal);
-         dirPlaneX.TransformVector(gContext.mModelGlobal);
-         dirPlaneY.TransformVector(gContext.mModelGlobal);
+		 dirAxis.TransformVector(gContext.mModel);
+         dirPlaneX.TransformVector(gContext.mModel);
+         dirPlaneY.TransformVector(gContext.mModel);
 
-         const float len = IntersectRayPlane(gContext.mRayOrigin, gContext.mRayVector, BuildPlan(gContext.mModelGlobal.v.position, dirAxis));
+         const float len = IntersectRayPlane(gContext.mRayOrigin, gContext.mRayVector, BuildPlan(gContext.mModel.v.position, dirAxis));
          vec_t posOnPlan = gContext.mRayOrigin + gContext.mRayVector * len;
 
        const ImVec2 posOnPlanScreen = worldToPos(posOnPlan, gContext.mViewProjection);
-       const ImVec2 axisStartOnScreen = worldToPos(gContext.mModelGlobal.v.position + dirAxis * gContext.mScreenFactor * 0.1f, gContext.mViewProjection);
-       const ImVec2 axisEndOnScreen = worldToPos(gContext.mModelGlobal.v.position + dirAxis * gContext.mScreenFactor, gContext.mViewProjection);
+       const ImVec2 axisStartOnScreen = worldToPos(gContext.mModel.v.position + dirAxis * gContext.mScreenFactor * 0.1f, gContext.mViewProjection);
+       const ImVec2 axisEndOnScreen = worldToPos(gContext.mModel.v.position + dirAxis * gContext.mScreenFactor, gContext.mViewProjection);
 
        vec_t closestPointOnAxis = PointOnSegment(makeVect(posOnPlanScreen), makeVect(axisStartOnScreen), makeVect(axisEndOnScreen));
 
        if ((closestPointOnAxis - makeVect(posOnPlanScreen)).Length() < 12.f) // pixel size
             type = MOVE_X + i;
 
-       const float dx = dirPlaneX.Dot3((posOnPlan - gContext.mModelGlobal.v.position) * (1.f / gContext.mScreenFactor));
-       const float dy = dirPlaneY.Dot3((posOnPlan - gContext.mModelGlobal.v.position) * (1.f / gContext.mScreenFactor));
+       const float dx = dirPlaneX.Dot3((posOnPlan - gContext.mModel.v.position) * (1.f / gContext.mScreenFactor));
+       const float dy = dirPlaneY.Dot3((posOnPlan - gContext.mModel.v.position) * (1.f / gContext.mScreenFactor));
          if (belowPlaneLimit && dx >= quadUV[0] && dx <= quadUV[4] && dy >= quadUV[1] && dy <= quadUV[3])
             type = MOVE_YZ + i;
 
@@ -1627,11 +1625,11 @@ namespace ImGuizmo
        {
           gContext.mbUsing = true;
           gContext.mCurrentOperation = type;
-          vec_t movePlanNormal[] = { gContext.mModelGlobal.v.right, gContext.mModelGlobal.v.up, gContext.mModelGlobal.v.dir,
-             gContext.mModelGlobal.v.right, gContext.mModelGlobal.v.up, gContext.mModelGlobal.v.dir,
+          vec_t movePlanNormal[] = { gContext.mModel.v.right, gContext.mModel.v.up, gContext.mModel.v.dir,
+             gContext.mModel.v.right, gContext.mModel.v.up, gContext.mModel.v.dir,
              -gContext.mCameraDir };
 
-          vec_t cameraToModelNormalized = Normalized(gContext.mModelGlobal.v.position - gContext.mCameraEye);
+          vec_t cameraToModelNormalized = Normalized(gContext.mModel.v.position - gContext.mCameraEye);
           for (unsigned int i = 0; i < 3; i++)
           {
              vec_t orthoVector = Cross(movePlanNormal[i], cameraToModelNormalized);
@@ -1639,10 +1637,10 @@ namespace ImGuizmo
              movePlanNormal[i].Normalize();
           }
             // pickup plan
-            gContext.mTranslationPlan = BuildPlan(gContext.mModelGlobal.v.position, movePlanNormal[type - MOVE_X]);
+            gContext.mTranslationPlan = BuildPlan(gContext.mModel.v.position, movePlanNormal[type - MOVE_X]);
             const float len = IntersectRayPlane(gContext.mRayOrigin, gContext.mRayVector, gContext.mTranslationPlan);
             gContext.mTranslationPlanOrigin = gContext.mRayOrigin + gContext.mRayVector * len;
-            gContext.mMatrixOrigin = gContext.mModelGlobal.v.position;
+            gContext.mMatrixOrigin = gContext.mModel.v.position;
 
             gContext.mRelativeOrigin = (gContext.mTranslationPlanOrigin - gContext.mModel.v.position) * (1.f / gContext.mScreenFactor);
          }
@@ -1665,15 +1663,15 @@ namespace ImGuizmo
          {
             gContext.mbUsing = true;
             gContext.mCurrentOperation = type;
-            const vec_t movePlanNormal[] = { gContext.mModelGlobal.v.up, gContext.mModelGlobal.v.dir, gContext.mModelGlobal.v.right, gContext.mModelGlobal.v.dir, gContext.mModelGlobal.v.up, gContext.mModelGlobal.v.right, -gContext.mCameraDir };
+            const vec_t movePlanNormal[] = { gContext.mModel.v.up, gContext.mModel.v.dir, gContext.mModel.v.right, gContext.mModel.v.dir, gContext.mModel.v.up, gContext.mModel.v.right, -gContext.mCameraDir };
             // pickup plan
 
-            gContext.mTranslationPlan = BuildPlan(gContext.mModelGlobal.v.position, movePlanNormal[type - SCALE_X]);
+            gContext.mTranslationPlan = BuildPlan(gContext.mModel.v.position, movePlanNormal[type - SCALE_X]);
             const float len = IntersectRayPlane(gContext.mRayOrigin, gContext.mRayVector, gContext.mTranslationPlan);
             gContext.mTranslationPlanOrigin = gContext.mRayOrigin + gContext.mRayVector * len;
-            gContext.mMatrixOrigin = gContext.mModelGlobal.v.position;
+            gContext.mMatrixOrigin = gContext.mModel.v.position;
             gContext.mScale.Set(1.f, 1.f, 1.f);
-            gContext.mRelativeOrigin = (gContext.mTranslationPlanOrigin - gContext.mModelGlobal.v.position) * (1.f / gContext.mScreenFactor);
+            gContext.mRelativeOrigin = (gContext.mTranslationPlanOrigin - gContext.mModel.v.position) * (1.f / gContext.mScreenFactor);
             gContext.mScaleValueOrigin = makeVect(gContext.mModelSource.v.right.Length(), gContext.mModelSource.v.up.Length(), gContext.mModelSource.v.dir.Length());
             gContext.mSaveMousePosx = io.MousePos.x;
          }
@@ -1685,7 +1683,7 @@ namespace ImGuizmo
          const float len = IntersectRayPlane(gContext.mRayOrigin, gContext.mRayVector, gContext.mTranslationPlan);
          vec_t newPos = gContext.mRayOrigin + gContext.mRayVector * len;
          vec_t newOrigin = newPos - gContext.mRelativeOrigin * gContext.mScreenFactor;
-         vec_t delta = newOrigin - gContext.mModelGlobal.v.position;
+         vec_t delta = newOrigin - gContext.mModel.v.position;
 
          // 1 axis constraint
          if (gContext.mCurrentOperation >= SCALE_X && gContext.mCurrentOperation <= SCALE_Z)
@@ -1695,7 +1693,7 @@ namespace ImGuizmo
             float lengthOnAxis = Dot(axisValue, delta);
             delta = axisValue * lengthOnAxis;
 
-            vec_t baseVector = gContext.mTranslationPlanOrigin - gContext.mModelGlobal.v.position;
+            vec_t baseVector = gContext.mTranslationPlanOrigin - gContext.mModel.v.position;
             float ratio = Dot(axisValue, baseVector + delta) / Dot(axisValue, baseVector);
 
             gContext.mScale[axisIndex] = max(ratio, 0.001f);
@@ -1760,11 +1758,11 @@ namespace ImGuizmo
          {
             gContext.mbUsing = true;
             gContext.mCurrentOperation = type;
-            const vec_t rotatePlanNormal[] = { gContext.mModelGlobal.v.right, gContext.mModelGlobal.v.up, gContext.mModelGlobal.v.dir, -gContext.mCameraDir };
+            const vec_t rotatePlanNormal[] = { gContext.mModel.v.right, gContext.mModel.v.up, gContext.mModel.v.dir, -gContext.mCameraDir };
             // pickup plan
             if (applyRotationLocaly)
             {
-               gContext.mTranslationPlan = BuildPlan(gContext.mModelGlobal.v.position, rotatePlanNormal[type - ROTATE_X]);
+               gContext.mTranslationPlan = BuildPlan(gContext.mModel.v.position, rotatePlanNormal[type - ROTATE_X]);
             }
             else
             {
@@ -1772,7 +1770,7 @@ namespace ImGuizmo
             }
 
             const float len = IntersectRayPlane(gContext.mRayOrigin, gContext.mRayVector, gContext.mTranslationPlan);
-            vec_t localPos = gContext.mRayOrigin + gContext.mRayVector * len - gContext.mModelGlobal.v.position;
+            vec_t localPos = gContext.mRayOrigin + gContext.mRayVector * len - gContext.mModel.v.position;
             gContext.mRotationVectorSource = Normalized(localPos);
             gContext.mRotationAngleOrigin = ComputeAngleOnPlan();
          }
@@ -1868,9 +1866,9 @@ namespace ImGuizmo
       mat.v.position.Set(translation[0], translation[1], translation[2], 1.f);
    }
 
-   void Manipulate(const float *view, const float *projection, OPERATION operation, MODE mode, float *matrix, float* globalMatrix, float *deltaMatrix, float *snap, float *localBounds, float *boundsSnap)
+   void Manipulate(const float *view, const float *projection, OPERATION operation, MODE mode, float *matrix, float *deltaMatrix, float *snap, float *localBounds, float *boundsSnap)
    {
-      ComputeContext(view, projection, matrix, globalMatrix, mode);
+      ComputeContext(view, projection, matrix, mode);
 
       // set delta to identity
       if (deltaMatrix)
@@ -1910,10 +1908,6 @@ namespace ImGuizmo
 
       if (!gContext.mbUsingBounds)
       {
-		  matrix_t save = gContext.mModel;
-		  matrix_t save2 = gContext.mModelSource;
-		  gContext.mModel = gContext.mModelGlobal;
-		  gContext.mModelSource = gContext.mModelGlobal;
           switch (operation)
           {
           case ROTATE:
@@ -1928,8 +1922,6 @@ namespace ImGuizmo
           case BOUNDS:
               break;
           }
-		  gContext.mModel = save;
-		  gContext.mModelSource = save2;
       }
    }
 

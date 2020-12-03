@@ -9,6 +9,9 @@
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_sdl.h"
 #include "ModuleResources.h"
+#include "ModuleCamera3D.h"
+#include "ModuleWindow.h"
+
 #define MAX_KEYS 300
 
 ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -221,7 +224,12 @@ update_status ModuleInput::PreUpdate(float dt)
 			case SDL_WINDOWEVENT:
 			{
 				if(e.window.event == SDL_WINDOWEVENT_RESIZED)
+				{
+					App->window->OnResize(e.window.data1, e.window.data2);
+					App->camera->OnResize(e.window.data1, e.window.data2);
 					App->renderer3D->OnResize(e.window.data1, e.window.data2);
+				}
+					
 			}
 		}
 	}

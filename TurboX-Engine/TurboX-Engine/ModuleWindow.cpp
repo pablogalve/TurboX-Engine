@@ -7,9 +7,10 @@ ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, s
 	window = NULL;
 	screen_surface = NULL;
 
-	_w = SCREEN_WIDTH;
-	_h = SCREEN_HEIGHT;
-
+	width = 1024;
+	height = 640;
+	screen_margin_w = 100;
+	screen_margin_h = 100;
 	name = "Window";
 }
 
@@ -31,14 +32,21 @@ bool ModuleWindow::Init()
 	}
 	else
 	{
+		SDL_DisplayMode desktopSize;
+		SDL_GetDesktopDisplayMode(0, &desktopSize);
+		width = desktopSize.w - screen_margin_w;
+		height = desktopSize.h - screen_margin_h;
+
 		//Create window
-		int width = _w * SCREEN_SIZE;
-		int height = _h * SCREEN_SIZE;
 		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 
-		//Use OpenGL 2.1
+		//Use OpenGL 3.1
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+		SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
 		if(_fullscreen == true)
 		{
@@ -112,8 +120,8 @@ bool ModuleWindow::SaveSettings(Config* data) const
 	data->AddBool("Resizable", _resizable);
 	data->AddBool("Borderless", _borderless);
 	data->AddBool("Fullscreen Desktop", _fullDesktop);
-	data->AddUInt("Width", _w);
-	data->AddUInt("Height", _h);
+	data->AddUInt("Width", width);
+	data->AddUInt("Height", height);
 
 	return true;
 }
@@ -131,16 +139,16 @@ void ModuleWindow::SetBrightness(float bright)
 
 void ModuleWindow::SetSize(uint w, uint h)
 {
-	_h = h * SCREEN_SIZE;
-	_w = w * SCREEN_SIZE;
+	height = h * SCREEN_SIZE;
+	width = w * SCREEN_SIZE;
 	SDL_SetWindowSize(window, w, h);
 
 }
 
 void ModuleWindow::GetSize(int& w, int& h)const
 {
-	w = _w;
-	h = _h;
+	w = width;
+	h = height;
 }
 
 void ModuleWindow::SetFullscreen(bool fullscreen) 
@@ -180,4 +188,10 @@ void ModuleWindow::SetFullscreenDesktop(bool fulldesktop)
 		SDL_SetWindowSize(window, dMode.w / 2, dMode.h / 2);
 		SDL_SetWindowPosition(window, dMode.w / 4, dMode.h / 4);
 	}
+}
+
+void ModuleWindow::OnResize(int width, int height)
+{
+	this->width = width;
+	this->height = height;
 }

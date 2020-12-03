@@ -37,10 +37,7 @@ bool ModuleEditor::Start()
 	bool ret = true;
 
 	float f;
-	char* buf;
-
-	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
-	App->camera->LookAt(vec3(0, 0, 0));
+	char* buf;	
 
 	return ret;
 }

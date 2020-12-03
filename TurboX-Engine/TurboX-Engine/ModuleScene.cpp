@@ -4,14 +4,16 @@
 #include "ModuleRenderer3D.h"
 #include "W_Hierarchy.h"
 #include "ModuleEditor.h"
-
+#include "ModuleInput.h"
+#include "ModuleCamera3D.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "Scene";
 	root = new GameObject();
 	root->name = "root";
-
+	selected_GO = nullptr;
+	guizmoOperation = ImGuizmo::NO_OPERATION;
 }
 
 ModuleScene::~ModuleScene()
@@ -19,6 +21,8 @@ ModuleScene::~ModuleScene()
 
 bool ModuleScene::Start()
 {
+
+	ImGuizmo::Enable(false);
 
 	bool ret = true;
 
@@ -32,6 +36,28 @@ update_status ModuleScene::PreUpdate(float dt)
 
 update_status ModuleScene::Update(float dt)
 {
+	if (App->scene->selected_GO != nullptr)
+	{
+		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_IDLE)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT)
+			{
+				guizmoOperation = ImGuizmo::NO_OPERATION;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+			{
+				guizmoOperation = ImGuizmo::TRANSLATE;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT)
+			{
+				guizmoOperation = ImGuizmo::ROTATE;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT)
+			{
+				guizmoOperation = ImGuizmo::SCALE;
+			}
+		}
+	}
 
 	FrustumCulling(GetRoot(), GetRoot());
 
@@ -199,6 +225,7 @@ void ModuleScene::AddCamera()
 	GameObject* newGameObject = new GameObject();
 	newGameObject->name = "Camera";
 	newGameObject->SetParent(root);
+	newGameObject->isStatic = false;
 
 	float3 pos = float3::zero;
 	float3 scale = float3::one;
@@ -219,6 +246,77 @@ void ModuleScene::AddCamera()
 	newGameObject->boundingBox = newGameObject->camera->cameraBB;
 
 	cameras.push_back(newGameObject);
+}
+
+void ModuleScene::selectGameObject(GameObject* gameObject)
+{
+	if (selected_GO != nullptr)
+		selected_GO->setSelected(false);
+
+	selected_GO = gameObject;
+	if (gameObject != nullptr)
+		gameObject->setSelected(true);
+}
+
+void ModuleScene::DrawGuizmo(ImGuizmo::OPERATION operation)
+{
+	C_Transform* transform = (C_Transform*)selected_GO->GetComponent(Component::Type::Transform);
+
+	if (transform != nullptr)
+	{
+		ImGuizmo::Enable(!selected_GO->isStatic);
+
+		if (operation == ImGuizmo::NO_OPERATION)
+		{
+			ImGuizmo::Enable(false);
+		}
+
+		ImVec2 cursorPos = { App->editor->sceneX,App->editor->sceneY };
+		ImVec2 windowSize = { App->editor->sceneW,App->editor->sceneH };
+		ImGuizmo::SetRect(cursorPos.x, cursorPos.y, windowSize.x, windowSize.y);
+
+		float4x4* ViewMatrix = (float4x4*)App->camera->camera->getViewMatrix();
+		float4x4* ProjectionMatrix = (float4x4*)App->camera->camera->getProjectionMatrix();
+
+		ImGuizmo::MODE mode;
+
+		float4x4* GlobalMat;
+		GlobalMat = &transform->globalMatrix;
+
+		float3 scale = float3::one;
+		float3 pos;
+		Quat rot;
+		if (operation != ImGuizmo::OPERATION::SCALE)
+		{
+			GlobalMat->Decompose(pos, rot, scale);
+			GlobalMat->Set(float4x4::FromTRS(pos, rot, float3::one));
+		}
+		GlobalMat->Transpose();
+
+		ImGuizmo::SetOrthographic(false);
+
+		ImGuizmo::Manipulate((float*)ViewMatrix, (float*)ProjectionMatrix, operation, ImGuizmo::LOCAL, (float*)GlobalMat, NULL, NULL);
+		GlobalMat->Transpose();
+
+		if (operation != ImGuizmo::OPERATION::SCALE)
+		{
+			float3 oneScale;
+			GlobalMat->Decompose(pos, rot, oneScale);
+			GlobalMat->Set(float4x4::FromTRS(pos, rot, scale));
+		}
+
+		if (ImGuizmo::IsUsing())
+		{
+			if (selected_GO->parent != nullptr)
+			{
+				transform->localMatrix = ((C_Transform*)selected_GO->parent->GetComponent(Component::Type::Transform))->globalMatrix.Inverted() * transform->globalMatrix;
+
+			}
+			transform->localMatrix.Decompose(transform->position, transform->rotation, transform->scale);
+			selected_GO->RecalculateBB(); //To avoid that the BB laggs to follow object position
+			transform->changed = true;
+		}
+	}
 }
 
 

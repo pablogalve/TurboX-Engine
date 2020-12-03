@@ -9,6 +9,8 @@ GameObject::GameObject()
 	is_selected = false;
 	to_delete = false;
 	culling = false;
+	child_selected = false;
+	isStatic = false;
 
 	mesh = nullptr;
 	material = nullptr;
@@ -106,10 +108,10 @@ void GameObject::Draw()
 	{
 		camera->DrawFrustum();
 
-		/*if (this != nullptr)
+		if (this != nullptr)
 		{
 			camera->frustum.SetWorldMatrix(transform->globalMatrix.Float3x4Part());
-		}*/
+		}
 	}
 
 	if (is_selected)
@@ -123,7 +125,7 @@ void GameObject::Draw()
 		while (bigParent->parent != nullptr)
 			bigParent = bigParent->parent;
 		bigParent->RecalculateBB();
-
+		
 		transform->changed = false;
 	}
 
@@ -152,6 +154,22 @@ void GameObject::Select()
 void GameObject::Unselect()
 {
 	is_selected = false;
+}
+
+void GameObject::setSelected(bool selected)
+{
+	this->is_selected = selected;
+
+	if (parent != nullptr)
+		parent->setChildSelected(selected);
+}
+
+void GameObject::setChildSelected(bool selected)
+{
+	child_selected = selected;
+
+	if (parent != nullptr)
+		parent->setChildSelected(selected);
 }
 
 void GameObject::AddChildren(GameObject* child)

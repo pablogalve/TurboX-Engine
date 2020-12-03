@@ -27,6 +27,24 @@ C_Camera::~C_Camera()
 {
 }
 
+float* C_Camera::getViewMatrix()
+{
+	static float4x4 matrix;
+	matrix = frustum.ViewMatrix();
+	matrix.Transpose();
+
+	return (float*)matrix.v;
+}
+
+float* C_Camera::getProjectionMatrix()
+{
+	static float4x4 matrix;
+	matrix = frustum.ProjectionMatrix();
+	matrix.Transpose();
+
+	return (float*)matrix.v;
+}
+
 void C_Camera::setAspectRatio(float aspectRatio)
 {
 	frustum.horizontalFov = 2.f * atanf(tanf(frustum.verticalFov * 0.5f) * aspectRatio);
