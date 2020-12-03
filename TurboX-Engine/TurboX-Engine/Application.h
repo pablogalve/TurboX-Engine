@@ -24,6 +24,7 @@ class ModuleGui;
 class ModuleScene;
 class ModuleConsole;
 class SceneImporter;
+class ModuleTimeManagement;
 
 class Application
 {
@@ -40,9 +41,12 @@ public:
 	ModuleScene* scene = NULL;
 	ModuleConsole* console = NULL;
 	SceneImporter* resources = NULL;
+	ModuleTimeManagement* timeManagement = NULL;
 
 private:
-
+	float	time_scale = 1.0f;
+	float	prevTime_scale = 1.f;
+	int		time_scaleFrames = -1;
 	Timer	ms_timer;
 	float	dt;
 	std::vector<Module*> modules_list;
@@ -69,6 +73,10 @@ public:
 	const char* GetOrganizationName() const;
 	void SetEngineVersion(double newVersion);
 	double GetEngineVersion() const;
+
+	const float GetTimeScale()const;
+	void SetTimeScale(float ts, int frameNumber = -1);
+	void PauseGame(bool pause);
 private:
 
 	void AddModule(Module* mod);

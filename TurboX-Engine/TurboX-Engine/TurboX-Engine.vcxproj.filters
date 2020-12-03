@@ -669,6 +669,9 @@
     <ClInclude Include="Libraries\ImGuizmo\ImGuizmo.h">
       <Filter>Libraries\ImGuizmo</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleTimeManagement.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -892,6 +895,9 @@
     </ClCompile>
     <ClCompile Include="Libraries\ImGuizmo\ImGuizmo.cpp">
       <Filter>Libraries\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleTimeManagement.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

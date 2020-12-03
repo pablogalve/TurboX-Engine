@@ -15,12 +15,16 @@ public:
 	void Stop();
 
 	Uint32 Read();
+	float ReadSec();
 
+	void Resume();
+	void ResetTimer();
 private:
 
 	bool	running;
-	Uint32	started_at;
-	Uint32	stopped_at;
+	float	started_at;
+	float	stopped_at;
+	float	resumed_at;
 };
 
 #endif //__TIMER_H__

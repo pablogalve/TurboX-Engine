@@ -14,6 +14,7 @@
 #include "ModuleConsole.h"
 #include "ModuleResources.h"
 #include "Config_JSON.h"
+#include "ModuleTimeManagement.h"
 
 Application::Application()
 {
@@ -31,6 +32,7 @@ Application::Application()
 	scene = new ModuleScene(this);
 	console = new ModuleConsole();
 	resources = new SceneImporter(this);
+	timeManagement = new ModuleTimeManagement(this);
 	
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -46,6 +48,7 @@ Application::Application()
 	AddModule(gui);
 	AddModule(scene);
 	AddModule(resources);
+	AddModule(timeManagement);
 
 	// Scenes
 	AddModule(editor);
@@ -253,6 +256,26 @@ void Application::SetEngineVersion(double newVersion)
 double Application::GetEngineVersion() const
 {
 	return current_version;
+}
+
+const float Application::GetTimeScale() const
+{
+	return time_scale;
+}
+
+void Application::SetTimeScale(float ts, int frameNumber)
+{
+	prevTime_scale = time_scale;
+	time_scale = ts;
+	time_scaleFrames = frameNumber;
+}
+
+void Application::PauseGame(bool pause)
+{
+	if(pause)
+		SetTimeScale(0.f);
+	else
+		SetTimeScale(1.f);
 }
 
 

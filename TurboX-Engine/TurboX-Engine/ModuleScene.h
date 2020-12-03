@@ -48,7 +48,7 @@ public:
 	GameObject* selected_GO = nullptr;
 
 	ImGuizmo::OPERATION guizmoOperation;
-
+	bool inGame = false;
 };
 
 #endif

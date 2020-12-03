@@ -3,6 +3,8 @@
 #include "glew/wglew.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleTimeManagement.h"
+#include "ModuleScene.h"
 
 W_Toolbar::W_Toolbar()
 {
@@ -35,6 +37,44 @@ void W_Toolbar::Draw()
 	ImGui::SameLine();
 	if (ImGui::Checkbox("Color material", &App->renderer3D->_color_material))
 		App->renderer3D->GL_Enable(GL_COLOR_MATERIAL, App->renderer3D->_color_material);
+
+	if (ImGui::ArrowButton("Play", ImGuiDir_Right))
+	{
+		if (App->timeManagement->IsPaused()) {
+			App->timeManagement->Resume();
+		}
+		else {
+			App->timeManagement->Play();			
+		}
+		App->scene->inGame = true;
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("||", { 23, 19 }))
+	{
+		if (App->scene->inGame && !App->timeManagement->IsPaused()) {
+			App->timeManagement->Pause();
+		}
+
+	}
+	ImGui::SameLine();
+	ImGui::PushStyleColor(ImGuiCol_Button, { 0.8f,0,0,1 });
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 1,0.2f,0,1 });
+	if (ImGui::Button("STOP", { 40, 19 }))
+	{
+		if (App->scene->inGame) {
+			App->timeManagement->Stop();
+			App->scene->inGame = false;
+		}
+	}
+	ImGui::PopStyleColor();
+	ImGui::PopStyleColor();
+
+	ImGui::SliderFloat("Speed up/down", App->timeManagement->GetTimeScale(), 0.1f, 2.0f, "%.1f");
+	ImGui::Text("Real Time: %.1f", App->timeManagement->GetRealTimeInSeconds());
+	ImGui::Text("Game Time: %.1f", App->timeManagement->GetGameTimeInSeconds());
+
+	ImGui::Text("");
+	ImGui::Text("Delta Time: %.3f", App->timeManagement->GetGameDeltaTime());
 
 	ImGui::End();
 }
