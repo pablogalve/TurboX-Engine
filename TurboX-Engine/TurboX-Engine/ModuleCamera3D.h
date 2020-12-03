@@ -4,6 +4,7 @@
 #include "glmath.h"
 #include "MathGeoLib/MathGeoLib.h"
 #include <queue>
+#include "Config_JSON.h"
 
 class C_Camera;
 class GameObject;
@@ -34,6 +35,8 @@ public:
 	bool Start()override;
 	update_status Update(float dt)override;
 	bool CleanUp()override;
+	bool LoadSettings(Config* data)override;
+	bool SaveSettings(Config* data)const override;
 
 	void OnResize(int width, int height);
 

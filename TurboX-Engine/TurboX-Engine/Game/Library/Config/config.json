@@ -16,12 +16,17 @@
             "Resizable": true,
             "Borderless": false,
             "Fullscreen Desktop": false,
-            "Width": 1280,
-            "Height": 720
+            "Width": 1024,
+            "Height": 640
         }
     ],
     "Camera": [
-        {}
+        {
+            "cameraSpeed": 10.0,
+            "mouseSensitivity": 0.007,
+            "wheelSensitivity": 10.0,
+            "zoomDistance": 20.0
+        }
     ],
     "Input": [
         {}

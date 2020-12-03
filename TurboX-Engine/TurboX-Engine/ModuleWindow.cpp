@@ -7,8 +7,6 @@ ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, s
 	window = NULL;
 	screen_surface = NULL;
 
-	width = 1024;
-	height = 640;
 	screen_margin_w = 100;
 	screen_margin_h = 100;
 	name = "Window";
@@ -139,8 +137,8 @@ void ModuleWindow::SetBrightness(float bright)
 
 void ModuleWindow::SetSize(uint w, uint h)
 {
-	height = h * SCREEN_SIZE;
-	width = w * SCREEN_SIZE;
+	height = h;
+	width = w;
 	SDL_SetWindowSize(window, w, h);
 
 }

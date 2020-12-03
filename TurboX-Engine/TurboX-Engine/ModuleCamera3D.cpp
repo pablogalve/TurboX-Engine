@@ -16,7 +16,6 @@
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-
 	name = "Camera";
 
 	X = { 1.0f,0.0f,0.0f };
@@ -24,11 +23,6 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	Z = { 0.0f,0.0f,1.0f };
 	Position = { 0.0f,10.0f,10.0f };
 	Reference = { 0.0f,0.0f,0.0f };
-
-	cameraSpeed = 10.0f;
-	mouseSensitivity = 0.007000000216066837f;
-	wheelSensitivity = 10.0f;
-	zoomDistance = 20.0f;
 
 	cameraLookingAtSelectedGameObject = false;
 	camera = new C_Camera(Component::Type::Camera, nullptr);
@@ -57,6 +51,25 @@ bool ModuleCamera3D::CleanUp()
 	App->console->AddLog("Cleaning camera");
 	//LOG("Cleaning camera");
 
+	return true;
+}
+
+bool ModuleCamera3D::LoadSettings(Config* data)
+{
+	cameraSpeed = data->GetFloat("cameraSpeed");
+	mouseSensitivity = data->GetFloat("mouseSensitivity");
+	wheelSensitivity = data->GetFloat("wheelSensitivity");
+	zoomDistance = data->GetFloat("zoomDistance");
+
+	return true;
+}
+
+bool ModuleCamera3D::SaveSettings(Config* data) const
+{
+	data->AddFloat("cameraSpeed", cameraSpeed);
+	data->AddFloat("mouseSensitivity", mouseSensitivity);
+	data->AddFloat("wheelSensitivity", wheelSensitivity);
+	data->AddFloat("zoomDistance", zoomDistance);
 	return true;
 }
 

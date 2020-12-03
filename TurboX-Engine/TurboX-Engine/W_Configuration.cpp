@@ -2,6 +2,7 @@
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleInput.h"
+#include "Application.h"
 
 W_Configuration::W_Configuration()
 {
@@ -24,13 +25,13 @@ void W_Configuration::Draw()
 
 	if (ImGui::CollapsingHeader("Application"))
 	{
-		char appName[50] = "TurboX Engine";
-		char appName2[50];
+		char* engineName = (char*)App->GetEngineName();
+		char* organizationName = (char*)App->GetOrganizationName();
 
-		if (ImGui::InputText("App name", appName, 50, ImGuiInputTextFlags_EnterReturnsTrue)) {
+		if (ImGui::InputText("App name", engineName, 50, ImGuiInputTextFlags_EnterReturnsTrue)) {
 
 		}
-		ImGui::InputText("Organization", "UPC CITM", 50);
+		ImGui::InputText("Organization", organizationName, 50);
 
 		//FPS
 		if (fps_log.size() > 100)
@@ -89,7 +90,6 @@ void W_Configuration::Draw()
 
 		int w, h;
 		App->window->GetSize(w, h);
-
 		int minWidthVal = 640;
 		int maxWidthVal = 1920;
 		if (ImGui::SliderInt("Width", &w, minWidthVal, maxWidthVal))
