@@ -1,9 +1,12 @@
 #include "Component.h"
+#include "GameObject.h"
 
 Component::Component(Type type, GameObject* owner)
 {
 	active = true;
 	this->owner = owner;
+
+	component_UUID = owner->GenerateUUID();	
 }
 
 Component::~Component()

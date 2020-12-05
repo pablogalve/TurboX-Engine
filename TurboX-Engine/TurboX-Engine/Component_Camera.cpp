@@ -19,8 +19,7 @@ C_Camera::C_Camera(Component::Type type, GameObject* owner) :Component(type, own
 	frustum.verticalFov = DEGTORAD * 90.0f;
 	setAspectRatio(16.0f / 9.0f);
 
-	RecalculateBB();
-
+	RecalculateBB();	
 }
 
 C_Camera::~C_Camera()

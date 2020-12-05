@@ -17,6 +17,8 @@ GameObject::GameObject()
 	transform = nullptr;
 	parent = nullptr;
 	camera = nullptr;
+	
+	UUID = GenerateUUID();	
 
 	CreateComponent(Component::Type::Transform);
 
@@ -172,6 +174,18 @@ void GameObject::setChildSelected(bool selected)
 		parent->setChildSelected(selected);
 }
 
+uint GameObject::GenerateUUID() {
+	return LCG().Int();
+}
+
+uint GameObject::GetUUID() {
+	return UUID;
+}
+
+uint GameObject::GetParentUUID() {
+	return parent->GetUUID();
+}
+
 void GameObject::AddChildren(GameObject* child)
 {
 	for (int i = 0; i < childs.size(); i++) {
@@ -185,7 +199,6 @@ void GameObject::AddChildren(GameObject* child)
 
 void GameObject::SetParent(GameObject* _parent)
 {
-
 	if (parent != nullptr) {
 		if (parent = _parent) {
 			return;
@@ -199,6 +212,7 @@ void GameObject::SetParent(GameObject* _parent)
 	}
 	parent = _parent;
 	parent->AddChildren(this);
+	parentUUID = parent->GetUUID();
 }
 
 void GameObject::RecalculateBB()

@@ -27,6 +27,9 @@ public:
 public:
 	GameObject* owner;
 	bool active = true;
+
+protected:
+	uint component_UUID;
 };
 
 #endif // !__COMPONENT_H_

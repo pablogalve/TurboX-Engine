@@ -10,6 +10,8 @@
 #include "Component_Camera.h"
 #include "Component.h"
 
+#include "MathGeoLib/Algorithm/Random/LCG.h"
+
 using namespace std;
 
 class GameObject {
@@ -35,6 +37,13 @@ public:
 	void setSelected(bool selected);
 	void setChildSelected(bool selected);
 
+	uint GenerateUUID();
+	uint GetUUID();
+	uint GetParentUUID();
+
+	bool Get_IsSelected();
+	void Select();
+	void Unselect();
 public:	
 	std::string name;
 	vector<Component*> components;
@@ -48,10 +57,6 @@ public:
 
 	AABB boundingBox;
 
-	bool Get_IsSelected();
-	void Select();
-	void Unselect();
-public:
 	bool active;	
 	bool is_selected;
 	bool to_delete;
@@ -59,7 +64,9 @@ public:
 	bool child_selected;
 	bool isStatic;
 
-
+private:
+	uint parentUUID;
+	uint UUID;
 };
 
 #endif //!__GAMEOBJECT_H__
