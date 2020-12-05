@@ -69,7 +69,7 @@ bool ModuleEditor::CleanUp()
 {
 	bool ret = true;
 
-	App->console->AddLog("Cleaning up the Editor");
+	MY_LOG("Cleaning up the Editor");
 
 	// Delete configuration windows/panels
 	delete about_window;

@@ -38,8 +38,7 @@ bool ModuleCamera3D::Start()
 
 	LookAt(Reference);
 
-	App->console->AddLog("Setting up the camera");
-	//LOG("Setting up the camera");
+	MY_LOG("Setting up the camera");
 	bool ret = true;
 
 	return ret;
@@ -48,8 +47,7 @@ bool ModuleCamera3D::Start()
 // -----------------------------------------------------------------
 bool ModuleCamera3D::CleanUp()
 {
-	App->console->AddLog("Cleaning camera");
-	//LOG("Cleaning camera");
+	MY_LOG("Cleaning camera");
 
 	return true;
 }

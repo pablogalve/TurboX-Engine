@@ -31,8 +31,7 @@ bool ModulePhysics3D::Init()
 // ---------------------------------------------------------
 bool ModulePhysics3D::Start()
 {
-	App->console->AddLog("Creating Physics environment");
-	//LOG("Creating Physics environment");
+	MY_LOG("Creating Physics environment");
 
 	return true;
 }
@@ -66,8 +65,7 @@ update_status ModulePhysics3D::PostUpdate(float dt)
 // Called before quitting
 bool ModulePhysics3D::CleanUp()
 {
-	App->console->AddLog("Destroying 3D Physics simulation");
-	//LOG("Destroying 3D Physics simulation");
+	MY_LOG("Destroying 3D Physics simulation");
 
 	return true;
 }

@@ -32,15 +32,13 @@ ModuleInput::~ModuleInput()
 bool ModuleInput::Init()
 {
 
-	App->console->AddLog("Init SDL input event system");
-	//LOG("Init SDL input event system");
+	MY_LOG("Init SDL input event system");
 	bool ret = true;
 	SDL_Init(0);
 
 	if(SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
-		App->console->AddLog("SDL_Events could not initialize! SDL_Error: %s\n", SDL_GetError());
-		//LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
+		MY_LOG("SDL_Events could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
 	
@@ -188,7 +186,7 @@ update_status ModuleInput::PreUpdate(float dt)
 						}
 					}
 					else {
-						App->console->AddLog("You must select a gameObject first!");
+						MY_LOG("You must select a gameObject first!");
 					}
 				}
 					break;
@@ -209,7 +207,7 @@ update_status ModuleInput::PreUpdate(float dt)
 						}
 					}
 					else {
-						App->console->AddLog("You must select a gameObject first!");
+						MY_LOG("You must select a gameObject first!");
 					}
 				}
 					break;
@@ -243,8 +241,7 @@ update_status ModuleInput::PreUpdate(float dt)
 // Called before quitting
 bool ModuleInput::CleanUp()
 {
-	App->console->AddLog("Quitting SDL input event subsystem");
-	//LOG("Quitting SDL input event subsystem");
+	MY_LOG("Quitting SDL input event subsystem");
 	SDL_free(dropped_filedir);
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
@@ -319,12 +316,12 @@ FileType ModuleInput::GetFileType(std::string file)
 			return FileType::DDS;
 		else {
 			return FileType::UNDEFINED;
-			App->console->AddLog("Error. Format is not supported in the engine.");
+			MY_LOG("Error. Format is not supported in the engine.");
 		}
 	}
 	else {
 		return FileType::UNDEFINED;
-		App->console->AddLog("Error. Can't recognize format.");
+		MY_LOG("Error. Can't recognize format.");
 	}
 	
 }
