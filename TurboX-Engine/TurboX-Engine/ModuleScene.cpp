@@ -21,10 +21,11 @@ ModuleScene::~ModuleScene()
 
 bool ModuleScene::Start()
 {
-
-	ImGuizmo::Enable(false);
-
 	bool ret = true;
+
+	ImGuizmo::Enable(false);	
+
+	AddCamera();
 
 	return ret;
 }
