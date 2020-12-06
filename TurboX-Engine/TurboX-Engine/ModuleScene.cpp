@@ -91,8 +91,7 @@ GameObject* ModuleScene::CreateGameObject(std::string name, float3 position, Qua
 	{
 		if (parent != nullptr) {
 			App->scene->AddChild(newGameObject, parent);
-		}
-		
+		}		
 	}
 
 	return newGameObject;
@@ -320,4 +319,26 @@ void ModuleScene::DrawGuizmo(ImGuizmo::OPERATION operation)
 	}
 }
 
+bool ModuleScene::LoadSettings(Config* data)
+{
+	bool ret = true;
 
+	return ret;
+}
+
+bool ModuleScene::SaveSettings(Config* data) const
+{
+	bool ret = true;
+
+	data->AddArray("GameObjects");
+	
+	//Iterate gameObjects to save them
+	for (size_t i = 0; i < root->childs.size(); i++)
+	{
+		Config gameObjectData;
+		root->childs[i]->Save(&gameObjectData);
+		data->AddArrayChild(gameObjectData);
+	}
+
+	return ret;
+}

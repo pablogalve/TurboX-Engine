@@ -30,4 +30,9 @@ Component::Type Component::GetComponentType()
 	return Component::Type::None;
 }
 
+bool Component::Save(Config* data)
+{
+	bool ret = true;
 
+	return ret;
+}

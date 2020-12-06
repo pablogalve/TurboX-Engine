@@ -2,6 +2,7 @@
 #define __COMPONENT_H_
 
 #include "Globals.h"
+#include "Config_JSON.h"
 
 class GameObject;
 
@@ -23,6 +24,8 @@ public:
 	virtual void Update();
 	virtual void Disable();
 	virtual Component::Type GetComponentType();
+
+	virtual bool Save(Config* data);
 
 public:
 	GameObject* owner;

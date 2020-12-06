@@ -10,6 +10,8 @@
 #include "Component_Camera.h"
 #include "Component.h"
 
+#include "Config_JSON.h"
+
 #include "MathGeoLib/Algorithm/Random/LCG.h"
 
 using namespace std;
@@ -44,6 +46,9 @@ public:
 	bool Get_IsSelected();
 	void Select();
 	void Unselect();
+
+	bool Save(Config* data);
+	bool Load(JSON_Value* file);
 public:	
 	std::string name;
 	vector<Component*> components;

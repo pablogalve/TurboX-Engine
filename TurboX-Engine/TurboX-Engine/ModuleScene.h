@@ -12,7 +12,6 @@ using namespace std;
 class ModuleScene : public Module
 {
 public:
-
 	ModuleScene(Application* app, bool start_enabled = true);
 	~ModuleScene();
 
@@ -38,6 +37,8 @@ public:
 
 	void DrawGuizmo(ImGuizmo::OPERATION operation);
 
+	bool LoadSettings(Config* data)override;
+	bool SaveSettings(Config* data)const override;
 public:
 
 	GameObject* street;

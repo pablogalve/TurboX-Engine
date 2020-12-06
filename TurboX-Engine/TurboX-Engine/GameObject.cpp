@@ -158,6 +158,33 @@ void GameObject::Unselect()
 	is_selected = false;
 }
 
+bool GameObject::Save(Config* data)
+{
+	bool ret = true;
+
+	//Save gameObject info
+	data->AddString("Name", name.c_str());
+	data->AddUInt("UUID", UUID);
+	data->AddUInt("parentUUID", parentUUID);
+	data->AddBool("Active", active);
+	data->AddBool("Static", isStatic);
+
+	//Save components info
+	for (size_t i = 0; i < components.size(); i++)
+	{
+		components[i]->Save(data);
+	}
+
+	return ret;
+}
+
+bool GameObject::Load(JSON_Value* file)
+{
+	bool ret = true;
+
+	return ret;
+}
+
 void GameObject::setSelected(bool selected)
 {
 	this->is_selected = selected;
