@@ -23,6 +23,8 @@ public:
 	void LoadDefaultTex();
 	
 	string GetMaterialPath() { return material_path; }
+
+	bool Save(Config* data) override;
 public:
 
 	Component::Type GetComponentType() override;

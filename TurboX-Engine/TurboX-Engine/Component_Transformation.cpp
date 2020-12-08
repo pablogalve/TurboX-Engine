@@ -66,3 +66,19 @@ void C_Transform::RecalculateMatrix()
 {
 	localMatrix.Set(float4x4::FromTRS(position, rotation, scale));
 }
+
+bool C_Transform::Save(Config* data)
+{
+	bool ret = true;
+
+	data->AddString("Component", "Transform");
+	data->AddUInt("UUID", component_UUID);
+	data->AddVector3("Position", position);
+	data->AddVector3("Scale", scale);
+	data->AddVector3("Rotation", rotationVec);
+	data->AddQuat("Rotation_Quat", rotation);
+	data->Add4x4("Local_Matrix", localMatrix);
+	data->Add4x4("Global_Matrix", globalMatrix);
+
+	return ret;
+}

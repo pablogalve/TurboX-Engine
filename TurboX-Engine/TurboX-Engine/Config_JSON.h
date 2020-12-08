@@ -4,6 +4,7 @@
 #include "Globals.h"
 #include "Math.h"
 #include "JSON/parson.h"
+#include "MathGeoLib/MathGeoLib.h"
 
 class Config
 {
@@ -32,6 +33,9 @@ public:
 	bool AddString(const char* field, const char* string);
 	bool AddArray(const char* array_name);
 	bool AddArrayChild(const Config& config);
+	void AddVector3(const char* name, float3 vec);
+	void AddQuat(const char* name, Quat quat);
+	void Add4x4(const char* name, float4x4 mat);
 private:
 	JSON_Value* FindValue(const char* field, int index) const;
 

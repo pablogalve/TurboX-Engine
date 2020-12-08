@@ -169,10 +169,14 @@ bool GameObject::Save(Config* data)
 	data->AddBool("Active", active);
 	data->AddBool("Static", isStatic);
 
+	data->AddArray("Components");
+
 	//Save components info
 	for (size_t i = 0; i < components.size(); i++)
 	{
-		components[i]->Save(data);
+		Config componentsData;
+		components[i]->Save(&componentsData);
+		data->AddArrayChild(componentsData);
 	}
 
 	return ret;

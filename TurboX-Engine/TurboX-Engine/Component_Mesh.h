@@ -27,6 +27,7 @@ public:
 
 	void DrawVertexNormals();
 
+	bool Save(Config* data) override;
 public:
 	
 	uint id_index = -1;

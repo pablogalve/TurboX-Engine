@@ -191,6 +191,16 @@ void C_Camera::CameraBB()
 	glLineWidth(1.0f);
 }
 
+bool C_Camera::Save(Config* data)
+{
+	bool ret = true;
+
+	data->AddString("Component", "Camera");
+	data->AddUInt("UUID", component_UUID);
+
+	return ret;
+}
+
 void C_Camera::RecalculateBB()
 {
 	float3 corner[8];

@@ -22,6 +22,8 @@ public:
 	Quat GetQuaternionRotation();
 	void RecalculateMatrix();
 
+	bool Save(Config* data) override;
+
 public:
 	float3 position = { 0.0f,0.0f,0.0f };
 	float3 rotationVec = { 0.0f,0.0f,0.0f };

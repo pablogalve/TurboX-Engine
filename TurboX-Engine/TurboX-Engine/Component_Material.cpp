@@ -67,6 +67,16 @@ void C_Material::UnLoadTexture()
 }
 	
 
+bool C_Material::Save(Config* data)
+{
+	bool ret = true;
+
+	data->AddString("Component", "Material");
+	data->AddUInt("UUID", component_UUID);
+
+	return ret;
+}
+
 Component::Type C_Material::GetComponentType()
 {
 	return Component::Type::Material;

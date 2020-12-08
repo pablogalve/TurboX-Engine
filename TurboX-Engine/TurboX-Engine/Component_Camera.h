@@ -23,6 +23,7 @@ public:
 
 	void CameraBB();
 
+	bool Save(Config* data) override;
 public:
 
 	Frustum frustum;

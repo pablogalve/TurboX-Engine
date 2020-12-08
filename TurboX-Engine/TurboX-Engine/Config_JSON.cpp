@@ -176,3 +176,42 @@ bool Config::AddArrayChild(const Config& config)
 	}
 	return false;
 }
+
+void Config::AddVector3(const char* name, float3 vec)
+{
+	JSON_Value* va = json_value_init_array();
+	array = json_value_get_array(va);
+	json_object_set_value(root, name, va);
+
+	for (int i = 0; i < 3; ++i) {
+		json_array_append_number(array, vec[i]);
+	}
+}
+
+void Config::AddQuat(const char* name, Quat quat)
+{
+	JSON_Value* va = json_value_init_array();
+	array = json_value_get_array(va);
+	json_object_set_value(root, name, va);
+
+	json_array_append_number(array, quat.x);
+	json_array_append_number(array, quat.y);
+	json_array_append_number(array, quat.z);
+	json_array_append_number(array, quat.w);
+	
+}
+
+void Config::Add4x4(const char* name, float4x4 mat)
+{
+	JSON_Value* va = json_value_init_array();
+	array = json_value_get_array(va);
+	json_object_set_value(root, name, va);
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			json_array_append_number(array, mat[i][j]);
+		}
+	}
+}

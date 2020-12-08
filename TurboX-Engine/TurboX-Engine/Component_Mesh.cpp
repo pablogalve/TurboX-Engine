@@ -113,3 +113,13 @@ void C_Mesh::DrawVertexNormals()
 		glEnd();
 	}
 }
+
+bool C_Mesh::Save(Config* data)
+{
+	bool ret = true;
+
+	data->AddString("Component", "Mesh");
+	data->AddUInt("UUID", component_UUID);
+
+	return ret;
+}
