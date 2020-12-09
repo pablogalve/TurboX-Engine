@@ -349,3 +349,8 @@ bool ModuleScene::SaveSettings(Config* data) const
 
 	return ret;
 }
+
+uint ModuleScene::GetRandomUUID()
+{
+	return LCG().Int();
+}

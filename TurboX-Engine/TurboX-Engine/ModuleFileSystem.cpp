@@ -9,7 +9,6 @@ ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled) : Modul
 {
 	name = "FileSystem";
 
-	// needs to be created before Init so other modules can use it
 	char* base_path = SDL_GetBasePath();
 	PHYSFS_init(base_path);
 	SDL_free(base_path);
@@ -19,7 +18,6 @@ ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled) : Modul
 
 	addPath(".");
 
-	//Create main files if they do not exist and add them to the search path
 	const char* mainPaths[] = {
 		MODELS_PATH, TEXTURES_PATH, AUDIO_PATH, LIB_MODELS_PATH, LIB_TEXTURES_PATH, SETTINGS_PATH
 	};
@@ -106,6 +104,43 @@ uint ModuleFileSystem::readFile(const char* fileName, char** data)
 	return ret;
 }
 
+void ModuleFileSystem::RemoveFile(const char* path)
+{
+	remove(path);
+}
+
+bool ModuleFileSystem::CopyTURBOXtoLib(const char* path, std::vector<std::string>* written, uint forceUUID)
+{
+	bool ret = false;
+	std::string turboxName;
+	GetNameFromPath(path, nullptr, &turboxName, nullptr, nullptr);
+
+	std::string uuid;
+	if (forceUUID != 0) { uuid += std::to_string(forceUUID) + "~"; }
+
+	std::string libpath = LIB_MODELS_PATH + uuid + turboxName + DDS_FORMAT;
+	if (written) { (*written).push_back(libpath); }
+	if (ExistsFile(libpath.c_str())) { return true; }
+	ret = Copy(path, libpath.c_str());
+
+	return ret;
+}
+
+
+void ModuleFileSystem::GetUUID_TURBOX(const char* fullName, std::string* uuid, std::string* turbox)
+{
+	if (fullName != nullptr) {
+		std::string UUIDTURBOXName = fullName;
+		uint posLow = UUIDTURBOXName.find_first_of("~");
+		if (uuid) {
+			*uuid = UUIDTURBOXName.substr(0, posLow - 1);
+			UUIDTURBOXName = fullName;
+		}
+		if (turbox)
+			*turbox = UUIDTURBOXName.substr(posLow + 1);
+	}
+}
+
 void ModuleFileSystem::GetNameFromPath(const char* full_path, std::string* path, std::string* file, std::string* fileWithExtension, std::string* extension) const
 {
 	if (full_path != nullptr)
@@ -149,6 +184,30 @@ void ModuleFileSystem::GetNameFromPath(const char* full_path, std::string* path,
 
 }
 
+void ModuleFileSystem::ShiftPath(std::string* path)
+{
+	std::string fullpath = *path;
+	uint posSlash = fullpath.find_last_of("/");
+
+	if (fullpath.size() > posSlash) {
+		if (fullpath.size() - posSlash == 1) {
+			fullpath = fullpath.substr(0, posSlash).c_str();
+			posSlash = fullpath.find_last_of("/");
+			if (posSlash > fullpath.size()) {
+				return;
+			}
+		}
+		*path = fullpath.substr(0, posSlash + 1).c_str();
+	}
+
+}
+
+bool ModuleFileSystem::ExistsFile(const char* path) const {
+
+	bool ret = PHYSFS_exists(path);
+	return ret;
+}
+
 void ModuleFileSystem::NormalizePath(char* full_path, bool toLower) const
 {
 	uint len = strlen(full_path);
@@ -173,4 +232,97 @@ void ModuleFileSystem::NormalizePath(std::string& full_path, bool toLower) const
 				*charIterator = tolower(*charIterator);
 			}
 	}
+}
+
+bool ModuleFileSystem::Copy(const char* source, const char* destination) //copy outside virtual filesystem
+{
+	bool ret = false;
+	const uint def_size = 8192;
+	char buf[def_size];
+
+
+	FILE* src = nullptr;
+	fopen_s(&src, source, "rb");
+	PHYSFS_file* dest = PHYSFS_openWrite(destination);
+
+	PHYSFS_sint32 size;
+	if (src && dest) {
+
+		while (size = fread_s(buf, def_size, 1, def_size, src))
+			PHYSFS_write(dest, buf, 1, size);
+
+		fclose(src);
+		PHYSFS_close(dest);
+		ret = true;
+
+		MY_LOG("Copied file from %s to %s", source, destination);
+	}
+	else
+		MY_LOG("Error copying file from %s to %s", source, destination);
+
+	return ret;
+}
+
+bool ModuleFileSystem::IsMetaFile(std::string file) const
+{
+	if (file.size() > 5) {
+
+		if (file.substr(file.size() - 5) == META_FORMAT) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+uint ModuleFileSystem::GetLastModification(const char* file) const
+{
+	struct stat result;
+	if (stat(file, &result) == 0) {
+		return  result.st_mtime;
+
+	}
+	return 0;
+}
+
+
+void ModuleFileSystem::GetFilesFromDir(const char* directory, std::vector<std::string>& files, std::vector<std::string>& directories, bool recursive, bool ignoreMeta) const
+{
+	char** filesInDir = PHYSFS_enumerateFiles(directory);
+	char** filePointer;
+
+	std::string dir = directory;
+
+	for (filePointer = filesInDir; *filePointer != nullptr; filePointer++)
+	{
+		if (PHYSFS_isDirectory((dir + *filePointer).c_str())) {
+			std::string dire = *filePointer;
+			dire += "/";
+			directories.push_back(dire);
+		}
+		else {
+			std::string file = directory;
+			file += *filePointer;
+			if (ignoreMeta) {
+				if (IsMetaFile(file)) {
+					continue;
+				}
+			}
+			files.push_back(file.c_str());
+		}
+	}
+	if (recursive && directories.size() > 0) {
+		std::vector<std::string> newDirs;
+		for (int i = 0; i < directories.size(); i++) {
+			std::string dir = directory + directories[i];
+			GetFilesFromDir(dir.c_str(), files, newDirs);
+			if (newDirs.size() > 0) {
+				for (int j = newDirs.size() - 1; j >= 0; j--) {
+					directories.push_back(directories[i] + newDirs[j]);
+					newDirs.pop_back();
+				}
+			}
+		}
+	}
+	PHYSFS_freeList(filesInDir);
 }

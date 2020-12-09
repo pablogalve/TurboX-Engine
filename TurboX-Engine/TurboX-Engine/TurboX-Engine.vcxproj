@@ -82,6 +82,8 @@
     <ClInclude Include="ModuleSceneLoader.h" />
     <ClInclude Include="ModuleTimeManagement.h" />
     <ClInclude Include="PathNode.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="ResourceMesh.h" />
     <ClInclude Include="W_About.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
@@ -285,6 +287,8 @@
     <ClCompile Include="ModuleResources.cpp" />
     <ClCompile Include="ModuleSceneLoader.cpp" />
     <ClCompile Include="ModuleTimeManagement.cpp" />
+    <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="ResourceMesh.cpp" />
     <ClCompile Include="W_Toolbar.cpp" />
     <ClCompile Include="W_About.cpp" />
     <ClCompile Include="Application.cpp" />

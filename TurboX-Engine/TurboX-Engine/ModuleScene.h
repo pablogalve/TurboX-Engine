@@ -39,6 +39,9 @@ public:
 
 	bool LoadSettings(Config* data)override;
 	bool SaveSettings(Config* data)const override;
+
+	uint GetRandomUUID();
+
 public:
 
 	GameObject* street;
@@ -50,6 +53,7 @@ public:
 
 	ImGuizmo::OPERATION guizmoOperation;
 	bool inGame = false;
+
 };
 
 #endif

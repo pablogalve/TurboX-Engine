@@ -49,9 +49,14 @@ enum update_status
 #define LIB_TEXTURES_PATH "Library/Textures/"
 #define LIB_MODELS_PATH "Library/Models/"
 #define SETTINGS_PATH "Settings/"
+#define ASSETS_PATH "Assets/"
 #define OWN_FILE_FORMAT ".turbox"
+#define OWN_FILE_FORMAT_CAP ".TURBOX"
 #define DDS_FORMAT ".dds"
 #define FBX_FORMAT ".fbx"
+#define FBX_FORMAT_CAP ".FBX"
+#define META_FORMAT ".meta"
+
 
 #define RELEASE( x )\
 {\
