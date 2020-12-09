@@ -7,7 +7,6 @@
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
-#include "Importer_Model.h"
 #include "ModuleScene.h"
 #include "GameObject.h"
 #pragma comment (lib, "Libraries/Assimp/libx86/assimp.lib")
@@ -295,4 +294,77 @@ GameObject* SceneImporter::ImportNodeRecursive(aiNode* node, const aiScene* scen
 
 	}
 	return nodeGO;
+}
+
+void SceneImporter::LoadMeshTURBOX(const char* fileNameTURBOX, ResourceMesh* resource) {
+
+	Timer loadingTimer;
+	std::string turboxName;
+	App->file_system->GetNameFromPath(fileNameTURBOX, nullptr, &turboxName, nullptr, nullptr);
+	std::string filePath = LIB_MODELS_PATH;
+	filePath += turboxName;
+	filePath += OWN_FILE_FORMAT;
+
+
+
+	std::ifstream dataFile(filePath.c_str(), std::fstream::out | std::fstream::binary);
+	if (dataFile.fail()) {
+		MY_LOG("Error loading TURBOX. Cannot find TURBOX file in %s in Lib/Textures", filePath.c_str());
+		return;
+	}
+
+
+	uint ranges[4] = { 0,0,0,0 }; // [numIndex , numVertex, numNormals, numTexCoords]
+
+	uint rangesSize = sizeof(ranges);
+	char* headerdata = new char[rangesSize];
+
+
+	dataFile.read(headerdata, rangesSize);
+	memcpy(ranges, headerdata, rangesSize);
+
+	resource->num_index = ranges[0];
+	resource->num_vertex = ranges[1];
+	resource->num_normals = ranges[2];
+	resource->num_textureCoords = ranges[3];
+
+	resource->index = new uint[resource->num_index];
+	resource->vertex = new float3[resource->num_vertex];
+	resource->normals = new float3[resource->num_normals];
+	resource->texturesCoords = new float2[resource->num_textureCoords];
+	resource->num_faces = resource->num_index / 3;
+
+	uint meshDataSize = sizeof(uint) * resource->num_index + sizeof(float3) * resource->num_vertex + sizeof(float3) * resource->num_normals + sizeof(float2) * resource->num_textureCoords;
+
+	char* meshdata = new char[meshDataSize];
+	char* mcursor = meshdata;
+
+
+	dataFile.seekg(rangesSize);
+
+	dataFile.read(meshdata, meshDataSize);
+
+
+	uint mbytes = sizeof(uint) * resource->num_index;//index		
+	memcpy(resource->index, mcursor, mbytes);
+
+	mcursor += mbytes;
+	mbytes = sizeof(float3) * resource->num_vertex;//vertex		
+	memcpy(resource->vertex, mcursor, mbytes);
+
+	mcursor += mbytes;
+	mbytes = sizeof(float3) * resource->num_normals;//normals	
+	memcpy(resource->normals, mcursor, mbytes);
+
+	mcursor += mbytes;
+	mbytes = sizeof(float2) * resource->num_textureCoords; //texCoords
+	memcpy(resource->texturesCoords, mcursor, mbytes);
+
+	MY_LOG("Succesfully loaded TURBOX: %s. Loading time: %i ms \n", fileNameTURBOX, loadingTimer.Read());
+
+	RELEASE_ARRAY(headerdata);
+	RELEASE_ARRAY(meshdata);
+	mcursor = nullptr;
+
+	dataFile.close();
 }

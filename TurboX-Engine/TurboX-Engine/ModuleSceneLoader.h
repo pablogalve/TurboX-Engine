@@ -3,6 +3,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Resource.h"
+#include "ResourceMesh.h"
 #include "MathGeoLib\MathGeoLib.h"
 
 #include <iostream>
@@ -36,6 +37,8 @@ public:
 	bool ImportScene(const char* scene, std::vector<std::string>* written, uint forceUUID = 0);
 
 	void LoadFBXScene(const char* FBXpath);
+
+	void LoadMeshTURBOX(const char* fileNameTURBOX, ResourceMesh* resource);
 
 private:
 
