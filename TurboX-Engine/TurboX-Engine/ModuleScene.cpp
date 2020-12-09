@@ -338,6 +338,13 @@ bool ModuleScene::SaveSettings(Config* data) const
 		Config gameObjectData;
 		root->childs[i]->Save(&gameObjectData);
 		data->AddArrayChild(gameObjectData);
+
+		//Save second hierarchy of gameObjects
+		for (size_t j = 0; j < root->childs[i]->childs.size(); j++)
+		{
+			root->childs[i]->childs[j]->Save(&gameObjectData);
+			data->AddArrayChild(gameObjectData);
+		}
 	}
 
 	return ret;

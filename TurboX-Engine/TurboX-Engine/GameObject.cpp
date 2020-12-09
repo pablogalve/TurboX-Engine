@@ -165,7 +165,7 @@ bool GameObject::Save(Config* data)
 	//Save gameObject info
 	data->AddString("Name", name.c_str());
 	data->AddUInt("UUID", UUID);
-	data->AddUInt("parentUUID", parentUUID);
+	data->AddUInt("ParentUUID", parentUUID);
 	data->AddBool("Active", active);
 	data->AddBool("Static", isStatic);
 

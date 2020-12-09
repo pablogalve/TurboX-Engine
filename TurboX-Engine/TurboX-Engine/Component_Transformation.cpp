@@ -1,4 +1,5 @@
 #include "Component_Transformation.h"
+#include "GameObject.h"
 
 C_Transform::C_Transform(Component::Type type, GameObject* owner):Component(type, owner)
 {
@@ -73,6 +74,8 @@ bool C_Transform::Save(Config* data)
 
 	data->AddString("Component", "Transform");
 	data->AddUInt("UUID", component_UUID);
+	data->AddUInt("Owner UUID", owner->GetUUID());
+
 	data->AddVector3("Position", position);
 	data->AddVector3("Scale", scale);
 	data->AddVector3("Rotation", rotationVec);

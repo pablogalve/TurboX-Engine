@@ -2,6 +2,7 @@
 #include "ModuleFileSystem.h"
 #include "Component_Material.h"
 #include "ModuleInput.h"
+#include "GameObject.h"
 
 C_Material::C_Material(Component::Type type, GameObject* owner):Component(type, owner)
 {
@@ -50,11 +51,10 @@ void C_Material::LoadTexture(const char* file_name)
 	ilGenImages(1, &imageName);
 	ilBindImage(imageName);
 	ilLoadImage(file_name);
-	Width = ilGetInteger(IL_IMAGE_WIDTH);
-	Height = ilGetInteger(IL_IMAGE_HEIGHT);
+	width = ilGetInteger(IL_IMAGE_WIDTH);
+	height = ilGetInteger(IL_IMAGE_HEIGHT);
 	textureID = ilutGLBindTexImage();
 	ilDeleteImages(1, &imageName);
-
 }
 
 void C_Material::UnLoadTexture()
@@ -64,8 +64,7 @@ void C_Material::UnLoadTexture()
 		glDeleteTextures(1, &textureID);
 		textureID = 0;
 	}
-}
-	
+}	
 
 bool C_Material::Save(Config* data)
 {
@@ -73,6 +72,15 @@ bool C_Material::Save(Config* data)
 
 	data->AddString("Component", "Material");
 	data->AddUInt("UUID", component_UUID);
+	data->AddUInt("Owner UUID", owner->GetUUID());
+
+	data->AddString("Material Path", GetMaterialPath().c_str());
+	data->AddUInt("Image Name", imageName);
+	data->AddUInt("Image Name", width);
+	data->AddUInt("Image Name", height);
+	data->AddUInt("TextureID", textureID);
+	data->AddUInt("Default TextureID", defaultTextureID);
+	data->AddBool("Default Texture", defaultTex);
 
 	return ret;
 }

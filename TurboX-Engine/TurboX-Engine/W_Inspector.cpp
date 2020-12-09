@@ -180,9 +180,9 @@ void W_Inspector::Draw()
 			ImGui::Text("File Path: "); ImGui::SameLine();
 			ImGui::TextColored(yellow, material->GetMaterialPath().c_str());
 			ImGui::Text("Widht: "); ImGui::SameLine();
-			ImGui::TextColored(yellow, "%u", material->Width);
+			ImGui::TextColored(yellow, "%u", material->width);
 			ImGui::Text("Height: "); ImGui::SameLine();
-			ImGui::TextColored(yellow, "%u", material->Height);
+			ImGui::TextColored(yellow, "%u", material->height);
 			ImGui::Checkbox("Default Texture", &material->defaultTex);
 
 		}

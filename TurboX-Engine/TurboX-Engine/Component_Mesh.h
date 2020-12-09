@@ -49,6 +49,5 @@ public:
 	C_Transform* transform = nullptr;
 
 	bool vertex_normals_active;
-
 };
 #endif // !__COMPONENT_LIGHT_H_

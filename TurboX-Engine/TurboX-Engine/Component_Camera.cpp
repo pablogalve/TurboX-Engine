@@ -4,7 +4,6 @@
 #include "Component_Camera.h"
 #include "Component_Transformation.h"
 
-
 C_Camera::C_Camera(Component::Type type, GameObject* owner) :Component(type, owner)
 {
 	frustum.type = math::FrustumType::PerspectiveFrustum;
@@ -197,6 +196,7 @@ bool C_Camera::Save(Config* data)
 
 	data->AddString("Component", "Camera");
 	data->AddUInt("UUID", component_UUID);
+	data->AddUInt("Owner UUID", owner->GetUUID());
 
 	return ret;
 }

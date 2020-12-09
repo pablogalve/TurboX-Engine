@@ -3,13 +3,14 @@
 
 ModuleTimeManagement::ModuleTimeManagement(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	name = "TimeManagement";
+
 	timeScale = 1.0f;
 	gameDeltaTime = 0.0f;
 
 	gameClock = 0.0f;
 	paused = true;
 }
-
 
 ModuleTimeManagement::~ModuleTimeManagement()
 {

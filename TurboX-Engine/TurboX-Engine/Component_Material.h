@@ -32,8 +32,8 @@ public:
 public:	
 	ILuint imageName;
 	ILuint checkersImage;
-	ILuint Width;
-	ILuint Height;
+	ILuint width;
+	ILuint height;
 	uint textureID;
 	uint defaultTextureID;
 	
