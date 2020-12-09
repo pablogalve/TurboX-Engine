@@ -2,6 +2,7 @@
 #define __EXPLORER_H_
 
 #include "WindowConfig.h"
+#include <vector>
 
 class W_Explorer : WindowConfig
 {
@@ -13,6 +14,9 @@ public:
 
 	void SetShowWindow() override;
 	bool GetShowWindow() override { return showWindow; };
+
+private:
+	std::string currDir = ASSETS_PATH;
 };
 
 #endif // !__EXPLORER_H_
