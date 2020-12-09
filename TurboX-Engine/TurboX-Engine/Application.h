@@ -25,6 +25,7 @@ class ModuleScene;
 class ModuleConsole;
 class SceneImporter;
 class ModuleTimeManagement;
+class ModuleResources;
 
 class Application
 {
@@ -40,8 +41,9 @@ public:
 	ModuleGui* gui = NULL;
 	ModuleScene* scene = NULL;
 	ModuleConsole* console = NULL;
-	SceneImporter* resources = NULL;
+	SceneImporter* scene_loader = NULL;
 	ModuleTimeManagement* timeManagement = NULL;
+	ModuleResources* resources = NULL;
 
 private:
 	float	time_scale = 1.0f;

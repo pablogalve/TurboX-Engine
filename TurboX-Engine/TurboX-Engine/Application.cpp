@@ -12,9 +12,10 @@
 #include "ModuleGui.h"
 #include "ModuleScene.h"
 #include "ModuleConsole.h"
-#include "ModuleResources.h"
+#include "ModuleSceneLoader.h"
 #include "Config_JSON.h"
 #include "ModuleTimeManagement.h"
+#include "ModuleResources.h"
 
 Application::Application()
 {
@@ -31,9 +32,10 @@ Application::Application()
 	gui = new ModuleGui(this);
 	scene = new ModuleScene(this);
 	console = new ModuleConsole();
-	resources = new SceneImporter(this);
+	scene_loader = new SceneImporter(this);
 	timeManagement = new ModuleTimeManagement(this);
-	
+	resources = new ModuleResources(this);
+
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
@@ -47,8 +49,9 @@ Application::Application()
 	AddModule(physics);
 	AddModule(gui);
 	AddModule(scene);
-	AddModule(resources);
+	AddModule(scene_loader);
 	AddModule(timeManagement);
+	AddModule(resources);
 
 	// Scenes
 	AddModule(editor);

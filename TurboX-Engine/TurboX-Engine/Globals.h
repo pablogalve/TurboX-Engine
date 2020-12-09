@@ -44,12 +44,12 @@ enum update_status
 
 #define NUM_PATHS 6
 #define TEXTURES_PATH "Assets/Textures/"
-#define MODELS_PATH "Assets/3DModels/"
+#define MODELS_PATH "Assets/Models/"
 #define AUDIO_PATH "Assets/Audio/"
 #define LIB_TEXTURES_PATH "Library/Textures/"
-#define LIB_MODELS_PATH "Library/3DModels/"
+#define LIB_MODELS_PATH "Library/Models/"
 #define SETTINGS_PATH "Settings/"
-#define OWN_FILE_FORMAT ".pei"
+#define OWN_FILE_FORMAT ".turbox"
 #define DDS_FORMAT ".dds"
 #define FBX_FORMAT ".fbx"
 

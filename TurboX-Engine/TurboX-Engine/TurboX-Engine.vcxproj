@@ -79,6 +79,7 @@
     <ClInclude Include="Config_JSON.h" />
     <ClInclude Include="Libraries\ImGuizmo\ImGuizmo.h" />
     <ClInclude Include="ModuleResources.h" />
+    <ClInclude Include="ModuleSceneLoader.h" />
     <ClInclude Include="ModuleTimeManagement.h" />
     <ClInclude Include="PathNode.h" />
     <ClInclude Include="W_About.h" />
@@ -282,6 +283,7 @@
     <ClCompile Include="Config_JSON.cpp" />
     <ClCompile Include="Libraries\ImGuizmo\ImGuizmo.cpp" />
     <ClCompile Include="ModuleResources.cpp" />
+    <ClCompile Include="ModuleSceneLoader.cpp" />
     <ClCompile Include="ModuleTimeManagement.cpp" />
     <ClCompile Include="W_Toolbar.cpp" />
     <ClCompile Include="W_About.cpp" />

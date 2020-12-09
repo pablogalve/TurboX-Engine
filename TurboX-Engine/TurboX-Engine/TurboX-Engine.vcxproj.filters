@@ -654,9 +654,6 @@
     <ClInclude Include="W_Toolbar.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleResources.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="PathNode.h">
       <Filter>Sources\Containers</Filter>
     </ClInclude>
@@ -670,6 +667,12 @@
       <Filter>Libraries\ImGuizmo</Filter>
     </ClInclude>
     <ClInclude Include="ModuleTimeManagement.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleSceneLoader.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleResources.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
   </ItemGroup>
@@ -884,9 +887,6 @@
     <ClCompile Include="W_Toolbar.cpp">
       <Filter>Sources\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleResources.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Config_JSON.cpp">
       <Filter>Sources\FileManager</Filter>
     </ClCompile>
@@ -897,6 +897,12 @@
       <Filter>Libraries\ImGuizmo</Filter>
     </ClCompile>
     <ClCompile Include="ModuleTimeManagement.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleSceneLoader.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleResources.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>

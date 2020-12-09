@@ -8,7 +8,7 @@
 #include "ModuleEditor.h"
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_sdl.h"
-#include "ModuleResources.h"
+#include "ModuleSceneLoader.h"
 #include "ModuleCamera3D.h"
 #include "ModuleWindow.h"
 
@@ -167,7 +167,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				switch (fileType)
 				{
 				case FileType::FBX:
-					App->resources->LoadFBXScene(dropped_filedir);
+					App->scene_loader->LoadFBXScene(dropped_filedir);
 					break;
 				case FileType::PNG:
 				{
