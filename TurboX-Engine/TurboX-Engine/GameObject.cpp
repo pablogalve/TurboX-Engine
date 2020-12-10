@@ -64,10 +64,8 @@ Component* GameObject::CreateComponent(Component::Type type)
 	return new_component;
 }
 
-void GameObject::DestroyComponent()
-{
-	Component::Type type;
-
+void GameObject::DestroyComponent(Component::Type type)
+{	
 	for (int i = 0; i < components.size(); i++)
 	{
 		if (type == components[i]->GetComponentType())
@@ -79,7 +77,6 @@ void GameObject::DestroyComponent()
 
 Component* GameObject::GetComponent(Component::Type type)
 {
-
 	for (int i = 0; i < components.size(); i++)
 	{
 		if (type == components[i]->GetComponentType())
@@ -182,10 +179,17 @@ bool GameObject::Save(Config* data)
 	return ret;
 }
 
-bool GameObject::Load(JSON_Value* file)
+bool GameObject::Load(Config* data)
 {
 	bool ret = true;
 
+	UUID = data->GetUInt("UUID");
+	parentUUID = data->GetUInt("ParentUUID");
+	name = data->GetString("Name", "Unnamed");
+	active = data->GetBool("Active", true);
+	isStatic = data->GetBool("Static", false);
+	SetParent(App->scene->GetRoot());
+	MY_LOG("-----CODE EXECUTED-----")
 	return ret;
 }
 
@@ -203,6 +207,17 @@ void GameObject::setChildSelected(bool selected)
 
 	if (parent != nullptr)
 		parent->setChildSelected(selected);
+}
+
+void GameObject::DestroyChildren(GameObject* toRemove)
+{
+	for (int i = 0; i < childs.size(); i++) {
+		if (childs[i] == toRemove) {
+			//TODO: Call the gameObject's CleanUp()
+			childs.erase(childs.begin() + i);
+			return;
+		}
+	}
 }
 
 uint GameObject::GenerateUUID() {
@@ -231,7 +246,7 @@ void GameObject::AddChildren(GameObject* child)
 void GameObject::SetParent(GameObject* _parent)
 {
 	if (parent != nullptr) {
-		if (parent = _parent) {
+		if (parent == _parent) {
 			return;
 		}
 		for (std::vector<GameObject*>::iterator iterator = parent->childs.begin(); iterator != parent->childs.end(); iterator++) {

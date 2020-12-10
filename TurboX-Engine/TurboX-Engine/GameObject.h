@@ -22,7 +22,7 @@ public:
 	~GameObject();
 
 	Component* CreateComponent(Component::Type type);
-	void DestroyComponent();
+	void DestroyComponent(Component::Type type);
 	Component* GetComponent(Component::Type type);
 	void Draw();
 	void DrawBB(const AABB& BB, vec color) const;
@@ -38,6 +38,7 @@ public:
 	void AddChildren(GameObject* child);
 	void setSelected(bool selected);
 	void setChildSelected(bool selected);
+	void DestroyChildren(GameObject* toRemove);
 
 	uint GenerateUUID();
 	uint GetUUID();
@@ -48,7 +49,7 @@ public:
 	void Unselect();
 
 	bool Save(Config* data);
-	bool Load(JSON_Value* file);
+	bool Load(Config* data);
 public:	
 	std::string name;
 	vector<Component*> components;
