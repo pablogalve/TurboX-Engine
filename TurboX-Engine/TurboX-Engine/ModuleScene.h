@@ -32,18 +32,19 @@ public:
 	GameObject* AddGameObject(const char* name);
 	GameObject* AddGameObject(const char* name, GameObject* parent);
 	void selectGameObject(GameObject* gameObject);
+	void ClearScene();
 
 	void AddCamera();
 
 	void DrawGuizmo(ImGuizmo::OPERATION operation);
 
 	bool LoadSettings(Config* data)override;
+	bool LoadScene(const char* file);
 	bool SaveSettings(Config* data)const override;
 
 	uint GetRandomUUID();
 
 public:
-
 	GameObject* street;
 	GameObject* root;
 
@@ -53,7 +54,6 @@ public:
 
 	ImGuizmo::OPERATION guizmoOperation;
 	bool inGame = false;
-
 };
 
 #endif

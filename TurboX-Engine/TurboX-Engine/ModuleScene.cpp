@@ -6,6 +6,7 @@
 #include "ModuleEditor.h"
 #include "ModuleInput.h"
 #include "ModuleCamera3D.h"
+#include "ModuleFileSystem.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -258,6 +259,22 @@ void ModuleScene::selectGameObject(GameObject* gameObject)
 		gameObject->setSelected(true);
 }
 
+void ModuleScene::ClearScene()
+{
+	MY_LOG("Clearing scene");
+	for (int i = root->childs.size() - 1; i >= 0; i--) {
+		root->DestroyChildren(root->childs[i]);
+	}
+	for (int i = root->components.size() - 1; i >= 0; i--) {
+		root->DestroyComponent(root->components[i]->GetComponentType());
+	}
+	for (size_t i = 0; i < cameras.size(); i++)
+	{
+		cameras[i] = nullptr;
+	}
+	//TODO: Deselect all the selected gameObjects
+}
+
 void ModuleScene::DrawGuizmo(ImGuizmo::OPERATION operation)
 {
 	C_Transform* transform = (C_Transform*)selected_GO->GetComponent(Component::Type::Transform);
@@ -323,7 +340,39 @@ bool ModuleScene::LoadSettings(Config* data)
 {
 	bool ret = true;
 
+	ClearScene();
+	LoadScene(SCENE_FILE);
+
 	return ret;
+}
+
+bool ModuleScene::LoadScene(const char* file)
+{
+	char* buffer = nullptr;
+	const char* fileName = nullptr;
+	file == nullptr ? fileName = SCENE_FILE : fileName = file;
+	uint size = App->file_system->readFile(fileName, &buffer);
+
+
+	if (size < 0) {
+		MY_LOG("Error loading file %s. All data not loaded.", fileName)
+			fileName = nullptr;
+		RELEASE_ARRAY(buffer);
+		return false;
+	}
+	fileName = nullptr;
+	Config conf(buffer);
+
+	int num = conf.GetNumElementsInArray("GameObjects");
+	for (int i = 0; i < num; i++) {
+		Config elem = conf.GetArray("GameObjects", i);
+		GameObject* go = new GameObject();
+		go->Load(&elem);
+	}
+	MY_LOG("Loading new scene.");
+	RELEASE_ARRAY(buffer);
+
+	return false;
 }
 
 bool ModuleScene::SaveSettings(Config* data) const

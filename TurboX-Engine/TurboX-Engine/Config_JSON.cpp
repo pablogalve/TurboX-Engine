@@ -1,7 +1,5 @@
 #include "Config_JSON.h"
 
-//#include "mmgr/mmgr.h"
-
 Config::Config()
 {
 	valueRoot = json_value_init_object();
@@ -115,6 +113,16 @@ const char* Config::GetString(const char* field, const char* default, int index)
 	}
 
 	return default;
+}
+
+uint Config::GetNumElementsInArray(const char* field) const
+{
+	JSON_Array* array = json_object_get_array(root, field);
+	if (array == nullptr) {
+		return -1;
+	}
+	int num = json_array_get_count(array);
+	return num;
 }
 
 uint Config::GetArraySize(const char* field) const
