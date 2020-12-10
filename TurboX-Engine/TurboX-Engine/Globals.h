@@ -37,7 +37,7 @@ enum update_status
 #define WIN_BORDERLESS false
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
-#define CONFIG_FILE "Library/Config/config.json"
+#define CONFIG_FILE "Assets/Config/config.json"
 #define PI 3.1415926f
 #define CHECKERS_WIDTH 64
 #define CHECKERS_HEIGHT 64
