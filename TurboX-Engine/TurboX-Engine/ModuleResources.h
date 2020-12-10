@@ -5,6 +5,8 @@
 
 #include <map>
 
+#define MS_TO_CHECK_META 2000
+
 class Timer;
 
 class ModuleResources : public Module
@@ -25,8 +27,11 @@ public:
 	void LoadFiles(const char* filePath);
 	bool ImportFileAndGenerateMeta(const char* newFileInAssets);
 
+	uint FindByPath(const char* fileInAssets, Resource::ResType type = Resource::ResType::None) const;
+
 	const Resource* Get(uint uuid) const;
 	Resource* Get(uint uuid);
+	std::map<uint, Resource*> GetResourcesList() const { return resources; }
 	std::vector<Resource*> GetResourcesListType(Resource::ResType type, bool loaded = false);
 
 	const Resource::ResType GetResourceTypeFromExtension(const char* path) const;

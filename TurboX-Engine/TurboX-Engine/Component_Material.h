@@ -2,6 +2,7 @@
 #define __COMPONENT_MATERIAL_H_
 
 #include "Component.h"
+#include "ResourceTexture.h"
 #include "glew\glew.h"
 #include "DevIL/include/ilut.h"
 #include <string>
@@ -18,27 +19,16 @@ public:
 	C_Material(Component::Type type, GameObject* owner);
 	~C_Material();
 
-	void LoadTexture(const char* file_name);
-	void UnLoadTexture();
-	void LoadDefaultTex();
-	
-	string GetMaterialPath() { return material_path; }
-
+	void SetResource(uint resource)override;
 	bool Save(Config* data) override;
+
 public:
 
 	Component::Type GetComponentType() override;
 
-public:	
-	ILuint imageName;
-	ILuint checkersImage;
-	ILuint width;
-	ILuint height;
-	uint textureID;
-	uint defaultTextureID;
-	
-	bool defaultTex;
 private:
-	string material_path;
+
+	ResourceTexture* resourceTexture = nullptr;
+
 };
 #endif // !__COMPONENT_MATERIAL_H_

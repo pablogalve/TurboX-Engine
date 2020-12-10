@@ -16,6 +16,7 @@
 #include "Config_JSON.h"
 #include "ModuleTimeManagement.h"
 #include "ModuleResources.h"
+#include "ModuleTexture.h"
 
 Application::Application()
 {
@@ -35,6 +36,7 @@ Application::Application()
 	scene_loader = new SceneImporter(this);
 	timeManagement = new ModuleTimeManagement(this);
 	resources = new ModuleResources(this);
+	texture_importer = new TextureImporter(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order

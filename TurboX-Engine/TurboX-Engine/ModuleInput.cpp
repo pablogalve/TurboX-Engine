@@ -171,7 +171,7 @@ update_status ModuleInput::PreUpdate(float dt)
 					break;
 				case FileType::PNG:
 				{
-					if (App->editor->hierarchy_window->selectedGameObjects.empty() == false) {
+					/*if (App->editor->hierarchy_window->selectedGameObjects.empty() == false) {
 						GameObject* selectedGameObject = App->editor->hierarchy_window->selectedGameObjects[0];
 						if (selectedGameObject != nullptr)
 						{
@@ -187,12 +187,12 @@ update_status ModuleInput::PreUpdate(float dt)
 					}
 					else {
 						MY_LOG("You must select a gameObject first!");
-					}
+					}*/
 				}
 					break;
 				case FileType::DDS:
 				{
-					if (App->editor->hierarchy_window->selectedGameObjects.empty() == false) {
+					/*if (App->editor->hierarchy_window->selectedGameObjects.empty() == false) {
 						GameObject* selectedGameObject = App->editor->hierarchy_window->selectedGameObjects[0];
 						if (selectedGameObject != nullptr)
 						{
@@ -208,7 +208,7 @@ update_status ModuleInput::PreUpdate(float dt)
 					}
 					else {
 						MY_LOG("You must select a gameObject first!");
-					}
+					}*/
 				}
 					break;
 				case FileType::UNDEFINED:

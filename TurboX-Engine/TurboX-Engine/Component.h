@@ -5,6 +5,7 @@
 #include "Config_JSON.h"
 
 class GameObject;
+class Resource;
 
 class Component {
 public:
@@ -27,12 +28,17 @@ public:
 
 	virtual bool Save(Config* data);
 
+	virtual void SetResource(uint resource) {};
+
+	virtual Resource* GetResource() const;
+	uint GetResourceUUID()const { return component_UUID; }
+
+protected:
+	uint component_UUID = 0;
 public:
 	GameObject* owner;
 	bool active = true;
 
-protected:
-	uint component_UUID;
 };
 
 #endif // !__COMPONENT_H_

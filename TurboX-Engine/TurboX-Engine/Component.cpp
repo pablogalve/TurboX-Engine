@@ -1,5 +1,7 @@
 #include "Component.h"
 #include "GameObject.h"
+#include "Application.h"
+#include "ModuleResources.h"
 
 Component::Component(Type type, GameObject* owner)
 {
@@ -35,4 +37,9 @@ bool Component::Save(Config* data)
 	bool ret = true;
 
 	return ret;
+}
+
+Resource* Component::GetResource() const
+{
+	return App->resources->Get(component_UUID);
 }

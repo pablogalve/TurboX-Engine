@@ -5,8 +5,11 @@
 #include "Timer.h"
 #include "ModuleFileSystem.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleTexture.h"
 #include "GameObject.h"
 #include "ModuleSceneLoader.h"
+#include "Component.h"
+#include "Component_Material.h"
 
 ModuleResources::ModuleResources(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -26,7 +29,19 @@ bool ModuleResources::Start()
 
 update_status ModuleResources::PreUpdate(float dt)
 {
-	
+	/*if (!App->scene->inGame) 
+	{
+		if (lastCheck.Read() > MS_TO_CHECK_META) 
+		{
+			lastCheck.ResetTimer();
+			CheckMetaFiles();
+		}
+	}
+	else
+	{
+		lastCheck.Stop();
+	}*/
+
 	return UPDATE_CONTINUE;
 }
 
@@ -88,6 +103,19 @@ void ModuleResources::CheckMetaFiles()
 		}
 	}
 	lastCheck.Start();
+}
+
+uint ModuleResources::FindByPath(const char* fileInAssets, Resource::ResType type) const
+{
+	std::string fileName = fileInAssets;
+
+	for (std::map<uint, Resource*>::const_iterator it = resources.begin(); it != resources.end(); it++) {
+		if (it->second->GetPathStr() == fileName) {
+			if (type == Resource::ResType::None || type == it->second->GetType())
+				return it->first;
+		}
+	}
+	return 0;
 }
 
 bool ModuleResources::ManageResourceWithMeta(const char* resource, const char* metaPath)
@@ -165,6 +193,7 @@ bool ModuleResources::ImportFileAndGenerateMeta(const char* newFileInAssets)
 	Resource::ResType type = GetResourceTypeFromExtension(newFileInAssets);
 	uint resourceUUID = App->scene->GetRandomUUID();
 	switch (type) {
+	case Resource::ResType::Texture: {import_ok = App->texture_importer->ImportTexture(newFileInAssets, &exportedFiles); break; }
 	case Resource::ResType::Scene: {import_ok = App->scene_loader->ImportScene(newFileInAssets, &exportedFiles, resourceUUID); break; }
 	case Resource::ResType::Mesh: {import_ok = App->file_system->CopyTURBOXtoLib(newFileInAssets, &exportedFiles, resourceUUID); break; }
 	case Resource::ResType::None: {return false; }
@@ -226,6 +255,13 @@ void ModuleResources::LoadFiles(const char* filePath)
 	Resource::ResType type = GetResourceTypeFromExtension(filePath);
 
 	switch (type) {
+	case Resource::ResType::Texture: {
+		std::string tName;
+		App->file_system->GetNameFromPath(filePath, nullptr, &tName, nullptr, nullptr);
+		GameObject* GO;
+		GO = App->scene->AddGameObject(tName.c_str());
+		C_Material* mat = (C_Material*)GO->CreateComponent(Component::Type::Material);
+		mat->SetResource(App->resources->FindByPath(filePath)); break; }
 	case Resource::ResType::Scene: {App->scene_loader->LoadFBXScene(filePath); break; }
 	}
 
@@ -263,6 +299,7 @@ Resource* ModuleResources::CreateNewResource(Resource::ResType type, uint forceU
 	}
 
 	switch (type) {
+	case Resource::ResType::Texture: {	res = (Resource*) new ResourceTexture(uuid); break;	}
 	case Resource::ResType::Mesh: {	res = (Resource*) new ResourceMesh(uuid); break;	}
 	case Resource::ResType::Scene: {res = (Resource*) new ResourceMesh(uuid); break;	}
 	}
@@ -357,6 +394,11 @@ const Resource::ResType ModuleResources::GetResourceTypeFromExtension(const char
 	}
 	if (extension == OWN_FILE_FORMAT || extension == OWN_FILE_FORMAT_CAP)  return Resource::ResType::Mesh;
 	if (extension == FBX_FORMAT || extension == FBX_FORMAT_CAP)  return Resource::ResType::Scene;
+	if (extension == DDS_FORMAT || extension == DDS_FORMAT_CAP)  return Resource::ResType::Texture;
+	if (extension == PNG_FORMAT || extension == PNG_FORMAT_CAP)  return Resource::ResType::Texture;
+	if (extension == JPG_FORMAT || extension == JPG_FORMAT_CAP)  return Resource::ResType::Texture;
+	if (extension == JPEG_FORMAT || extension == JPEG_FORMAT_CAP)  return Resource::ResType::Texture;
+	if (extension == TGA_FORMAT || extension == TGA_FORMAT_CAP)  return Resource::ResType::Texture;
 
 	return Resource::ResType::None;
 }

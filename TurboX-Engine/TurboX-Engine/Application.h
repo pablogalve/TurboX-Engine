@@ -9,6 +9,32 @@
 #include <list>
 #include <string>
 
+struct Event
+{
+	enum EventType
+	{
+		scene_file_dropped,
+		texture_file_dropped,
+		input,
+		active_Vsync,
+		invalid
+	} type;
+
+	union
+	{
+
+		const char* string;
+		struct {
+			int x, y;
+		} point2d;
+
+	};
+
+	Event(EventType type) : type(type)
+	{}
+	Event() {};
+};
+
 class Module;
 
 class ModuleFileSystem;
@@ -26,6 +52,7 @@ class ModuleConsole;
 class SceneImporter;
 class ModuleTimeManagement;
 class ModuleResources;
+class TextureImporter;
 
 class Application
 {
@@ -44,6 +71,7 @@ public:
 	SceneImporter* scene_loader = NULL;
 	ModuleTimeManagement* timeManagement = NULL;
 	ModuleResources* resources = NULL;
+	TextureImporter* texture_importer = NULL;
 
 private:
 	float	time_scale = 1.0f;

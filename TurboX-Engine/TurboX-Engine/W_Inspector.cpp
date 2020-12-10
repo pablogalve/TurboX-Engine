@@ -172,11 +172,11 @@ void W_Inspector::Draw()
 			//ImGui::Checkbox("Face Normals:", &mesh->face_normals_active);
 		}
 
-		C_Material* material = (C_Material*)gameObject->GetComponent(Component::Type::Material);
+		/*C_Material* material = (C_Material*)gameObject->GetComponent(Component::Type::Material);
 
 		if (ImGui::CollapsingHeader("Material") && material != nullptr)
 		{
-			ImGui::Checkbox("Active ", &material->active);
+			/*ImGui::Checkbox("Active ", &material->active);
 			ImGui::Text("File Path: "); ImGui::SameLine();
 			ImGui::TextColored(yellow, material->GetMaterialPath().c_str());
 			ImGui::Text("Widht: "); ImGui::SameLine();
@@ -184,8 +184,8 @@ void W_Inspector::Draw()
 			ImGui::Text("Height: "); ImGui::SameLine();
 			ImGui::TextColored(yellow, "%u", material->height);
 			ImGui::Checkbox("Default Texture", &material->defaultTex);
-
-		}
+			
+		}*/
 
 		C_Camera* camera = (C_Camera*)gameObject->GetComponent(Component::Type::Camera);
 

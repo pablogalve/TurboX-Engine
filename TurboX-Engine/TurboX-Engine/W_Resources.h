@@ -2,6 +2,10 @@
 #define __RESOURCES_H_
 
 #include "WindowConfig.h"
+#include <vector>
+#include <map>
+
+class Resource;
 
 class W_Resources : WindowConfig
 {
@@ -13,6 +17,9 @@ public:
 
 	void SetShowWindow() override;
 	bool GetShowWindow() override { return showWindow; };
+
+	void DrawResourcesChilds(std::map<uint, Resource* > resources);
+
 };
 
 #endif // !__RESOURCES_H_

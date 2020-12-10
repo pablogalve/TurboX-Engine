@@ -109,6 +109,23 @@ void ModuleFileSystem::RemoveFile(const char* path)
 	remove(path);
 }
 
+bool ModuleFileSystem::CopyDDStoLib(const char* path, std::vector<std::string>* written, bool UI)
+{
+	bool ret = false;
+	std::string ddsName;
+	GetNameFromPath(path, nullptr, &ddsName, nullptr, nullptr);
+	std::string libPath;
+	UI ? libPath = LIB_UI_PATH : libPath = LIB_TEXTURES_PATH;
+	libPath += ddsName + DDS_FORMAT;
+
+	if (written) { (*written).push_back(libPath); }
+	if (ExistsFile(libPath.c_str())) {
+		return true;
+	}
+	ret = Copy(path, libPath.c_str());
+	return ret;
+}
+
 bool ModuleFileSystem::CopyTURBOXtoLib(const char* path, std::vector<std::string>* written, uint forceUUID)
 {
 	bool ret = false;

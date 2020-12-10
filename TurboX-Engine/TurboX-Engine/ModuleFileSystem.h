@@ -18,6 +18,7 @@ public:
 
 	void RemoveFile(const char* path);
 
+	bool CopyDDStoLib(const char* path, std::vector<std::string>* written, bool UI = false);
 	bool CopyTURBOXtoLib(const char* path, std::vector<std::string>* written = nullptr, uint forceUUID = 0);
 
 	void NormalizePath(char* full_path, bool toLower = false) const;
