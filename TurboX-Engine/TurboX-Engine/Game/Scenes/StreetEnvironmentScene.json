@@ -46,7 +46,7 @@
         {
             "GameObjects": [
                 {
-                    "Name": "Camera",
+                    "Name": "Camera(This one doesn't work)",
                     "UUID": 1913998642,
                     "ParentUUID": 1794264603,
                     "Active": true,
