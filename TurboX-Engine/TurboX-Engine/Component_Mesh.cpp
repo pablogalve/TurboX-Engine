@@ -162,11 +162,6 @@ bool C_Mesh::Save(Config* data)
 	return ret;
 }
 
-bool C_Mesh::Load(Config* data)
-{
-	return false;
-}
-
 void C_Mesh::SetMaterial(C_Material* tex)
 {
 	material = tex;

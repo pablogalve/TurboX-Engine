@@ -339,19 +339,20 @@ void ModuleScene::DrawGuizmo(ImGuizmo::OPERATION operation)
 bool ModuleScene::LoadSettings(Config* data)
 {
 	bool ret = true;
-	
-	LoadScene(DEFAULT_SCENE_FILE);
+
+	ClearScene();
+	LoadScene(SCENE_FILE);
 
 	return ret;
 }
 
 bool ModuleScene::LoadScene(const char* file)
-{	
-	ClearScene();
+{
 	char* buffer = nullptr;
 	const char* fileName = nullptr;
-	file == nullptr ? fileName = DEFAULT_SCENE_FILE : fileName = file;
+	file == nullptr ? fileName = SCENE_FILE : fileName = file;
 	uint size = App->file_system->readFile(fileName, &buffer);
+
 
 	if (size < 0) {
 		MY_LOG("Error loading file %s. All data not loaded.", fileName)
@@ -360,18 +361,12 @@ bool ModuleScene::LoadScene(const char* file)
 		return false;
 	}
 	fileName = nullptr;
-
 	Config conf(buffer);
-	RELEASE_ARRAY(buffer);
 
-	Config gameObjectData = conf.GetArray(name.c_str(), 0);
-	int gameObjects_num = gameObjectData.GetNumElementsInArray("GameObjects");
-	if(gameObjects_num == -1)
-		MY_LOG("Warning. No gameObjects detected in the scene.");
-
-	for (int i = 0; i < gameObjects_num; i++) {
-		Config elem = gameObjectData.GetArray("GameObjects", i);
-		GameObject* go = CreateGameObject("GameObject");
+	int num = conf.GetNumElementsInArray("GameObjects");
+	for (int i = 0; i < num; i++) {
+		Config elem = conf.GetArray("GameObjects", i);
+		GameObject* go = new GameObject();
 		go->Load(&elem);
 	}
 	MY_LOG("Loading new scene.");

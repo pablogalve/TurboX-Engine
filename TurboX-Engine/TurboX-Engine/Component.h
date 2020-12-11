@@ -27,7 +27,6 @@ public:
 	virtual Component::Type GetComponentType();
 
 	virtual bool Save(Config* data);
-	virtual bool Load(Config* data);
 
 	virtual void SetResource(uint resource) {};
 
