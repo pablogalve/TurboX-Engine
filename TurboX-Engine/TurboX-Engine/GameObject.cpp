@@ -183,13 +183,32 @@ bool GameObject::Load(Config* data)
 {
 	bool ret = true;
 
+	//Load basic information
 	UUID = data->GetUInt("UUID");
 	parentUUID = data->GetUInt("ParentUUID");
 	name = data->GetString("Name", "Unnamed");
 	active = data->GetBool("Active", true);
 	isStatic = data->GetBool("Static", false);
 	SetParent(App->scene->GetRoot());
-	MY_LOG("-----CODE EXECUTED-----")
+
+	//Load components
+	int component_num = data->GetNumElementsInArray("Components");
+	if (component_num == -1)
+		MY_LOG("Warning. No components detected for this gameObject");
+	for (int i = 0; i < component_num; i++) {
+		Config elem = data->GetArray("Components", i);
+		Component::Type type = (Component::Type)elem.GetInt("Type");
+		if (type != Component::Type::None) {
+
+			Component* comp = CreateComponent(type);
+			comp->Load(&elem);
+			MY_LOG("Component loaded: %i", type);
+		}
+		else {
+			MY_LOG("Cannot load components correctly. Component type: NOTYPE ");
+		}
+	}
+
 	return ret;
 }
 
