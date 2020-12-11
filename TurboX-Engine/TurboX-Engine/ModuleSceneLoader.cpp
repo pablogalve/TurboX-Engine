@@ -8,6 +8,7 @@
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 #include "ModuleScene.h"
+#include "ModuleResources.h"
 #include "GameObject.h"
 #pragma comment (lib, "Libraries/Assimp/libx86/assimp.lib")
 
@@ -183,7 +184,8 @@ void SceneImporter::LoadFBXScene(const char* FBXpath)
 
 	if (scene == nullptr) {
 		scene = aiImportFile(FBXpath, aiProcessPreset_TargetRealtime_MaxQuality);
-		if (scene == nullptr) {
+		if (scene == nullptr) 
+		{
 			MY_LOG("Error loading fbx from Assets/Models folder.");
 			aiReleaseImport(scene);
 
@@ -235,7 +237,19 @@ GameObject* SceneImporter::ImportNodeRecursive(aiNode* node, const aiScene* scen
 				std::string meshName = nodeGO->name;
 
 				C_Mesh* compMesh = (C_Mesh*)nodeGO->CreateComponent(Component::Type::Mesh);
-				
+				C_Material* compMat = (C_Material*)nodeGO->CreateComponent(Component::Type::Material);
+
+				if (material) 
+				{
+					if (compMat != nullptr) 
+					{
+						compMat = ImportMaterialToResource(material, nodeGO);
+					}
+					else {
+						RELEASE(compMat);
+					}
+				}
+
 				compMesh->num_vertex = mesh->mNumVertices;
 				compMesh->vertex = new float3[compMesh->num_vertex];
 				memcpy(compMesh->vertex, mesh->mVertices, sizeof(float3) * compMesh->num_vertex);
@@ -274,6 +288,7 @@ GameObject* SceneImporter::ImportNodeRecursive(aiNode* node, const aiScene* scen
 					MY_LOG("Error loading mesh");
 				}
 
+				compMesh->SetMaterial(compMat);
 
 				//Calculate bounding box
 				nodeGO->boundingBox.SetNegativeInfinity();
@@ -294,6 +309,54 @@ GameObject* SceneImporter::ImportNodeRecursive(aiNode* node, const aiScene* scen
 
 	}
 	return nodeGO;
+}
+
+C_Material* SceneImporter::ImportMaterialToResource(aiMaterial* material, GameObject* owner)
+{
+	C_Material* mat = nullptr;
+	bool error, col, mater;
+	error = col = mater = false;
+
+	aiString texturePath;
+	mat = new C_Material(Component::Type::Material, owner);
+
+
+	aiColor3D color = aiColor3D();
+	material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
+	if (!color.IsBlack())
+	{
+		mat->colors = { color.r, color.g, color.b };
+		col = true;
+	}
+
+	aiReturn ret = material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath);
+	if (ret == aiReturn_SUCCESS) {
+		mater = true;
+
+		std::string path;
+		std::string textureName;
+		std::string extension;
+		App->file_system->GetNameFromPath(texturePath.C_Str(), &path, &textureName, nullptr, nullptr);
+		App->file_system->GetNameFromPath(texturePath.C_Str(), nullptr, nullptr, nullptr, &extension);
+
+		uint UUID = App->resources->FindByName(textureName.c_str(), Resource::ResType::Texture);
+		if (UUID == 0) {
+			if (App->resources->ImportFileAndGenerateMeta(texturePath.C_Str())) {
+				mat->SetResource(App->resources->FindByName(textureName.c_str(), Resource::ResType::Texture));
+			}
+		}
+		else {
+
+			mat->SetResource(UUID);
+		}
+	}
+	else {
+
+		MY_LOG("Error loading texture from fbx. Error: %s", aiGetErrorString());
+	}
+	
+
+	return mat;
 }
 
 void SceneImporter::LoadMeshTURBOX(const char* fileNameTURBOX, ResourceMesh* resource) {

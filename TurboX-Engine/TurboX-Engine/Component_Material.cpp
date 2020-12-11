@@ -27,9 +27,24 @@ Component::Type C_Material::GetComponentType()
 	return Component::Type::Material;
 }
 
+const bool C_Material::HasTexture() const
+{
+	bool ret;
+	resourceTexture ? ret = true : ret = false;
+	return ret;
+}
+
 void C_Material::SetResource(uint resource)
 {
 	resourceTexture = (ResourceTexture*)App->resources->Get(resource);
 	resourceTexture->LoadInMemory();
 	component_UUID = resource;
+}
+
+const uint C_Material::GetTexID() const
+{
+	if (HasTexture()) {
+		return resourceTexture->gpuID;
+	}
+	return -1;
 }

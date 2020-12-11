@@ -37,6 +37,7 @@ public:
 	bool ImportScene(const char* scene, std::vector<std::string>* written, uint forceUUID = 0);
 
 	void LoadFBXScene(const char* FBXpath);
+	C_Material* ImportMaterialToResource(aiMaterial* mat, GameObject* owner);
 
 	void LoadMeshTURBOX(const char* fileNameTURBOX, ResourceMesh* resource);
 

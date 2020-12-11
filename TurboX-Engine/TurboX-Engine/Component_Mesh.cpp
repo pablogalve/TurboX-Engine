@@ -29,6 +29,23 @@ void C_Mesh::Draw()
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+			if (material != NULL) {
+				
+				if (material->HasTexture()) 
+				{
+					glBindTexture(GL_TEXTURE_2D, material->GetTexID());
+					glTexCoordPointer(2, GL_FLOAT, 0, &(texturesCoords[0]));
+
+				}
+				else {
+					glColor3f(material->colors.x, material->colors.y, material->colors.z);
+				}
+
+			}
+
 			if (num_index == 0) {// if the mesh has no index
 				glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
 				glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -66,6 +83,7 @@ void C_Mesh::Draw()
 
 			}
 
+			glColor3f(1.0f, 1.0f, 1.0f);
 			glDisableClientState(GL_NORMAL_ARRAY);
 			glDisableClientState(GL_VERTEX_ARRAY);
 			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -142,4 +160,9 @@ bool C_Mesh::Save(Config* data)
 	data->AddBool("vertex_normals_active", vertex_normals_active);
 
 	return ret;
+}
+
+void C_Mesh::SetMaterial(C_Material* tex)
+{
+	material = tex;
 }

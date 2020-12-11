@@ -19,8 +19,12 @@ public:
 	C_Material(Component::Type type, GameObject* owner);
 	~C_Material();
 
+	float3 colors = { 0,0,0 };
+
 	void SetResource(uint resource)override;
 	bool Save(Config* data) override;
+	const uint GetTexID() const;
+	const bool HasTexture() const;
 
 public:
 

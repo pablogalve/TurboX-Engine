@@ -28,6 +28,7 @@ public:
 	bool ImportFileAndGenerateMeta(const char* newFileInAssets);
 
 	uint FindByPath(const char* fileInAssets, Resource::ResType type = Resource::ResType::None) const;
+	uint FindByName(const char* name, Resource::ResType type = Resource::ResType::None) const;
 
 	const Resource* Get(uint uuid) const;
 	Resource* Get(uint uuid);

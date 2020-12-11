@@ -20,6 +20,8 @@ public:
 	C_Mesh(Component::Type type, GameObject* owner);
 	~C_Mesh();
 
+	void SetMaterial(C_Material* texture);
+
 	void Draw();
 	void SetMeshBuffer();;
 

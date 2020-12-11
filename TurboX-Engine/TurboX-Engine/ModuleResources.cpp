@@ -118,6 +118,21 @@ uint ModuleResources::FindByPath(const char* fileInAssets, Resource::ResType typ
 	return 0;
 }
 
+uint ModuleResources::FindByName(const char* fileInAssets, Resource::ResType type) const
+{
+	if (fileInAssets != nullptr) {
+		std::string fileName = fileInAssets;
+
+		for (std::map<uint, Resource*>::const_iterator it = resources.begin(); it != resources.end(); it++) {
+			if (it->second->GetNameStr() == fileName) {
+				if (type == Resource::ResType::None || type == it->second->GetType())
+					return it->first;
+			}
+		}
+	}
+	return 0;
+}
+
 bool ModuleResources::ManageResourceWithMeta(const char* resource, const char* metaPath)
 {
 	uint resourceLastMod = App->file_system->GetLastModification(resource);
