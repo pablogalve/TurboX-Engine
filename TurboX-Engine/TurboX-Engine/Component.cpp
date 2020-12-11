@@ -39,6 +39,11 @@ bool Component::Save(Config* data)
 	return ret;
 }
 
+bool Component::Load(Config* data)
+{
+	return true;
+}
+
 Resource* Component::GetResource() const
 {
 	return App->resources->Get(component_UUID);

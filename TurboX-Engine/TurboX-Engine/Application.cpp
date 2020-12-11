@@ -170,7 +170,6 @@ bool Application::LoadEngineNow()
 
 	char* buffer = nullptr;
 	uint size = App->file_system->readFile(CONFIG_FILE, &buffer);
-
 	
 	if (size < 0) {
 		console->AddLog("Error loading file %s. All data not loaded.", CONFIG_FILE);
@@ -194,7 +193,7 @@ bool Application::LoadEngineNow()
 	}
 	want_to_load = false;
 
-	console->AddLog("Loading settings from config.json");
+	console->AddLog("Loading settings from %s", CONFIG_FILE);
 
 	return ret;
 }

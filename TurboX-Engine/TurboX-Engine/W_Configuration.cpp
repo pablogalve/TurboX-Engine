@@ -326,6 +326,6 @@ void W_Configuration::GetVramData(float& vram_budget, float& vram_usage, float& 
 		vram_reserved = (float)(_vram_reserved / 1024);
 	}
 	else if (strcmp(gpu_brand, "ATI Technologies")) {
-		//TODO
+		//TODO implement ATI Technologies
 	}
 }
