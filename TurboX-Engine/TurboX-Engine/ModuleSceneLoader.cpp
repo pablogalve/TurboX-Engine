@@ -264,7 +264,7 @@ GameObject* SceneImporter::ImportNodeRecursive(aiNode* node, const aiScene* scen
 		nodeGO->transform->SetPosition(float3(position.x, position.y, position.z));
 		nodeGO->transform->SetScale(float3(scale.x, scale.y, scale.z));
 		nodeGO->transform->SetQuaternionRotation(Quat(rotation.x, rotation.y, rotation.z, rotation.w));
-
+		
 
 		if (node->mNumMeshes > 0)
 		{

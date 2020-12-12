@@ -36,16 +36,19 @@ float3 C_Transform::GetScale()
 void C_Transform::SetRotation(float3 rot)
 {
 	rotationVec = rot;
+	RecalculateMatrix();
 }
 
 void C_Transform::SetQuaternionRotation(Quat quatRot)
 {
 	rotation = quatRot;
+	RecalculateMatrix();
 }
 
 void C_Transform::SetPosition(float3 pos)
 {
 	position = pos;
+	RecalculateMatrix();
 }
 
 void C_Transform::SetScale(float3 scl)
