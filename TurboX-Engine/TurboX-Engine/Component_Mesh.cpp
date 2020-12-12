@@ -5,6 +5,8 @@
 #include "ModuleScene.h"
 #include "ModuleConsole.h"
 #include "ModuleFileSystem.h"
+#include "ModuleResources.h"
+#include "ResourceMesh.h"
 
 #pragma comment (lib, "Libraries/glew/glew32.lib")    /* link OpenGL Utility lib*/
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -37,7 +39,7 @@ void C_Mesh::Draw()
 				if (material->HasTexture()) 
 				{
 					glBindTexture(GL_TEXTURE_2D, material->GetTexID());
-					glTexCoordPointer(2, GL_FLOAT, 0, &(texturesCoords[0]));
+					glTexCoordPointer(2, GL_FLOAT, 0, &(resourceMesh->texturesCoords[0]));
 
 				}
 				else {
@@ -46,23 +48,23 @@ void C_Mesh::Draw()
 
 			}
 
-			if (num_index == 0) {// if the mesh has no index
-				glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+			if (resourceMesh->num_index == 0) {// if the mesh has no index
+				glBindBuffer(GL_ARRAY_BUFFER, resourceMesh->id_vertex);
 				glVertexPointer(3, GL_FLOAT, 0, NULL);
-				glDrawArrays(GL_TRIANGLES, 0, num_vertex);
+				glDrawArrays(GL_TRIANGLES, 0, resourceMesh->num_vertex);
 				glBindBuffer(GL_ARRAY_BUFFER, 0); //resets the buffer
 			}
 			else {
 
-				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index); // test: before it was 2 lines upper
-				glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, resourceMesh->id_index); // test: before it was 2 lines upper
+				glBindBuffer(GL_ARRAY_BUFFER, resourceMesh->id_vertex);
 				glVertexPointer(3, GL_FLOAT, 0, NULL);
 				GLenum error = glGetError();
 
-				if (num_normals > 0)
+				if (resourceMesh->num_normals > 0)
 				{
 					glEnableClientState(GL_NORMAL_ARRAY);
-					glBindBuffer(GL_ARRAY_BUFFER, id_normals);
+					glBindBuffer(GL_ARRAY_BUFFER, resourceMesh->id_normals);
 					glNormalPointer(GL_FLOAT, 0, NULL);
 				}
 
@@ -75,7 +77,7 @@ void C_Mesh::Draw()
 					glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Set color of everything back to white
 				}
 
-				glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL);
+				glDrawElements(GL_TRIANGLES, resourceMesh->num_index, GL_UNSIGNED_INT, NULL);
 
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 				glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -96,21 +98,21 @@ void C_Mesh::Draw()
 
 void C_Mesh::SetMeshBuffer()
 {
-	glGenBuffers(1, (GLuint*)&(id_vertex));
-	glGenBuffers(1, (GLuint*)&(id_normals));// generates 1 buffer. then it assign a GLuint to its mem adress.
+	glGenBuffers(1, (GLuint*)&(resourceMesh->id_vertex));
+	glGenBuffers(1, (GLuint*)&(resourceMesh->id_normals));// generates 1 buffer. then it assign a GLuint to its mem adress.
 
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertex); // set the type of buffer
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * num_vertex, &vertex[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, resourceMesh->id_vertex); // set the type of buffer
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * resourceMesh->num_vertex, &resourceMesh->vertex[0], GL_STATIC_DRAW);
 
 
-	glBindBuffer(GL_ARRAY_BUFFER, id_normals);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * num_normals, &normals[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, resourceMesh->id_normals);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * resourceMesh->num_normals, &resourceMesh->normals[0], GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	if (num_index > 0) {
-		glGenBuffers(1, (GLuint*)&(id_index));
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_index, &index[0], GL_STATIC_DRAW);
+	if (resourceMesh->num_index > 0) {
+		glGenBuffers(1, (GLuint*)&(resourceMesh->id_index));
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, resourceMesh->id_index);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * resourceMesh->num_index, &resourceMesh->index[0], GL_STATIC_DRAW);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 }
@@ -122,11 +124,11 @@ Component::Type C_Mesh::GetComponentType()
 
 void C_Mesh::DrawVertexNormals()
 {
-	for (int j = 0; j < num_normals; j++)
+	for (int j = 0; j < resourceMesh->num_normals; j++)
 	{
 		glBegin(GL_LINES);
-		glVertex3f(vertex[j].x, vertex[j].y, vertex[j].z);
-		glVertex3f(vertex[j].x - normals[j].x, vertex[j].y - normals[j].y, vertex[j].z - normals[j].z);
+		glVertex3f(resourceMesh->vertex[j].x, resourceMesh->vertex[j].y, resourceMesh->vertex[j].z);
+		glVertex3f(resourceMesh->vertex[j].x - resourceMesh->normals[j].x, resourceMesh->vertex[j].y - resourceMesh->normals[j].y, resourceMesh->vertex[j].z - resourceMesh->normals[j].z);
 		glLineWidth(1.0f);
 		glEnd();
 	}
@@ -140,21 +142,21 @@ bool C_Mesh::Save(Config* data)
 	data->AddUInt("UUID", component_UUID);
 	data->AddUInt("Owner UUID", owner->GetUUID());
 
-	data->AddUInt("id_index", id_index);
-	data->AddUInt("num_index", num_index);
-	data->AddUInt("index", (uint)index);
+	data->AddUInt("id_index", resourceMesh->id_index);
+	data->AddUInt("num_index", resourceMesh->num_index);
+	data->AddUInt("index", (uint)resourceMesh->index);
 
-	data->AddUInt("id_vertex", id_vertex);
-	data->AddUInt("num_vertex", num_vertex);
-	float3 vertex_aux;vertex_aux.x = vertex->x;vertex_aux.y = vertex->y;vertex_aux.z = vertex->z;
+	data->AddUInt("id_vertex", resourceMesh->id_vertex);
+	data->AddUInt("num_vertex", resourceMesh->num_vertex);
+	float3 vertex_aux;vertex_aux.x = resourceMesh->vertex->x;vertex_aux.y = resourceMesh->vertex->y;vertex_aux.z = resourceMesh->vertex->z;
 	data->AddVector3("vertex", vertex_aux);
 
-	data->AddUInt("id_normals", id_normals);
-	data->AddUInt("num_normals", num_normals);
-	float3 normals_aux; normals_aux.x = normals->x; normals_aux.y = normals->y; normals_aux.z = normals->z;
+	data->AddUInt("id_normals", resourceMesh->id_normals);
+	data->AddUInt("num_normals", resourceMesh->num_normals);
+	float3 normals_aux; normals_aux.x = resourceMesh->normals->x; normals_aux.y = resourceMesh->normals->y; normals_aux.z = resourceMesh->normals->z;
 	data->AddVector3("normals", normals_aux);
 
-	data->AddUInt("num_textureCoords", num_textureCoords);
+	data->AddUInt("num_textureCoords", resourceMesh->num_textureCoords);
 	//float2* texturesCoords = nullptr;
 
 	data->AddBool("vertex_normals_active", vertex_normals_active);
@@ -171,3 +173,11 @@ void C_Mesh::SetMaterial(C_Material* tex)
 {
 	material = tex;
 }
+
+void C_Mesh::SetResource(uint resource)
+{
+	resourceMesh = (ResourceMesh*)App->resources->Get(resource);
+	resourceMesh->LoadInMemory();
+	component_UUID = resource;
+}
+

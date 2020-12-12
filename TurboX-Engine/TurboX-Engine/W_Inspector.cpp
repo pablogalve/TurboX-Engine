@@ -4,6 +4,7 @@
 #include "MathGeoLib/MathGeoLib.h"
 #include "MathGeoLib/Math/float3.h"
 #include "GameObject.h"
+#include "ResourceMesh.h"
 
 W_Inspector::W_Inspector()
 {
@@ -155,18 +156,24 @@ void W_Inspector::Draw()
 		
 		C_Mesh* mesh = (C_Mesh*)gameObject->GetComponent(Component::Type::Mesh);
 
+
 		if(ImGui::CollapsingHeader("Mesh") && mesh != nullptr)
 		{
+			uint n_index = mesh->GetResourceMesh()->num_index;
+			uint n_vertex = mesh->GetResourceMesh()->num_vertex;
+			uint n_normals = mesh->GetResourceMesh()->num_normals;
+			uint n_textureCoord = mesh->GetResourceMesh()->num_textureCoords;
+
 			ImGui::Checkbox("Active", &mesh->active);
 
 			ImGui::Text("Index: "); ImGui::SameLine();
-			ImGui::TextColored(yellow, "%u", mesh->num_index);
+			ImGui::TextColored(yellow, "%u", n_index);
 			ImGui::Text("Normals: "); ImGui::SameLine();
-			ImGui::TextColored(yellow, "%u", mesh->num_normals);
+			ImGui::TextColored(yellow, "%u", n_normals);
 			ImGui::Text("Vertices: "); ImGui::SameLine();
-			ImGui::TextColored(yellow, "%u", mesh->num_vertex);
+			ImGui::TextColored(yellow, "%u", n_vertex);
 			ImGui::Text("Tex Coords: "); ImGui::SameLine();
-			ImGui::TextColored(yellow, "%u", mesh->num_textureCoords);
+			ImGui::TextColored(yellow, "%u", n_textureCoord);
 
 			ImGui::Checkbox("Vertex Normals:", &mesh->vertex_normals_active);
 			//ImGui::Checkbox("Face Normals:", &mesh->face_normals_active);

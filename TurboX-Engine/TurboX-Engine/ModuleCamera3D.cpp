@@ -13,6 +13,7 @@
 #include "Component_Camera.h"
 #include "Component_Mesh.h"
 #include "Component_Transformation.h"
+#include "ResourceMesh.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -336,14 +337,18 @@ float ModuleCamera3D::hitsTriangle(GameObject* gameObject, LineSegment ray)
 
 	C_Mesh* mesh = (C_Mesh*)gameObject->GetComponent(Component::Type::Mesh);
 
+
 	if (mesh != nullptr)
 	{
-		for (int i = 0; i < mesh->num_index;)
+		uint* indices = mesh->GetResourceMesh()->index;
+		float3* vertices = mesh->GetResourceMesh()->vertex;
+
+		for (int i = 0; i < mesh->GetResourceMesh()->num_index;)
 		{
 			math::Triangle tri;
-			tri.a = mesh->vertex[mesh->index[i]]; ++i;
-			tri.b = mesh->vertex[mesh->index[i]]; ++i;
-			tri.c = mesh->vertex[mesh->index[i]]; ++i;
+			tri.a = vertices[indices[i]]; ++i;
+			tri.b = vertices[indices[i]]; ++i;
+			tri.c = vertices[indices[i]]; ++i;
 
 			float distance;
 			float3 intPoint;

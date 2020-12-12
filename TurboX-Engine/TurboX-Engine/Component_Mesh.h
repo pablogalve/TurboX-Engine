@@ -15,6 +15,8 @@
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
 
+class ResourceMesh;
+
 class C_Mesh : public Component {
 public:
 	C_Mesh(Component::Type type, GameObject* owner);
@@ -31,22 +33,13 @@ public:
 
 	bool Save(Config* data) override;
 	bool Load(Config* data) override;
+
+	void SetResource(uint resource)override;
+	ResourceMesh* GetResourceMesh() const { return resourceMesh; }
+
 public:
 	
-	uint id_index = -1;
-	uint num_index = 0;
-	uint* index = nullptr;
-
-	uint id_vertex = -1;
-	uint num_vertex = 0;
-	float3* vertex = nullptr;
-
-	uint id_normals = -1;
-	uint num_normals = 0;
-	float3* normals = nullptr;
-
-	uint num_textureCoords = 0;
-	float2* texturesCoords = nullptr;
+	ResourceMesh* resourceMesh = nullptr;
 
 	C_Material* material = nullptr;
 	C_Transform* transform = nullptr;

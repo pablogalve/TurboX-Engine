@@ -38,6 +38,7 @@ public:
 
 	void LoadFBXScene(const char* FBXpath);
 	C_Material* ImportMaterialToResource(aiMaterial* mat, GameObject* owner);
+	C_Mesh* ImportMeshToResource(aiMesh* mesh, const char* turboxName, GameObject* owner); //loads a single mesh (1.2)
 
 	void LoadMeshTURBOX(const char* fileNameTURBOX, ResourceMesh* resource);
 

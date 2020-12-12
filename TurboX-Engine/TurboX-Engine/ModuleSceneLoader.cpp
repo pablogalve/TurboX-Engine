@@ -10,6 +10,7 @@
 #include "ModuleScene.h"
 #include "ModuleResources.h"
 #include "GameObject.h"
+#include "ModuleTexture.h"
 #pragma comment (lib, "Libraries/Assimp/libx86/assimp.lib")
 
 SceneImporter::SceneImporter(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -56,7 +57,46 @@ bool SceneImporter::ImportScene(const char* FBXpath, std::vector<std::string>* w
 	}
 
 	uint numMaterials = scene->mNumMaterials;
-	
+	uint* materialIDs = new uint[scene->mNumMaterials];
+
+	if (ret && scene->HasMaterials()) {
+		MY_LOG("Importing FBX texture to DDS from %s", FBXpath);
+		for (int i = 0; i < numMaterials; i++) {
+
+			aiMaterial* material = scene->mMaterials[i];
+
+
+
+			aiString texturePath;
+			aiReturn retu = material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath);
+			if (retu == aiReturn_SUCCESS) {
+
+				std::string textureName;
+				std::string extension;
+				App->file_system->GetNameFromPath(texturePath.C_Str(), nullptr, &textureName, nullptr, nullptr);
+				App->file_system->GetNameFromPath(texturePath.C_Str(), nullptr, nullptr, nullptr, &extension);
+
+				std::string texDDSPath;
+				if (extension != DDS_FORMAT) {
+					std::string texAssetsPath = TEXTURES_PATH + textureName + extension;
+					ret = App->texture_importer->ImportToDDS(texAssetsPath.c_str(), textureName.c_str());
+					if (!ret) {
+						ret = App->texture_importer->ImportToDDS(texturePath.C_Str(), textureName.c_str());
+					}
+					texDDSPath = LIB_TEXTURES_PATH + textureName + DDS_FORMAT;
+
+				}
+				else {
+					texDDSPath = TEXTURES_PATH + textureName + DDS_FORMAT;
+					App->file_system->CopyDDStoLib(texDDSPath.c_str(), nullptr);
+				}
+			}
+			else {
+				MY_LOG("Error loading texture from fbx. Error: %s", aiGetErrorString());
+			}
+		}
+	}
+
 	if (ret && scene->HasMeshes()) 
 	{
 		MY_LOG("Importing FBX mesh to turbox from %s", FBXpath);
@@ -234,9 +274,6 @@ GameObject* SceneImporter::ImportNodeRecursive(aiNode* node, const aiScene* scen
 				aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 				aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
-				std::string meshName = nodeGO->name;
-
-				C_Mesh* compMesh = (C_Mesh*)nodeGO->CreateComponent(Component::Type::Mesh);
 				C_Material* compMat = (C_Material*)nodeGO->CreateComponent(Component::Type::Material);
 
 				if (material) 
@@ -250,7 +287,37 @@ GameObject* SceneImporter::ImportNodeRecursive(aiNode* node, const aiScene* scen
 					}
 				}
 
-				compMesh->num_vertex = mesh->mNumVertices;
+				std::string meshName = nodeGO->name;
+
+				C_Mesh* newMesh = nullptr;
+
+				uint resourceUUID = App->resources->FindByName(meshName.c_str(), Resource::ResType::Mesh);
+				
+				if (resourceUUID != 0)
+				{
+					newMesh = (C_Mesh*)nodeGO->CreateComponent(Component::Type::Mesh);
+					newMesh->SetResource(resourceUUID);
+					//nodeGO->boundingBox.SetNegativeInfinity();
+					//nodeGO->boundingBox.Enclose((float3*)compMesh->vertex, compMesh->num_vertex);
+				}
+
+				if (newMesh != nullptr)
+				{
+					if (compMat) 
+					{
+						newMesh->SetMaterial(compMat);
+					}
+				}
+				else {
+					RELEASE(newMesh);
+				}
+
+				compMat = nullptr;
+				newMesh = nullptr;
+				mesh = nullptr;
+				material = nullptr;
+
+				/*compMesh->num_vertex = mesh->mNumVertices;
 				compMesh->vertex = new float3[compMesh->num_vertex];
 				memcpy(compMesh->vertex, mesh->mVertices, sizeof(float3) * compMesh->num_vertex);
 				MY_LOG("New mesh with %d vertices", compMesh->num_vertex);
@@ -286,18 +353,13 @@ GameObject* SceneImporter::ImportNodeRecursive(aiNode* node, const aiScene* scen
 				}
 				else {
 					MY_LOG("Error loading mesh");
-				}
+				}*/
 
-				compMesh->SetMaterial(compMat);
 
 				//Calculate bounding box
-				nodeGO->boundingBox.SetNegativeInfinity();
-				nodeGO->boundingBox.Enclose((float3*)compMesh->vertex, compMesh->num_vertex);
-
-				compMesh->SetMeshBuffer();
-				compMesh = nullptr;
-				mesh = nullptr;
-				material = nullptr;
+				//nodeGO->boundingBox.SetNegativeInfinity();
+				//nodeGO->boundingBox.Enclose((float3*)compMesh->vertex, compMesh->num_vertex);
+				
 
 			}
 		}
@@ -357,6 +419,22 @@ C_Material* SceneImporter::ImportMaterialToResource(aiMaterial* material, GameOb
 	
 
 	return mat;
+}
+
+C_Mesh* SceneImporter::ImportMeshToResource(aiMesh* mesh, const char* peiName, GameObject* owner)
+{
+
+	bool error = false;
+	C_Mesh* newMesh = nullptr;
+	uint resourceUUID = App->resources->FindByName(peiName, Resource::ResType::Mesh);
+	if (resourceUUID != 0) {//checks if resource already exists
+		newMesh = new C_Mesh(Component::Type::Mesh, owner);
+		newMesh->SetResource(resourceUUID);
+		//nodeGO->boundingBox.SetNegativeInfinity();
+		//nodeGO->boundingBox.Enclose((float3*)compMesh->vertex, compMesh->num_vertex);
+		//newMesh->CreateBBox();
+	}
+	return newMesh;
 }
 
 void SceneImporter::LoadMeshTURBOX(const char* fileNameTURBOX, ResourceMesh* resource) {

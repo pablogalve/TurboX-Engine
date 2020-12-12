@@ -29,7 +29,7 @@ bool ModuleResources::Start()
 
 update_status ModuleResources::PreUpdate(float dt)
 {
-	/*if (!App->scene->inGame) 
+	if (!App->scene->inGame) 
 	{
 		if (lastCheck.Read() > MS_TO_CHECK_META) 
 		{
@@ -40,7 +40,7 @@ update_status ModuleResources::PreUpdate(float dt)
 	else
 	{
 		lastCheck.Stop();
-	}*/
+	}
 
 	return UPDATE_CONTINUE;
 }

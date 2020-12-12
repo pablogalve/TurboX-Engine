@@ -1,7 +1,7 @@
 #include "GameObject.h"
 #include "Application.h"
 #include "ModuleScene.h"
-
+#include "ResourceMesh.h"
 GameObject::GameObject()
 {	
 	active = true;
@@ -298,7 +298,9 @@ void GameObject::RecalculateBB()
 
 		if (mesh != nullptr)
 		{
-			boundingBox.Enclose((float3*)mesh->vertex, mesh->num_vertex);
+			float3* vertices = mesh->GetResourceMesh()->vertex;
+			uint n_vertex = mesh->GetResourceMesh()->num_vertex;
+			boundingBox.Enclose(vertices, n_vertex);
 		}
 
 		if (childs.size() <= 0)
