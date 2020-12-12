@@ -171,9 +171,9 @@ bool GameObject::Save(Config* data)
 	//Save components info
 	for (size_t i = 0; i < components.size(); i++)
 	{
-		Config componentsData;
+		Config componentsData;	
 		components[i]->Save(&componentsData);
-		data->AddArrayChild(componentsData);
+		data->AddArrayChild(componentsData);		
 	}
 
 	return ret;
@@ -210,6 +210,35 @@ bool GameObject::Load(Config* data)
 	}
 
 	return ret;
+}
+
+void GameObject::GetComponents(Component::Type type, std::vector<Component*>& comp)
+{
+	for (int i = 0; i < components.size(); i++) {
+		if (components[i]->GetComponentType() == type) {
+			comp.push_back(components[i]);
+		}
+	}
+
+	for (int i = 0; i < childs.size(); i++) {
+		childs[i]->GetComponents(type, comp);
+	}
+}
+
+C_Material* GameObject::GetComponentMaterial(uint UUID)
+{
+	std::vector<Component*> materials;
+
+	GetComponents(Component::Type::Material, materials);
+	for (int i = 0; i < materials.size(); i++){
+		C_Material* it = (C_Material*)materials[i];
+		const uint auxuuid = it->GetResourceUUID();
+		if (auxuuid == UUID) {
+			return it;
+		}
+		it = nullptr;
+	}
+	return nullptr;
 }
 
 void GameObject::setSelected(bool selected)
