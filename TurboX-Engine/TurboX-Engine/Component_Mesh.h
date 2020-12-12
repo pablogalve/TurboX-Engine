@@ -43,7 +43,6 @@ public:
 
 	C_Material* material = nullptr;
 	C_Transform* transform = nullptr;
-	ResourceMesh* resourceMesh = nullptr;
 
 	bool vertex_normals_active;
 };
