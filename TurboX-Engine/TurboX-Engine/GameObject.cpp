@@ -1,7 +1,9 @@
 #include "GameObject.h"
 #include "Application.h"
 #include "ModuleScene.h"
+#include "ModuleRenderer3D.h"
 #include "ResourceMesh.h"
+
 GameObject::GameObject()
 {	
 	active = true;
@@ -113,7 +115,7 @@ void GameObject::Draw()
 		}
 	}
 
-	if (is_selected)
+	if (App->renderer3D->ShowBB || is_selected)
 	{
 		DrawBB(boundingBox, { 0, 0.5f, 1 });
 	}

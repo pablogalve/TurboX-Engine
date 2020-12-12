@@ -61,7 +61,9 @@ public:
 	bool _wireframe;
 	bool _texture;
 	bool _loadFBXTest;
-	bool changedFOV = false;
+	bool changedFOV;
+	bool ShowBB;
+	bool ShowRayCast;
 
 	GLuint frameBuffer;
 	GLuint texColorBuffer;

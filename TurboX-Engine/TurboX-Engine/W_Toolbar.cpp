@@ -37,6 +37,10 @@ void W_Toolbar::Draw()
 	ImGui::SameLine();
 	if (ImGui::Checkbox("Color material", &App->renderer3D->_color_material))
 		App->renderer3D->GL_Enable(GL_COLOR_MATERIAL, App->renderer3D->_color_material);
+	ImGui::SameLine();
+	if (ImGui::Checkbox("Bounding Boxes", &App->renderer3D->ShowBB));
+	ImGui::SameLine();
+	if (ImGui::Checkbox("Show Ray Cast", &App->renderer3D->ShowRayCast));
 
 	if (ImGui::ArrowButton("Play", ImGuiDir_Right))
 	{
