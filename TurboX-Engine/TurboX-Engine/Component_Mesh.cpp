@@ -5,6 +5,8 @@
 #include "ModuleScene.h"
 #include "ModuleConsole.h"
 #include "ModuleFileSystem.h"
+#include "ResourceMesh.h"
+#include "ModuleResources.h"
 
 #pragma comment (lib, "Libraries/glew/glew32.lib")    /* link OpenGL Utility lib*/
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -139,32 +141,26 @@ bool C_Mesh::Save(Config* data)
 	data->AddString("Component", "Mesh");
 	data->AddUInt("UUID", component_UUID);
 	data->AddUInt("Owner UUID", owner->GetUUID());
+	data->AddInt("Type", Component::Type::Mesh);
 
-	data->AddUInt("id_index", id_index);
-	data->AddUInt("num_index", num_index);
-	data->AddUInt("index", (uint)index);
-
-	data->AddUInt("id_vertex", id_vertex);
-	data->AddUInt("num_vertex", num_vertex);
-	float3 vertex_aux;vertex_aux.x = vertex->x;vertex_aux.y = vertex->y;vertex_aux.z = vertex->z;
-	data->AddVector3("vertex", vertex_aux);
-
-	data->AddUInt("id_normals", id_normals);
-	data->AddUInt("num_normals", num_normals);
-	float3 normals_aux; normals_aux.x = normals->x; normals_aux.y = normals->y; normals_aux.z = normals->z;
-	data->AddVector3("normals", normals_aux);
-
-	data->AddUInt("num_textureCoords", num_textureCoords);
-	//float2* texturesCoords = nullptr;
-
-	data->AddBool("vertex_normals_active", vertex_normals_active);
+	if (material != nullptr)
+		data->AddUInt("Texture_UUID", material->GetResourceUUID());
+	
+	if (resourceMesh != nullptr) 
+		data->AddString("Custom_File", resourceMesh->GetName());	
 
 	return ret;
 }
 
 bool C_Mesh::Load(Config* data)
 {
-	return false;
+	MY_LOG("Load Component Mesh");
+	component_UUID = data->GetUInt("UUID");
+	SetMaterial(owner->GetComponentMaterial(data->GetUInt("Texture_UUID")));
+	string custom_file = data->GetString("Custom_File");
+	resourceMesh = (ResourceMesh*)App->resources->Get(App->resources->FindByName(custom_file.c_str(), Resource::ResType::Mesh)); 
+	//resourceMesh->LoadInMemory(); //TODO: Resources list is empty, so FindByName returns null
+	return true;
 }
 
 void C_Mesh::SetMaterial(C_Material* tex)

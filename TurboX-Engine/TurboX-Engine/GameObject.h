@@ -50,6 +50,9 @@ public:
 
 	bool Save(Config* data);
 	bool Load(Config* data);
+
+	void GetComponents(Component::Type type, std::vector<Component*>& comp);
+	C_Material* GetComponentMaterial(uint UUID);
 public:	
 	std::string name;
 	vector<Component*> components;

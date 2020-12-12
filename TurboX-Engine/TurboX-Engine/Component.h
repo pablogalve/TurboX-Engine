@@ -9,8 +9,8 @@ class Resource;
 
 class Component {
 public:
-	enum class Type{
-		None,
+	enum Type{
+		None = 0,
 		Transform,
 		Mesh,
 		Material,

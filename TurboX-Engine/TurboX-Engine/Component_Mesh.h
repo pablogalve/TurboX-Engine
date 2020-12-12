@@ -15,6 +15,8 @@
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
 
+class ResourceMesh;
+
 class C_Mesh : public Component {
 public:
 	C_Mesh(Component::Type type, GameObject* owner);
@@ -50,6 +52,7 @@ public:
 
 	C_Material* material = nullptr;
 	C_Transform* transform = nullptr;
+	ResourceMesh* resourceMesh = nullptr;
 
 	bool vertex_normals_active;
 };

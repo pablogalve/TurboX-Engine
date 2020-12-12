@@ -152,9 +152,6 @@ bool ModuleResources::ManageResourceWithMeta(const char* resource, const char* m
 		return false;
 	}
 
-
-
-
 	uint resourceUUID = meta.GetUInt("ResourceUUID", 0);
 	if (Get(resourceUUID)) {
 		return true;
