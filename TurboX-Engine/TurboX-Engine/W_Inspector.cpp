@@ -5,9 +5,11 @@
 #include "MathGeoLib/Math/float3.h"
 #include "GameObject.h"
 #include "ResourceMesh.h"
+#include "ModuleScene.h"
 
 W_Inspector::W_Inspector()
 {
+	active = true;
 }
 
 W_Inspector::~W_Inspector()
@@ -16,11 +18,12 @@ W_Inspector::~W_Inspector()
 
 void W_Inspector::Draw()
 {
-	ImGui::Begin("Inspector");
 
-	if (App->editor->hierarchy_window->selectedGameObjects.size() == 1) {
-				
-		GameObject* gameObject = App->editor->hierarchy_window->selectedGameObjects[0];
+	ImGui::Begin("Inspector", &active, ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_AlwaysVerticalScrollbar);
+	
+	if (App->scene->selected_GO != nullptr)
+	{
+		GameObject* gameObject = App->scene->selected_GO;
 
 		C_Transform* transform = (C_Transform*)gameObject->GetComponent(Component::Type::Transform);
 		

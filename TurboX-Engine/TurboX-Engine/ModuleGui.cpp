@@ -35,9 +35,6 @@ bool ModuleGui::Start()
 	// Setup style
 	ImGui::StyleColorsDark();
 
-	ImGuizmo::Enable(false);
-
-
 	return ret;
 }
 
@@ -74,4 +71,9 @@ bool ModuleGui::CleanUp()
 	ImGui::DestroyContext();
 
 	return ret;
+}
+
+bool ModuleGui::isMouseOnGUI() const
+{
+	return ImGui::GetIO().WantCaptureMouse && !hoveringScene;
 }

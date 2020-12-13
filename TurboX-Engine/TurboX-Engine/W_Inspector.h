@@ -16,6 +16,7 @@ public:
 
 public:
 	char nameBuffer[256];
+	bool active;
 };
 
 #endif // !__INSPECTOR_H_

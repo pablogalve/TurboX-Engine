@@ -2,6 +2,8 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Config_JSON.h"
+#include "ModuleGUI.h"
+#include "Application.h"
 
 #define MAX_MOUSE_BUTTONS 5
 
@@ -46,7 +48,10 @@ public:
 	}
 	KEY_STATE GetMouseButton(int id) const
 	{
-		return mouse_buttons[id];
+		if (App->gui->isMouseOnGUI())
+			return KEY_IDLE;
+		else
+			return mouse_buttons[id];
 	}
 	
 	int GetMouseX() const

@@ -34,9 +34,6 @@ void W_Hierarchy::DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags defa
 		flags |= ImGuiTreeNodeFlags_Leaf;
 	}
 
-	if (gameObject->Get_IsSelected())
-		flags |= ImGuiTreeNodeFlags_Selected;
-
 	if (gameObject != root)
 		drawAgain = ImGui::TreeNodeEx(gameObject, flags, gameObject->name.c_str());
 	else
@@ -52,10 +49,6 @@ void W_Hierarchy::DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags defa
 			SelectSingle(gameObject);
 		}
 	}
-	else if (ImGui::IsItemClicked(1) && ImGui::IsWindowHovered()) {
-		open_pop_up = true;
-		if (gameObject->Get_IsSelected() == false) {
-			DeselectAll();
 			SelectSingle(gameObject);
 		}
 	}
@@ -96,34 +89,4 @@ void W_Hierarchy::OpenPopUpWindow()
 void W_Hierarchy::SetShowWindow()
 {
 	showWindow = !showWindow;
-}
-
-void W_Hierarchy::SelectSingle(GameObject* gameObject)
-{
-	gameObject->Select();
-	selectedGameObjects.push_back(gameObject);
-}
-
-void W_Hierarchy::UnSelectSingle(GameObject* gameObject)
-{
-	gameObject->Unselect();
-
-	vector<GameObject*>::iterator it = selectedGameObjects.begin();
-	while (it != selectedGameObjects.end()) 
-	{
-		if ((*it) == gameObject)
-		{
-			selectedGameObjects.erase(it);
-			break;
-		}
-	}
-}
-
-void W_Hierarchy::DeselectAll()
-{
-	for (size_t i = 0; i < selectedGameObjects.size(); i++)
-	{
-		selectedGameObjects[i]->Unselect();
-	}
-	selectedGameObjects.clear();
 }

@@ -15,6 +15,10 @@ public:
 	update_status Update(float dt);
 	void Draw();
 	bool CleanUp();
+	bool isMouseOnGUI() const;
+
+	bool hoveringScene = false;
+
 };
 
 #endif

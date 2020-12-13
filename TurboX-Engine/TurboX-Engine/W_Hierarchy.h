@@ -29,6 +29,8 @@ public:
 public:
 	std::vector<GameObject*> selectedGameObjects;
 	bool open_pop_up;
+	bool active;
+
 };
 
 #endif // !__HIERARCHY_H_

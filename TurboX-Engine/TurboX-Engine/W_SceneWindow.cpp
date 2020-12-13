@@ -6,6 +6,8 @@
 #include "Component_Camera.h"
 #include "ModuleEditor.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleGui.h"
+#include "ModuleInput.h"
 #include "MathGeoLib/MathGeoLib.h"
 
 W_SceneWindow::W_SceneWindow()
@@ -40,6 +42,9 @@ void W_SceneWindow::Draw(GLuint texture)
 	App->editor->sceneH = size.y;
 
 	ImGui::Image((ImTextureID)App->renderer3D->texColorBuffer, { (float)size.x, (float)size.y }, { 0,1 }, { 1,0 });
+
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) != KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) != KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) != KEY_REPEAT)
+		App->gui->hoveringScene = ImGui::IsWindowHovered();
 
 	ImGuizmo::SetDrawlist();
 

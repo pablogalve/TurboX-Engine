@@ -305,7 +305,7 @@ void ModuleScene::DrawGuizmo(ImGuizmo::OPERATION operation)
 
 	if (transform != nullptr)
 	{
-		ImGuizmo::Enable(!selected_GO->isStatic);
+		ImGuizmo::Enable(true);
 
 		if (operation == ImGuizmo::NO_OPERATION)
 		{
