@@ -364,7 +364,7 @@ bool ModuleScene::LoadSettings(Config* data)
 {
 	bool ret = true;
 	
-	LoadScene(DEFAULT_SCENE_FILE);
+	//LoadScene(DEFAULT_SCENE_FILE);
 
 	return ret;
 }
