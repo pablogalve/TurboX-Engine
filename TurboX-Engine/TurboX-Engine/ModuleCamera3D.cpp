@@ -20,14 +20,15 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	name = "Camera";
 
 	X = { 1.0f,0.0f,0.0f };
-	Y = { 0.0f,1.0f,0.0f };
+	Y = { 1.0f,1.0f,0.0f };
 	Z = { 0.0f,0.0f,1.0f };
-	Position = { 0.0f,10.0f,10.0f };
+	Position = { 0.0f, 20.0f, 30.0f };
 	Reference = { 0.0f,0.0f,0.0f };
-
+	
 	cameraLookingAtSelectedGameObject = false;
 	camera = new C_Camera(Component::Type::Camera, nullptr);
 	camera->active = false;
+
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -36,9 +37,6 @@ ModuleCamera3D::~ModuleCamera3D()
 // -----------------------------------------------------------------
 bool ModuleCamera3D::Start()
 {
-
-	LookAt(Reference);
-
 	MY_LOG("Setting up the camera");
 	bool ret = true;
 
