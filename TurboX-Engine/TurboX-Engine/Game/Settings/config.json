@@ -47,15 +47,15 @@
             "GameObjects": [
                 {
                     "Name": "Camera",
-                    "UUID": 1223557011,
-                    "ParentUUID": 67644171,
+                    "UUID": 1418739588,
+                    "ParentUUID": 1763443070,
                     "Active": true,
                     "Static": false,
                     "Components": [
                         {
                             "Component": "Transform",
-                            "UUID": 1224392463,
-                            "Owner UUID": 1223557011,
+                            "UUID": 1419226935,
+                            "Owner UUID": 1418739588,
                             "Position": [
                                 0,
                                 0,
@@ -116,22 +116,22 @@
                         },
                         {
                             "Component": "Camera",
-                            "UUID": 1247088909,
-                            "Owner UUID": 1223557011
+                            "UUID": 1469005950,
+                            "Owner UUID": 1418739588
                         }
                     ]
                 },
                 {
                     "Name": "BakerHouse",
-                    "UUID": 2024160987,
+                    "UUID": 465660131,
                     "ParentUUID": 3452816845,
                     "Active": true,
                     "Static": false,
                     "Components": [
                         {
                             "Component": "Transform",
-                            "UUID": 2024717955,
-                            "Owner UUID": 2024160987,
+                            "UUID": 466286720,
+                            "Owner UUID": 465660131,
                             "Position": [
                                 0,
                                 0,
@@ -194,15 +194,15 @@
                 },
                 {
                     "Name": "Chimney",
-                    "UUID": 2031749676,
-                    "ParentUUID": 2024160987,
+                    "UUID": 482090687,
+                    "ParentUUID": 465660131,
                     "Active": true,
                     "Static": false,
                     "Components": [
                         {
                             "Component": "Transform",
-                            "UUID": 2032028160,
-                            "Owner UUID": 2031749676,
+                            "UUID": 482438792,
+                            "Owner UUID": 482090687,
                             "Position": [
                                 0,
                                 0,
@@ -214,7 +214,7 @@
                                 100
                             ],
                             "Rotation": [
-                                0,
+                                -90.000007629394531,
                                 0,
                                 0
                             ],
@@ -261,28 +261,33 @@
                                 1
                             ]
                         },
-                        {},
+                        {
+                            "Component": "Material",
+                            "UUID": 528110168,
+                            "Owner UUID": 482090687,
+                            "Texture Name": "Baker_house"
+                        },
                         {
                             "Component": "Mesh",
-                            "UUID": 1716129802,
-                            "Owner UUID": 2031749676,
+                            "UUID": 1439224638,
+                            "Owner UUID": 482090687,
                             "Type": 2,
-                            "Texture_UUID": 785217164,
+                            "Texture_UUID": 807320540,
                             "Custom_File": "Chimney"
                         }
                     ]
                 },
                 {
                     "Name": "Baker_house",
-                    "UUID": 1386382738,
-                    "ParentUUID": 2024160987,
+                    "UUID": 673940176,
+                    "ParentUUID": 465660131,
                     "Active": true,
                     "Static": false,
                     "Components": [
                         {
                             "Component": "Transform",
-                            "UUID": 1386939706,
-                            "Owner UUID": 1386382738,
+                            "UUID": 674427523,
+                            "Owner UUID": 673940176,
                             "Position": [
                                 0,
                                 0,
@@ -294,7 +299,7 @@
                                 100
                             ],
                             "Rotation": [
-                                0,
+                                -90.000007629394531,
                                 0,
                                 0
                             ],
@@ -341,13 +346,18 @@
                                 1
                             ]
                         },
-                        {},
+                        {
+                            "Component": "Material",
+                            "UUID": 700256914,
+                            "Owner UUID": 673940176,
+                            "Texture Name": "Unnamed"
+                        },
                         {
                             "Component": "Mesh",
-                            "UUID": 1768902520,
-                            "Owner UUID": 1386382738,
+                            "UUID": 1477098462,
+                            "Owner UUID": 673940176,
                             "Type": 2,
-                            "Texture_UUID": 785217164,
+                            "Texture_UUID": 807320540,
                             "Custom_File": "Baker_house"
                         }
                     ]

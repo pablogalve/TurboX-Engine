@@ -17,12 +17,13 @@ C_Material::~C_Material()
 bool C_Material::Save(Config* data)
 {
 	bool ret = true;
+	data->AddString("Component", "Material");
 	data->AddUInt("UUID", component_UUID);
 	data->AddUInt("Owner UUID", owner->GetUUID());
 
 	if (resourceTexture != nullptr) {
 		data->AddString("Texture Name", resourceTexture->GetName());
-	}
+	}else data->AddString("Texture Name", "Unnamed");
 
 	if (colors.IsZero() == false) {
 		data->AddVector3("Colors", colors);
@@ -61,21 +62,22 @@ Component::Type C_Material::GetComponentType()
 const bool C_Material::HasTexture() const
 {
 	bool ret;
-	resourceTexture ? ret = true : ret = false;
+
+	if (resourceTexture)ret = true;
+	else ret = false;
+
 	return ret;
 }
 
-void C_Material::SetResource(uint resource)
+void C_Material::SetResource(uint resource_uuid)
 {
-	resourceTexture = (ResourceTexture*)App->resources->Get(resource);
+	resourceTexture = (ResourceTexture*)App->resources->Get(resource_uuid);
 	resourceTexture->LoadInMemory();
-	component_UUID = resource;
+	component_UUID = resource_uuid;
 }
 
 const uint C_Material::GetTexID() const
 {
-	if (HasTexture()) {
-		return resourceTexture->gpuID;
-	}
-	return -1;
+	if (HasTexture())return resourceTexture->gpuID;
+	else return -1;
 }
