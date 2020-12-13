@@ -46,6 +46,9 @@ public:
 
 	KEY_STATE GetKey(int id) const
 	{
+		if (App->gui->GUIKeppsKeyboard())
+			return KEY_IDLE;
+		else
 		return keyboard[id];
 	}
 	KEY_STATE GetMouseButton(int id) const

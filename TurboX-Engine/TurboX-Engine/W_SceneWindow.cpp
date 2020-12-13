@@ -44,7 +44,8 @@ void W_SceneWindow::Draw(GLuint texture)
 	ImGui::Image((ImTextureID)App->renderer3D->texColorBuffer, { (float)size.x, (float)size.y }, { 0,1 }, { 1,0 });
 
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) != KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) != KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) != KEY_REPEAT)
-		App->gui->hoveringScene = ImGui::IsWindowHovered();
+		App->gui->hoveringScene = ImGui::IsMouseHoveringWindow();
+	
 
 	ImGuizmo::SetDrawlist();
 

@@ -20,7 +20,7 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	name = "Camera";
 
 	X = { 1.0f,0.0f,0.0f };
-	Y = { 1.0f,1.0f,0.0f };
+	Y = { 0.0f,1.0f,0.0f };
 	Z = { 0.0f,0.0f,1.0f };
 	Position = { 0.0f, 20.0f, 30.0f };
 	Reference = { 0.0f,0.0f,0.0f };

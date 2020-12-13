@@ -16,6 +16,7 @@ public:
 	void Draw();
 	bool CleanUp();
 	bool isMouseOnGUI() const;
+	bool GUIKeppsKeyboard() const;
 
 	bool hoveringScene = false;
 

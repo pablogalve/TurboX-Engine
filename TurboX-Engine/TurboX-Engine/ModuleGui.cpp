@@ -77,3 +77,8 @@ bool ModuleGui::isMouseOnGUI() const
 {
 	return ImGui::GetIO().WantCaptureMouse && !hoveringScene;
 }
+
+bool ModuleGui::GUIKeppsKeyboard() const
+{
+	return ImGui::GetIO().WantTextInput;
+}
