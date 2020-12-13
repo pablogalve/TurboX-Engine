@@ -10,9 +10,7 @@ class Module
 {
 private :
 	bool enabled;
-
-public:
-	
+public:	
 	Application* App;
 
 	std::string name;

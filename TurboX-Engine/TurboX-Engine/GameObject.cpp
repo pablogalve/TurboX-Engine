@@ -20,6 +20,7 @@ GameObject::GameObject()
 	parent = nullptr;
 	camera = nullptr;
 	
+	parentUUID = 0;
 	UUID = GenerateUUID();	
 
 	CreateComponent(Component::Type::Transform);

@@ -21,11 +21,8 @@
 
 #pragma comment (lib, "Libraries/Assimp/libx86/assimp.lib")
 
-
 class SceneImporter : public Module
 {
-public:
-
 public:
 	SceneImporter(Application* app, bool start_enabled = true);
 	~SceneImporter();
@@ -47,5 +44,4 @@ private:
 	bool ImportMeshRecursive(aiNode* node, const aiScene* scene, std::vector<std::string>* meshesNames, uint forceUUID = 0);
 
 	GameObject* ImportNodeRecursive(aiNode* node, const aiScene* scene, GameObject* parent);
-
 };

@@ -50,10 +50,6 @@ public:
 	void fillHitGameObjects(GameObject* current, std::priority_queue<HitGameObject*, std::vector<HitGameObject*>, OrderCrit>& gameObjects, LineSegment ray);
 	GameObject* checkCloserGameObjects(std::priority_queue<HitGameObject*, std::vector<HitGameObject*>, OrderCrit>& queue, LineSegment ray, float distance = -1);
 	float hitsTriangle(GameObject* gameObject, LineSegment ray);
-private:
-
-	void CalculateViewMatrix();
-
 public:
 	
 	vec X, Y, Z, Position, Reference;
@@ -67,8 +63,6 @@ public:
 	C_Camera* camera = nullptr;
 
 private:
-
 	mat4x4 ViewMatrix, ViewMatrixInverse;
 	bool cameraLookingAtSelectedGameObject;
-
 };

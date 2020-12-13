@@ -9,7 +9,6 @@
 class ModuleAudio : public Module
 {
 public:
-
 	ModuleAudio(Application* app, bool start_enabled = true);
 	~ModuleAudio();
 
@@ -24,10 +23,5 @@ public:
 
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
-
-private:
-
-	
 };
-
 #endif // __ModuleAudio_H__

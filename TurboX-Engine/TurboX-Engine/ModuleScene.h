@@ -49,15 +49,14 @@ private:
 	GameObject* GetGameObjectUUIDRecursive(uint UUID, GameObject* go) const;
 
 public:
-	GameObject* street;
 	GameObject* root;
 
 	std::vector<GameObject*> cameras;
 
-	GameObject* selected_GO = nullptr;
+	GameObject* selected_GO;
 
 	ImGuizmo::OPERATION guizmoOperation;
-	bool inGame = false;
+	bool inGame;
 };
 
 #endif

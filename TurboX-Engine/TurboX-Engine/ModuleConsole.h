@@ -36,9 +36,5 @@ public:
 	ImGuiTextFilter       Filter;
 	bool                  AutoScroll;
 	bool                  ScrollToBottom;
-
-private:
-
 };
-
 #endif //_MODULE_CONSOLE_H

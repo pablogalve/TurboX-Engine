@@ -43,10 +43,10 @@ private:
 
 private:
 
-	JSON_Value* valueRoot = nullptr;
-	JSON_Object* root = nullptr;
-	JSON_Array* array = nullptr;
+	JSON_Value* valueRoot;
+	JSON_Object* root;
+	JSON_Array* json_array;
 
-	bool to_delete = false;
+	bool to_delete;
 };
 #endif //__CONFIG_H__

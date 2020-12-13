@@ -70,8 +70,8 @@ public:
 	GLuint renderBuffer;
 	
 	//Clicking ray debug
-	float3 clickA = float3::zero;
-	float3 clickB = float3::zero;
+	float3 clickA;
+	float3 clickB;
 private:
 	int grid_size;
 

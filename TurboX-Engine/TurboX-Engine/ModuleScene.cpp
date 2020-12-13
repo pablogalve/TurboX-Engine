@@ -16,6 +16,7 @@ ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, sta
 	root = new GameObject();
 	root->name = "root";
 	selected_GO = nullptr;
+	inGame = false;
 	guizmoOperation = ImGuizmo::NO_OPERATION;
 }
 

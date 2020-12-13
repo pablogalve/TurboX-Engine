@@ -94,5 +94,4 @@ private:
 	//int mouse_z_motion;
 
 	char* dropped_filedir;
-
 };

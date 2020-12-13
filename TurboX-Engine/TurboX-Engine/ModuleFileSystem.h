@@ -38,5 +38,4 @@ public:
 	void ShiftPath(std::string* path);
 	bool ExistsFile(const char* path) const;
 };
-
 #endif // __MODULE_FS_H__

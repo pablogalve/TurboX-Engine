@@ -13,9 +13,17 @@
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "Renderer3D";
-
+	
+	_loadFBXTest = false;
+	changedFOV = false;
 	ShowBB = false;
-	ShowRayCast = false;
+	ShowRayCast = false;	
+	grid_size = 0;
+
+	clickA = float3::zero;
+	clickB = float3::zero;
+
+	scene_window = nullptr;
 }
 
 // Destructor
