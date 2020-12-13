@@ -37,8 +37,7 @@ public:
 	void SetResource(uint resource)override;
 	ResourceMesh* GetResourceMesh() const { return resourceMesh; }
 
-public:
-	
+public:	
 	ResourceMesh* resourceMesh = nullptr;
 
 	C_Material* material = nullptr;

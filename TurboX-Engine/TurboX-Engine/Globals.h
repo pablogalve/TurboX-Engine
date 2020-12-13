@@ -37,8 +37,7 @@ enum update_status
 #define WIN_BORDERLESS false
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
-//#define CONFIG_FILE "Settings/config.json" //TODO: Uncomment
-#define CONFIG_FILE "Scenes/StreetEnvironmentScene.json" //TODO: Remove
+#define CONFIG_FILE "Settings/config.json" //TODO: Uncomment
 #define DEFAULT_SCENE_FILE "Scenes/StreetEnvironmentScene.json"
 #define PI 3.1415926f
 #define CHECKERS_WIDTH 64

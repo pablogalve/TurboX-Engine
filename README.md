@@ -19,14 +19,9 @@ Repository Link: [github.com/pablogalve/TurboX-Engine](https://github.com/pablog
 - Alt+Left click: Orbit the object.
 - F: Focus the camera around the geometry.
 - SHIFT: duplicates movement speed.
-
-## Additional functionality
-- Change theme (Dark, light and classic) in Edit > Styling > Change theme
-- Delete gameObjects from the hierarchy with right-click
-- Docking branch implemented to allow multi-viewport
-- Render everything in a scene buffer
-- Group multiple meshes of the FBX in one empty gameObject
-- Rename gameObject name from inspector
+- W: translate
+- R: rotate
+- E: scale
 
 ## LICENSE
 MIT License

@@ -191,7 +191,12 @@ bool GameObject::Load(Config* data)
 	name = data->GetString("Name", "Unnamed");
 	active = data->GetBool("Active", true);
 	isStatic = data->GetBool("Static", false);
-	SetParent(App->scene->GetRoot());
+
+	GameObject* parent = App->scene->GetGameObjectByUUID(parentUUID);
+	if(parent != nullptr)
+		SetParent(parent);
+	else
+		SetParent(App->scene->GetRoot());
 
 	//Load components
 	int component_num = data->GetNumElementsInArray("Components");
