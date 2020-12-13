@@ -177,9 +177,9 @@ bool GameObject::Save(Config* data)
 		components[i]->Save(&componentsData);
 		data->AddArrayChild(componentsData);		
 	}
-
-	data->AddArray("Childs");
+	
 	//Save childs info
+	if (!childs.empty())data->AddArray("Childs");
 	for (size_t i = 0; i < childs.size(); i++)
 	{
 		Config childsData;
@@ -209,13 +209,12 @@ bool GameObject::Load(Config* data)
 
 	//Load components
 	int component_num = data->GetNumElementsInArray("Components");
-	if (component_num == -1)
-		MY_LOG("Warning. No components detected for this gameObject");
+	if (component_num == -1)MY_LOG("Warning. No components detected for this gameObject");
+
 	for (int i = 0; i < component_num; i++) {
 		Config elem = data->GetArray("Components", i);
 		Component::Type type = (Component::Type)elem.GetInt("Type");
 		if (type != Component::Type::None) {
-
 			Component* comp = CreateComponent(type);
 			comp->Load(&elem);
 			MY_LOG("Component loaded: %i", type);
@@ -223,6 +222,16 @@ bool GameObject::Load(Config* data)
 		else {
 			MY_LOG("Cannot load components correctly. Component type: NOTYPE ");
 		}
+	}
+
+	//Load childs
+	int childs_num = data->GetNumElementsInArray("Childs");
+	if (childs_num == -1)MY_LOG("Warning. No components detected for this gameObject");
+
+	for (int i = 0; i < childs_num; i++) {
+		Config elem = data->GetArray("Childs", i);
+		GameObject* go = new GameObject();
+		go->Load(&elem);
 	}
 
 	return ret;

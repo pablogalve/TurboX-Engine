@@ -23,6 +23,7 @@ public:
 	void RecalculateMatrix();
 
 	bool Save(Config* data) override;
+	bool Load(Config* data) override;
 
 public:
 	float3 position = { 0.0f,0.0f,0.0f };

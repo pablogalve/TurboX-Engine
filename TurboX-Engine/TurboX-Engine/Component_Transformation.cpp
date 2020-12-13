@@ -4,12 +4,12 @@
 C_Transform::C_Transform(Component::Type type, GameObject* owner):Component(type, owner)
 {
 	this->owner = owner;
-	position = float3{ 0,0,0 };
-	scale = float3{ 1,1,1 };
-	rotationVec = float3{ 0,0,0 };
-	localMatrix = float4x4::identity;
-	globalMatrix = float4x4::identity;
-	rotation = Quat{ 0.0f,0.0f,0.0f,1.0f };
+	//position = float3{ 0,0,0 };
+	//scale = float3{ 1,1,1 };
+	//rotationVec = float3{ 0,0,0 };
+	//localMatrix = float4x4::identity;
+	//globalMatrix = float4x4::identity;
+	//rotation = Quat{ 0.0f,0.0f,0.0f,1.0f };
 }
 
 C_Transform::~C_Transform()
@@ -81,6 +81,7 @@ bool C_Transform::Save(Config* data)
 	data->AddString("Component", "Transform");
 	data->AddUInt("UUID", component_UUID);
 	data->AddUInt("Owner UUID", owner->GetUUID());
+	data->AddInt("Type", Component::Type::Transform);
 
 	data->AddVector3("Position", position);
 	data->AddVector3("Scale", scale);
@@ -88,6 +89,19 @@ bool C_Transform::Save(Config* data)
 	data->AddQuat("Rotation_Quat", rotation);
 	data->Add4x4("Local_Matrix", localMatrix);
 	data->Add4x4("Global_Matrix", globalMatrix);
+
+	return ret;
+}
+
+bool C_Transform::Load(Config* data)
+{
+	bool ret = true;
+
+	component_UUID = data->GetUInt("UUID");	
+
+	SetPosition(data->GetVector3("Position", position));
+	SetRotation(data->GetVector3("Rotation", rotationVec));
+	SetScale(data->GetVector3("Scale", scale));	
 
 	return ret;
 }

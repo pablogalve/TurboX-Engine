@@ -197,6 +197,7 @@ bool C_Camera::Save(Config* data)
 	data->AddString("Component", "Camera");
 	data->AddUInt("UUID", component_UUID);
 	data->AddUInt("Owner UUID", owner->GetUUID());
+	data->AddInt("Type", Component::Type::Camera);
 
 	return ret;
 }

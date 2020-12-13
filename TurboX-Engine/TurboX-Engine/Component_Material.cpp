@@ -20,6 +20,7 @@ bool C_Material::Save(Config* data)
 	data->AddString("Component", "Material");
 	data->AddUInt("UUID", component_UUID);
 	data->AddUInt("Owner UUID", owner->GetUUID());
+	data->AddInt("Type", Component::Type::Material);
 
 	if (resourceTexture != nullptr) {
 		data->AddString("Texture Name", resourceTexture->GetName());
