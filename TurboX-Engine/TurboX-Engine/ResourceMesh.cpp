@@ -31,8 +31,7 @@ void ResourceMesh::LoadInMemory()
 		GenerateBuffersGPU();
 		loaded = true;
 	}
-	references++;
-	
+	references++;	
 }
 
 void ResourceMesh::FreeInMemory()

@@ -26,7 +26,7 @@ bool ModuleScene::Start()
 
 	ImGuizmo::Enable(false);	
 
-	AddCamera();
+	//AddCamera(); //Camera created on Application.cpp after LoadEngineNow() 
 
 	return ret;
 }
@@ -201,6 +201,30 @@ GameObject* ModuleScene::GetRoot()
 	return root;
 }
 
+GameObject* ModuleScene::GetGameObjectByUUID(uint UUID) const
+{
+	GameObject* ret = nullptr;
+	ret = GetGameObjectUUIDRecursive(UUID, root);
+	return ret;
+}
+
+GameObject* ModuleScene::GetGameObjectUUIDRecursive(uint UUID, GameObject* go) const
+{
+	GameObject* ret = go;
+	if (ret->GetUUID() == UUID) {
+		return ret;
+	}
+
+	for (int i = 0; i < go->childs.size(); i++) {
+		ret = go->childs[i];
+		ret = GetGameObjectUUIDRecursive(UUID, ret);
+		if (ret) {
+			return ret;
+		}
+	}
+	return nullptr;
+}
+
 GameObject* ModuleScene::AddGameObject(const char* name)
 {
 	GameObject* ret = new GameObject();
@@ -350,7 +374,12 @@ bool ModuleScene::LoadScene(const char* file)
 	ClearScene();
 	char* buffer = nullptr;
 	const char* fileName = nullptr;
-	file == nullptr ? fileName = DEFAULT_SCENE_FILE : fileName = file;
+	if (file == nullptr) {
+		fileName = DEFAULT_SCENE_FILE;
+	}
+	else {
+		fileName = file;
+	}
 	uint size = App->file_system->readFile(fileName, &buffer);
 
 	if (size < 0) {

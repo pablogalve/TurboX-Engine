@@ -158,9 +158,9 @@ bool C_Mesh::Load(Config* data)
 	MY_LOG("Load Component Mesh");
 	component_UUID = data->GetUInt("UUID");
 	SetMaterial(owner->GetComponentMaterial(data->GetUInt("Texture_UUID")));
-	string custom_file = data->GetString("Custom_File");
+	string custom_file = data->GetString("Custom_File", "Empty");
 	resourceMesh = (ResourceMesh*)App->resources->Get(App->resources->FindByName(custom_file.c_str(), Resource::ResType::Mesh)); 
-	//resourceMesh->LoadInMemory(); //TODO: Resources list is empty, so FindByName returns null
+	resourceMesh->LoadInMemory();
 	return true;
 }
 

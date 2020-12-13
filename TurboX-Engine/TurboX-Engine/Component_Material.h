@@ -22,16 +22,15 @@ public:
 	float3 colors = { 0,0,0 };
 
 	void SetResource(uint resource)override;
-	bool Save(Config* data) override;
 	const uint GetTexID() const;
 	const bool HasTexture() const;
 
+	bool Save(Config* data) override;
+	bool Load(Config* data) override;
 public:
-
 	Component::Type GetComponentType() override;
 
 private:
-
 	ResourceTexture* resourceTexture = nullptr;
 
 };

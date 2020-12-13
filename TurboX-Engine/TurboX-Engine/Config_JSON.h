@@ -23,6 +23,7 @@ public:
 	uint GetUInt(const char* field, uint default = 0, int index = -1) const;
 	const char* GetString(const char* field, const char* default = nullptr, int index = -1) const;
 	uint GetNumElementsInArray(const char* field) const;
+	float3 GetVector3(const char* field, const float3& default);
 
 	uint GetArraySize(const char* field) const;
 	Config GetArray(const char* field, int index) const;

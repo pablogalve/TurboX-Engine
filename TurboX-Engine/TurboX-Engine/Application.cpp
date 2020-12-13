@@ -75,9 +75,7 @@ Application::~Application()
 bool Application::Init()
 {
 	bool ret = true;
-
-	LoadEngineNow();
-
+	
 	for (uint i = 0; i < modules_list.size(); i++)
 	{		
 		ret = modules_list[i]->Init();
@@ -92,6 +90,8 @@ bool Application::Init()
 	}
 
 	ms_timer.Start();
+	LoadEngineNow();
+	scene->AddCamera();
 	return ret;
 }
 

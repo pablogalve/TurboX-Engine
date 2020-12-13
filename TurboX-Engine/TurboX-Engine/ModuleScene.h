@@ -29,6 +29,8 @@ public:
 	void FrustumCulling(GameObject* gameObject, GameObject* root);
 
 	GameObject* GetRoot();
+	GameObject* GetGameObjectByUUID(uint UUID) const;
+	GameObject* GetGameObjectUUIDRecursive(uint UUID, GameObject* go) const;
 	GameObject* AddGameObject(const char* name);
 	GameObject* AddGameObject(const char* name, GameObject* parent);
 	void selectGameObject(GameObject* gameObject);
