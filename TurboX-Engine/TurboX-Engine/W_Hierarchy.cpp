@@ -44,6 +44,24 @@ void W_Hierarchy::DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags defa
 		App->scene->selectGameObject(gameObject);
 	}
 
+	if (ImGui::BeginDragDropSource())
+	{
+		uint gameObject_UUID = gameObject->GetUUID();
+		ImGui::SetDragDropPayload("Reparenting", &gameObject_UUID, sizeof(uint));
+		ImGui::Text(gameObject->name.c_str());
+		ImGui::EndDragDropSource();
+	}
+	if (ImGui::BeginDragDropTarget())
+	{
+		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Reparenting", ImGuiDragDropFlags_SourceAllowNullID))
+		{
+			GameObject* draggedGameobject = App->scene->GetGameObjectByUUID(*(uint*)payload->Data);
+			if (draggedGameobject != nullptr)
+				draggedGameobject->SetParent(gameObject);
+		}
+		ImGui::EndDragDropTarget();
+	}
+
 	if (drawAgain)
 	{
 		for (uint i = 0; i < gameObject->childs.size(); i++)
