@@ -178,6 +178,15 @@ bool GameObject::Save(Config* data)
 		data->AddArrayChild(componentsData);		
 	}
 
+	data->AddArray("Childs");
+	//Save childs info
+	for (size_t i = 0; i < childs.size(); i++)
+	{
+		Config childsData;
+		childs[i]->Save(&childsData);
+		data->AddArrayChild(childsData);
+	}
+
 	return ret;
 }
 

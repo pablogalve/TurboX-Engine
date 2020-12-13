@@ -16,8 +16,8 @@
             "Resizable": true,
             "Borderless": false,
             "Fullscreen Desktop": false,
-            "Width": 1820,
-            "Height": 980
+            "Width": 1536,
+            "Height": 801
         }
     ],
     "Camera": [
@@ -47,15 +47,15 @@
             "GameObjects": [
                 {
                     "Name": "Camera",
-                    "UUID": 1418739588,
-                    "ParentUUID": 1763443070,
+                    "UUID": 1223557011,
+                    "ParentUUID": 1267371228,
                     "Active": true,
                     "Static": false,
                     "Components": [
                         {
                             "Component": "Transform",
-                            "UUID": 1419226935,
-                            "Owner UUID": 1418739588,
+                            "UUID": 1927207640,
+                            "Owner UUID": 1223557011,
                             "Position": [
                                 0,
                                 0,
@@ -113,25 +113,20 @@
                                 0,
                                 1
                             ]
-                        },
-                        {
-                            "Component": "Camera",
-                            "UUID": 1469005950,
-                            "Owner UUID": 1418739588
                         }
                     ]
                 },
                 {
                     "Name": "BakerHouse",
-                    "UUID": 465660131,
-                    "ParentUUID": 3452816845,
+                    "UUID": 2024160987,
+                    "ParentUUID": 1267371228,
                     "Active": true,
                     "Static": false,
                     "Components": [
                         {
                             "Component": "Transform",
-                            "UUID": 466286720,
-                            "Owner UUID": 465660131,
+                            "UUID": 3346645,
+                            "Owner UUID": 2024160987,
                             "Position": [
                                 0,
                                 0,
@@ -194,48 +189,48 @@
                 },
                 {
                     "Name": "Chimney",
-                    "UUID": 482090687,
-                    "ParentUUID": 465660131,
+                    "UUID": 2031749676,
+                    "ParentUUID": 2024160987,
                     "Active": true,
                     "Static": false,
                     "Components": [
                         {
                             "Component": "Transform",
-                            "UUID": 482438792,
-                            "Owner UUID": 482090687,
+                            "UUID": 117107359,
+                            "Owner UUID": 2031749676,
                             "Position": [
                                 0,
                                 0,
                                 0
                             ],
                             "Scale": [
-                                100,
-                                100,
-                                100
+                                1,
+                                1,
+                                1
                             ],
                             "Rotation": [
-                                -90.000007629394531,
+                                0,
                                 0,
                                 0
                             ],
                             "Rotation_Quat": [
-                                -0.7071068286895752,
                                 0,
                                 0,
-                                0.70710670948028564
+                                0,
+                                1
                             ],
                             "Local_Matrix": [
-                                100,
-                                -0,
+                                1,
                                 0,
                                 0,
                                 0,
-                                -1.1920928955078125e-05,
-                                99.999992370605469,
                                 0,
-                                -0,
-                                -99.999992370605469,
-                                -1.1920928955078125e-05,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
                                 0,
                                 0,
                                 0,
@@ -243,17 +238,17 @@
                                 1
                             ],
                             "Global_Matrix": [
-                                100,
+                                1,
                                 0,
                                 0,
                                 0,
                                 0,
-                                -1.1920928955078125e-05,
-                                99.999992370605469,
+                                1,
                                 0,
                                 0,
-                                -99.999992370605469,
-                                -1.1920928955078125e-05,
+                                0,
+                                0,
+                                1,
                                 0,
                                 0,
                                 0,
@@ -262,65 +257,58 @@
                             ]
                         },
                         {
-                            "Component": "Material",
-                            "UUID": 528110168,
-                            "Owner UUID": 482090687,
-                            "Texture Name": "Baker_house"
-                        },
-                        {
                             "Component": "Mesh",
-                            "UUID": 1439224638,
-                            "Owner UUID": 482090687,
+                            "UUID": 1716129802,
+                            "Owner UUID": 2031749676,
                             "Type": 2,
-                            "Texture_UUID": 807320540,
                             "Custom_File": "Chimney"
                         }
                     ]
                 },
                 {
                     "Name": "Baker_house",
-                    "UUID": 673940176,
-                    "ParentUUID": 465660131,
+                    "UUID": 1386382738,
+                    "ParentUUID": 2024160987,
                     "Active": true,
                     "Static": false,
                     "Components": [
                         {
                             "Component": "Transform",
-                            "UUID": 674427523,
-                            "Owner UUID": 673940176,
+                            "UUID": 2061830752,
+                            "Owner UUID": 1386382738,
                             "Position": [
                                 0,
                                 0,
                                 0
                             ],
                             "Scale": [
-                                100,
-                                100,
-                                100
+                                1,
+                                1,
+                                1
                             ],
                             "Rotation": [
-                                -90.000007629394531,
+                                0,
                                 0,
                                 0
                             ],
                             "Rotation_Quat": [
-                                -0.7071068286895752,
                                 0,
                                 0,
-                                0.70710670948028564
+                                0,
+                                1
                             ],
                             "Local_Matrix": [
-                                100,
-                                -0,
+                                1,
                                 0,
                                 0,
                                 0,
-                                -1.1920928955078125e-05,
-                                99.999992370605469,
                                 0,
-                                -0,
-                                -99.999992370605469,
-                                -1.1920928955078125e-05,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
                                 0,
                                 0,
                                 0,
@@ -328,17 +316,17 @@
                                 1
                             ],
                             "Global_Matrix": [
-                                100,
+                                1,
                                 0,
                                 0,
                                 0,
                                 0,
-                                -1.1920928955078125e-05,
-                                99.999992370605469,
+                                1,
                                 0,
                                 0,
-                                -99.999992370605469,
-                                -1.1920928955078125e-05,
+                                0,
+                                0,
+                                1,
                                 0,
                                 0,
                                 0,
@@ -347,18 +335,584 @@
                             ]
                         },
                         {
-                            "Component": "Material",
-                            "UUID": 700256914,
-                            "Owner UUID": 673940176,
-                            "Texture Name": "Unnamed"
+                            "Component": "Mesh",
+                            "UUID": 1768902520,
+                            "Owner UUID": 1386382738,
+                            "Type": 2,
+                            "Custom_File": "Baker_house"
+                        }
+                    ]
+                },
+                {
+                    "Name": "Camera",
+                    "UUID": 162243584,
+                    "ParentUUID": 1267371228,
+                    "Active": true,
+                    "Static": false,
+                    "Components": [
+                        {
+                            "Component": "Transform",
+                            "UUID": 163357520,
+                            "Owner UUID": 162243584,
+                            "Position": [
+                                0,
+                                0,
+                                0
+                            ],
+                            "Scale": [
+                                1,
+                                1,
+                                1
+                            ],
+                            "Rotation": [
+                                0,
+                                0,
+                                0
+                            ],
+                            "Rotation_Quat": [
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "Local_Matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "Global_Matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ]
                         },
                         {
-                            "Component": "Mesh",
-                            "UUID": 1477098462,
-                            "Owner UUID": 673940176,
-                            "Type": 2,
-                            "Texture_UUID": 807320540,
-                            "Custom_File": "Baker_house"
+                            "Component": "Camera",
+                            "UUID": 232978520,
+                            "Owner UUID": 162243584
+                        }
+                    ]
+                },
+                {
+                    "Name": "Street environment_V01",
+                    "UUID": 795748756,
+                    "ParentUUID": 3452816845,
+                    "Active": true,
+                    "Static": false,
+                    "Components": [
+                        {
+                            "Component": "Transform",
+                            "UUID": 796793071,
+                            "Owner UUID": 795748756,
+                            "Position": [
+                                0,
+                                0,
+                                0
+                            ],
+                            "Scale": [
+                                1,
+                                1,
+                                1
+                            ],
+                            "Rotation": [
+                                0,
+                                0,
+                                0
+                            ],
+                            "Rotation_Quat": [
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "Local_Matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "Global_Matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Name": "Sky001",
+                    "UUID": 817888234,
+                    "ParentUUID": 795748756,
+                    "Active": true,
+                    "Static": false,
+                    "Components": [
+                        {
+                            "Component": "Transform",
+                            "UUID": 818375581,
+                            "Owner UUID": 817888234,
+                            "Position": [
+                                0,
+                                0,
+                                0
+                            ],
+                            "Scale": [
+                                1,
+                                1,
+                                1
+                            ],
+                            "Rotation": [
+                                -0,
+                                0,
+                                -0
+                            ],
+                            "Rotation_Quat": [
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "Local_Matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "Global_Matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Name": "Dummy001",
+                    "UUID": 881730691,
+                    "ParentUUID": 795748756,
+                    "Active": true,
+                    "Static": false,
+                    "Components": [
+                        {
+                            "Component": "Transform",
+                            "UUID": 882357280,
+                            "Owner UUID": 881730691,
+                            "Position": [
+                                0,
+                                0,
+                                0
+                            ],
+                            "Scale": [
+                                1,
+                                1,
+                                1
+                            ],
+                            "Rotation": [
+                                -0,
+                                0,
+                                -0
+                            ],
+                            "Rotation_Quat": [
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "Local_Matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "Global_Matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Name": "Camera001",
+                    "UUID": 583832706,
+                    "ParentUUID": 795748756,
+                    "Active": true,
+                    "Static": false,
+                    "Components": [
+                        {
+                            "Component": "Transform",
+                            "UUID": 585225126,
+                            "Owner UUID": 583832706,
+                            "Position": [
+                                0,
+                                0,
+                                0
+                            ],
+                            "Scale": [
+                                1,
+                                1,
+                                1
+                            ],
+                            "Rotation": [
+                                -0,
+                                0,
+                                -0
+                            ],
+                            "Rotation_Quat": [
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "Local_Matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "Global_Matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Name": "Camera001.Target",
+                    "UUID": 630896502,
+                    "ParentUUID": 795748756,
+                    "Active": true,
+                    "Static": false,
+                    "Components": [
+                        {
+                            "Component": "Transform",
+                            "UUID": 631453470,
+                            "Owner UUID": 630896502,
+                            "Position": [
+                                0,
+                                0,
+                                0
+                            ],
+                            "Scale": [
+                                1,
+                                1,
+                                1
+                            ],
+                            "Rotation": [
+                                -0,
+                                0,
+                                -0
+                            ],
+                            "Rotation_Quat": [
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "Local_Matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "Global_Matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Name": "Spot001",
+                    "UUID": 695365548,
+                    "ParentUUID": 795748756,
+                    "Active": true,
+                    "Static": false,
+                    "Components": [
+                        {
+                            "Component": "Transform",
+                            "UUID": 696061758,
+                            "Owner UUID": 695365548,
+                            "Position": [
+                                0,
+                                0,
+                                0
+                            ],
+                            "Scale": [
+                                1,
+                                1,
+                                1
+                            ],
+                            "Rotation": [
+                                -0,
+                                0,
+                                -0
+                            ],
+                            "Rotation_Quat": [
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "Local_Matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "Global_Matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Name": "Spot001.Target",
+                    "UUID": 745492668,
+                    "ParentUUID": 795748756,
+                    "Active": true,
+                    "Static": false,
+                    "Components": [
+                        {
+                            "Component": "Transform",
+                            "UUID": 746119257,
+                            "Owner UUID": 745492668,
+                            "Position": [
+                                0,
+                                0,
+                                0
+                            ],
+                            "Scale": [
+                                1,
+                                1,
+                                1
+                            ],
+                            "Rotation": [
+                                -0,
+                                0,
+                                -0
+                            ],
+                            "Rotation_Quat": [
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "Local_Matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "Global_Matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ]
                         }
                     ]
                 }
