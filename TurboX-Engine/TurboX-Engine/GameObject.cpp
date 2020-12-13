@@ -270,8 +270,8 @@ void GameObject::setSelected(bool selected)
 {
 	this->is_selected = selected;
 
-	//if (parent != nullptr)
-		//parent->setChildSelected(selected);
+	if (parent != nullptr)
+		parent->setChildSelected(selected);
 }
 
 void GameObject::setChildSelected(bool selected)

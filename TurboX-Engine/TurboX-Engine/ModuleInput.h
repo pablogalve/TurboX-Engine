@@ -28,6 +28,8 @@ enum class FileType {
 	FBX,
 	PNG,
 	DDS,
+	JPG,
+	TGA,
 	UNDEFINED
 };
 

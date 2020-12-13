@@ -11,6 +11,7 @@
 #include "ModuleSceneLoader.h"
 #include "ModuleCamera3D.h"
 #include "ModuleWindow.h"
+#include "ModuleTexture.h"
 
 #define MAX_KEYS 300
 
@@ -171,44 +172,22 @@ update_status ModuleInput::PreUpdate(float dt)
 					break;
 				case FileType::PNG:
 				{
-					/*if (App->editor->hierarchy_window->selectedGameObjects.empty() == false) {
-						GameObject* selectedGameObject = App->editor->hierarchy_window->selectedGameObjects[0];
-						if (selectedGameObject != nullptr)
-						{
-							if (selectedGameObject->material == nullptr) {
-								selectedGameObject->CreateComponent(Component::Type::Material);
-								selectedGameObject->material->LoadTexture(dropped_filedir);
-							}
-							else {
-								//TODO: Remove current texture
-								selectedGameObject->material->LoadTexture(dropped_filedir);
-							}
-						}
-					}
-					else {
-						MY_LOG("You must select a gameObject first!");
-					}*/
+					App->texture_importer->ManageDroppedTexture(dropped_filedir);
+				}
+					break;
+				case FileType::JPG:
+				{
+					App->texture_importer->ManageDroppedTexture(dropped_filedir);
 				}
 					break;
 				case FileType::DDS:
 				{
-					/*if (App->editor->hierarchy_window->selectedGameObjects.empty() == false) {
-						GameObject* selectedGameObject = App->editor->hierarchy_window->selectedGameObjects[0];
-						if (selectedGameObject != nullptr)
-						{
-							if (selectedGameObject->material == nullptr) {
-								selectedGameObject->CreateComponent(Component::Type::Material);
-								selectedGameObject->material->LoadTexture(dropped_filedir);
-							}
-							else {
-								//TODO: Remove current texture
-								selectedGameObject->material->LoadTexture(dropped_filedir);
-							}							
-						}
-					}
-					else {
-						MY_LOG("You must select a gameObject first!");
-					}*/
+					App->texture_importer->ManageDroppedTexture(dropped_filedir);
+				}
+					break;
+				case FileType::TGA:
+				{
+					App->texture_importer->ManageDroppedTexture(dropped_filedir);
 				}
 					break;
 				case FileType::UNDEFINED:
@@ -305,23 +284,22 @@ void ModuleInput::PrintLastInputs()
 
 FileType ModuleInput::GetFileType(std::string file)
 {
-	if (file.length() > 4) {
-		std::string extensionType = file.substr(file.length() - 4);
-
-		if (extensionType == ".fbx" || extensionType == ".FBX")
+	std::string dFile = file;
+	if (dFile.length() > 4) {
+		std::string formatStr = dFile.substr(dFile.length() - 4);
+		if (formatStr == FBX_FORMAT || formatStr == FBX_FORMAT_CAP)
 			return FileType::FBX;
-		else if (extensionType == ".png" || extensionType == ".PNG")
+		else if (formatStr == PNG_FORMAT || formatStr == PNG_FORMAT_CAP)
 			return FileType::PNG;
-		else if (extensionType == ".dds" || extensionType == ".DDS")
+		else if (formatStr == JPG_FORMAT || formatStr == JPG_FORMAT_CAP || formatStr == JPEG_FORMAT || formatStr == JPEG_FORMAT_CAP)
+			return FileType::JPG;
+		else if (formatStr == DDS_FORMAT || formatStr == DDS_FORMAT_CAP)
 			return FileType::DDS;
-		else {
-			return FileType::UNDEFINED;
-			MY_LOG("Error. Format is not supported in the engine.");
-		}
+		else if (formatStr == TGA_FORMAT || formatStr == TGA_FORMAT_CAP)
+			return FileType::TGA;
 	}
-	else {
+	else
+		MY_LOG("Cannot load %s file.  Format not recognized", file)
 		return FileType::UNDEFINED;
-		MY_LOG("Error. Can't recognize format.");
-	}
 	
 }

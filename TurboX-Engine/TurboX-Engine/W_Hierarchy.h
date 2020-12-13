@@ -17,14 +17,8 @@ public:
 
 	void Draw() override;
 	void DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags default_flags, GameObject* root);
-	void OpenPopUpWindow();
-
 	void SetShowWindow() override;
 	bool GetShowWindow() override { return showWindow; };
-
-	void SelectSingle(GameObject* gameObject);
-	void UnSelectSingle(GameObject* gameObject);
-	void DeselectAll();
 
 public:
 	std::vector<GameObject*> selectedGameObjects;

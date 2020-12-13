@@ -26,14 +26,11 @@ public:
 
 	void ReceiveEvent(const Event &event);
 
+	void ManageDroppedTexture(const char* droppedFileDire);
 
 public: 
 	
 	uint imageID = 0;
-
-private:
-	void ManageDroppedTexture(const char * droppedFileDire);
-
 	
 };
 

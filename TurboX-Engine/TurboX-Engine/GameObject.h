@@ -31,9 +31,6 @@ public:
 
 	void RecalculateBB();
 
-	void DeleteGameObject() { to_delete = true; }
-	bool GetToDelete() { return to_delete; };
-
 	void SetParent(GameObject* parent);
 	void AddChildren(GameObject* child);
 	void setSelected(bool selected);

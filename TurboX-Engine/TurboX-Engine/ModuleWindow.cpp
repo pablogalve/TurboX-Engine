@@ -7,6 +7,14 @@ ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, s
 	window = NULL;
 	screen_surface = NULL;
 
+	_fullscreen = false;
+	_resizable = true;
+	_borderless = false;
+	_fullDesktop = false;
+
+	width = 1024;
+	height = 640;
+	screen_size = 1;
 	screen_margin_w = 100;
 	screen_margin_h = 100;
 	name = "Window";
@@ -79,6 +87,8 @@ bool ModuleWindow::Init()
 		}
 	}
 
+	OnResize(width * screen_size, height * screen_size);
+
 	return ret;
 }
 
@@ -100,13 +110,13 @@ bool ModuleWindow::CleanUp()
 
 bool ModuleWindow::LoadSettings(Config* data)
 {
-	SetBrightness(data->GetFloat("Brightness", DEFAULT_BRIGHTNESS));
+	/*SetBrightness(data->GetFloat("Brightness", DEFAULT_BRIGHTNESS));
 	SetFullscreen(data->GetBool("Fullscreen", WIN_FULLSCREEN));
 	SetResizable(data->GetBool("Resizable", WIN_RESIZABLE));
 	SetBorderless(data->GetBool("Borderless", WIN_BORDERLESS));
 	SetFullscreenDesktop(data->GetBool("Fullscreen Desktop", WIN_FULLSCREEN_DESKTOP));
 	SetSize(data->GetUInt("Width", SCREEN_WIDTH), data->GetUInt("Height", SCREEN_HEIGHT));
-
+	*/
 	return true;
 }
 

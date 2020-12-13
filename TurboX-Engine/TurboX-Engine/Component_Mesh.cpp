@@ -32,23 +32,6 @@ void C_Mesh::Draw()
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-			if (material != NULL) {
-				
-				if (material->HasTexture()) 
-				{
-					glBindTexture(GL_TEXTURE_2D, material->GetTexID());
-					glTexCoordPointer(2, GL_FLOAT, 0, &(resourceMesh->texturesCoords[0]));
-
-				}
-				else {
-					glColor3f(material->colors.x, material->colors.y, material->colors.z);
-				}
-
-			}
-
 			if (resourceMesh->num_index == 0) {// if the mesh has no index
 				glBindBuffer(GL_ARRAY_BUFFER, resourceMesh->id_vertex);
 				glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -57,10 +40,32 @@ void C_Mesh::Draw()
 			}
 			else {
 
+				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+				glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+				if (material != NULL) {
+
+					if (material->HasTexture())
+					{
+						glBindTexture(GL_TEXTURE_2D, material->GetTexID());
+						glTexCoordPointer(2, GL_FLOAT, 0, &(resourceMesh->texturesCoords[0]));
+
+					}
+					else {
+						glColor3f(material->colors.x, material->colors.y, material->colors.z);
+					}
+
+				}
+
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, resourceMesh->id_index); // test: before it was 2 lines upper
 				glBindBuffer(GL_ARRAY_BUFFER, resourceMesh->id_vertex);
 				glVertexPointer(3, GL_FLOAT, 0, NULL);
-				GLenum error = glGetError();
+				glDrawElements(GL_TRIANGLES, resourceMesh->num_index, GL_UNSIGNED_INT, NULL);
+				
+				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+				glBindBuffer(GL_ARRAY_BUFFER, 0);
+				glBindTexture(GL_TEXTURE_2D, 0);
+
 
 				if (resourceMesh->num_normals > 0)
 				{
@@ -77,12 +82,6 @@ void C_Mesh::Draw()
 					glEnd();
 					glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Set color of everything back to white
 				}
-
-				glDrawElements(GL_TRIANGLES, resourceMesh->num_index, GL_UNSIGNED_INT, NULL);
-
-				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-				glBindBuffer(GL_ARRAY_BUFFER, 0);
-				glBindTexture(GL_TEXTURE_2D, 0);
 
 			}
 

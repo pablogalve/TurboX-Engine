@@ -56,6 +56,8 @@ public:
 	int width = 0;
 	int screen_margin_w = 0;
 	int screen_margin_h = 0;
+	int screen_size = 0;
+
 };
 
 #endif // __ModuleWindow_H__

@@ -7,6 +7,8 @@
 #include "ModuleInput.h"
 #include "ModuleCamera3D.h"
 #include "ModuleFileSystem.h"
+#include "GameObject.h"
+#include <vector>
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -98,48 +100,31 @@ GameObject* ModuleScene::CreateGameObject(std::string name, float3 position, Qua
 	return newGameObject;
 }
 
-void ModuleScene::DestroyGameObject(GameObject* selectedGameObject)
+void ModuleScene::DestroyGameObject(GameObject* GO)
 {
-	if (selectedGameObject->GetToDelete())
+	GO->components.clear();
+
+	for (int i = 0; i < root->childs.size(); i++)
 	{
-		selectedGameObject->components.clear();
-
-		for (int i = 0; i < root->childs.size(); i++)
-		{	
-			if (root->childs[i]->childs.empty() == false)
-			{
-				for (size_t j = 0; j < root->childs[i]->childs.size(); j++)
-				{
-					if (root->childs[i]->childs[j] == selectedGameObject)
-					{
-						root->childs[i]->childs.erase(root->childs[i]->childs.begin() + j);
-					}
-				}
-			}	
-			if (root->childs[i] == selectedGameObject)
-			{
-				root->childs.erase(root->childs.begin() + i);
-			}
-		}
-
-		for (int i = 0; i < App->editor->hierarchy_window->selectedGameObjects.size(); i++)
+		if (root->childs[i]->childs.empty() == false)
 		{
-			/*for (int j = 0; j < App->editor->hierarchy_window->selectedGameObjects[i]->childs.size(); j++)
+			for (size_t j = 0; j < root->childs[i]->childs.size(); j++)
 			{
-				if (App->editor->hierarchy_window->selectedGameObjects[i]->childs[j] == selectedGameObject)
+				if (root->childs[i]->childs[j] == GO)
 				{
-					App->editor->hierarchy_window->selectedGameObjects[i]->childs.erase(App->editor->hierarchy_window->selectedGameObjects[i]->childs.begin() + j);
+					root->childs[i]->childs.erase(root->childs[i]->childs.begin() + j);
 				}
-			}*/
-
-			if (App->editor->hierarchy_window->selectedGameObjects[i] == selectedGameObject)
-			{
-				App->editor->hierarchy_window->selectedGameObjects.erase(App->editor->hierarchy_window->selectedGameObjects.begin() + i);
 			}
-
 		}
-		delete selectedGameObject;			
+		if (root->childs[i] == GO)
+		{
+			root->childs.erase(root->childs.begin() + i);
+		}
 	}
+
+	if (selected_GO == GO)
+		selected_GO = nullptr;
+	
 }
 
 void ModuleScene::AddChild(GameObject* child, GameObject* parent)
