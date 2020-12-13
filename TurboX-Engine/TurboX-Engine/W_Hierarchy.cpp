@@ -41,16 +41,7 @@ void W_Hierarchy::DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags defa
 
 	if (ImGui::IsItemClicked(0))
 	{
-		if (gameObject->Get_IsSelected() == true) {
-			UnSelectSingle(gameObject);
-		}
-		else {
-			DeselectAll();
-			SelectSingle(gameObject);
-		}
-	}
-			SelectSingle(gameObject);
-		}
+		App->scene->selectGameObject(gameObject);
 	}
 
 	if (drawAgain)
