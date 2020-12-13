@@ -125,6 +125,14 @@ uint Config::GetNumElementsInArray(const char* field) const
 	return num;
 }
 
+float3 Config::GetVector3(const char* field, const float3& default)
+{
+	return float3(
+		GetFloat(field, default.x, 0),
+		GetFloat(field, default.y, 1),
+		GetFloat(field, default.z, 2));
+}
+
 uint Config::GetArraySize(const char* field) const
 {
 	JSON_Array* array = json_object_get_array(root, field);
