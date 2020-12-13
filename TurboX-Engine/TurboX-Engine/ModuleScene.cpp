@@ -29,7 +29,7 @@ bool ModuleScene::Start()
 
 	ImGuizmo::Enable(false);	
 
-	//AddCamera(); //Camera created on Application.cpp after LoadEngineNow() 
+	AddCamera(); //Camera created on Application.cpp after LoadEngineNow() 
 
 	return ret;
 }
