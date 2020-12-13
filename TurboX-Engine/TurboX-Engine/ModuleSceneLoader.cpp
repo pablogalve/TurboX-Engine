@@ -278,11 +278,49 @@ GameObject* SceneImporter::ImportNodeRecursive(aiNode* node, const aiScene* scen
 
 				C_Material* compMat = (C_Material*)nodeGO->CreateComponent(Component::Type::Material);
 
-				if (material) 
+				if (material)
 				{
-					if (compMat != nullptr) 
+					if (compMat != nullptr)
 					{
-						compMat = ImportMaterialToResource(material, nodeGO);
+						bool error, col, mater;
+						error = col = mater = false;
+
+						aiString texturePath;
+
+
+						aiColor3D color = aiColor3D();
+						material->Get(AI_MATKEY_COLOR_DIFFUSE, color);
+						if (!color.IsBlack())
+						{
+							compMat->colors = { color.r, color.g, color.b };
+							col = true;
+						}
+
+						aiReturn ret = material->GetTexture(aiTextureType_DIFFUSE, 0, &texturePath);
+						if (ret == aiReturn_SUCCESS) {
+							mater = true;
+
+							std::string path;
+							std::string textureName;
+							std::string extension;
+							App->file_system->GetNameFromPath(texturePath.C_Str(), &path, &textureName, nullptr, nullptr);
+							App->file_system->GetNameFromPath(texturePath.C_Str(), nullptr, nullptr, nullptr, &extension);
+
+							uint UUID = App->resources->FindByName(textureName.c_str(), Resource::ResType::Texture);
+							if (UUID == 0) {
+								if (App->resources->ImportFileAndGenerateMeta(texturePath.C_Str())) {
+									compMat->SetResource(App->resources->FindByName(textureName.c_str(), Resource::ResType::Texture));
+								}
+							}
+							else {
+
+								compMat->SetResource(UUID);
+							}
+						}
+						else {
+
+							MY_LOG("Error loading texture from fbx. Error: %s", aiGetErrorString());
+						}
 					}
 					else {
 						RELEASE(compMat);

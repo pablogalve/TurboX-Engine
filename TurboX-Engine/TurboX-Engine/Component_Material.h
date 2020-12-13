@@ -27,8 +27,9 @@ public:
 
 	bool Save(Config* data) override;
 	bool Load(Config* data) override;
-public:
+	
 	Component::Type GetComponentType() override;
+	ResourceTexture* GetResourceTexture() const { return resourceTexture; }
 
 private:
 	ResourceTexture* resourceTexture = nullptr;

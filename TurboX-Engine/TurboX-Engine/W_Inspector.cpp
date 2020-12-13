@@ -4,8 +4,11 @@
 #include "MathGeoLib/MathGeoLib.h"
 #include "MathGeoLib/Math/float3.h"
 #include "GameObject.h"
+#include "Resource.h"
 #include "ResourceMesh.h"
+#include "ResourceTexture.h"
 #include "ModuleScene.h"
+#include "ModuleResources.h"
 
 W_Inspector::W_Inspector()
 {
@@ -163,20 +166,27 @@ void W_Inspector::Draw()
 			//ImGui::Checkbox("Face Normals:", &mesh->face_normals_active);
 		}
 
-		/*C_Material* material = (C_Material*)gameObject->GetComponent(Component::Type::Material);
+		C_Material* material = (C_Material*)gameObject->GetComponent(Component::Type::Material);
 
 		if (ImGui::CollapsingHeader("Material") && material != nullptr)
 		{
-			/*ImGui::Checkbox("Active ", &material->active);
-			ImGui::Text("File Path: "); ImGui::SameLine();
-			ImGui::TextColored(yellow, material->GetMaterialPath().c_str());
+			uint w = material->GetResourceTexture()->width;
+			uint h = material->GetResourceTexture()->height;
+			uint tex = material->GetResourceTexture()->gpuID;
+			uint uuid = material->GetResourceTexture()->GetUUID();
+			float windowSize = ImGui::GetWindowContentRegionWidth();
+
+			ImGui::Checkbox("Active ", &material->active);
+			ImGui::Text("Resource UUID:: "); ImGui::SameLine();
+			ImGui::TextColored(yellow, "%i", uuid);
 			ImGui::Text("Widht: "); ImGui::SameLine();
-			ImGui::TextColored(yellow, "%u", material->width);
+			ImGui::TextColored(yellow, "%u", w);
 			ImGui::Text("Height: "); ImGui::SameLine();
-			ImGui::TextColored(yellow, "%u", material->height);
-			ImGui::Checkbox("Default Texture", &material->defaultTex);
+			ImGui::TextColored(yellow, "%u", h);
+			ImGui::Image((void*)(tex), ImVec2(windowSize, windowSize));
+			//ImGui::Checkbox("Default Texture", &material->defaultTex);
 			
-		}*/
+		}
 
 		C_Camera* camera = (C_Camera*)gameObject->GetComponent(Component::Type::Camera);
 
