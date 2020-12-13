@@ -41,7 +41,6 @@ void W_Inspector::Draw()
 			float3 pos = transform->GetPosition();
 			float3 scale = transform->GetScale();
 			float3 rotation = transform->GetEulerRotation();
-			Quat quatRot = transform->GetQuaternionRotation();
 
 			ImGui::Columns(4, "Transform");
 			
@@ -58,7 +57,6 @@ void W_Inspector::Draw()
 			if(ImGui::DragFloat("##PositionX", &pos.x, 0.05f, 0.f, 0.f, "%.2f"))
 			{
 				transform->SetPosition(pos);
-				transform->RecalculateMatrix();
 				transform->changed = true;
 			}
 			ImGui::NextColumn();
@@ -67,7 +65,6 @@ void W_Inspector::Draw()
 			if (ImGui::DragFloat("##PositionY", &pos.y, 0.05f, 0.f, 0.f, "%.2f"))
 			{
 				transform->SetPosition(pos);
-				transform->RecalculateMatrix();
 				transform->changed = true;
 			}
 			ImGui::NextColumn();
@@ -76,7 +73,6 @@ void W_Inspector::Draw()
 			if(ImGui::DragFloat("##PositionZ", &pos.z, 0.05f, 0.f, 0.f, "%.2f"))
 			{
 				transform->SetPosition(pos);
-				transform->RecalculateMatrix();
 				transform->changed = true;
 			}
 			ImGui::NextColumn();
@@ -89,10 +85,6 @@ void W_Inspector::Draw()
 			if(ImGui::DragFloat("##RotationX", &rotation.x, 0.05f, 0.f, 0.f, "%.2f"))
 			{
 				transform->SetRotation(rotation);
-				rotation *= DEGTORAD;
-				quatRot = quatRot.FromEulerXYZ(rotation.x, rotation.y, rotation.z);
-				transform->SetQuaternionRotation(quatRot);
-				transform->RecalculateMatrix();
 				transform->changed = true;
 			}
 			ImGui::NextColumn();
@@ -101,10 +93,6 @@ void W_Inspector::Draw()
 			if(ImGui::DragFloat("##RotationY", &rotation.y, 0.05f, 0.f, 0.f, "%.2f"))
 			{
 				transform->SetRotation(rotation);
-				rotation *= DEGTORAD;
-				quatRot = quatRot.FromEulerXYZ(rotation.x, rotation.y, rotation.z);
-				transform->SetQuaternionRotation(quatRot);
-				transform->RecalculateMatrix();
 				transform->changed = true;
 			}
 			ImGui::NextColumn();
@@ -113,10 +101,6 @@ void W_Inspector::Draw()
 			if(ImGui::DragFloat("##RotationZ", &rotation.z, 0.05f, 0.f, 0.f, "%.2f"))
 			{
 				transform->SetRotation(rotation);
-				rotation *= DEGTORAD;
-				quatRot = quatRot.FromEulerXYZ(rotation.x, rotation.y, rotation.z);
-				transform->SetQuaternionRotation(quatRot);
-				transform->RecalculateMatrix();
 				transform->changed = true;
 			}
 			ImGui::NextColumn();
@@ -127,7 +111,6 @@ void W_Inspector::Draw()
 			if(ImGui::DragFloat("##ScaleX", &scale.x, 0.05f, 0.f, 0.f, "%.2f"))
 			{
 				transform->SetScale(scale);
-				transform->RecalculateMatrix();
 				transform->changed = true;
 			}
 			ImGui::NextColumn();
@@ -136,7 +119,6 @@ void W_Inspector::Draw()
 			if(ImGui::DragFloat("##ScaleY", &scale.y, 0.05f, 0.f, 0.f, "%.2f"))
 			{
 				transform->SetScale(scale);
-				transform->RecalculateMatrix();
 				transform->changed = true;
 			}
 			ImGui::NextColumn();
@@ -145,7 +127,6 @@ void W_Inspector::Draw()
 			if(ImGui::DragFloat("##ScaleZ", &scale.z, 0.05f, 0.f, 0.f, "%.2f"))
 			{
 				transform->SetScale(scale);
-				transform->RecalculateMatrix();
 				transform->changed = true;
 			}
 

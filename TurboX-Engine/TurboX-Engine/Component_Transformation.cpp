@@ -36,12 +36,14 @@ float3 C_Transform::GetScale()
 void C_Transform::SetRotation(float3 rot)
 {
 	rotationVec = rot;
+	rotation = Quat::FromEulerXYZ(rotationVec.x * DEGTORAD, rotationVec.y * DEGTORAD, rotationVec.z * DEGTORAD);
 	RecalculateMatrix();
 }
 
 void C_Transform::SetQuaternionRotation(Quat quatRot)
 {
 	rotation = quatRot;
+	rotationVec = rotation.ToEulerXYZ() * RADTODEG;
 	RecalculateMatrix();
 }
 
@@ -54,6 +56,7 @@ void C_Transform::SetPosition(float3 pos)
 void C_Transform::SetScale(float3 scl)
 {
 	scale = scl;
+	RecalculateMatrix();
 }
 
 float3 C_Transform::GetEulerRotation()

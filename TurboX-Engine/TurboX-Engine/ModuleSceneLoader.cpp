@@ -11,6 +11,7 @@
 #include "ModuleResources.h"
 #include "GameObject.h"
 #include "ModuleTexture.h"
+#include "ResourceMesh.h"
 #pragma comment (lib, "Libraries/Assimp/libx86/assimp.lib")
 
 SceneImporter::SceneImporter(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -196,6 +197,7 @@ bool SceneImporter::ImportMeshRecursive(aiNode* node, const aiScene* scene, std:
 
 					meshesNames->push_back(fileName);
 				}
+
 				RELEASE_ARRAY(texturesCoords);
 				RELEASE_ARRAY(index);
 			}
@@ -264,7 +266,7 @@ GameObject* SceneImporter::ImportNodeRecursive(aiNode* node, const aiScene* scen
 		nodeGO->transform->SetPosition(float3(position.x, position.y, position.z));
 		nodeGO->transform->SetScale(float3(scale.x, scale.y, scale.z));
 		nodeGO->transform->SetQuaternionRotation(Quat(rotation.x, rotation.y, rotation.z, rotation.w));
-		
+
 
 		if (node->mNumMeshes > 0)
 		{
@@ -297,8 +299,6 @@ GameObject* SceneImporter::ImportNodeRecursive(aiNode* node, const aiScene* scen
 				{
 					newMesh = (C_Mesh*)nodeGO->CreateComponent(Component::Type::Mesh);
 					newMesh->SetResource(resourceUUID);
-					//nodeGO->boundingBox.SetNegativeInfinity();
-					//nodeGO->boundingBox.Enclose((float3*)compMesh->vertex, compMesh->num_vertex);
 				}
 
 				if (newMesh != nullptr)
