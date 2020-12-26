@@ -29,15 +29,15 @@ enum update_status
 
 // Configuration -----------
 #define DEFAULT_BRIGHTNESS 1.0f
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 720
+#define SCREEN_WIDTH 1024
+#define SCREEN_HEIGHT 768
 #define SCREEN_SIZE 1
 #define WIN_FULLSCREEN false
 #define WIN_RESIZABLE true
 #define WIN_BORDERLESS false
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
-#define CONFIG_FILE "Settings/config.json" //TODO: Uncomment
+#define CONFIG_FILE "Settings/config.json"
 #define DEFAULT_SCENE_FILE "Scenes/StreetEnvironmentScene.json"
 #define PI 3.1415926f
 #define CHECKERS_WIDTH 64

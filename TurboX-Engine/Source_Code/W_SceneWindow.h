@@ -2,8 +2,8 @@
 #define __SCENEWINDOW_H_
 
 #include "WindowConfig.h"
-#include "glew\glew.h"
-#include "MathGeoLib/MathGeoLib.h"
+#include "Libraries\glew\glew.h"
+#include "Libraries/MathGeoLib/MathGeoLib.h"
 
 #pragma comment (lib, "Libraries/glew/glew32.lib")    /* link OpenGL Utility lib     */
 

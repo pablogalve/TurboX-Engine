@@ -8,11 +8,11 @@
 #include "ModuleScene.h"
 #include <string>
 
-#include "ImGui/imgui.h"
-#include "ImGui/imgui_impl_opengl3.h"
-#include "ImGui/imgui_impl_sdl.h"
-#include "glew/glew.h"
-#include "glew/wglew.h"
+#include "Libraries/ImGui/imgui.h"
+#include "Libraries/ImGui/imgui_impl_opengl3.h"
+#include "Libraries/ImGui/imgui_impl_sdl.h"
+#include "Libraries/glew/glew.h"
+#include "Libraries/glew/wglew.h"
 
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {

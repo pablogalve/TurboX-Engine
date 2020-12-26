@@ -7,7 +7,7 @@
 #include "ModuleEditor.h"
 #include "W_Hierarchy.h"
 #include "GameObject.h"
-#include "MathGeoLib/MathGeoLib.h"
+#include "Libraries/MathGeoLib/MathGeoLib.h"
 #include "ModuleRenderer3D.h"
 #include "Component.h"
 #include "Component_Camera.h"

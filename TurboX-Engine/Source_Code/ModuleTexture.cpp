@@ -4,10 +4,10 @@
 #include "ModuleTexture.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleFileSystem.h"
-#include "Devil/include/il.h"
-#include "Devil/include/ilut.h"
-#include "DevIL/include/ilu.h"
-#include "glew\glew.h"
+#include "Libraries/Devil/include/il.h"
+#include "Libraries/Devil/include/ilut.h"
+#include "Libraries/DevIL/include/ilu.h"
+#include "Libraries\glew\glew.h"
 
 #pragma comment (lib, "Libraries/glew/glew32.lib")
 #pragma comment (lib, "Libraries/DevIL/lib/DevIL.lib")

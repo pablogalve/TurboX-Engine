@@ -4,11 +4,11 @@
 #include "ModuleSceneLoader.h"
 #include "Config_JSON.h"
 
-#include "SDL\include\SDL_opengl.h"
-#include "Assimp/include/cimport.h"
-#include "Assimp/include/scene.h"
-#include "Assimp/include/postprocess.h"
-#include "glew\glew.h"
+#include "Libraries\SDL\include\SDL_opengl.h"
+#include "Libraries/Assimp/include/cimport.h"
+#include "Libraries/Assimp/include/scene.h"
+#include "Libraries/Assimp/include/postprocess.h"
+#include "Libraries\glew\glew.h"
 
 #pragma comment (lib, "Libraries/glew/glew32.lib")
 #pragma comment (lib, "opengl32.lib")

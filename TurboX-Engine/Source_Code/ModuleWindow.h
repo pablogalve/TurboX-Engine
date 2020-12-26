@@ -2,7 +2,7 @@
 #define __ModuleWindow_H__
 
 #include "Module.h"
-#include "SDL/include/SDL.h"
+#include "Libraries/SDL/include/SDL.h"
 #include "Config_JSON.h"
 
 class Application;

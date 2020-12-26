@@ -3,9 +3,9 @@
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleConsole.h"
-#include "ImGui/imgui.h"
-#include "ImGui/imgui_impl_sdl.h"
-#include "ImGui/imgui_impl_opengl3.h"
+#include "Libraries/ImGui/imgui.h"
+#include "Libraries/ImGui/imgui_impl_sdl.h"
+#include "Libraries/ImGui/imgui_impl_opengl3.h"
 
 
 ModuleGui::ModuleGui(Application* app, bool start_enabled) : Module(app, start_enabled)
