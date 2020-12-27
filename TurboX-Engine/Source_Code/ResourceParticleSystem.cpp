@@ -7,7 +7,3 @@ ResourceParticleSystem::ResourceParticleSystem(uint UUID) : Resource(UUID, ResTy
 ResourceParticleSystem::~ResourceParticleSystem()
 {
 }
-
-void ResourceParticleSystem::CleanUp()
-{
-}

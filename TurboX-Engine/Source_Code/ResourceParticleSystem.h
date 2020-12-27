@@ -1,10 +1,7 @@
 #ifndef __RESOURCE_PARTICLE_SYSTEM_H__
 #define __RESOURCE_PARTICLE_SYSTEM_H__
 
-#include "Resource.h"
-#include "Globals.h"
-
-class Resource;
+#include "ParticleEmitter.h"
 
 class ResourceParticleSystem : public Resource
 {
@@ -12,6 +9,7 @@ public:
 	ResourceParticleSystem(uint UUID);
 	virtual ~ResourceParticleSystem();
 
-	void CleanUp() override;
+public:
+	std::vector<ParticleEmitter> emitters;
 };
 #endif// !__RESOURCE_PARTICLE_SYSTEM_H__

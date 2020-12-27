@@ -15,7 +15,8 @@ public:
 		Mesh,
 		Material,
 		Camera,
-		Light
+		Light,
+		ParticleSystem
 	};
 public:
 	Component(Type type, GameObject* owner);
