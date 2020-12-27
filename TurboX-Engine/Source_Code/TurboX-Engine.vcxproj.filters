@@ -690,6 +690,9 @@
     <ClInclude Include="ModuleTexture.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ResourceParticleSystem.h">
+      <Filter>Sources\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -931,6 +934,9 @@
     </ClCompile>
     <ClCompile Include="ModuleTexture.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceParticleSystem.cpp">
+      <Filter>Sources\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

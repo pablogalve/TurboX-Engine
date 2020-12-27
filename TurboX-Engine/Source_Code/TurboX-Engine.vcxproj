@@ -84,6 +84,7 @@
     <ClInclude Include="PathNode.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceMesh.h" />
+    <ClInclude Include="ResourceParticleSystem.h" />
     <ClInclude Include="ResourceTexture.h" />
     <ClInclude Include="ModuleTexture.h" />
     <ClInclude Include="W_About.h" />
@@ -291,6 +292,7 @@
     <ClCompile Include="ModuleTimeManagement.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceMesh.cpp" />
+    <ClCompile Include="ResourceParticleSystem.cpp" />
     <ClCompile Include="ResourceTexture.cpp" />
     <ClCompile Include="ModuleTexture.cpp" />
     <ClCompile Include="W_Toolbar.cpp" />
