@@ -57,6 +57,10 @@ Component* GameObject::CreateComponent(Component::Type type)
 		new_component = new C_Camera(Component::Type::Camera, this);
 		camera = (C_Camera*)new_component;
 		break;
+	case Component::Type::ParticleSystem:
+		new_component = new C_ParticleSystem(Component::Type::ParticleSystem, this);
+		particle_system = (C_ParticleSystem*)new_component;
+		break;
 	default:
 		break;
 	}

@@ -21,13 +21,12 @@ W_Inspector::~W_Inspector()
 
 void W_Inspector::Draw()
 {
-
 	ImGui::Begin("Inspector", &active, ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_AlwaysVerticalScrollbar);
 	
-	if (App->scene->selected_GO != nullptr)
-	{
-		GameObject* gameObject = App->scene->selected_GO;		
-		
+	GameObject* gameObject = App->scene->selected_GO;
+
+	if (gameObject != nullptr)
+	{	
 		ImVec4 yellow(1.0f, 0.8f, 0.0f, 1.0f);
 
 		if(gameObject->mesh != nullptr)
@@ -219,6 +218,31 @@ void W_Inspector::Draw()
 
 
 			}
+		}
+
+		if (ImGui::BeginMenu("Add Component"))
+		{
+			//There is no option to add Transform Component because all the gameObjects already have a Transform
+
+			//TODO: Mesh is created with NULL values
+			/*if (gameObject->GetComponent(Component::Type::Mesh) == false)
+				if (ImGui::MenuItem("Mesh", nullptr))
+					gameObject->CreateComponent(Component::Type::Mesh);*/				
+
+			//TODO: Material is created with NULL values
+			/*if (gameObject->GetComponent(Component::Type::Material) == false)
+				if (ImGui::MenuItem("Material", nullptr)) 
+					gameObject->CreateComponent(Component::Type::Material);*/
+
+			if (gameObject->GetComponent(Component::Type::Camera) == false)
+				if (ImGui::MenuItem("Camera", nullptr)) 
+					gameObject->CreateComponent(Component::Type::Camera);
+
+			if (gameObject->GetComponent(Component::Type::ParticleSystem) == false)
+				if (ImGui::MenuItem("Particle System", nullptr)) 
+					gameObject->CreateComponent(Component::Type::ParticleSystem);
+
+			ImGui::EndMenu();
 		}
 	}	
 
