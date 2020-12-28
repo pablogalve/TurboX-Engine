@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html>
+<title>TurboX-Engine</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">   
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+    <script src="https://kit.fontawesome.com/81457a0be8.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous">
+        </script>
+    <script>
+        $(function () {
+            $("#header").load("header.html");
+            $("#footer").load("footer.html");
+        });
+    </script> 
+</head>
+
+
+<body>
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-card w3-large" id="myNavbar">
+            <!-- Right-sided navbar links -->
+            <div class="w3-right">
+                <a href="index.html" class="w3-bar-item w3-button"><i class="fa fa-home"></i> HOME</a>
+                <a href="#trailer" class="w3-bar-item w3-button"
+                    style="background-color: rgba(181, 57, 57, 0.5);"><i class="fa fa-download"></i> DOWNLOAD</a>
+                <a href="#about" class="w3-bar-item w3-button"><i class="fa fa-gamepad"></i> ABOUT</a>
+                <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-group"></i> TEAM</a>
+                <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+            </div>
+            <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+    
+            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+                onclick="w3_open()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Sidebar on small screens when clicking the menu icon -->
+    <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none"
+        id="mySidebar">
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close
+            ×</a>
+        <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT</a>
+        <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">TEAM</a>
+        <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">WORK</a>
+        <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
+    </nav>
+
+    <!-- Header with full-height image -->
+    <header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
+        <div class="w3-display-left w3-text-white" style="padding:48px">
+            <img src="https://user-images.githubusercontent.com/47743853/97490963-d326f580-1961-11eb-99c8-9dd1b0b7fdc0.png" alt="TurboX-Engine" style="width:60%; margin-top: 220px;" ></br>
+            <p class="eslogan">TurboX-Engine is a 3D game engine specialized in particle systems made by two students at CITM (UPC).</p>
+        </div>
+        <div class="w3-display-bottommiddle w3-text-grey w3-jumbo">
+            <a href="https://github.com/pablogalve/TurboX-Engine" target="_blank" class="fa fa-github "></a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <div class="w3-container" style="padding:128px 16px" id="about">
+        <h3 class="titlet">ABOUT THE ENGINE</h3>
+        
+    </div>
+
+    <!-- Promo Section - "We know design" -->
+    <div id="trailer" class="w3-container w3-blue-gray" style="padding:128px 16px">
+        <div class="w3-row-padding">
+            <div class="w3-col m6">
+                <h3 class="titlet">TRAILER</h3>
+                <p class="turn"><b>Lorem Ipsum</b></p>
+                <h3 class="war">Lorem Ipsum.</h3>
+                </div>
+            <div class="w3-col m5">
+                <iframe width="720" height="480" src="https://www.youtube.com/embed/ghfhsdgs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+ <!-- Team Section -->
+    <div class="w3-container" style="padding:128px 20" id="team">
+        <h3 class="titlet">THE TEAM : TurboX-Engine</h3>
+        <div class="w3-container">
+            <div class="row">
+                
+                <div class="column">
+                    <!-- Column 2 - Profile Pic -->
+                    <p class="exp"style="font-size:1.5vw">
+                        TurboX-Engine is a 3D game engine specialized in particle systems made by two students at CITM (UPC).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+       <div class="w3-row-padding" style="margin-top:64px">
+            <div class="w3-col l3 m6 w3-margin-bottom">
+                <div class="w3-card">
+                    <img src="./Assets/pablo_galve.jpg" alt="Pablo" style="width:100%">
+                    <div class="w3-container">
+                        <h3>Pablo Galve</h3>
+                        <p class="w3-opacity">Programming</p>
+                        <p><a href="https://github.com/pablogalve" target="_blank" class="w3-button w3-light-grey w3-hover-orange w3-block"><i class="fa fa-github"></i> GitHub</a>
+                        </p>
+                        <p><a href="https://www.linkedin.com/in/pablogalve/" target="_blank" class="w3-button w3-light-grey w3-hover-orange w3-block"><i class="fa fa-linkedin"></i> LinkedIn</a>
+                        </p>
+                        <p><a href="https://pablogalve.com/portfolio.html" target="_blank" class="w3-button w3-light-grey w3-hover-orange w3-block"><i class="fas fa-globe"></i> Personal Website</a>
+                        </p>
+                    </div>
+                </div>
+            </div>            
+            <div class="w3-col l3 m6 w3-margin-bottom">
+                <div class="w3-card">
+                    <img src="./Assets/macia_dalmau.jpg" alt="Macià" style="width:100%">
+                    <div class="w3-container">
+                        <h3>Macià Dalmau</h3>
+                        <p class="w3-opacity">Programming</p>
+                        <p><a href="https://github.com/maciadalmau" target="_blank" class="w3-button w3-light-grey w3-hover-orange w3-block"><i class="fa fa-github"></i> GitHub</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Promo Section "Statistics" -->
+    <div class="w3-container w3-row w3-center w3-khaki w3-padding-64">        
+        <div class="w3-quarter">
+            <span class="w3-xxlarge"><b>0</b></span>
+            <h2><b>Lorem Ipsum</h2>
+        </div>
+        <div class="w3-quarter">
+            <span class="w3-xxlarge"><b>0</b></span>
+            <h2><b>Lorem Ipsum</h2>
+        </div>
+        <div class="w3-quarter">
+            <span class="w3-xxlarge"><b>0</b></span>
+            <h2><b>Lorem Ipsum</h2>
+        </div>
+        <div class="w3-quarter">
+            <span class="w3-xxlarge"><b>0</b></span>
+            <h2><b>Lorem Ipsum</h2>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="w3-container w3-light-grey" style="padding:100px 30px" id="contact">
+        <h3 class="titlet">CONTACT</h3>
+        <p class="w3-center w3-xlarge">Lets get in touch.</p>
+        <div style="margin-top:48px">
+            <div class="w3-third" style="padding:1px 100px">
+                <p><i class="fa fa-map-marker w3-xxlarge w3-margin-right"></i><b style="text-decoration: none"> Barcelona, Spain</b></p>
+            </div>
+            <div class="w3-third" style="padding:1px 100px">
+                <p><a href="https://github.com/pablogalve/TurboX-Engine" class="fa fa-github" style="text-decoration: none;font-size:36px"><b>TurboX-Engine</b></a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w3-center w3-black w3-padding-64">
+        <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+        <p>Powered by <a href="https://pablogalve.github.io/TurboX-Engine/" title="TurboX-Engine"
+                target="_blank" class="w3-hover-text-green">TurboX-Engine</a></p>
+    </footer>
+
+    <script>
+        // Modal Image Gallery
+        function onClick(element) {
+            document.getElementById("img01").src = element.src;
+            document.getElementById("modal01").style.display = "block";
+            var captionText = document.getElementById("caption");
+            captionText.innerHTML = element.alt;
+        }
+
+
+        // Toggle between showing and hiding the sidebar when clicking the menu icon
+        var mySidebar = document.getElementById("mySidebar");
+
+        function w3_open() {
+            if (mySidebar.style.display === 'block') {
+                mySidebar.style.display = 'none';
+            } else {
+                mySidebar.style.display = 'block';
+            }
+        }
+
+        // Close the sidebar with the close button
+        function w3_close() {
+            mySidebar.style.display = "none";
+        }
+    </script>
+
+</body>
+
+</html>
