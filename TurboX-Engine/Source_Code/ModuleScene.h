@@ -35,7 +35,8 @@ public:
 	void selectGameObject(GameObject* gameObject);
 	void ClearScene();
 
-	void AddCamera();
+	void CreateCamera();
+	void CreateEmptyGameObject();
 
 	void DrawGuizmo(ImGuizmo::OPERATION operation);
 

@@ -29,7 +29,7 @@ bool ModuleScene::Start()
 
 	ImGuizmo::Enable(false);	
 
-	AddCamera(); //Camera created on Application.cpp after LoadEngineNow() 
+	CreateCamera(); //Camera created on Application.cpp after LoadEngineNow() 
 
 	return ret;
 }
@@ -231,7 +231,7 @@ GameObject* ModuleScene::AddGameObject(const char* name, GameObject* parent)
 	return ret;
 }
 
-void ModuleScene::AddCamera()
+void ModuleScene::CreateCamera()
 {
 	GameObject* newGameObject = new GameObject();
 	newGameObject->name = "Camera";
@@ -257,6 +257,23 @@ void ModuleScene::AddCamera()
 	newGameObject->boundingBox = newGameObject->camera->cameraBB;
 
 	cameras.push_back(newGameObject);
+}
+
+void ModuleScene::CreateEmptyGameObject()
+{
+	GameObject* newGameObject = new GameObject();
+	newGameObject->name = "Empty GameObject";
+	newGameObject->SetParent(root);
+	newGameObject->isStatic = false;
+
+	float3 pos = float3::zero;
+	float3 scale = float3::one;
+	Quat rot = Quat::identity;
+
+	newGameObject->transform->position = pos;
+	newGameObject->transform->scale = scale;
+	newGameObject->transform->rotation = rot;
+	newGameObject->transform->localMatrix.Set(float4x4::FromTRS(pos, rot, scale));
 }
 
 void ModuleScene::selectGameObject(GameObject* gameObject)
