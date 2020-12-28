@@ -2,6 +2,8 @@
 
 C_ParticleSystem::C_ParticleSystem(Component::Type type, GameObject* owner) :Component(type, owner)
 {
+	resourceParticleSystem = nullptr;
+	lifetime = 0;
 }
 
 C_ParticleSystem::~C_ParticleSystem()
@@ -15,6 +17,10 @@ Component::Type C_ParticleSystem::GetComponentType()
 
 void C_ParticleSystem::Update()
 {
+	for (size_t i = 0; i < emitters.size(); i++)
+	{
+		emitters[i].UpdateModules();
+	}
 }
 
 void C_ParticleSystem::Reset()

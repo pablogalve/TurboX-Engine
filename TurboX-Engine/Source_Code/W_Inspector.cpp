@@ -41,7 +41,7 @@ void W_Inspector::Draw()
 
 		C_Transform* transform = (C_Transform*)gameObject->GetComponent(Component::Type::Transform);
 		if (transform != nullptr) {
-			if (ImGui::CollapsingHeader("Transform"))
+			if (ImGui::CollapsingHeader("Transform"), ImGuiTreeNodeFlags_DefaultOpen)
 			{
 				float3 pos = transform->GetPosition();
 				float3 scale = transform->GetScale();
@@ -213,10 +213,17 @@ void W_Inspector::Draw()
 
 		C_ParticleSystem* particle_system = (C_ParticleSystem*)gameObject->GetComponent(Component::Type::ParticleSystem);
 		if (particle_system != nullptr) {
-			if (ImGui::CollapsingHeader("Particle System"))
+			if (ImGui::CollapsingHeader("Particle System"), ImGuiTreeNodeFlags_DefaultOpen)
 			{
+				ImGui::Text("Particle Emitter");
+				ImGui::Text("Set to 0 for an infinite lifetime.");
+				ImGui::SliderFloat("Lifetime", &particle_system->lifetime, 0.0f, 120.0f, "%.1f");
+				
+				if (ImGui::Button("Reset")) particle_system->lifetime = 0;	
 
-
+				ImGui::Text("Maximum Particles");
+				ImGui::Text("Set to 0 for unlimited particles.");
+				//ImGui::SliderInt("MaxParticles", &particle_system->lifetime, 0.0f, 200.0f, "%.1f");
 			}
 		}
 

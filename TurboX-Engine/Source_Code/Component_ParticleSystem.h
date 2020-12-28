@@ -4,6 +4,7 @@
 #include "Component.h"
 #include <vector>
 #include "EmitterInstance.h"
+#include "ResourceParticleSystem.h"
 class GameObject;
 
 class C_ParticleSystem : public Component {
@@ -20,5 +21,9 @@ public:
 	void Load(); //TODO: Update()
 public:
 	std::vector<EmitterInstance> emitters;
+	ResourceParticleSystem* resourceParticleSystem;
+
+public:
+	float lifetime;
 };
 #endif // !__COMPONENT_PARTICLE_SYSTEM_H__

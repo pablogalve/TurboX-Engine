@@ -15,6 +15,8 @@ public:
 	std::string name;
 	ResourceTexture* particleTexture;
 	std::vector<ParticleModule*> modules;
+
+	uint maxParticles;
 };
 
 #endif // !__PARTICLE_EMITTER_H__
