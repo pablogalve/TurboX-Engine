@@ -8,6 +8,7 @@
 #include "Component_Transformation.h"
 #include "Component_Material.h"
 #include "Component_Camera.h"
+#include "Component_ParticleSystem.h"
 #include "Component.h"
 
 #include "Config_JSON.h"
@@ -60,6 +61,7 @@ public:
 	C_Material* material;
 	C_Transform* transform;
 	C_Camera* camera;
+	C_ParticleSystem* particle_system;
 
 	AABB boundingBox;
 

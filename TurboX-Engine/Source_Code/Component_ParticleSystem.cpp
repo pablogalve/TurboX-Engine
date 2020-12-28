@@ -8,6 +8,11 @@ C_ParticleSystem::~C_ParticleSystem()
 {
 }
 
+Component::Type C_ParticleSystem::GetComponentType()
+{
+	return Component::Type::ParticleSystem;
+}
+
 void C_ParticleSystem::Update()
 {
 }

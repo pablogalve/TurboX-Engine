@@ -11,6 +11,8 @@ public:
 	C_ParticleSystem(Component::Type type, GameObject* owner);
 	~C_ParticleSystem();
 
+	Component::Type GetComponentType() override;
+
 	void Update(); //TODO: Update()
 	void Reset(); //TODO: Reset()
 
