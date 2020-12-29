@@ -711,6 +711,9 @@
     <ClInclude Include="ParticleEmitter.h">
       <Filter>Sources\GameObjects\Particles</Filter>
     </ClInclude>
+    <ClInclude Include="Component_Billboard.h">
+      <Filter>Sources\GameObjects\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -970,6 +973,9 @@
     </ClCompile>
     <ClCompile Include="ParticleEmitter.cpp">
       <Filter>Sources\GameObjects\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Component_Billboard.cpp">
+      <Filter>Sources\GameObjects\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

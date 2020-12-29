@@ -39,13 +39,13 @@ void W_Inspector::Draw()
 			gameObject->name.assign(nameBuffer);
 		}
 
-		C_Transform* transform = (C_Transform*)gameObject->GetComponent(Component::Type::Transform);
-		if (transform != nullptr) {
+		if (gameObject->transform != nullptr) 
+		{
 			if (ImGui::CollapsingHeader("Transform"), ImGuiTreeNodeFlags_DefaultOpen)
 			{
-				float3 pos = transform->GetPosition();
-				float3 scale = transform->GetScale();
-				float3 rotation = transform->GetEulerRotation();
+				float3 pos = gameObject->transform->GetPosition();
+				float3 scale = gameObject->transform->GetScale();
+				float3 rotation = gameObject->transform->GetEulerRotation();
 
 				ImGui::Columns(4, "Transform");
 
@@ -61,24 +61,24 @@ void W_Inspector::Draw()
 				ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
 				if (ImGui::DragFloat("##PositionX", &pos.x, 0.05f, 0.f, 0.f, "%.2f"))
 				{
-					transform->SetPosition(pos);
-					transform->changed = true;
+					gameObject->transform->SetPosition(pos);
+					gameObject->transform->changed = true;
 				}
 				ImGui::NextColumn();
 
 				ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
 				if (ImGui::DragFloat("##PositionY", &pos.y, 0.05f, 0.f, 0.f, "%.2f"))
 				{
-					transform->SetPosition(pos);
-					transform->changed = true;
+					gameObject->transform->SetPosition(pos);
+					gameObject->transform->changed = true;
 				}
 				ImGui::NextColumn();
 
 				ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
 				if (ImGui::DragFloat("##PositionZ", &pos.z, 0.05f, 0.f, 0.f, "%.2f"))
 				{
-					transform->SetPosition(pos);
-					transform->changed = true;
+					gameObject->transform->SetPosition(pos);
+					gameObject->transform->changed = true;
 				}
 				ImGui::NextColumn();
 
@@ -89,24 +89,24 @@ void W_Inspector::Draw()
 
 				if (ImGui::DragFloat("##RotationX", &rotation.x, 0.05f, 0.f, 0.f, "%.2f"))
 				{
-					transform->SetRotation(rotation);
-					transform->changed = true;
+					gameObject->transform->SetRotation(rotation);
+					gameObject->transform->changed = true;
 				}
 				ImGui::NextColumn();
 
 				ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
 				if (ImGui::DragFloat("##RotationY", &rotation.y, 0.05f, 0.f, 0.f, "%.2f"))
 				{
-					transform->SetRotation(rotation);
-					transform->changed = true;
+					gameObject->transform->SetRotation(rotation);
+					gameObject->transform->changed = true;
 				}
 				ImGui::NextColumn();
 
 				ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
 				if (ImGui::DragFloat("##RotationZ", &rotation.z, 0.05f, 0.f, 0.f, "%.2f"))
 				{
-					transform->SetRotation(rotation);
-					transform->changed = true;
+					gameObject->transform->SetRotation(rotation);
+					gameObject->transform->changed = true;
 				}
 				ImGui::NextColumn();
 				// Scale
@@ -115,24 +115,24 @@ void W_Inspector::Draw()
 				ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
 				if (ImGui::DragFloat("##ScaleX", &scale.x, 0.05f, 0.f, 0.f, "%.2f"))
 				{
-					transform->SetScale(scale);
-					transform->changed = true;
+					gameObject->transform->SetScale(scale);
+					gameObject->transform->changed = true;
 				}
 				ImGui::NextColumn();
 
 				ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
 				if (ImGui::DragFloat("##ScaleY", &scale.y, 0.05f, 0.f, 0.f, "%.2f"))
 				{
-					transform->SetScale(scale);
-					transform->changed = true;
+					gameObject->transform->SetScale(scale);
+					gameObject->transform->changed = true;
 				}
 				ImGui::NextColumn();
 
 				ImGui::SetNextItemWidth(ImGui::GetWindowWidth() / 5.0f);
 				if (ImGui::DragFloat("##ScaleZ", &scale.z, 0.05f, 0.f, 0.f, "%.2f"))
 				{
-					transform->SetScale(scale);
-					transform->changed = true;
+					gameObject->transform->SetScale(scale);
+					gameObject->transform->changed = true;
 				}
 
 				ImGui::NextColumn();
@@ -140,16 +140,16 @@ void W_Inspector::Draw()
 			}
 		}	
 		
-		C_Mesh* mesh = (C_Mesh*)gameObject->GetComponent(Component::Type::Mesh);
-		if (mesh != nullptr) {
+		if (gameObject->mesh != nullptr) 
+		{
 			if (ImGui::CollapsingHeader("Mesh"))
 			{
-				uint n_index = mesh->GetResourceMesh()->num_index;
-				uint n_vertex = mesh->GetResourceMesh()->num_vertex;
-				uint n_normals = mesh->GetResourceMesh()->num_normals;
-				uint n_textureCoord = mesh->GetResourceMesh()->num_textureCoords;
+				uint n_index = gameObject->mesh->GetResourceMesh()->num_index;
+				uint n_vertex = gameObject->mesh->GetResourceMesh()->num_vertex;
+				uint n_normals = gameObject->mesh->GetResourceMesh()->num_normals;
+				uint n_textureCoord = gameObject->mesh->GetResourceMesh()->num_textureCoords;
 
-				ImGui::Checkbox("Active", &mesh->active);
+				ImGui::Checkbox("Active", &gameObject->mesh->active);
 
 				ImGui::Text("Index: "); ImGui::SameLine();
 				ImGui::TextColored(yellow, "%u", n_index);
@@ -160,23 +160,22 @@ void W_Inspector::Draw()
 				ImGui::Text("Tex Coords: "); ImGui::SameLine();
 				ImGui::TextColored(yellow, "%u", n_textureCoord);
 
-				ImGui::Checkbox("Vertex Normals:", &mesh->vertex_normals_active);
-				//ImGui::Checkbox("Face Normals:", &mesh->face_normals_active);
+				ImGui::Checkbox("Vertex Normals:", &gameObject->mesh->vertex_normals_active);
+				//ImGui::Checkbox("Face Normals:", &mesh->face_normals_active); //TODO
 			}
 		}		
 
-		C_Material* material = (C_Material*)gameObject->GetComponent(Component::Type::Material);
-		if(material != nullptr)
+		if(gameObject->material != nullptr)
 		{
 			if (ImGui::CollapsingHeader("Material"))
 			{
-				uint w = material->GetResourceTexture()->width;
-				uint h = material->GetResourceTexture()->height;
-				uint tex = material->GetResourceTexture()->gpuID;
-				uint uuid = material->GetResourceTexture()->GetUUID();
+				uint w = gameObject->material->GetResourceTexture()->width;
+				uint h = gameObject->material->GetResourceTexture()->height;
+				uint tex = gameObject->material->GetResourceTexture()->gpuID;
+				uint uuid = gameObject->material->GetResourceTexture()->GetUUID();
 				float windowSize = ImGui::GetWindowContentRegionWidth();
 
-				ImGui::Checkbox("Active ", &material->active);
+				ImGui::Checkbox("Active ", &gameObject->material->active);
 				ImGui::Text("Resource UUID:: "); ImGui::SameLine();
 				ImGui::TextColored(yellow, "%i", uuid);
 				ImGui::Text("Widht: "); ImGui::SameLine();
@@ -188,42 +187,61 @@ void W_Inspector::Draw()
 			}
 		}
 
-		C_Camera* camera = (C_Camera*)gameObject->GetComponent(Component::Type::Camera);
-		if (camera != nullptr) {
-		if (ImGui::CollapsingHeader("Camera"))
+		if (gameObject->camera != nullptr) 
 		{
-			ImGui::DragFloat("Near Plane", &camera->frustum.nearPlaneDistance, 0.05f, 0.f, 0.f, "%.2f");
-			ImGui::DragFloat("Far Plane", &camera->frustum.farPlaneDistance, 0.05f, 0.f, 0.f, "%.2f");
-
-			float aspectRatio = camera->frustum.AspectRatio();
-			float fov = camera->frustum.verticalFov * RADTODEG;
-
-			if (ImGui::DragFloat("FOV", &fov, 0.05f, 0.f, 0.f, "%.2f"))
+			if (ImGui::CollapsingHeader("Camera"))
 			{
-				camera->frustum.verticalFov = fov * DEGTORAD;
-				camera->setAspectRatio(aspectRatio);
-			}
+				ImGui::DragFloat("Near Plane", &gameObject->camera->frustum.nearPlaneDistance, 0.05f, 0.f, 0.f, "%.2f");
+				ImGui::DragFloat("Far Plane", &gameObject->camera->frustum.farPlaneDistance, 0.05f, 0.f, 0.f, "%.2f");
 
-			if (ImGui::DragFloat("Aspect Ratio", &aspectRatio, 0.05f, 0.f, 0.f, "%.2f"))
-			{
-				camera->setAspectRatio(aspectRatio);
+				float aspectRatio = gameObject->camera->frustum.AspectRatio();
+				float fov = gameObject->camera->frustum.verticalFov * RADTODEG;
+
+				if (ImGui::DragFloat("FOV", &fov, 0.05f, 0.f, 0.f, "%.2f"))
+				{
+					gameObject->camera->frustum.verticalFov = fov * DEGTORAD;
+					gameObject->camera->setAspectRatio(aspectRatio);
+				}
+
+				if (ImGui::DragFloat("Aspect Ratio", &aspectRatio, 0.05f, 0.f, 0.f, "%.2f"))
+				{
+					gameObject->camera->setAspectRatio(aspectRatio);
+				}
 			}
 		}
-		}
-
-		C_ParticleSystem* particle_system = (C_ParticleSystem*)gameObject->GetComponent(Component::Type::ParticleSystem);
-		if (particle_system != nullptr) {
+		
+		if (gameObject->particle_system != nullptr) 
+		{
 			if (ImGui::CollapsingHeader("Particle System"), ImGuiTreeNodeFlags_DefaultOpen)
 			{
 				ImGui::Text("Particle Emitter");
 				ImGui::Text("Set to 0 for an infinite lifetime.");
-				ImGui::SliderFloat("Lifetime", &particle_system->lifetime, 0.0f, 120.0f, "%.1f");
+				ImGui::SliderFloat("Lifetime", &gameObject->particle_system->lifetime, 0.0f, 120.0f, "%.1f");
 				
-				if (ImGui::Button("Reset")) particle_system->lifetime = 0;	
+				if (ImGui::Button("Reset")) gameObject->particle_system->lifetime = 0;
 
 				ImGui::Text("Maximum Particles");
 				ImGui::Text("Set to 0 for unlimited particles.");
 				//ImGui::SliderInt("MaxParticles", &particle_system->lifetime, 0.0f, 200.0f, "%.1f");
+			}
+		}
+
+		if (gameObject->billboard != nullptr) {
+			if (ImGui::CollapsingHeader("Billboard"), ImGuiTreeNodeFlags_DefaultOpen) {
+				if (gameObject->material == nullptr) 
+				{
+					if (ImGui::Button("Add Material"))
+						ImGui::OpenPopup("add_material");
+
+					if (ImGui::BeginPopup("add_material"))
+					{
+						//TODO: Add Material
+						ImGui::EndPopup();
+					}
+				}
+				else {
+					//TODO: Show material info
+				}
 			}
 		}
 
@@ -258,6 +276,11 @@ void W_Inspector::Draw()
 					delete emitterReference;
 				}
 			}
+
+			if (gameObject->GetComponent(Component::Type::Billboard) == false)
+				if (ImGui::MenuItem("Billboard", nullptr))				
+					gameObject->CreateComponent(Component::Type::Billboard);			
+
 			ImGui::EndMenu();
 		}
 	}	

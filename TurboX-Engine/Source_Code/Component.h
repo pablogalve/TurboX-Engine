@@ -16,7 +16,8 @@ public:
 		Material,
 		Camera,
 		Light,
-		ParticleSystem
+		ParticleSystem,
+		Billboard
 	};
 public:
 	Component(Type type, GameObject* owner);

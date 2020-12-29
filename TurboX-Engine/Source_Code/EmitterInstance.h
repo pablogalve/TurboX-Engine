@@ -17,8 +17,11 @@ public:
 	void Init(ParticleEmitter* emitterReference);
 	void UpdateModules();
 	void DrawParticles(); //TODO: DrawParticles()
+	
+	void SpawnParticle(); //It creates a new particle or re-spawns an existing one through object polling
+
+private:
 	void CreateParticle(); //Function to create new particles
-	void SpawnParticle(); //Function to re-spawn particles using Object Polling:
 public:
 	std::vector<Particle> particles_vector;
 	ParticleEmitter* emitter;

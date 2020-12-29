@@ -75,6 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Component_Billboard.h" />
     <ClInclude Include="Component_Camera.h" />
     <ClInclude Include="Component_ParticleSystem.h" />
     <ClInclude Include="Config_JSON.h" />
@@ -289,6 +290,7 @@
     <ClInclude Include="W_Toolbar.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component_Billboard.cpp" />
     <ClCompile Include="Component_Camera.cpp" />
     <ClCompile Include="Component_ParticleSystem.cpp" />
     <ClCompile Include="Config_JSON.cpp" />

@@ -29,6 +29,8 @@ void EmitterInstance::UpdateModules()
     {
         emitter->modules[i]->Update(this);
     }
+
+    SpawnParticle();
 }
 
 void EmitterInstance::DrawParticles()
@@ -40,6 +42,9 @@ void EmitterInstance::CreateParticle()
     float3 direction = { 0,1,0 };
 
     Particle* newParticle = new Particle(particleReference);
+    MY_LOG("%i", existing_particles);
+    if(newParticle != nullptr)existing_particles++;
+    else MY_LOG("Error creating particles in the Particle Emitter Instance. newParticle was nulltr.")
 }
 
 void EmitterInstance::SpawnParticle()
@@ -52,8 +57,7 @@ void EmitterInstance::SpawnParticle()
             CreateParticle();
         }
         else {
-            //Re-spawn inactive particles
-            CreateParticle(); //TODO: Change to re-spawn instead of Create new
+            //TODO: Re-spawn inactive particles            
         }
     }
 }
