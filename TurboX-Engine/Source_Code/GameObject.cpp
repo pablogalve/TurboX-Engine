@@ -19,6 +19,7 @@ GameObject::GameObject()
 	transform = nullptr;
 	parent = nullptr;
 	camera = nullptr;
+	particle_system = nullptr;
 	
 	parentUUID = 0;
 	UUID = GenerateUUID();	
@@ -159,6 +160,24 @@ void GameObject::Select()
 void GameObject::Unselect()
 {
 	is_selected = false;
+}
+
+bool GameObject::Update()
+{
+	bool ret = true;
+
+	for (size_t i = 0; i < components.size(); i++)
+	{
+		components[i]->Update();
+	}
+
+	for (size_t i = 0; i < childs.size(); i++)
+	{
+		if (childs[i]->active)
+			childs[i]->Update();
+	}
+
+	return ret;
 }
 
 bool GameObject::Save(Config* data)

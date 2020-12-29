@@ -48,6 +48,7 @@ public:
 
 private:
 	GameObject* GetGameObjectUUIDRecursive(uint UUID, GameObject* go) const;
+	void UpdateGameObjects(GameObject* gameObject);
 
 public:
 	GameObject* root;

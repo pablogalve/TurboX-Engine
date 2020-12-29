@@ -66,6 +66,8 @@ update_status ModuleScene::Update(float dt)
 
 	FrustumCulling(GetRoot(), GetRoot());
 
+	UpdateGameObjects(GetRoot());
+
 	return UPDATE_CONTINUE;
 }
 
@@ -209,6 +211,11 @@ GameObject* ModuleScene::GetGameObjectUUIDRecursive(uint UUID, GameObject* go) c
 		}
 	}
 	return nullptr;
+}
+
+void ModuleScene::UpdateGameObjects(GameObject* gameObject)
+{
+	gameObject->Update();
 }
 
 GameObject* ModuleScene::AddGameObject(const char* name)

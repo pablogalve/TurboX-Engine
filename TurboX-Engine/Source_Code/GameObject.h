@@ -46,6 +46,7 @@ public:
 	void Select();
 	void Unselect();
 
+	bool Update();
 	bool Save(Config* data);
 	bool Load(Config* data);
 
@@ -55,7 +56,6 @@ public:
 	std::string name;
 	vector<Component*> components;
 	vector<GameObject*> childs;
-	//vector<GameObject*> game_objects;
 	GameObject* parent;
 	C_Mesh* mesh;
 	C_Material* material;
