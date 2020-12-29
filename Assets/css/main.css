@@ -1826,7 +1826,7 @@ ul.icons {
   #banner input, #banner select, #banner textarea {
     color: #ffffff; }
   #banner a {
-    color: #ce1b28; }
+    color: #c2ce1b; }
   #banner strong, #banner b {
     color: #ffffff; }
   #banner h1, #banner h2, #banner h3, #banner h4, #banner h5, #banner h6 {
@@ -1851,35 +1851,35 @@ ul.icons {
     #banner input[type="button"]:hover,
     #banner button:hover,
     #banner .button:hover {
-      box-shadow: inset 0 0 0 1px #ce1b28;
-      color: #ce1b28 !important; }
+      box-shadow: inset 0 0 0 1px #cec21b;
+      color: #cecb1b !important; }
       #banner input[type="submit"]:hover:active,
       #banner input[type="reset"]:hover:active,
       #banner input[type="button"]:hover:active,
       #banner button:hover:active,
       #banner .button:hover:active {
-        background-color: rgba(206, 27, 40, 0.25); }
+        background-color: rgba(206, 203, 27, 0.25); }
     #banner input[type="submit"].primary,
     #banner input[type="reset"].primary,
     #banner input[type="button"].primary,
     #banner button.primary,
     #banner .button.primary {
       box-shadow: none;
-      background-color: #ce1b28;
+      background-color: #cebc1b;
       color: #ffffff !important; }
       #banner input[type="submit"].primary:hover,
       #banner input[type="reset"].primary:hover,
       #banner input[type="button"].primary:hover,
       #banner button.primary:hover,
       #banner .button.primary:hover {
-        background-color: #e2212f;
+        background-color: #e2c521;
         box-shadow: none; }
         #banner input[type="submit"].primary:hover:active,
         #banner input[type="reset"].primary:hover:active,
         #banner input[type="button"].primary:hover:active,
         #banner button.primary:hover:active,
         #banner .button.primary:hover:active {
-          background-color: #b71824; }
+          background-color: #a5882b; }
   #banner label {
     color: #ffffff; }
   #banner input[type="text"],
@@ -1952,16 +1952,16 @@ ul.icons {
     background: #111111;
     box-shadow: 0px 0px 4px 1px rgba(255, 255, 255, 0.025); }
     #banner .testimonials .content .credit strong {
-      color: #ce1b28; }
+      color: #cecb1b; }
   #banner > .inner {
     -moz-transform: scale(1.0);
     -webkit-transform: scale(1.0);
     -ms-transform: scale(1.0);
     transform: scale(1.0);
-    -moz-transition: opacity 1s ease, -moz-transform 1s ease;
-    -webkit-transition: opacity 1s ease, -webkit-transform 1s ease;
-    -ms-transition: opacity 1s ease, -ms-transform 1s ease;
-    transition: opacity 1s ease, transform 1s ease;
+    -moz-transition: opacity 1s, -moz-transform 1s;
+    -webkit-transition: opacity 1s, -webkit-transform 1s;
+    -ms-transition: opacity 1s, -ms-transform 1s;
+    transition: opacity 1s, transform 1s;
     opacity: 1;
     position: relative;
     z-index: 3; }
@@ -1990,6 +1990,25 @@ ul.icons {
     position: absolute;
     right: 50%;
     width: auto; }
+  #banner:before {
+    -moz-transition: opacity 3s ease;
+    -webkit-transition: opacity 3s ease;
+    -ms-transition: opacity 3s ease;
+    transition: opacity 3s ease;
+    -moz-transition-delay: 1.25s;
+    -webkit-transition-delay: 1.25s;
+    -ms-transition-delay: 1.25s;
+    transition-delay: 1.25s;
+    background: #111111;
+    content: '';
+    display: block;
+    height: 100%;
+    left: 0;
+    opacity: 0.45;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1; }
   #banner:after {
     background: linear-gradient(135deg, #ce1b28 0%, #111111 74%);
     content: ' ';
