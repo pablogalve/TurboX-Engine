@@ -1990,25 +1990,6 @@ ul.icons {
     position: absolute;
     right: 50%;
     width: auto; }
-  #banner:before {
-    -moz-transition: opacity 3s ease;
-    -webkit-transition: opacity 3s ease;
-    -ms-transition: opacity 3s ease;
-    transition: opacity 3s ease;
-    -moz-transition-delay: 1.25s;
-    -webkit-transition-delay: 1.25s;
-    -ms-transition-delay: 1.25s;
-    transition-delay: 1.25s;
-    background: #111111;
-    content: '';
-    display: block;
-    height: 100%;
-    left: 0;
-    opacity: 0.45;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 1; }
   #banner:after {
     background: linear-gradient(135deg, #ce1b28 0%, #111111 74%);
     content: ' ';
