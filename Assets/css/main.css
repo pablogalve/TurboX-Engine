@@ -2019,10 +2019,6 @@ ul.icons {
   @media screen and (max-width: 480px) {
     #banner p {
       font-size: 1rem; } }
-  body.is-preload #banner .inner {
-    opacity: 1; }
-  body.is-preload #banner:before {
-    opacity: 1; }
 
 /* CTA */
 #cta {
