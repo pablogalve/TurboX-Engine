@@ -1954,7 +1954,6 @@ ul.icons {
     #banner .testimonials .content .credit strong {
       color: #ce1b28; }
   #banner > .inner {
-    opacity: 1;
     position: relative;
     z-index: 3; }
     #banner > .inner > :last-child {
@@ -2021,11 +2020,7 @@ ul.icons {
     #banner p {
       font-size: 1rem; } }
   body.is-preload #banner .inner {
-    -moz-transform: scale(0.99);
-    -webkit-transform: scale(0.99);
-    -ms-transform: scale(0.99);
-    transform: scale(0.99);
-    opacity: 0; }
+    opacity: 1; }
   body.is-preload #banner:before {
     opacity: 1; }
 
