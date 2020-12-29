@@ -25,6 +25,7 @@ void C_ParticleSystem::Update()
 
 void C_ParticleSystem::Reset()
 {
+	
 }
 
 void C_ParticleSystem::Save()

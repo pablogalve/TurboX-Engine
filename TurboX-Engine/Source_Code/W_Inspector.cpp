@@ -246,9 +246,17 @@ void W_Inspector::Draw()
 					gameObject->CreateComponent(Component::Type::Camera);
 
 			if (gameObject->GetComponent(Component::Type::ParticleSystem) == false)
-				if (ImGui::MenuItem("Particle System", nullptr)) 
+			{
+				if (ImGui::MenuItem("Particle System", nullptr))
+				{
 					gameObject->CreateComponent(Component::Type::ParticleSystem);
-
+					//TODO: Create emitters elsewhere
+					gameObject->particle_system->emitters.push_back(EmitterInstance());
+					ParticleEmitter* emitterReference = new ParticleEmitter();
+					gameObject->particle_system->emitters.back().Init(emitterReference);
+					delete emitterReference;
+				}
+			}
 			ImGui::EndMenu();
 		}
 	}	
