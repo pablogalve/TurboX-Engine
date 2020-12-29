@@ -254,6 +254,7 @@ void W_Inspector::Draw()
 					gameObject->particle_system->emitters.push_back(EmitterInstance());
 					ParticleEmitter* emitterReference = new ParticleEmitter();
 					gameObject->particle_system->emitters.back().Init(emitterReference);
+					gameObject->particle_system->emitters.back().owner = (C_ParticleSystem*)gameObject->GetComponent(Component::Type::ParticleSystem);	//Set EmitterInstance's owner
 					delete emitterReference;
 				}
 			}

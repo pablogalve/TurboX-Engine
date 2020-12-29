@@ -17,10 +17,16 @@ public:
 	void Init(ParticleEmitter* emitterReference);
 	void UpdateModules();
 	void DrawParticles(); //TODO: DrawParticles()
+	void CreateParticle(); //Function to create new particles
+	void SpawnParticle(); //Function to re-spawn particles using Object Polling:
 public:
 	std::vector<Particle> particles_vector;
 	ParticleEmitter* emitter;
 	C_ParticleSystem* owner;
+
+	Particle* particleReference;
+private:
+	int existing_particles;
 };
 
 #endif // !__EMITTER_INSTANCE_H__

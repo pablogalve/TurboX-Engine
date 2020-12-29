@@ -8,6 +8,7 @@
 class Particle {
 public:
 	Particle();
+	Particle(Particle* particleReference);
 	~Particle();
 
 public:

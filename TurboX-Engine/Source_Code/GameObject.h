@@ -55,7 +55,7 @@ public:
 	std::string name;
 	vector<Component*> components;
 	vector<GameObject*> childs;
-	vector<GameObject*> game_objects;
+	//vector<GameObject*> game_objects;
 	GameObject* parent;
 	C_Mesh* mesh;
 	C_Material* material;

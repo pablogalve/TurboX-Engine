@@ -6,6 +6,7 @@ ParticleModule::ParticleModule()
 
 void ParticleModule::Spawn(EmitterInstance* emitterInstance)
 {
+
 }
 
 void ParticleModule::Update(EmitterInstance* emitterInstance)

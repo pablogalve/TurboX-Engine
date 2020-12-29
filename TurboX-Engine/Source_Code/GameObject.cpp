@@ -97,7 +97,6 @@ Component* GameObject::GetComponent(Component::Type type)
 
 void GameObject::Draw()
 {
-
 	if (culling) 
 	{
 		if (mesh != nullptr)
