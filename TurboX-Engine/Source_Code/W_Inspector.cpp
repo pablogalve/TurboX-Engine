@@ -272,7 +272,7 @@ void W_Inspector::DrawCamera(C_Camera* camera)
 
 void W_Inspector::DrawParticleSystem(C_ParticleSystem* particle_system)
 {
-	if (ImGui::CollapsingHeader("Particle System"), ImGuiTreeNodeFlags_DefaultOpen)
+	if (ImGui::CollapsingHeader("Particle System"))
 	{
 		ImGui::Text("Particle Emitter");
 		ImGui::Text("Set to 0 for an infinite lifetime.");
@@ -288,7 +288,7 @@ void W_Inspector::DrawParticleSystem(C_ParticleSystem* particle_system)
 
 void W_Inspector::DrawBillboard(C_Billboard* billboard)
 {
-	if (ImGui::CollapsingHeader("Billboard"), ImGuiTreeNodeFlags_DefaultOpen) {
+	if (ImGui::CollapsingHeader("Billboard")) {
 
 		//Billboard Alignment
 		ImGui::Text("Current Billboard: %s", billboard->GetAlignmentText().c_str());

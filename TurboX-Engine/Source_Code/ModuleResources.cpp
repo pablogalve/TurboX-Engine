@@ -13,6 +13,7 @@
 
 ModuleResources::ModuleResources(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	billboard = nullptr;
 }
 
 
@@ -23,6 +24,7 @@ ModuleResources::~ModuleResources()
 bool ModuleResources::Start()
 {
 	CheckMetaFiles();
+	GenerateBillboard();
 
 	return true;
 }
@@ -413,6 +415,40 @@ const Resource::ResType ModuleResources::GetResourceTypeFromExtension(const char
 	if (extension == TGA_FORMAT || extension == TGA_FORMAT_CAP)  return Resource::ResType::Texture;
 
 	return Resource::ResType::None;
+}
+
+void ModuleResources::GenerateBillboard()
+{
+	static const float vertex[] = {
+		-0.5f, -0.5f, 0.0f,
+		0.5f, -0.5f, 0.0f,
+		-0.5f, 0.5f, 0.0f,
+		0.5f, 0.5f, 0.0f,
+	};
+
+	billboard = new ResourceMesh(LCG().Int());
+
+	//Vertex
+	billboard->num_vertex = 4;
+	billboard->vertex = new float3[billboard->num_vertex];
+	memcpy(billboard->vertex, vertex, sizeof(vertex));
+
+	//Indices
+	static const uint indices[] = {
+		0,1,2,1,3,2
+	};
+	billboard->num_index = 6;
+	billboard->index = new uint[billboard->num_index];
+	memcpy(billboard->index, indices, sizeof(indices));
+
+	//Texture Coordinates
+	static const float tex[] = {0,0,0};
+
+	billboard->num_textureCoords = billboard->num_vertex * 2;
+	billboard->texturesCoords = new float2[billboard->num_textureCoords];
+	memcpy(billboard->texturesCoords, tex, sizeof(tex));
+
+	billboard->GenerateBuffersGPU();
 }
 
 void ModuleResources::ChangeResourceUUID(uint formerUUID, uint newUUID)

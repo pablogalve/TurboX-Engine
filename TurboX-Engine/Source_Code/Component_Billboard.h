@@ -2,7 +2,12 @@
 #define __COMPONENT_BILLBOARD_H__
 
 #include "Component.h"
+#include "ResourceMesh.h"
+#include "ResourceTexture.h"
+#include "Component_Camera.h"
+#include "Component_Transformation.h"
 #include <string>
+
 class GameObject;
 class C_Material;
 
@@ -20,12 +25,19 @@ public:
 	Component::Type GetComponentType() override;
 	void Update() override;
 
+	void FaceCamera();
+
 	void SetAlignment(Billboarding_Alignment new_alignment);
 	std::string GetAlignmentText();
-
-
+private:
+	void ScreenAlign();
+	void WorldAlign();
+	void AxisAlign();
+public:
+	C_Transform* transform;
 private:
 	Billboarding_Alignment billboard_alignment;
+	ResourceMesh* res_mesh;
+	ResourceTexture* res_texture;	
 };
-
 #endif //!__COMPONENT_BILLBOARD_H__
