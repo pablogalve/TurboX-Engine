@@ -8,7 +8,6 @@
 class C_ParticleSystem;
 class ParticleEmitter;
 
-
 class EmitterInstance
 {
 public:
@@ -20,7 +19,7 @@ public:
 	
 	void SpawnParticle(); //It creates a new particle or re-spawns an existing one through object polling
 
-private:
+private:	
 	void CreateParticle(); //Function to create new particles
 public:
 	std::vector<Particle> particles_vector;

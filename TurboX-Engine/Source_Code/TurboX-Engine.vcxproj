@@ -79,6 +79,7 @@
     <ClInclude Include="Component_Camera.h" />
     <ClInclude Include="Component_ParticleSystem.h" />
     <ClInclude Include="Config_JSON.h" />
+    <ClInclude Include="Libraries\pcg-c-basic-0.9\pcg_basic.h" />
     <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="EmitterInstance.h" />
     <ClInclude Include="Libraries\ImGuizmo\ImGuizmo.h" />
@@ -294,6 +295,7 @@
     <ClCompile Include="Component_Camera.cpp" />
     <ClCompile Include="Component_ParticleSystem.cpp" />
     <ClCompile Include="Config_JSON.cpp" />
+    <ClCompile Include="Libraries\pcg-c-basic-0.9\pcg_basic.c" />
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="EmitterInstance.cpp" />
     <ClCompile Include="Libraries\ImGuizmo\ImGuizmo.cpp" />
