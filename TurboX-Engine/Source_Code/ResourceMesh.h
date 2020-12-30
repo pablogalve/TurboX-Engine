@@ -19,7 +19,8 @@ public:
 	void Save(Config& config) const override;
 	void Load(const Config& config) override;
 	void CleanUp() override;
-	
+	void Draw();
+
 	void GenerateBuffersGPU();	
 
 public: 

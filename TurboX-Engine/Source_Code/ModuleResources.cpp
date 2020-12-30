@@ -461,3 +461,8 @@ void ModuleResources::ChangeResourceUUID(uint formerUUID, uint newUUID)
 		}
 	}
 }
+
+ResourceMesh* ModuleResources::GetBillboard() const
+{
+	return billboard;
+}

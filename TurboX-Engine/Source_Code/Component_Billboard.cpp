@@ -3,12 +3,15 @@
 #include "Resource.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
-
+#include "glew\glew.h"
+#include "SDL\include\SDL_opengl.h"
+#include <gl/GL.h>
+#include <gl/GLU.h>
 C_Billboard::C_Billboard(Component::Type type, GameObject* owner) : Component(type, owner)
 {
 	this->owner = owner;
 	billboard_alignment = SCREEN_ALIGNED;
-	res_mesh = (ResourceMesh*)App->resources->Get(App->resources->billboard->GetUUID());
+	res_mesh = App->resources->GetBillboard();
 	res_texture = nullptr;
 	transform = nullptr;
 }
@@ -25,6 +28,15 @@ Component::Type C_Billboard::GetComponentType()
 void C_Billboard::Update()
 {
 	FaceCamera();
+
+	transform->RecalculateMatrix();
+
+	glPushMatrix();
+	glMultMatrixf(transform->localMatrix.Transposed().ptr());
+
+	res_mesh->Draw();
+
+	glPopMatrix();
 }
 
 void C_Billboard::FaceCamera()

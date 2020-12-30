@@ -41,6 +41,9 @@ public:
 	void GenerateBillboard();
 
 	ResourceMesh* billboard;
+
+	ResourceMesh* GetBillboard() const;
+
 private:
 	uint last_uuid = 1;
 	std::map<uint, Resource*> resources;
