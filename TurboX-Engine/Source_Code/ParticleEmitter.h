@@ -12,7 +12,6 @@ public:
 	void Save();
 	void Load();
 public:
-	std::string name;
 	ResourceTexture* particleTexture;
 	std::vector<ParticleModule*> modules;
 

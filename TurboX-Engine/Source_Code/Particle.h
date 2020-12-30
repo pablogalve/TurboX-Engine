@@ -21,6 +21,7 @@ public:
 	float velocity;
 	Color color;
 	float3 direction;
+	bool active;
 };
 
 #endif // !__PARTICLE_H__

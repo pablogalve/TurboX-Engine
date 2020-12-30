@@ -11,6 +11,7 @@ Particle::Particle(Particle* particleReference)
 	lifetime = particleReference->lifetime;
 	velocity = particleReference->velocity;
 	direction = particleReference->direction;
+	active = true;
 }
 
 Particle::~Particle()

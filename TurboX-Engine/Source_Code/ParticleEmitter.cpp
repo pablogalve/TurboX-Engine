@@ -2,7 +2,6 @@
 
 ParticleEmitter::ParticleEmitter()
 {
-	name = "Particle Emmiter";
 	maxParticles = 200;
 	particleTexture = nullptr;
 }

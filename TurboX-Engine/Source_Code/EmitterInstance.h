@@ -18,7 +18,8 @@ public:
 	void DrawParticles(); //TODO: DrawParticles()
 	
 	void SpawnParticle(); //It creates a new particle or re-spawns an existing one through object polling
-
+	void DeActivateParticles(); 
+	unsigned int GetFirstUnusedParticle();
 private:	
 	void CreateParticle(); //Function to create new particles
 public:
@@ -29,6 +30,8 @@ public:
 	Particle* particleReference;
 private:
 	int existing_particles;
+	uint lastUsedParticle;
+	uint maxParticles;
 };
 
 #endif // !__EMITTER_INSTANCE_H__
