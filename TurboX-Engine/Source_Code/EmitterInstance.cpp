@@ -42,7 +42,7 @@ void EmitterInstance::CreateParticle()
     float3 direction = { 0,1,0 };
 
     Particle* newParticle = new Particle(particleReference);
-    MY_LOG("%i", existing_particles);
+
     if(newParticle != nullptr)existing_particles++;
     else MY_LOG("Error creating particles in the Particle Emitter Instance. newParticle was nulltr.")
 }
