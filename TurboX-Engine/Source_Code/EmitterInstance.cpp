@@ -1,5 +1,6 @@
 #include "EmitterInstance.h"
 #include "ParticleEmitter.h"
+#include "ModuleSceneLoader.h"
 
 EmitterInstance::EmitterInstance()
 {
@@ -15,7 +16,6 @@ void EmitterInstance::Init(ParticleEmitter* emitterReference)
     this->emitter = emitterReference;
     if (this->emitter != nullptr) {
         particles_vector.resize(emitter->maxParticles);
-
     }
     else {
         MY_LOG("Error initializing the emitter instance in the Particle System.");
@@ -31,10 +31,15 @@ void EmitterInstance::UpdateModules()
     }
 
     SpawnParticle();
+    DrawParticles();
 }
 
 void EmitterInstance::DrawParticles()
 {
+    for (size_t i = 0; i < particles_vector.size(); i++)
+    {
+
+    }
 }
 
 void EmitterInstance::CreateParticle()

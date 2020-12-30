@@ -17,6 +17,7 @@ public:
 	C_Billboard(Component::Type type, GameObject* owner);
 	~C_Billboard();
 
+	Component::Type GetComponentType() override;
 	void Update() override;
 
 	void SetAlignment(Billboarding_Alignment new_alignment);

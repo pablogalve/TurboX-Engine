@@ -64,7 +64,7 @@ update_status ModuleScene::Update(float dt)
 		}
 	}
 
-	FrustumCulling(GetRoot(), GetRoot());
+	//FrustumCulling(GetRoot(), GetRoot());
 
 	UpdateGameObjects(GetRoot());
 
@@ -94,11 +94,7 @@ GameObject* ModuleScene::CreateGameObject(std::string name, float3 position, Qua
 	newGameObject->ChangeName(name);
 
 	if (newGameObject != nullptr)
-	{
-		if (parent != nullptr) {
-			App->scene->AddChild(newGameObject, parent);
-		}		
-	}
+		App->scene->AddChild(newGameObject, parent);	
 
 	return newGameObject;
 }

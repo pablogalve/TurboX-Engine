@@ -4,10 +4,16 @@ C_Billboard::C_Billboard(Component::Type type, GameObject* owner) : Component(ty
 {
 	this->owner = owner;
 	billboard_alignment = SCREEN_ALIGNED;
+
 }
 
 C_Billboard::~C_Billboard()
 {
+}
+
+Component::Type C_Billboard::GetComponentType()
+{
+	return Component::Type::Billboard;
 }
 
 void C_Billboard::Update()
@@ -24,15 +30,15 @@ std::string C_Billboard::GetAlignmentText()
 	std::string ret_word = "";
 	switch (billboard_alignment)
 	{
-	case 0:
+	case Billboarding_Alignment::SCREEN_ALIGNED:
 		ret_word = "Screen Aligned";
 		return ret_word;
 		break;
-	case 1:
+	case Billboarding_Alignment::WORLD_ALIGNED:
 		ret_word = "World Aligned";
 		return ret_word;
 		break;
-	case 2:
+	case Billboarding_Alignment::AXIS_ALIGNED:
 		ret_word = "Axis Aligned";
 		return ret_word;
 		break;
