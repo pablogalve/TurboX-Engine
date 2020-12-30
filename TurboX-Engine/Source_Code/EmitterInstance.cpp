@@ -1,9 +1,11 @@
+#include "Application.h"
 #include "EmitterInstance.h"
 #include "ParticleEmitter.h"
 #include "ModuleSceneLoader.h"
 #include "glew/glew.h"
 #include "Color.h"
 #include "Component_ParticleSystem.h"
+#include "ModuleTimeManagement.h"
 
 EmitterInstance::EmitterInstance()
 {
@@ -13,7 +15,7 @@ EmitterInstance::EmitterInstance()
     particleReference->lifetime = 120;
     particleReference->worldRotation = { 0,0,0,1 };
     particleReference->color = Red;
-    particleReference->velocity = 0.1f;
+    particleReference->velocity = 2.0f;
     particleReference->direction = { 0,1,0 };
 }
 
@@ -44,13 +46,12 @@ void EmitterInstance::DrawParticles()
 {
     for (size_t i = 0; i < particles_vector.size(); i++)
     {
-        particles_vector[i].position += particles_vector[i].velocity * particles_vector[i].direction;
+        particles_vector[i].position += particles_vector[i].velocity * particles_vector[i].direction * App->timeManagement->GetDeltaTime();
 
         glColor4f(0.2f, 0.2f, 1.0f, 1.0f);
         glPointSize(20);
         glBegin(GL_POINTS);
         glVertex3f(particles_vector[i].position.x, particles_vector[i].position.y, particles_vector[i].position.z);
-        MY_LOG("Pos y: %f", particles_vector[i].position.y);
         glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         glEnd();
     }

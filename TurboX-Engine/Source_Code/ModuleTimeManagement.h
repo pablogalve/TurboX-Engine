@@ -27,9 +27,12 @@ public:
 
 	float* GetTimeScale();
 	void SetTimeScale(float val);
+	float GetDeltaTime() const;
+
 private:
 	float timeScale;
 	float gameDeltaTime;
+	float deltaTime;
 
 	Timer realTimeClock;
 	float gameClock;
