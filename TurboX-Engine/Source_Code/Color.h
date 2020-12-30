@@ -4,7 +4,7 @@
 struct Color
 {
 	float r, g, b, a;
-	
+
 	Color() : r(0.0f), g(0.0f), b(0.0f), a(1.0f)
 	{}
 
@@ -23,6 +23,31 @@ struct Color
 	{
 		return (float*)this;
 	}
+
+	Color operator -(Color C)
+	{
+		r -= C.r;
+		g -= C.g;
+		b -= C.b;
+		a -= C.a;
+	}
+
+	Color operator +(Color C)
+	{
+		r += C.r;
+		g += C.g;
+		b += C.b;
+		a += C.a;
+	}
+
+	Color operator *(Color C)
+	{
+		r *= C.r;
+		g *= C.g;
+		b *= C.b;
+		a *= C.a;
+	}
+
 };
 
 extern Color Red;

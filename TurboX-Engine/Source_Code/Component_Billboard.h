@@ -22,6 +22,8 @@ public:
 
 	void SetAlignment(Billboarding_Alignment new_alignment);
 	std::string GetAlignmentText();
+
+
 private:
 	Billboarding_Alignment billboard_alignment;
 };

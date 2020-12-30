@@ -38,7 +38,7 @@ void EmitterInstance::DrawParticles()
 {
     for (size_t i = 0; i < particles_vector.size(); i++)
     {
-
+        //particles_vector[i].Draw();
     }
 }
 
