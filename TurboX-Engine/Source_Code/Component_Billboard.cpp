@@ -2,6 +2,7 @@
 #include "ModuleResources.h"
 #include "Resource.h"
 #include "Application.h"
+#include "GameObject.h"
 #include "ModuleCamera3D.h"
 #include "glew\glew.h"
 #include "SDL\include\SDL_opengl.h"

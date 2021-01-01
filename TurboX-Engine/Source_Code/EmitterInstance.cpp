@@ -6,6 +6,7 @@
 #include "Color.h"
 #include "Component_ParticleSystem.h"
 #include "ModuleTimeManagement.h"
+#include "GameObject.h"
 
 EmitterInstance::EmitterInstance()
 {
@@ -100,6 +101,7 @@ void EmitterInstance::SpawnParticle()
         else if(GetFirstUnusedParticle() != -1)
         {
            particles_vector[GetFirstUnusedParticle()].active = true;
+           particleReference->position = owner->owner->transform->position;
            particles_vector[GetFirstUnusedParticle()].position = particleReference->position;
            particles_vector[GetFirstUnusedParticle()].lifetime = particleReference->lifetime;
            //TODO: Randomize the direction:
