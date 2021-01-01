@@ -7,8 +7,8 @@ C_ParticleSystem::C_ParticleSystem(Component::Type type, GameObject* owner) :Com
 	resourceParticleSystem = nullptr;
 	lifetime = { 2,5 };
 	direction = { 0,1,0 };
-	size = { 30,50 };
-	dirVariation = 0.25f;
+	size = { 15,30 };
+	dirVariation = 180.0f;
 	speed = { 2, 3 };
 }
 

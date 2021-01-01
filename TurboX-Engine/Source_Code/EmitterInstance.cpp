@@ -12,7 +12,7 @@ EmitterInstance::EmitterInstance()
 {
     existing_particles = 0;
     activeParticles = 0;
-    particleReference = new Particle();
+    particleReference = new Particle(); //TODO: Duplicate data. particleReference in EmitterInstance and C_ParticleSystem should only be initialized once
     particleReference->position = { 0,0,0 };
     particleReference->lifetime = 2;
     particleReference->worldRotation = { 0,0,0,1 };
@@ -29,6 +29,7 @@ void EmitterInstance::Init(ParticleEmitter* emitterReference)
     this->emitter = emitterReference;
     if (this->emitter != nullptr) {
         //TODO
+        UpdateParticleReference();
     }
     else {
         MY_LOG("Error initializing the emitter instance in the Particle System.");
@@ -55,6 +56,7 @@ void EmitterInstance::DrawParticles()
     {
         if(particles_vector[i].active)
         {
+            //TODO: Move this code to its Update() functions instead of the Draw() function
             particles_vector[i].position += particles_vector[i].velocity * particles_vector[i].direction * App->timeManagement->GetDeltaTime();
             particles_vector[i].lifetime -= App->timeManagement->GetDeltaTime();
             glColor4f(particles_vector[i].color.r, particles_vector[i].color.g, particles_vector[i].color.b, particles_vector[i].color.a);
@@ -92,11 +94,14 @@ void EmitterInstance::SpawnParticle()
         uint index = GetFirstUnusedParticle();
         particles_vector[index].active = true; activeParticles++; //Reactivate particle        
         particleReference->position = owner->owner->transform->position; //Get position from C_Transform
+        
+        //We update values from Particle Reference
         particles_vector[index].position = particleReference->position;
         particles_vector[index].lifetime = particleReference->lifetime;
-        particles_vector[index].direction = particleReference->direction;
+        particles_vector[index].direction = particleReference->direction + SetRandomDirection();
         particles_vector[index].size = particleReference->size;
         particles_vector[index].velocity = particleReference->velocity;
+        particles_vector[index].color = particleReference->color;
     }
 }
 
@@ -130,8 +135,7 @@ unsigned int EmitterInstance::GetFirstUnusedParticle()
             return i;
         }
     }
-
-    return -1;          
+    return -1; //Return -1 if there are not unused particles
 }
 
 float3 EmitterInstance::SetRandomDirection()
@@ -151,7 +155,8 @@ float3 EmitterInstance::SetRandomDirection()
 void EmitterInstance::UpdateParticleReference()
 {
     particleReference->lifetime = owner->lifetime.min;
-    particleReference->color = owner->color.min;
+    particleReference->color = Red;
+    //particleReference->color = owner->color.min; //TODO: Uncomment
     particleReference->direction = owner->direction;
     particleReference->dirVariation = owner->dirVariation;
     particleReference->size = owner->size.min;

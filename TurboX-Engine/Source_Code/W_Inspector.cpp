@@ -74,8 +74,8 @@ void W_Inspector::Draw()
 				//TODO: Create emitters elsewhere
 				gameObject->particle_system->emitters.push_back(EmitterInstance());
 				ParticleEmitter* emitterReference = new ParticleEmitter();
-				gameObject->particle_system->emitters.back().Init(emitterReference);
 				gameObject->particle_system->emitters.back().owner = (C_ParticleSystem*)gameObject->GetComponent(Component::Type::ParticleSystem);	//Set EmitterInstance's owner
+				gameObject->particle_system->emitters.back().Init(emitterReference);				
 				delete emitterReference;
 			}
 		}
@@ -276,8 +276,9 @@ void W_Inspector::DrawParticleSystem(C_ParticleSystem* particle_system)
 	{
 		if (ImGui::CollapsingHeader("Particle Values"))
 		{
-
+			//TODO
 		}
+
 		ImGui::Text("Particle Emitter");
 
 		if (ImGui::DragFloatRange2("Lifetime", &particle_system->lifetime.min, &particle_system->lifetime.max, 0.25f, 0.0f, 100.0f, "Min: %.1f", "Max: %.1f"))
@@ -287,7 +288,7 @@ void W_Inspector::DrawParticleSystem(C_ParticleSystem* particle_system)
 		if(ImGui::SliderInt("Max Particles", &particle_system->maxParticles, 0, 200, "Max: %i"))
 			particle_system->emitters[0].UpdateParticleReference();
 
-		if (ImGui::DragFloatRange2("Particle Size", &particle_system->size.min, &particle_system->size.max, 0.25f, 0.0f, 100.0f, "Min: %i", "Max: %i"))
+		if (ImGui::DragFloatRange2("Particle Size", &particle_system->size.min, &particle_system->size.max, 0.25f, 0.0f, 100.0f, "Min: %.1f", "Max: %.1f"))
 			particle_system->emitters[0].UpdateParticleReference();
 
 		ImGui::Columns(4, "Direction");		
@@ -303,7 +304,7 @@ void W_Inspector::DrawParticleSystem(C_ParticleSystem* particle_system)
 		ImGui::Text("Direction");
 		ImGui::Columns(1);
 
-		if (ImGui::SliderFloat("Dir. variation", &particle_system->dirVariation, 0, 5, "Max: %.1f"))
+		if (ImGui::SliderFloat("Dir. variation", &particle_system->dirVariation, 0, 360, "Max: %.1f"))
 			particle_system->emitters[0].UpdateParticleReference();
 
 		if (ImGui::DragFloatRange2("Speed", &particle_system->speed.min, &particle_system->speed.max, 0.25f, 0.0f, 20.0f, "Min: %.1f", "Max: %.1f"))
