@@ -29,6 +29,8 @@ public:
 
 	float GetRandomFloat(range<float> number);
 	uint GetRandomUint(range<uint> number);
+	Color GetRandomColor(range<Color> r);
+
 public:
 	std::vector<EmitterInstance> emitters;
 	ResourceParticleSystem* resourceParticleSystem;

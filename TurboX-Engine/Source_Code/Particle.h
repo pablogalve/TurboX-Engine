@@ -19,6 +19,8 @@ public:
 	Quat worldRotation;
 	float lifetime;
 	float velocity;
+	float size;
+	float dirVariation;
 	Color color;
 	float3 direction;
 	bool active;

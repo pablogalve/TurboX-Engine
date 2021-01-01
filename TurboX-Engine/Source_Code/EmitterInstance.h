@@ -20,6 +20,7 @@ public:
 	void SpawnParticle(); //It creates a new particle or re-spawns an existing one through object polling
 	void DeActivateParticles(); 
 	unsigned int GetFirstUnusedParticle();
+	float3 SetRandomDirection();
 private:	
 	void CreateParticle(); //Function to create new particles
 public:

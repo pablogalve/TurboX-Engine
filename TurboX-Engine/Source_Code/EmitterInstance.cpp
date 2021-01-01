@@ -17,6 +17,8 @@ EmitterInstance::EmitterInstance()
     particleReference->color = Red;
     particleReference->velocity = 2.0f;
     particleReference->direction = { 0,1,0 };
+    particleReference->size = 50;
+    particleReference->dirVariation = 180;
     lastUsedParticle = 0;
 }
 
@@ -44,6 +46,7 @@ void EmitterInstance::UpdateModules()
     SpawnParticle();
     DrawParticles();
     DeActivateParticles();
+       
 }
 
 void EmitterInstance::DrawParticles()
@@ -54,8 +57,8 @@ void EmitterInstance::DrawParticles()
         {
             particles_vector[i].position += particles_vector[i].velocity * particles_vector[i].direction * App->timeManagement->GetDeltaTime();
             particles_vector[i].lifetime -= App->timeManagement->GetDeltaTime();
-            glColor4f(0.2f, 0.2f, 1.0f, 1.0f);
-            glPointSize(20);
+            glColor4f(particles_vector[i].color.r, particles_vector[i].color.g, particles_vector[i].color.b, particles_vector[i].color.a);
+            glPointSize(particles_vector[i].size);
             glBegin(GL_POINTS);
             glVertex3f(particles_vector[i].position.x, particles_vector[i].position.y, particles_vector[i].position.z);
             glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -66,17 +69,21 @@ void EmitterInstance::DrawParticles()
 
 void EmitterInstance::CreateParticle()
 {
-    float3 direction = { 0,1,0 };
-
+    
     Particle* newParticle = new Particle(particleReference);
     
-    newParticle->position.x += owner->GetRandomFloat(owner->positionz);
+    //newParticle->position.x += owner->GetRandomFloat(owner->positionz);
+   
 
     if (newParticle != nullptr) 
     { 
         particles_vector.push_back(newParticle);
-        existing_particles++; 
+        existing_particles++;
+        particles_vector[particles_vector.size()-1].color = owner->GetRandomColor(owner->startColor);
+        particles_vector[particles_vector.size()-1].direction = SetRandomDirection();
     }
+
+
     else MY_LOG("Error creating particles in the Particle Emitter Instance. newParticle was nulltr.")
 }
 
@@ -86,14 +93,18 @@ void EmitterInstance::SpawnParticle()
     for (size_t i = 0; i < maxParticles; i++)
     {
         //if (existing_particles < particles_vector.size()) {
-        if (existing_particles < 10) {
+        if (existing_particles < maxParticles) {
             //Create new particles until the vector is full
             CreateParticle();
         }
-        else {
-            particles_vector[GetFirstUnusedParticle()].active = true;
-            particles_vector[GetFirstUnusedParticle()].position = particleReference->position;
-            particles_vector[GetFirstUnusedParticle()].lifetime = particleReference->lifetime;
+        else if(GetFirstUnusedParticle() != -1)
+        {
+           particles_vector[GetFirstUnusedParticle()].active = true;
+           particles_vector[GetFirstUnusedParticle()].position = particleReference->position;
+           particles_vector[GetFirstUnusedParticle()].lifetime = particleReference->lifetime;
+           //TODO: Randomize the direction:
+           //float3 aux = SetRandomDirection();
+           //particles_vector[GetFirstUnusedParticle()].direction = { 0, 1, 0};
         }
     }
 }
@@ -125,8 +136,21 @@ unsigned int EmitterInstance::GetFirstUnusedParticle()
             return i;
         }
     }
-    // all particles are taken, override the first one (note that if it repeatedly hits this case, more particles should be reserved)
-    lastUsedParticle = 0;
-    return 0;
+
+    return -1;
           
+}
+
+float3 EmitterInstance::SetRandomDirection()
+{
+    LCG lcg;
+    float3 randomInSphere = float3::RandomSphere(lcg, { 0,0,0 }, 1);
+    float3 variation = randomInSphere.Normalized();
+    variation.x = variation.x * particleReference->dirVariation * DEGTORAD;
+    variation.y = variation.y * particleReference->dirVariation * DEGTORAD;
+    variation.z = variation.z * particleReference->dirVariation * DEGTORAD;
+
+    float3 dir = particleReference->direction.Normalized() + variation;
+
+    return dir.Normalized();
 }

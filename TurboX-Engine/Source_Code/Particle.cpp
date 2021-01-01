@@ -11,6 +11,8 @@ Particle::Particle(Particle* particleReference)
 	lifetime = particleReference->lifetime;
 	velocity = particleReference->velocity;
 	direction = particleReference->direction;
+	size = particleReference->size;
+	dirVariation = particleReference->dirVariation;
 	active = true;
 }
 

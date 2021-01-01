@@ -7,6 +7,8 @@ C_ParticleSystem::C_ParticleSystem(Component::Type type, GameObject* owner) :Com
 	lifetime = 0;
 	positionz.min = 0;
 	positionz.max = 10;
+	startColor.max = { 1.0f, 0.0f, 0.0f, 1.0f };
+	startColor.min = { 0.0f, 0.0f, 1.0f, 1.0f };
 }
 
 C_ParticleSystem::~C_ParticleSystem()
@@ -46,5 +48,16 @@ float C_ParticleSystem::GetRandomFloat(range<float> number)
 
 uint C_ParticleSystem::GetRandomUint(range<uint> number)
 {
-	return (pcg32_boundedrand(number.max - number.min)) + number.min;
+	return (ldexp(pcg32_random(), -32) * (number.max - number.min)) + number.min;
+}
+
+Color C_ParticleSystem::GetRandomColor(range<Color> r)
+{
+	Color c;
+	c.r = (ldexp(pcg32_random(), -32) * (r.max.r - r.min.r)) + r.min.r;
+	c.g = (ldexp(pcg32_random(), -32) * (r.max.g - r.min.g)) + r.min.g;
+	c.b = (ldexp(pcg32_random(), -32) * (r.max.b - r.min.b)) + r.min.b;
+	c.a = (ldexp(pcg32_random(), -32) * (r.max.a - r.min.a)) + r.min.a;
+
+	return c;
 }
