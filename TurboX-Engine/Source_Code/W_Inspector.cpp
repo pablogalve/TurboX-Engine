@@ -274,15 +274,40 @@ void W_Inspector::DrawParticleSystem(C_ParticleSystem* particle_system)
 {
 	if (ImGui::CollapsingHeader("Particle System"))
 	{
+		if (ImGui::CollapsingHeader("Particle Values"))
+		{
+
+		}
 		ImGui::Text("Particle Emitter");
-		ImGui::Text("Set to 0 for an infinite lifetime.");
-		ImGui::SliderFloat("Lifetime", &particle_system->lifetime, 0.0f, 120.0f, "%.1f");
 
-		if (ImGui::Button("Reset")) particle_system->lifetime = 0;
+		if (ImGui::DragFloatRange2("Lifetime", &particle_system->lifetime.min, &particle_system->lifetime.max, 0.25f, 0.0f, 100.0f, "Min: %.1f", "Max: %.1f"))
+			particle_system->emitters[0].UpdateParticleReference();
+		//ImGui::SliderFloat("Lifetime", &particle_system->lifetime, 0.0f, 20.0f, "ratio = %.3f");
 
-		ImGui::Text("Maximum Particles");
-		ImGui::Text("Set to 0 for unlimited particles.");
-		//ImGui::SliderInt("MaxParticles", &particle_system->lifetime, 0.0f, 200.0f, "%.1f");
+		if(ImGui::SliderInt("Max Particles", &particle_system->maxParticles, 0, 200, "Max: %i"))
+			particle_system->emitters[0].UpdateParticleReference();
+
+		if (ImGui::DragFloatRange2("Particle Size", &particle_system->size.min, &particle_system->size.max, 0.25f, 0.0f, 100.0f, "Min: %i", "Max: %i"))
+			particle_system->emitters[0].UpdateParticleReference();
+
+		ImGui::Columns(4, "Direction");		
+		if (ImGui::DragFloat("##DirectionX", &particle_system->direction.x, 0.05f, 0.f, 0.f, "X: %.2f"))
+			particle_system->emitters[0].UpdateParticleReference();
+		ImGui::NextColumn();
+		if (ImGui::DragFloat("##DirectionY", &particle_system->direction.y, 0.05f, 0.f, 0.f, "Y: %.2f"))
+			particle_system->emitters[0].UpdateParticleReference();
+		ImGui::NextColumn();
+		if (ImGui::DragFloat("##DirectionZ", &particle_system->direction.z, 0.05f, 0.f, 0.f, "Z: %.2f"))
+			particle_system->emitters[0].UpdateParticleReference();
+		ImGui::NextColumn(); 
+		ImGui::Text("Direction");
+		ImGui::Columns(1);
+
+		if (ImGui::SliderFloat("Dir. variation", &particle_system->dirVariation, 0, 5, "Max: %.1f"))
+			particle_system->emitters[0].UpdateParticleReference();
+
+		if (ImGui::DragFloatRange2("Speed", &particle_system->speed.min, &particle_system->speed.max, 0.25f, 0.0f, 20.0f, "Min: %.1f", "Max: %.1f"))
+			particle_system->emitters[0].UpdateParticleReference();
 	}
 }
 

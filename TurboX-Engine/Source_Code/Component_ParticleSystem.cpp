@@ -3,12 +3,13 @@
 
 C_ParticleSystem::C_ParticleSystem(Component::Type type, GameObject* owner) :Component(type, owner)
 {
+	maxParticles = 200;
 	resourceParticleSystem = nullptr;
-	lifetime = 0;
-	positionz.min = 0;
-	positionz.max = 10;
-	startColor.max = { 1.0f, 0.0f, 0.0f, 1.0f };
-	startColor.min = { 0.0f, 0.0f, 1.0f, 1.0f };
+	lifetime = { 2,5 };
+	direction = { 0,1,0 };
+	size = { 30,50 };
+	dirVariation = 0.25f;
+	speed = { 2, 3 };
 }
 
 C_ParticleSystem::~C_ParticleSystem()

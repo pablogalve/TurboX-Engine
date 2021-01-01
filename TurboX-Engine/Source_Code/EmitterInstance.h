@@ -21,6 +21,8 @@ public:
 	void DeActivateParticles(); 
 	unsigned int GetFirstUnusedParticle();
 	float3 SetRandomDirection();
+
+	void UpdateParticleReference();
 private:	
 	void CreateParticle(); //Function to create new particles
 public:
@@ -30,9 +32,8 @@ public:
 
 	Particle* particleReference;
 private:
-	int existing_particles;
+	uint existing_particles;
+	uint activeParticles;
 	uint lastUsedParticle;
-	uint maxParticles;
 };
-
 #endif // !__EMITTER_INSTANCE_H__

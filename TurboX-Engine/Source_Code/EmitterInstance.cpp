@@ -11,6 +11,7 @@
 EmitterInstance::EmitterInstance()
 {
     existing_particles = 0;
+    activeParticles = 0;
     particleReference = new Particle();
     particleReference->position = { 0,0,0 };
     particleReference->lifetime = 2;
@@ -27,8 +28,7 @@ void EmitterInstance::Init(ParticleEmitter* emitterReference)
 {
     this->emitter = emitterReference;
     if (this->emitter != nullptr) {
-        //particles_vector.resize(emitter->maxParticles);
-        maxParticles = emitter->maxParticles;
+        //TODO
     }
     else {
         MY_LOG("Error initializing the emitter instance in the Particle System.");
@@ -46,8 +46,7 @@ void EmitterInstance::UpdateModules()
 
     SpawnParticle();
     DrawParticles();
-    DeActivateParticles();
-       
+    DeActivateParticles();       
 }
 
 void EmitterInstance::DrawParticles()
@@ -69,45 +68,35 @@ void EmitterInstance::DrawParticles()
 }
 
 void EmitterInstance::CreateParticle()
-{
-    
-    Particle* newParticle = new Particle(particleReference);
-    
-    //newParticle->position.x += owner->GetRandomFloat(owner->positionz);
-   
+{    
+    Particle* newParticle = new Particle(particleReference);  
 
     if (newParticle != nullptr) 
     { 
         particles_vector.push_back(newParticle);
         existing_particles++;
-        particles_vector[particles_vector.size()-1].color = owner->GetRandomColor(owner->startColor);
-        particles_vector[particles_vector.size()-1].direction = SetRandomDirection();
-    }
-
-
-    else MY_LOG("Error creating particles in the Particle Emitter Instance. newParticle was nulltr.")
+        activeParticles++;
+        //particles_vector[particles_vector.size()-1].color = owner->GetRandomColor(owner->color);
+        particles_vector[particles_vector.size()-1].direction = particleReference->direction + SetRandomDirection();
+    }else MY_LOG("Error creating particles in the Particle Emitter Instance. newParticle was nulltr.")
 }
 
 void EmitterInstance::SpawnParticle()
 {
-    
-    for (size_t i = 0; i < maxParticles; i++)
+    if (existing_particles < owner->maxParticles) {
+        //Create new particles until the vector is full
+        CreateParticle();
+    }
+    else if(GetFirstUnusedParticle() != -1 && activeParticles < owner->maxParticles)
     {
-        //if (existing_particles < particles_vector.size()) {
-        if (existing_particles < maxParticles) {
-            //Create new particles until the vector is full
-            CreateParticle();
-        }
-        else if(GetFirstUnusedParticle() != -1)
-        {
-           particles_vector[GetFirstUnusedParticle()].active = true;
-           particleReference->position = owner->owner->transform->position;
-           particles_vector[GetFirstUnusedParticle()].position = particleReference->position;
-           particles_vector[GetFirstUnusedParticle()].lifetime = particleReference->lifetime;
-           //TODO: Randomize the direction:
-           //float3 aux = SetRandomDirection();
-           //particles_vector[GetFirstUnusedParticle()].direction = { 0, 1, 0};
-        }
+        uint index = GetFirstUnusedParticle();
+        particles_vector[index].active = true; activeParticles++; //Reactivate particle        
+        particleReference->position = owner->owner->transform->position; //Get position from C_Transform
+        particles_vector[index].position = particleReference->position;
+        particles_vector[index].lifetime = particleReference->lifetime;
+        particles_vector[index].direction = particleReference->direction;
+        particles_vector[index].size = particleReference->size;
+        particles_vector[index].velocity = particleReference->velocity;
     }
 }
 
@@ -117,7 +106,10 @@ void EmitterInstance::DeActivateParticles()
     {
         if(particles_vector[i].lifetime <= 0)
         {
-            particles_vector[i].active = false;
+            if (particles_vector[i].active == true) {
+                activeParticles--;
+                particles_vector[i].active = false;
+            }          
         }
     }
 }
@@ -139,8 +131,7 @@ unsigned int EmitterInstance::GetFirstUnusedParticle()
         }
     }
 
-    return -1;
-          
+    return -1;          
 }
 
 float3 EmitterInstance::SetRandomDirection()
@@ -155,4 +146,14 @@ float3 EmitterInstance::SetRandomDirection()
     float3 dir = particleReference->direction.Normalized() + variation;
 
     return dir.Normalized();
+}
+
+void EmitterInstance::UpdateParticleReference()
+{
+    particleReference->lifetime = owner->lifetime.min;
+    particleReference->color = owner->color.min;
+    particleReference->direction = owner->direction;
+    particleReference->dirVariation = owner->dirVariation;
+    particleReference->size = owner->size.min;
+    particleReference->velocity = owner->speed.min;
 }

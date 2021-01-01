@@ -36,16 +36,12 @@ public:
 	ResourceParticleSystem* resourceParticleSystem;
 
 public:
-	float lifetime;
+	int maxParticles;
 	range <float> speed;
-	//range <uint> lifetime;
-	range <float> startSize;
-	range <float> endSize;
-	range <float> startSpin;
-	range <float> endSpin;
-	range <float3> direction;
-	range <Color> startColor;
-	range <Color> endColor;
-	range <float> positionz;
+	range <float> lifetime;
+	range <float> size;
+	float3 direction;
+	float dirVariation; //TODO: Randomize direction
+	range <Color> color;
 };
 #endif // !__COMPONENT_PARTICLE_SYSTEM_H__
