@@ -275,7 +275,10 @@ void ModuleResources::LoadFiles(const char* filePath)
 		GameObject* GO;
 		GO = App->scene->AddGameObject(tName.c_str());
 		C_Material* mat = (C_Material*)GO->CreateComponent(Component::Type::Material);
-		mat->SetResource(App->resources->FindByPath(filePath)); break; }
+		mat->SetResource(App->resources->FindByPath(filePath)); break; 
+		mat->SetName(tName.c_str());
+		App->scene->materials.push_back(mat);
+	}
 	case Resource::ResType::Scene: {App->scene_loader->LoadFBXScene(filePath); break; }
 	}
 

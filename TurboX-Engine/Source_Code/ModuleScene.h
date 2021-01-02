@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "MathGeoLib/MathGeoLib.h"
 #include "ImGuizmo/ImGuizmo.h"
+#include "Component_Material.h"
 #include <vector>
 
 using namespace std;
@@ -59,6 +60,9 @@ public:
 
 	ImGuizmo::OPERATION guizmoOperation;
 	bool inGame;
+
+	std::list<C_Material*> materials;
+
 };
 
 #endif

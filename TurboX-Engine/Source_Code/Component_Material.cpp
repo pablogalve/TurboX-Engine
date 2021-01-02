@@ -77,6 +77,11 @@ void C_Material::SetResource(uint resource_uuid)
 	component_UUID = resource_uuid;
 }
 
+void C_Material::SetName(const char* n)
+{
+	name = n;
+}
+
 const uint C_Material::GetTexID() const
 {
 	if (HasTexture())return resourceTexture->gpuID;

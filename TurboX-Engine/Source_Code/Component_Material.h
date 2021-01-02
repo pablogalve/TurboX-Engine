@@ -22,6 +22,7 @@ public:
 	float3 colors = { 0,0,0 };
 
 	void SetResource(uint resource)override;
+	void SetName(const char* n);
 	const uint GetTexID() const;
 	const bool HasTexture() const;
 
@@ -30,9 +31,12 @@ public:
 	
 	Component::Type GetComponentType() override;
 	ResourceTexture* GetResourceTexture() const { return resourceTexture; }
+	string GetName() const { return name; };
 
 private:
 	ResourceTexture* resourceTexture = nullptr;
+
+	string name;
 
 };
 #endif // !__COMPONENT_MATERIAL_H_

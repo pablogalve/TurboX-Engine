@@ -31,6 +31,8 @@ public:
 	uint GetRandomUint(range<uint> number);
 	Color GetRandomColor(range<Color> r);
 
+	void AddMaterial();
+
 public:
 	std::vector<EmitterInstance> emitters;
 	ResourceParticleSystem* resourceParticleSystem;

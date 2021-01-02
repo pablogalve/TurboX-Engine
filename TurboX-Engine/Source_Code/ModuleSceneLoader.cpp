@@ -315,6 +315,8 @@ GameObject* SceneImporter::ImportNodeRecursive(aiNode* node, const aiScene* scen
 							else {
 
 								compMat->SetResource(UUID);
+								compMat->SetName(textureName.c_str());
+								App->scene->materials.push_back(compMat);
 							}
 						}
 						else {

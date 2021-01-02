@@ -1,5 +1,11 @@
 #include "Component_ParticleSystem.h"
+#include "Application.h"
+#include "Component_Material.h"
+#include "ModuleScene.h"
 #include "pcg-c-basic-0.9/pcg_basic.h"
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_impl_opengl3.h"
+#include "ImGui/imgui_impl_sdl.h"
 
 C_ParticleSystem::C_ParticleSystem(Component::Type type, GameObject* owner) :Component(type, owner)
 {
@@ -61,4 +67,28 @@ Color C_ParticleSystem::GetRandomColor(range<Color> r)
 	c.a = (ldexp(pcg32_random(), -32) * (r.max.a - r.min.a)) + r.min.a;
 
 	return c;
+}
+
+void C_ParticleSystem::AddMaterial()
+{
+	for (std::list<C_Material*>::iterator item = App->scene->materials.begin(); item != App->scene->materials.end(); item++) {
+
+		ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+
+		node_flags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
+		
+		ImGui::TreeNodeEx((*item)->GetName().c_str(), node_flags);
+
+		if (ImGui::IsItemClicked())
+		{
+			//material = (*item);
+
+		}
+		if (ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			//ImGui::ColorButton("Color##3c", *(ImVec4*)&(*item)->color, 0, ImVec2(80, 80));
+			ImGui::EndTooltip();
+		}
+	}
 }

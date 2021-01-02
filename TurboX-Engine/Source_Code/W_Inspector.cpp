@@ -309,6 +309,25 @@ void W_Inspector::DrawParticleSystem(C_ParticleSystem* particle_system)
 
 		if (ImGui::DragFloatRange2("Speed", &particle_system->speed.min, &particle_system->speed.max, 0.25f, 0.0f, 20.0f, "Min: %.1f", "Max: %.1f"))
 			particle_system->emitters[0].UpdateParticleReference();
+
+		
+		//Material
+		if (particle_system->owner->material == nullptr)
+		{
+			if (ImGui::Button("Add Material"))
+				ImGui::OpenPopup("add_material");
+
+			if (ImGui::BeginPopup("add_material"))
+			{
+				//TODO: Add Material
+
+				particle_system->AddMaterial();
+				ImGui::EndPopup();
+			}
+		}
+		else {
+			//TODO: Show material info
+		}
 	}
 }
 
@@ -328,20 +347,5 @@ void W_Inspector::DrawBillboard(C_Billboard* billboard)
 			ImGui::EndMenu();
 		}
 
-		//Material
-		if (billboard->owner->material == nullptr)
-		{
-			if (ImGui::Button("Add Material"))
-				ImGui::OpenPopup("add_material");
-
-			if (ImGui::BeginPopup("add_material"))
-			{
-				//TODO: Add Material
-				ImGui::EndPopup();
-			}
-		}
-		else {
-			//TODO: Show material info
-		}
 	}
 }
