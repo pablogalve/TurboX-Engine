@@ -22,7 +22,7 @@ public:
 	void Draw();
 
 	void GenerateBuffersGPU();	
-
+	void GenerateBillboardGPU();
 public: 
 	uint id_index = -1;
 	uint num_index = 0;

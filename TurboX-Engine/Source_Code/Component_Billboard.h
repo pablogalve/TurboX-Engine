@@ -35,9 +35,10 @@ private:
 	void AxisAlign();
 public:
 	C_Transform* transform;
+	ResourceMesh* res_mesh;
+
 private:
 	Billboarding_Alignment billboard_alignment;
-	ResourceMesh* res_mesh;
 	ResourceTexture* res_texture;	
 };
 #endif //!__COMPONENT_BILLBOARD_H__

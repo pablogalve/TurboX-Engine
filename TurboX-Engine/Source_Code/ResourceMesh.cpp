@@ -97,6 +97,14 @@ void ResourceMesh::GenerateBuffersGPU()
 	}
 }
 
+void ResourceMesh::GenerateBillboardGPU()
+{
+	glGenBuffers(1, (GLuint*)&(id_index));
+	glBindBuffer(GL_ARRAY_BUFFER, id_index);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * num_index, index, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
 void ResourceMesh::Draw()
 {
 	glEnableClientState(GL_VERTEX_ARRAY);

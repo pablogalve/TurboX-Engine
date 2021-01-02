@@ -321,7 +321,7 @@ void W_Inspector::DrawParticleSystem(C_ParticleSystem* particle_system)
 			{
 				//TODO: Add Material
 
-				particle_system->AddMaterial();
+				particle_system->AddMaterial(App->resources->GetResourcesList());
 				ImGui::EndPopup();
 			}
 		}

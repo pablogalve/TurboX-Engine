@@ -310,7 +310,11 @@ GameObject* SceneImporter::ImportNodeRecursive(aiNode* node, const aiScene* scen
 							if (UUID == 0) {
 								if (App->resources->ImportFileAndGenerateMeta(texturePath.C_Str())) {
 									compMat->SetResource(App->resources->FindByName(textureName.c_str(), Resource::ResType::Texture));
+									compMat->SetResource(UUID);
+									compMat->SetName(textureName.c_str());
 								}
+								compMat->SetResource(UUID);
+								compMat->SetName(textureName.c_str());
 							}
 							else {
 

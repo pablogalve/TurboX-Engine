@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "Component_Material.h"
 #include "ModuleScene.h"
+#include "ModuleResources.h"
+#include "ModuleInput.h"
 #include "pcg-c-basic-0.9/pcg_basic.h"
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_opengl3.h"
@@ -16,6 +18,9 @@ C_ParticleSystem::C_ParticleSystem(Component::Type type, GameObject* owner) :Com
 	size = { 15,30 };
 	dirVariation = 180.0f;
 	speed = { 2, 3 };
+	particle_material = nullptr;
+	//res_mesh = App->resources->GetBillboard();
+
 }
 
 C_ParticleSystem::~C_ParticleSystem()
@@ -69,9 +74,37 @@ Color C_ParticleSystem::GetRandomColor(range<Color> r)
 	return c;
 }
 
-void C_ParticleSystem::AddMaterial()
+void C_ParticleSystem::AddMaterial(std::map<uint, Resource*> resources)
 {
-	for (std::list<C_Material*>::iterator item = App->scene->materials.begin(); item != App->scene->materials.end(); item++) {
+	uint flags = 0;
+	flags |= ImGuiTreeNodeFlags_Leaf;
+
+	for (std::map<uint, Resource*>::iterator goIterator = resources.begin(); goIterator != resources.end(); goIterator++)
+	{
+		Resource* res = (*goIterator).second;
+
+		std::string name = res->GetName();
+		
+		if (App->input->GetFileType(res->GetPath()) == FileType::PNG)
+		{
+			if (ImGui::TreeNodeEx(name.c_str(), flags)) {
+				
+				ImGui::TreePop();
+
+				if (ImGui::IsItemClicked())
+				{
+					particle_material = new C_Material(Component::Type::Material, this->owner);
+
+					particle_material->SetResource(res->GetUUID());
+
+				}
+			}
+		}
+		
+		res = nullptr;
+	}
+
+	/*for (std::list<C_Material*>::iterator item = App->scene->materials.begin(); item != App->scene->materials.end(); item++) {
 
 		ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
 
@@ -90,5 +123,5 @@ void C_ParticleSystem::AddMaterial()
 			//ImGui::ColorButton("Color##3c", *(ImVec4*)&(*item)->color, 0, ImVec2(80, 80));
 			ImGui::EndTooltip();
 		}
-	}
+	}*/
 }

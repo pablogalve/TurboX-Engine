@@ -30,6 +30,21 @@ void C_Billboard::Update()
 {
 	FaceCamera();
 
+	if(owner->particle_system != nullptr)
+	{
+		if (owner->particle_system->particle_material != nullptr)
+		{
+			glEnable(GL_BLEND);
+			glDisable(GL_DEPTH_TEST);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+			if (owner->particle_system->particle_material->GetResourceTexture() != nullptr && owner->particle_system->particle_material->HasTexture())
+				glBindTexture(GL_TEXTURE_2D, owner->particle_system->particle_material->GetTexID());
+			//else
+				//glColor4f(mat->color.r, mat->color.g, mat->color.b, mat->color.a);
+		}
+	}
+	
 	transform->RecalculateMatrix();
 
 	glPushMatrix();

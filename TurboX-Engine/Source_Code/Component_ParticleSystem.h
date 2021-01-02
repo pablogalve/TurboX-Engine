@@ -2,9 +2,13 @@
 #define __COMPONENT_PARTICLE_SYSTEM_H__
 
 #include "Component.h"
+#include "Component_Material.h"
 #include <vector>
+#include <map>
 #include "EmitterInstance.h"
 #include "ResourceParticleSystem.h"
+#include "ResourceMesh.h"
+
 class GameObject;
 
 template <class T>
@@ -31,7 +35,7 @@ public:
 	uint GetRandomUint(range<uint> number);
 	Color GetRandomColor(range<Color> r);
 
-	void AddMaterial();
+	void AddMaterial(std::map<uint, Resource* > resources);
 
 public:
 	std::vector<EmitterInstance> emitters;
@@ -45,5 +49,12 @@ public:
 	float3 direction;
 	float dirVariation; //TODO: Randomize direction
 	range <Color> color;
+
+	C_Material* particle_material;
+
+	ResourceMesh* res_mesh;
+
+
+
 };
 #endif // !__COMPONENT_PARTICLE_SYSTEM_H__

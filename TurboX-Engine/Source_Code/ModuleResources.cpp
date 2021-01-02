@@ -445,7 +445,9 @@ void ModuleResources::GenerateBillboard()
 	memcpy(billboard->index, indices, sizeof(indices));
 
 	//Texture Coordinates
-	static const float tex[] = {0,0,0};
+	static const float tex[] = {
+	1,1,0,1,1,0,0,0
+	};
 
 	billboard->num_textureCoords = billboard->num_vertex * 2;
 	billboard->texturesCoords = new float2[billboard->num_textureCoords];

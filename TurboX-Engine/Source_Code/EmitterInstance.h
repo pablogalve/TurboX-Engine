@@ -31,6 +31,7 @@ public:
 	C_ParticleSystem* owner;
 
 	Particle* particleReference;
+
 private:
 	uint existing_particles;
 	uint activeParticles;
