@@ -32,6 +32,7 @@ public:
 	Component::Type GetComponentType() override;
 	ResourceTexture* GetResourceTexture() const { return resourceTexture; }
 	string GetName() const { return name; };
+  
 private:
 	ResourceTexture* resourceTexture = nullptr;
 

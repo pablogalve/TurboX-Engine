@@ -4,8 +4,8 @@
 #include "Application.h"
 #include "GameObject.h"
 #include "ModuleCamera3D.h"
-#include "glew\glew.h"
-#include "SDL\include\SDL_opengl.h"
+#include "Libraries\glew\glew.h"
+#include "Libraries\SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
 C_Billboard::C_Billboard(Component::Type type, GameObject* owner) : Component(type, owner)

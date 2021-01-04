@@ -2,7 +2,7 @@
 #include "EmitterInstance.h"
 #include "ParticleEmitter.h"
 #include "ModuleSceneLoader.h"
-#include "glew/glew.h"
+#include "Libraries\glew/glew.h"
 #include "Color.h"
 #include "Component_ParticleSystem.h"
 #include "Component_Billboard.h"

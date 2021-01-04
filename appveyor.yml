@@ -1,0 +1,29 @@
+version: 0.6.0.{build}
+configuration:
+- Debug
+- Release
+build:
+  project: TurboX-Engine\Source_Code\TurboX-Engine.sln
+  verbosity: normal
+artifacts:
+- path: TurboX-Engine\Engine
+  name: engine_files
+deploy:
+- provider: GitHub
+  description: Test Release
+  auth_token:
+    secure: L4XfrqBEzeeWT2dJ0XUbfTg1uct7FYApTWoBBtGFW+VoWHjGbSN/tYyBFw0qmbMj
+  artifact: engine_files
+  draft: false
+  prerelease: true
+  force_update: true
+  on:
+    CONFIGURATION: Release
+notifications:
+- provider: Email
+  to:
+  - pablogalve100@gmail.com
+  subject: TurboX-Engine - New Build
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: true
