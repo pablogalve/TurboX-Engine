@@ -32,9 +32,7 @@ public:
 	Component::Type GetComponentType() override;
 	ResourceTexture* GetResourceTexture() const { return resourceTexture; }
 	string GetName() const { return name; };
-
-public:
-	//Color color;
+  
 private:
 	ResourceTexture* resourceTexture = nullptr;
 
