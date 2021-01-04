@@ -34,7 +34,7 @@ public:
 	string GetName() const { return name; };
 
 public:
-	Color color;
+	//Color color;
 private:
 	ResourceTexture* resourceTexture = nullptr;
 

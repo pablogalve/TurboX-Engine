@@ -4,10 +4,10 @@
 #include "ModuleScene.h"
 #include "ModuleResources.h"
 #include "ModuleInput.h"
-#include "pcg-c-basic-0.9/pcg_basic.h"
-#include "ImGui/imgui.h"
-#include "ImGui/imgui_impl_opengl3.h"
-#include "ImGui/imgui_impl_sdl.h"
+#include "Libraries/pcg-c-basic-0.9/pcg_basic.h"
+#include "Libraries/ImGui/imgui.h"
+#include "Libraries/ImGui/imgui_impl_opengl3.h"
+#include "Libraries/ImGui/imgui_impl_sdl.h"
 
 C_ParticleSystem::C_ParticleSystem(Component::Type type, GameObject* owner) :Component(type, owner)
 {
