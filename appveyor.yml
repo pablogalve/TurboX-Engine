@@ -4,7 +4,7 @@ configuration:
 - Release
 platform: x86
 build:
-  project: TurboX-Engine.sln
+  project: TurboX-Engine\TurboX-Engine\TurboX-Engine.sln
   verbosity: normal
 before_package:
 - ps: Copy-Item C:\projects\TurboX-Engine\TurboX-Engine\Source_Code\$env:CONFIGURATION\TurboX-Engine.exe C:\projects\TurboX-Engine\TurboX-Engine\Engine\.
@@ -15,7 +15,7 @@ deploy:
 - provider: GitHub
   description: Test Release
   auth_token:
-    secure: Ecf1upRHdPWVKeVJj/Knurn0XHJiy3F2MfqeKM+tEQB9gq4A1r500DiRKgSe1Ry+
+    secure: 76153ebed45fb529cdd200e5cdaba7c39fad1211
   artifact: engine_files
   draft: false
   prerelease: true
