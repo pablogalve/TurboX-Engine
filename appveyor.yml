@@ -12,7 +12,7 @@ deploy:
 - provider: GitHub
   description: Test Release
   auth_token:
-    secure: L4XfrqBEzeeWT2dJ0XUbfTg1uct7FYApTWoBBtGFW+VoWHjGbSN/tYyBFw0qmbMj
+    secure: 4Jsa/tWs4F0QOGK9b2eRmOxJTCZRE0kxjs/AXLiQ9P1P/kq6pRaZnP668I1JpzaE
   artifact: engine_files
   draft: false
   prerelease: true
