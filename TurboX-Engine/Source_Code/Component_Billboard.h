@@ -24,7 +24,7 @@ public:
 
 	Component::Type GetComponentType() override;
 	void Update() override;
-
+	void Draw();
 	void FaceCamera();
 
 	void SetAlignment(Billboarding_Alignment new_alignment);
@@ -37,8 +37,10 @@ public:
 	C_Transform* transform;
 	ResourceMesh* res_mesh;
 
+	float3 pos;
 private:
 	Billboarding_Alignment billboard_alignment;
 	ResourceTexture* res_texture;	
+
 };
 #endif //!__COMPONENT_BILLBOARD_H__

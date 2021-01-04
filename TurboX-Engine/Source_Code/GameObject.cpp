@@ -66,8 +66,6 @@ Component* GameObject::CreateComponent(Component::Type type)
 	case Component::Type::Billboard:
 		new_component = new C_Billboard(Component::Type::Billboard, this);
 		billboard = (C_Billboard*)new_component;
-		if(this->transform)
-			billboard->transform = this->transform;
 		break;
 	default:
 		break;

@@ -14,7 +14,7 @@ C_Billboard::C_Billboard(Component::Type type, GameObject* owner) : Component(ty
 	billboard_alignment = SCREEN_ALIGNED;
 	res_mesh = App->resources->GetBillboard();
 	res_texture = nullptr;
-	transform = nullptr;
+	transform = new C_Transform(Component::Type::Billboard);
 }
 
 C_Billboard::~C_Billboard()
@@ -28,12 +28,20 @@ Component::Type C_Billboard::GetComponentType()
 
 void C_Billboard::Update()
 {
+
+}
+
+void C_Billboard::Draw()
+{
+
 	FaceCamera();
 
-	if(owner->particle_system != nullptr)
+	if (owner->particle_system != nullptr)
 	{
 		if (owner->particle_system->particle_material != nullptr)
 		{
+			//glColor4f(owner->particle_system->particle_material->color.r, owner->particle_system->particle_material->color.g, owner->particle_system->particle_material->color.b, owner->particle_system->particle_material->color.a);
+
 			glEnable(GL_BLEND);
 			glDisable(GL_DEPTH_TEST);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -44,7 +52,7 @@ void C_Billboard::Update()
 				//glColor4f(mat->color.r, mat->color.g, mat->color.b, mat->color.a);
 		}
 	}
-	
+
 	transform->RecalculateMatrix();
 
 	glPushMatrix();

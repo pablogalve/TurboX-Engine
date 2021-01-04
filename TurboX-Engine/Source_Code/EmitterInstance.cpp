@@ -5,6 +5,7 @@
 #include "glew/glew.h"
 #include "Color.h"
 #include "Component_ParticleSystem.h"
+#include "Component_Billboard.h"
 #include "ModuleTimeManagement.h"
 #include "GameObject.h"
 
@@ -14,13 +15,7 @@ EmitterInstance::EmitterInstance()
     activeParticles = 0;
     particleReference = new Particle(); //TODO: Duplicate data. particleReference in EmitterInstance and C_ParticleSystem should only be initialized once
     particleReference->position = { 0,0,0 };
-    particleReference->lifetime = 2;
-    particleReference->worldRotation = { 0,0,0,1 };
-    particleReference->color = Red;
-    particleReference->velocity = 2.0f;
-    particleReference->direction = { 0,1,0 };
-    particleReference->size = 50;
-    particleReference->dirVariation = 180;
+    particleReference->billboard = nullptr;
     lastUsedParticle = 0;
 }
 
@@ -57,14 +52,25 @@ void EmitterInstance::DrawParticles()
         if(particles_vector[i].active)
         {
             //TODO: Move this code to its Update() functions instead of the Draw() function
+            
+            //PARTICLES WITH MESH
+            particles_vector[i].lifetime -= App->timeManagement->GetDeltaTime();
+
             particles_vector[i].position += particles_vector[i].velocity * particles_vector[i].direction * App->timeManagement->GetDeltaTime();
+
+            particles_vector[i].billboard->transform->position = particles_vector[i].position;
+            particles_vector[i].billboard->transform->scale = float3(particles_vector[i].size);
+            particles_vector[i].billboard->Draw();
+            
+            //PARTICLES WITH GL_POINTS
+            /*particles_vector[i].position += particles_vector[i].velocity * particles_vector[i].direction * App->timeManagement->GetDeltaTime();
             particles_vector[i].lifetime -= App->timeManagement->GetDeltaTime();
             glColor4f(particles_vector[i].color.r, particles_vector[i].color.g, particles_vector[i].color.b, particles_vector[i].color.a);
             glPointSize(particles_vector[i].size);
             glBegin(GL_POINTS);
             glVertex3f(particles_vector[i].position.x, particles_vector[i].position.y, particles_vector[i].position.z);
             glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-            glEnd();
+            glEnd();*/
         }
     }
 }
@@ -72,6 +78,8 @@ void EmitterInstance::DrawParticles()
 void EmitterInstance::CreateParticle()
 {    
     Particle* newParticle = new Particle(particleReference);  
+
+    newParticle->billboard = (C_Billboard*)this->owner->owner->CreateComponent(Component::Type::Billboard);
 
     if (newParticle != nullptr) 
     { 

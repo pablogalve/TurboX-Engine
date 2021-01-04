@@ -5,6 +5,7 @@
 #include "ResourceTexture.h"
 #include "glew\glew.h"
 #include "DevIL/include/ilut.h"
+#include "Color.h"
 #include <string>
 
 #pragma comment (lib, "Libraries/glew/glew32.lib") /* link OpenGL Utility lib */
@@ -33,6 +34,8 @@ public:
 	ResourceTexture* GetResourceTexture() const { return resourceTexture; }
 	string GetName() const { return name; };
 
+public:
+	Color color;
 private:
 	ResourceTexture* resourceTexture = nullptr;
 
