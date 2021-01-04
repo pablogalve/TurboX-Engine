@@ -327,7 +327,17 @@ void W_Inspector::DrawParticleSystem(C_ParticleSystem* particle_system)
 		}
 		else {
 			//TODO: Show material info
+
 		}
+
+		//Color
+		ImGui::Text("Color");
+		if(ImGui::ColorPicker4("Color##4", &particle_system->color.min))
+		{
+			particle_system->emitters[0].UpdateParticleReference();
+
+		}
+
 	}
 }
 

@@ -19,6 +19,7 @@ C_ParticleSystem::C_ParticleSystem(Component::Type type, GameObject* owner) :Com
 	dirVariation = 180.0f;
 	speed = { 2, 3 };
 	particle_material = nullptr;
+	color = { Blue, Green};
 	//res_mesh = App->resources->GetBillboard();
 
 }

@@ -6,6 +6,7 @@
 #include "ResourceTexture.h"
 #include "Component_Camera.h"
 #include "Component_Transformation.h"
+#include "Color.h"
 #include <string>
 
 class GameObject;
@@ -24,7 +25,7 @@ public:
 
 	Component::Type GetComponentType() override;
 	void Update() override;
-	void Draw();
+	void Draw(Color color);
 	void FaceCamera();
 
 	void SetAlignment(Billboarding_Alignment new_alignment);

@@ -31,7 +31,7 @@ void C_Billboard::Update()
 
 }
 
-void C_Billboard::Draw()
+void C_Billboard::Draw(Color color)
 {
 
 	FaceCamera();
@@ -40,7 +40,7 @@ void C_Billboard::Draw()
 	{
 		if (owner->particle_system->particle_material != nullptr)
 		{
-			//glColor4f(owner->particle_system->particle_material->color.r, owner->particle_system->particle_material->color.g, owner->particle_system->particle_material->color.b, owner->particle_system->particle_material->color.a);
+			glColor4f(color.r, color.g, color.b, color.a);
 
 			glEnable(GL_BLEND);
 			glDisable(GL_DEPTH_TEST);

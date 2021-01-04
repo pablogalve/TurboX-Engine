@@ -60,7 +60,7 @@ void EmitterInstance::DrawParticles()
 
             particles_vector[i].billboard->transform->position = particles_vector[i].position;
             particles_vector[i].billboard->transform->scale = float3(particles_vector[i].size);
-            particles_vector[i].billboard->Draw();
+            particles_vector[i].billboard->Draw(particles_vector[i].color);
             
             //PARTICLES WITH GL_POINTS
             /*particles_vector[i].position += particles_vector[i].velocity * particles_vector[i].direction * App->timeManagement->GetDeltaTime();
@@ -163,7 +163,7 @@ float3 EmitterInstance::SetRandomDirection()
 void EmitterInstance::UpdateParticleReference()
 {
     particleReference->lifetime = owner->lifetime.min;
-    particleReference->color = Red;
+    particleReference->color = owner->color.min;
     //particleReference->color = owner->color.min; //TODO: Uncomment
     particleReference->direction = owner->direction;
     particleReference->dirVariation = owner->dirVariation;
