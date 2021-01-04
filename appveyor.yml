@@ -5,8 +5,6 @@ configuration:
 build:
   project: TurboX-Engine\Source_Code\TurboX-Engine.sln
   verbosity: normal
-before_package:
-- ps: Copy-Item C:\projects\TurboX-Engine\TurboX-Engine\Source_Code\$env:CONFIGURATION\TurboX-Engine.exe C:\projects\TurboX-Engine\TurboX-Engine\Engine\.
 artifacts:
 - path: TurboX-Engine\Engine
   name: engine_files
