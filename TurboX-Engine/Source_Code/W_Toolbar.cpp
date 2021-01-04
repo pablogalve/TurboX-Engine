@@ -1,6 +1,6 @@
 #include "W_Toolbar.h"
-#include "glew/glew.h"
-#include "glew/wglew.h"
+#include "Libraries/glew/glew.h"
+#include "Libraries/glew/wglew.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleTimeManagement.h"

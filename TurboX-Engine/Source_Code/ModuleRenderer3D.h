@@ -3,14 +3,14 @@
 #include "Globals.h"
 #include "glmath.h"
 #include "Light.h"
-#include "glew\glew.h"
-#include "SDL\include\SDL_opengl.h"
+#include "Libraries\glew\glew.h"
+#include "Libraries\SDL\include\SDL_opengl.h"
 #include <array>
 #include <cmath>
 #include <vector>
 #include "W_SceneWindow.h"
 #include "Config_JSON.h"
-#include "MathGeoLib/MathGeoLib.h"
+#include "Libraries/MathGeoLib/MathGeoLib.h"
 
 #pragma comment (lib, "Libraries/glew/glew32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */

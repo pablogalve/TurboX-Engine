@@ -1,6 +1,6 @@
 #include "W_About.h"
-#include "SDL/include/SDL.h"
-#include "glew/glew.h"
+#include "Libraries/SDL/include/SDL.h"
+#include "Libraries/glew/glew.h"
 #include "Application.h"
 
 W_About::W_About()

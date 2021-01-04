@@ -3,17 +3,17 @@
 
 #include "Component.h"
 #include "Globals.h"
-#include "MathGeoLib/Math/MathAll.h"
-#include "MathGeoLib/Geometry/AABB.h"
+#include "Libraries/MathGeoLib/Math/MathAll.h"
+#include "Libraries/MathGeoLib/Geometry/AABB.h"
 #include "Component_Material.h"
 #include "Component_Transformation.h"
 #include <array>
 #include <vector>
 
-#include "Assimp/include/cimport.h"
-#include "Assimp/include/scene.h"
-#include "Assimp/include/postprocess.h"
-#include "Assimp/include/cfileio.h"
+#include "Libraries/Assimp/include/cimport.h"
+#include "Libraries/Assimp/include/scene.h"
+#include "Libraries/Assimp/include/postprocess.h"
+#include "Libraries/Assimp/include/cfileio.h"
 
 class ResourceMesh;
 
