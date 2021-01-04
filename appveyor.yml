@@ -2,7 +2,6 @@ version: 0.6.0.{build}
 configuration:
 - Debug
 - Release
-platform: x86
 build:
   project: TurboX-Engine\Source_Code\TurboX-Engine.sln
   verbosity: normal
