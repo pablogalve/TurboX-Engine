@@ -19,6 +19,8 @@ GameObject::GameObject()
 	transform = nullptr;
 	parent = nullptr;
 	camera = nullptr;
+	particle_system = nullptr;
+	billboard = nullptr;
 	
 	parentUUID = 0;
 	UUID = GenerateUUID();	
@@ -57,6 +59,14 @@ Component* GameObject::CreateComponent(Component::Type type)
 		new_component = new C_Camera(Component::Type::Camera, this);
 		camera = (C_Camera*)new_component;
 		break;
+	case Component::Type::ParticleSystem:
+		new_component = new C_ParticleSystem(Component::Type::ParticleSystem, this);
+		particle_system = (C_ParticleSystem*)new_component;
+		break;
+	case Component::Type::Billboard:
+		new_component = new C_Billboard(Component::Type::Billboard, this);
+		billboard = (C_Billboard*)new_component;
+		break;
 	default:
 		break;
 	}
@@ -93,18 +103,15 @@ Component* GameObject::GetComponent(Component::Type type)
 
 void GameObject::Draw()
 {
-
-	if (culling) 
+	
+	if (mesh != nullptr)
 	{
-		if (mesh != nullptr)
-		{
-			glPushMatrix();
-			glMultMatrixf((float*)transform->globalMatrix.Transposed().v);
-			mesh->Draw();
-			glPopMatrix();
-		}
-
+		glPushMatrix();
+		glMultMatrixf((float*)transform->globalMatrix.Transposed().v);
+		mesh->Draw();
+		glPopMatrix();
 	}
+	
 
 	if (camera != nullptr)
 	{
@@ -156,6 +163,24 @@ void GameObject::Select()
 void GameObject::Unselect()
 {
 	is_selected = false;
+}
+
+bool GameObject::Update()
+{
+	bool ret = true;
+
+	for (size_t i = 0; i < components.size(); i++)
+	{
+		components[i]->Update();
+	}
+
+	for (size_t i = 0; i < childs.size(); i++)
+	{
+		if (childs[i]->active)
+			childs[i]->Update();
+	}
+
+	return ret;
 }
 
 bool GameObject::Save(Config* data)

@@ -164,7 +164,11 @@ void ModuleEditor::ShowMenuBar()
 		{
 			if (ImGui::MenuItem("Create Camera"))
 			{
-				App->scene->AddCamera();
+				App->scene->CreateCamera();
+			}
+			if (ImGui::MenuItem("Create Empty"))
+			{
+				App->scene->CreateEmptyGameObject();
 			}
 
 			ImGui::EndMenu();

@@ -8,6 +8,8 @@
 #include "Component_Transformation.h"
 #include "Component_Material.h"
 #include "Component_Camera.h"
+#include "Component_ParticleSystem.h"
+#include "Component_Billboard.h"
 #include "Component.h"
 
 #include "Config_JSON.h"
@@ -45,6 +47,7 @@ public:
 	void Select();
 	void Unselect();
 
+	bool Update();
 	bool Save(Config* data);
 	bool Load(Config* data);
 
@@ -54,12 +57,13 @@ public:
 	std::string name;
 	vector<Component*> components;
 	vector<GameObject*> childs;
-	vector<GameObject*> game_objects;
 	GameObject* parent;
 	C_Mesh* mesh;
 	C_Material* material;
 	C_Transform* transform;
 	C_Camera* camera;
+	C_ParticleSystem* particle_system;
+	C_Billboard* billboard;
 
 	AABB boundingBox;
 

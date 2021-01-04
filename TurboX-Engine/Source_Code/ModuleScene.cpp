@@ -29,7 +29,7 @@ bool ModuleScene::Start()
 
 	ImGuizmo::Enable(false);	
 
-	AddCamera(); //Camera created on Application.cpp after LoadEngineNow() 
+	CreateCamera(); //Camera created on Application.cpp after LoadEngineNow() 
 
 	return ret;
 }
@@ -64,7 +64,9 @@ update_status ModuleScene::Update(float dt)
 		}
 	}
 
-	FrustumCulling(GetRoot(), GetRoot());
+	//FrustumCulling(GetRoot(), GetRoot());
+
+	UpdateGameObjects(GetRoot());
 
 	return UPDATE_CONTINUE;
 }
@@ -92,11 +94,7 @@ GameObject* ModuleScene::CreateGameObject(std::string name, float3 position, Qua
 	newGameObject->ChangeName(name);
 
 	if (newGameObject != nullptr)
-	{
-		if (parent != nullptr) {
-			App->scene->AddChild(newGameObject, parent);
-		}		
-	}
+		App->scene->AddChild(newGameObject, parent);	
 
 	return newGameObject;
 }
@@ -211,6 +209,11 @@ GameObject* ModuleScene::GetGameObjectUUIDRecursive(uint UUID, GameObject* go) c
 	return nullptr;
 }
 
+void ModuleScene::UpdateGameObjects(GameObject* gameObject)
+{
+	gameObject->Update();
+}
+
 GameObject* ModuleScene::AddGameObject(const char* name)
 {
 	GameObject* ret = new GameObject();
@@ -231,7 +234,7 @@ GameObject* ModuleScene::AddGameObject(const char* name, GameObject* parent)
 	return ret;
 }
 
-void ModuleScene::AddCamera()
+void ModuleScene::CreateCamera()
 {
 	GameObject* newGameObject = new GameObject();
 	newGameObject->name = "Camera";
@@ -257,6 +260,23 @@ void ModuleScene::AddCamera()
 	newGameObject->boundingBox = newGameObject->camera->cameraBB;
 
 	cameras.push_back(newGameObject);
+}
+
+void ModuleScene::CreateEmptyGameObject()
+{
+	GameObject* newGameObject = new GameObject();
+	newGameObject->name = "Empty GameObject";
+	newGameObject->SetParent(root);
+	newGameObject->isStatic = false;
+
+	float3 pos = float3::zero;
+	float3 scale = float3::one;
+	Quat rot = Quat::identity;
+
+	newGameObject->transform->position = pos;
+	newGameObject->transform->scale = scale;
+	newGameObject->transform->rotation = rot;
+	newGameObject->transform->localMatrix.Set(float4x4::FromTRS(pos, rot, scale));
 }
 
 void ModuleScene::selectGameObject(GameObject* gameObject)

@@ -95,5 +95,30 @@ void ResourceMesh::GenerateBuffersGPU()
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) *num_index, &index[0], GL_STATIC_DRAW);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
+}
 
+void ResourceMesh::GenerateBillboardGPU()
+{
+	glGenBuffers(1, (GLuint*)&(id_index));
+	glBindBuffer(GL_ARRAY_BUFFER, id_index);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * num_index, index, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void ResourceMesh::Draw()
+{
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
+	glVertexPointer(3, GL_FLOAT, 0, &vertex[0]);
+
+	glTexCoordPointer(2, GL_FLOAT, 0, &texturesCoords[0]);
+	glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 }

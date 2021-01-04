@@ -3,8 +3,9 @@
 
 #include "Module.h"
 #include "GameObject.h"
-#include "Libraries/MathGeoLib/MathGeoLib.h"
-#include "Libraries/ImGuizmo/ImGuizmo.h"
+#include "MathGeoLib/MathGeoLib.h"
+#include "ImGuizmo/ImGuizmo.h"
+#include "Component_Material.h"
 #include <vector>
 
 using namespace std;
@@ -35,7 +36,8 @@ public:
 	void selectGameObject(GameObject* gameObject);
 	void ClearScene();
 
-	void AddCamera();
+	void CreateCamera();
+	void CreateEmptyGameObject();
 
 	void DrawGuizmo(ImGuizmo::OPERATION operation);
 
@@ -47,6 +49,7 @@ public:
 
 private:
 	GameObject* GetGameObjectUUIDRecursive(uint UUID, GameObject* go) const;
+	void UpdateGameObjects(GameObject* gameObject);
 
 public:
 	GameObject* root;
@@ -57,6 +60,9 @@ public:
 
 	ImGuizmo::OPERATION guizmoOperation;
 	bool inGame;
+
+	std::list<C_Material*> materials;
+
 };
 
 #endif

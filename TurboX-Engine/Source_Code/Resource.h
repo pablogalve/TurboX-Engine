@@ -15,8 +15,8 @@ public:
 		Texture,
 		Mesh,
 		Scene,
-		Audio, 
-		UI		
+		UI,
+		Particle_System
 	};
 
 public:

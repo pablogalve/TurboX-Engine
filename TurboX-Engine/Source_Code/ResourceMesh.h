@@ -10,7 +10,6 @@ class Resource;
 
 class ResourceMesh : public Resource
 {
-
 public:
 	ResourceMesh(uint UUID);
 	virtual ~ResourceMesh();
@@ -20,11 +19,10 @@ public:
 	void Save(Config& config) const override;
 	void Load(const Config& config) override;
 	void CleanUp() override;
-	
-private:
+	void Draw();
 
-	void GenerateBuffersGPU();
-
+	void GenerateBuffersGPU();	
+	void GenerateBillboardGPU();
 public: 
 	uint id_index = -1;
 	uint num_index = 0;

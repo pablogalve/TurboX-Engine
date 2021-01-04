@@ -7,7 +7,7 @@ ModuleTimeManagement::ModuleTimeManagement(Application* app, bool start_enabled)
 
 	timeScale = 1.0f;
 	gameDeltaTime = 0.0f;
-
+	deltaTime = 0.0f;
 	gameClock = 0.0f;
 	paused = true;
 }
@@ -18,6 +18,8 @@ ModuleTimeManagement::~ModuleTimeManagement()
 
 update_status ModuleTimeManagement::PreUpdate(float dt)
 {
+	deltaTime = dt;
+
 	if (!paused) {
 		gameDeltaTime = dt * timeScale;
 		gameClock += gameDeltaTime;
@@ -78,6 +80,11 @@ const float ModuleTimeManagement::GetGameDeltaTime() const
 const float ModuleTimeManagement::GetRealTimeInSeconds()
 {
 	return realTimeClock.ReadSec();
+}
+
+float ModuleTimeManagement::GetDeltaTime() const
+{
+	return deltaTime;
 }
 
 const bool ModuleTimeManagement::IsPaused() const

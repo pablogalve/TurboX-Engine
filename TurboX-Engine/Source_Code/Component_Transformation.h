@@ -7,6 +7,7 @@
 class C_Transform : public Component {
 public:
 	C_Transform(Component::Type type, GameObject* owner);
+	C_Transform(Component::Type type);
 	~C_Transform();
 
 public:

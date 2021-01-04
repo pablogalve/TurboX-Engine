@@ -12,6 +12,17 @@ C_Transform::C_Transform(Component::Type type, GameObject* owner):Component(type
 	rotation = Quat{ 0.0f,0.0f,0.0f,1.0f };
 }
 
+C_Transform::C_Transform(Component::Type type) :Component(type, owner)
+{
+	this->owner = nullptr;
+	position = float3{ 0,0,0 };
+	scale = float3{ 1,1,1 };
+	rotationVec = float3{ 0,0,0 };
+	localMatrix = float4x4::identity;
+	globalMatrix = float4x4::identity;
+	rotation = Quat{ 0.0f,0.0f,0.0f,1.0f };
+}
+
 C_Transform::~C_Transform()
 {
 }

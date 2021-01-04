@@ -13,6 +13,7 @@
 
 ModuleResources::ModuleResources(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	billboard = nullptr;
 }
 
 
@@ -23,6 +24,7 @@ ModuleResources::~ModuleResources()
 bool ModuleResources::Start()
 {
 	CheckMetaFiles();
+	GenerateBillboard();
 
 	return true;
 }
@@ -273,7 +275,10 @@ void ModuleResources::LoadFiles(const char* filePath)
 		GameObject* GO;
 		GO = App->scene->AddGameObject(tName.c_str());
 		C_Material* mat = (C_Material*)GO->CreateComponent(Component::Type::Material);
-		mat->SetResource(App->resources->FindByPath(filePath)); break; }
+		mat->SetResource(App->resources->FindByPath(filePath)); break; 
+		mat->SetName(tName.c_str());
+		App->scene->materials.push_back(mat);
+	}
 	case Resource::ResType::Scene: {App->scene_loader->LoadFBXScene(filePath); break; }
 	}
 
@@ -415,6 +420,42 @@ const Resource::ResType ModuleResources::GetResourceTypeFromExtension(const char
 	return Resource::ResType::None;
 }
 
+void ModuleResources::GenerateBillboard()
+{
+	static const float vertex[] = {
+		-0.5f, -0.5f, 0.0f,
+		0.5f, -0.5f, 0.0f,
+		-0.5f, 0.5f, 0.0f,
+		0.5f, 0.5f, 0.0f,
+	};
+
+	billboard = new ResourceMesh(LCG().Int());
+
+	//Vertex
+	billboard->num_vertex = 4;
+	billboard->vertex = new float3[billboard->num_vertex];
+	memcpy(billboard->vertex, vertex, sizeof(vertex));
+
+	//Indices
+	static const uint indices[] = {
+		0,1,2,1,3,2
+	};
+	billboard->num_index = 6;
+	billboard->index = new uint[billboard->num_index];
+	memcpy(billboard->index, indices, sizeof(indices));
+
+	//Texture Coordinates
+	static const float tex[] = {
+	1,1,0,1,1,0,0,0
+	};
+
+	billboard->num_textureCoords = billboard->num_vertex * 2;
+	billboard->texturesCoords = new float2[billboard->num_textureCoords];
+	memcpy(billboard->texturesCoords, tex, sizeof(tex));
+
+	billboard->GenerateBuffersGPU();
+}
+
 void ModuleResources::ChangeResourceUUID(uint formerUUID, uint newUUID)
 {
 	for (std::map<uint, Resource*>::iterator it = resources.begin(); it != resources.end(); it++) {
@@ -424,4 +465,9 @@ void ModuleResources::ChangeResourceUUID(uint formerUUID, uint newUUID)
 			return;
 		}
 	}
+}
+
+ResourceMesh* ModuleResources::GetBillboard() const
+{
+	return billboard;
 }

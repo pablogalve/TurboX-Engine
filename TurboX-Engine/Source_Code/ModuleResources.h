@@ -2,6 +2,7 @@
 
 #include "Module.h"
 #include "Resource.h"
+#include "ResourceMesh.h"
 
 #include <map>
 
@@ -37,11 +38,17 @@ public:
 
 	const Resource::ResType GetResourceTypeFromExtension(const char* path) const;
 
+	void GenerateBillboard();
+
+	ResourceMesh* billboard;
+
+	ResourceMesh* GetBillboard() const;
+
 private:
 	uint last_uuid = 1;
 	std::map<uint, Resource*> resources;
 	Timer lastCheck;
-
+	
 private:
 	bool ManageResourceWithMeta(const char* resource, const char* meta);
 	void GenerateMetaFile(const char* assetFile, uint ResourceUUID, std::vector<uint> exportedUUIDs);

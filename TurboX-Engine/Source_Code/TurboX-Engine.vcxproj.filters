@@ -70,6 +70,12 @@
     <Filter Include="Sources\Resources">
       <UniqueIdentifier>{eed0e2c6-7c86-483f-b725-874a82142a9a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\GameObjects\Particles">
+      <UniqueIdentifier>{ecf04833-7f08-4cd4-8216-cbd1be222963}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\pcg-c-basic-0.9">
+      <UniqueIdentifier>{906414f5-7e34-4c01-9a11-f00763f88eac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -690,6 +696,30 @@
     <ClInclude Include="ModuleTexture.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ResourceParticleSystem.h">
+      <Filter>Sources\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Component_ParticleSystem.h">
+      <Filter>Sources\GameObjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="EmitterInstance.h">
+      <Filter>Sources\GameObjects\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Sources\GameObjects\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleModule.h">
+      <Filter>Sources\GameObjects\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEmitter.h">
+      <Filter>Sources\GameObjects\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Component_Billboard.h">
+      <Filter>Sources\GameObjects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\pcg-c-basic-0.9\pcg_basic.h">
+      <Filter>Libraries\pcg-c-basic-0.9</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -931,6 +961,30 @@
     </ClCompile>
     <ClCompile Include="ModuleTexture.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceParticleSystem.cpp">
+      <Filter>Sources\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Component_ParticleSystem.cpp">
+      <Filter>Sources\GameObjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="EmitterInstance.cpp">
+      <Filter>Sources\GameObjects\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Sources\GameObjects\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleModule.cpp">
+      <Filter>Sources\GameObjects\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEmitter.cpp">
+      <Filter>Sources\GameObjects\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Component_Billboard.cpp">
+      <Filter>Sources\GameObjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\pcg-c-basic-0.9\pcg_basic.c">
+      <Filter>Libraries\pcg-c-basic-0.9</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
