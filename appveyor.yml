@@ -7,17 +7,20 @@ build:
   verbosity: normal
 artifacts:
 - path: TurboX-Engine\Engine
-  name: engine_files
+  name: TurboX-Engine
 deploy:
 - provider: GitHub
-  description: Test Release
+  tag: v_$(appveyor_build_version)
+  release: TurboX-Engine v_$(appveyor_build_version)
+  description: Automatic Release
   auth_token:
     secure: 4Jsa/tWs4F0QOGK9b2eRmOxJTCZRE0kxjs/AXLiQ9P1P/kq6pRaZnP668I1JpzaE
-  artifact: engine_files
+  artifact: TurboX-Engine
   draft: false
   prerelease: true
   force_update: true
   on:
+    branch: master
     CONFIGURATION: Release
 notifications:
 - provider: Email
