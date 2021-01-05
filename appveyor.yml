@@ -1,4 +1,7 @@
-version: 0.6.0.{build}
+version: 0.6.{build}
+branches:
+  only:
+  - master
 skip_tags: true
 configuration:
 - Debug
@@ -7,9 +10,9 @@ build:
   project: TurboX-Engine\Source_Code\TurboX-Engine.sln
   verbosity: normal
 before_package:
-- ps: Copy-Item README.md TurboX-Engine\Engine\
-- ps: Copy-Item LICENSE TurboX-Engine\Engine\
-- ps: Copy-Item TurboX-Engine\Source_Code\$env:CONFIGURATION\TurboX-Engine.exe TurboX-Engine\Engine\TurboX-Engine
+- ps: Copy-Item README.md TurboX-Engine\Engine\TurboX-Engine\
+- ps: Copy-Item LICENSE TurboX-Engine\Engine\TurboX-Engine\
+- ps: Copy-Item TurboX-Engine\Source_Code\$env:CONFIGURATION\TurboX-Engine.exe TurboX-Engine\Engine\TurboX-Engine\TurboX-Engine
 artifacts:
 - path: TurboX-Engine\Engine
   name: TurboX-Engine
