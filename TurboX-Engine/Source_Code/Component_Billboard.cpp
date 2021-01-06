@@ -43,7 +43,6 @@ void C_Billboard::Draw(Color color)
 			glColor4f(color.r, color.g, color.b, color.a);
 
 			glEnable(GL_BLEND);
-			glDisable(GL_DEPTH_TEST);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 			if (owner->particle_system->particle_material->GetResourceTexture() != nullptr && owner->particle_system->particle_material->HasTexture())

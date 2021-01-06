@@ -13,7 +13,7 @@
 #include "Component_Material.h"
 #include "Component_Transformation.h"
 #include "ModuleFileSystem.h"
-
+#include "GameObject.h"
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
@@ -34,6 +34,7 @@ public:
 	bool ImportScene(const char* scene, std::vector<std::string>* written, uint forceUUID = 0);
 
 	void LoadFBXScene(const char* FBXpath);
+	GameObject* LoadStreet(const char* FBXpath);
 	C_Material* ImportMaterialToResource(aiMaterial* mat, GameObject* owner);
 	C_Mesh* ImportMeshToResource(aiMesh* mesh, const char* turboxName, GameObject* owner); //loads a single mesh (1.2)
 

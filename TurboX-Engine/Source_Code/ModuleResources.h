@@ -3,6 +3,7 @@
 #include "Module.h"
 #include "Resource.h"
 #include "ResourceMesh.h"
+#include "GameObject.h"
 
 #include <map>
 
@@ -49,6 +50,7 @@ private:
 	std::map<uint, Resource*> resources;
 	Timer lastCheck;
 	
+	GameObject* street;
 private:
 	bool ManageResourceWithMeta(const char* resource, const char* meta);
 	void GenerateMetaFile(const char* assetFile, uint ResourceUUID, std::vector<uint> exportedUUIDs);

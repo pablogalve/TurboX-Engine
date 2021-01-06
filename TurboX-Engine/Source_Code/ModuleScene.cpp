@@ -7,6 +7,8 @@
 #include "ModuleInput.h"
 #include "ModuleCamera3D.h"
 #include "ModuleFileSystem.h"
+#include "ModuleResources.h"
+#include "ModuleSceneLoader.h"
 #include "GameObject.h"
 #include <vector>
 
@@ -31,6 +33,7 @@ bool ModuleScene::Start()
 
 	CreateCamera(); //Camera created on Application.cpp after LoadEngineNow() 
 
+	
 	return ret;
 }
 
@@ -277,6 +280,23 @@ void ModuleScene::CreateEmptyGameObject()
 	newGameObject->transform->scale = scale;
 	newGameObject->transform->rotation = rot;
 	newGameObject->transform->localMatrix.Set(float4x4::FromTRS(pos, rot, scale));
+}
+
+void ModuleScene::LoadTownScene()
+{
+	
+	GameObject* newGameObject;
+
+	newGameObject = App->scene_loader->LoadStreet("Assets/Models/Street environment_V01.FBX");
+
+	float3 pos = float3::zero;
+	float3 scale = float3::one;
+	Quat rot = Quat::identity;
+
+	newGameObject->transform->SetPosition(pos);
+	newGameObject->transform->SetRotation(scale);
+	newGameObject->transform->SetRotation({ -90,0,0 });
+
 }
 
 void ModuleScene::selectGameObject(GameObject* gameObject)

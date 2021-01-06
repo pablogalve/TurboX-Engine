@@ -38,6 +38,7 @@ public:
 
 	void CreateCamera();
 	void CreateEmptyGameObject();
+	void LoadTownScene();
 
 	void DrawGuizmo(ImGuizmo::OPERATION operation);
 

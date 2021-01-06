@@ -237,6 +237,7 @@ void SceneImporter::LoadFBXScene(const char* FBXpath)
 	else {
 		GameObject* GO;
 		GO = App->scene->AddGameObject(modelName.c_str());
+		
 		GameObject* GOchild = ImportNodeRecursive(scene->mRootNode, scene, GO);
 
 
@@ -245,6 +246,46 @@ void SceneImporter::LoadFBXScene(const char* FBXpath)
 		aiReleaseImport(scene);
 		MY_LOG("Loaded succesfully fbx from %s. Loading time: %.1fms", FBXpath, loadTime.Read());
 	}
+}
+
+GameObject* SceneImporter::LoadStreet(const char* FBXpath)
+{
+	Timer loadTime;
+
+	std::string fullFBXPath;// = MODELS_PATH;
+	fullFBXPath += FBXpath;
+
+	std::string modelName;
+
+	App->file_system->GetNameFromPath(fullFBXPath.c_str(), nullptr, &modelName, nullptr, nullptr);
+
+	const aiScene* scene = aiImportFile(fullFBXPath.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
+
+	if (scene == nullptr) {
+		scene = aiImportFile(FBXpath, aiProcessPreset_TargetRealtime_MaxQuality);
+		if (scene == nullptr)
+		{
+			MY_LOG("Error loading fbx from Assets/Models folder.");
+			aiReleaseImport(scene);
+
+			return 0;
+		}
+	}
+	else {
+		GameObject* GO;
+		GO = App->scene->AddGameObject(modelName.c_str());
+
+		GameObject* GOchild = ImportNodeRecursive(scene->mRootNode, scene, GO);
+
+			
+		
+		aiReleaseImport(scene);
+		MY_LOG("Loaded succesfully fbx from %s. Loading time: %.1fms", FBXpath, loadTime.Read());
+
+		return GO;
+	}
+
+	return 0;
 }
 
 GameObject* SceneImporter::ImportNodeRecursive(aiNode* node, const aiScene* scene, GameObject* parent)

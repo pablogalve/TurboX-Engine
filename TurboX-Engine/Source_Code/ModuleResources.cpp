@@ -14,6 +14,7 @@
 ModuleResources::ModuleResources(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	billboard = nullptr;
+	street = nullptr;
 }
 
 
@@ -25,6 +26,9 @@ bool ModuleResources::Start()
 {
 	CheckMetaFiles();
 	GenerateBillboard();
+
+	App->scene->LoadTownScene();
+	
 
 	return true;
 }
