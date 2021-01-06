@@ -14,6 +14,7 @@ public:
 public:
 	ResourceTexture* particleTexture;
 	std::vector<ParticleModule*> modules;
+
 };
 
 #endif // !__PARTICLE_EMITTER_H__

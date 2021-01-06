@@ -7,6 +7,7 @@
 #include "Component_ParticleSystem.h"
 #include "Component_Billboard.h"
 #include "ModuleTimeManagement.h"
+#include "ModuleCamera3D.h"
 #include "GameObject.h"
 
 EmitterInstance::EmitterInstance()
@@ -41,6 +42,7 @@ void EmitterInstance::UpdateModules()
     }*/
 
     SpawnParticle();
+    UpdateParticles();
     DrawParticles();
     DeActivateParticles();       
 }
@@ -50,18 +52,13 @@ void EmitterInstance::DrawParticles()
     for (size_t i = 0; i < particles_vector.size(); i++)
     {
         if(particles_vector[i].active)
-        {
-            //TODO: Move this code to its Update() functions instead of the Draw() function
-            
+        {            
             //PARTICLES WITH MESH
-            particles_vector[i].lifetime -= App->timeManagement->GetDeltaTime();
-
-            particles_vector[i].position += particles_vector[i].velocity * particles_vector[i].direction * App->timeManagement->GetDeltaTime();
 
             particles_vector[i].billboard->transform->position = particles_vector[i].position;
             particles_vector[i].billboard->transform->scale = float3(particles_vector[i].size);
             particles_vector[i].billboard->Draw(particles_vector[i].color);
-            
+
             //PARTICLES WITH GL_POINTS
             /*particles_vector[i].position += particles_vector[i].velocity * particles_vector[i].direction * App->timeManagement->GetDeltaTime();
             particles_vector[i].lifetime -= App->timeManagement->GetDeltaTime();
@@ -73,6 +70,24 @@ void EmitterInstance::DrawParticles()
             glEnd();*/
         }
     }
+}
+
+void EmitterInstance::UpdateParticles()
+{
+    for (size_t i = 0; i < particles_vector.size(); i++)
+    {
+        if (particles_vector[i].active)
+        {
+            particles_vector[i].lifetime -= App->timeManagement->GetDeltaTime();
+            particles_vector[i].position += particles_vector[i].velocity * particles_vector[i].direction * App->timeManagement->GetDeltaTime();
+            particles_vector[i].distanceToCamera = CalculateParticleDistanceToCamera(&particles_vector[i]);
+
+        }
+    }
+
+    SortParticles(particles_vector);
+
+
 }
 
 void EmitterInstance::CreateParticle()
@@ -170,3 +185,17 @@ void EmitterInstance::UpdateParticleReference()
     particleReference->size = owner->size.min;
     particleReference->velocity = owner->speed.min;
 }
+
+void EmitterInstance::SortParticles(std::vector<Particle> &particles)
+{
+    std::sort(particles.begin(), particles.end(), ReOrderParticles());
+}
+
+float EmitterInstance::CalculateParticleDistanceToCamera(Particle* p)
+{
+
+    return  sqrt(pow(App->camera->Position.x - p->position.x, 2) +
+        pow(App->camera->Position.y - p->position.y, 2) +
+        pow(App->camera->Position.z - p->position.z, 2) * 1.0);
+}
+

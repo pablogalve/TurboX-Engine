@@ -24,6 +24,7 @@ public:
 	Color color;
 	float3 direction;
 	bool active;
+	float distanceToCamera;
 
 	C_Billboard* billboard;
 

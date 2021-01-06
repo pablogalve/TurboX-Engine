@@ -14,6 +14,8 @@ Particle::Particle(Particle* particleReference)
 	dirVariation = particleReference->dirVariation;
 	active = true;
 	billboard = particleReference->billboard;
+	distanceToCamera = 0.0f;
+
 }
 
 Particle::~Particle()

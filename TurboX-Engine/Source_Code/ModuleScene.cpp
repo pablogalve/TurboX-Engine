@@ -69,14 +69,14 @@ update_status ModuleScene::Update(float dt)
 
 	//FrustumCulling(GetRoot(), GetRoot());
 
-	UpdateGameObjects(GetRoot());
-
 	return UPDATE_CONTINUE;
 }
 
 update_status ModuleScene::PostUpdate(float dt)
 {
 	DrawGameObjects(GetRoot(), GetRoot());
+
+	UpdateGameObjects(GetRoot());
 
 	return UPDATE_CONTINUE;
 }
