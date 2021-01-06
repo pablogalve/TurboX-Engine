@@ -3,7 +3,7 @@
 #include "Globals.h"
 #include "ModuleConsole.h"
 
-#include "SDL/include/SDL.h"
+#include "Libraries/SDL/include/SDL.h"
 #pragma comment( lib, "Libraries/SDL/libx86/SDL2.lib" )
 #pragma comment( lib, "Libraries/SDL/libx86/SDL2main.lib" )
 

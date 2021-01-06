@@ -4,7 +4,7 @@
 #include "Resource.h"
 #include "Globals.h"
 #include "Math.h"
-#include "MathGeoLib/MathGeoLib.h"
+#include "Libraries/MathGeoLib/MathGeoLib.h"
 
 class Resource;
 

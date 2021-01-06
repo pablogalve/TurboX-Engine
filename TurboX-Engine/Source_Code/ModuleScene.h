@@ -3,9 +3,8 @@
 
 #include "Module.h"
 #include "GameObject.h"
-#include "MathGeoLib/MathGeoLib.h"
-#include "ImGuizmo/ImGuizmo.h"
-#include "Component_Material.h"
+#include "Libraries/MathGeoLib/MathGeoLib.h"
+#include "Libraries/ImGuizmo/ImGuizmo.h"
 #include <vector>
 
 using namespace std;

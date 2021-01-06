@@ -4,7 +4,7 @@
 #include "Globals.h"
 #include "Resource.h"
 #include "ResourceMesh.h"
-#include "MathGeoLib\MathGeoLib.h"
+#include "Libraries\MathGeoLib\MathGeoLib.h"
 
 #include <iostream>
 #include <fstream> 
@@ -14,10 +14,11 @@
 #include "Component_Transformation.h"
 #include "ModuleFileSystem.h"
 #include "GameObject.h"
-#include "Assimp/include/cimport.h"
-#include "Assimp/include/scene.h"
-#include "Assimp/include/postprocess.h"
-#include "Assimp/include/cfileio.h"
+
+#include "Libraries/Assimp/include/cimport.h"
+#include "Libraries/Assimp/include/scene.h"
+#include "Libraries/Assimp/include/postprocess.h"
+#include "Libraries/Assimp/include/cfileio.h"
 
 #pragma comment (lib, "Libraries/Assimp/libx86/assimp.lib")
 

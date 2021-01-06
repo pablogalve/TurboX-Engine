@@ -3,8 +3,8 @@
 
 #include "Globals.h"
 #include "Timer.h"
-#include "./JSON/parson.h"
-#include "ImGuizmo/ImGuizmo.h"
+#include "./Libraries/JSON/parson.h"
+#include "Libraries/ImGuizmo/ImGuizmo.h"
 #include <vector>
 #include <list>
 #include <string>

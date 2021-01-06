@@ -8,7 +8,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleGui.h"
 #include "ModuleInput.h"
-#include "MathGeoLib/MathGeoLib.h"
+#include "Libraries/MathGeoLib/MathGeoLib.h"
 
 W_SceneWindow::W_SceneWindow()
 {

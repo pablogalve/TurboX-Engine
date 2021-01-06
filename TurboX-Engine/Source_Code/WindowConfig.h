@@ -1,7 +1,7 @@
 #ifndef _WINDOWCONFIG_H_
 #define _WINDOWCONFIG_H_
 
-#include "ImGui/imgui.h"
+#include "Libraries\ImGui/imgui.h"
 #include "Globals.h"
 #include <string>
 

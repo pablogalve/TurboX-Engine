@@ -3,7 +3,7 @@
         {
             "Name": "TurboX-Engine",
             "Organization": "UPC-CITM",
-            "Version": 0.30000001192092896
+            "Version": 0.6
         }
     ],
     "FileSystem": [
@@ -16,8 +16,8 @@
             "Resizable": true,
             "Borderless": false,
             "Fullscreen Desktop": false,
-            "Width": 1820,
-            "Height": 980
+            "Width": 1024,
+            "Height": 768
         }
     ],
     "Camera": [

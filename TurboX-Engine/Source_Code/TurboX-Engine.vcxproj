@@ -47,7 +47,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>C:\Users\Pablo Galve\Documents\GitHub\TurboX-Engine\TurboX-Engine\Source_Code\Libraries;C:\Users\macia\Documents\GitHub\GameEngine\TurboX-Engine\Source_Code\Libraries;C:\Users\Pablo Galve\OneDrive\Documentos\GitHub\TurboX-Engine\TurboX-Engine\Source_Code\Libraries;C:\Users\Pablo\Documents\GitHub\TurboX-Engine\TurboX-Engine\Source_Code\Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -64,7 +64,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>C:\Users\Pablo\Documents\GitHub\TurboX-Engine\TurboX-Engine\TurboX-Engine\Libraries;C:\Users\Pablo Galve\OneDrive\Documentos\GitHub\TurboX-Engine\TurboX-Engine\TurboX-Engine\Libraries;C:\Users\macia\Documents\GitHub\GameEngine\TurboX-Engine\TurboX-Engine\Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Pablo Galve\Documents\GitHub\TurboX-Engine\TurboX-Engine\Source_Code\Libraries;C:\Users\Pablo\Documents\GitHub\TurboX-Engine\TurboX-Engine\TurboX-Engine\Libraries;C:\Users\Pablo Galve\OneDrive\Documentos\GitHub\TurboX-Engine\TurboX-Engine\TurboX-Engine\Libraries;C:\Users\macia\Documents\GitHub\GameEngine\TurboX-Engine\TurboX-Engine\Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

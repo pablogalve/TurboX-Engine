@@ -1,9 +1,9 @@
 #ifndef __PARTICLE_H__
 #define __PARTICLE_H__
 
-#include "MathGeoLib/Math/float3.h"
-#include "MathGeoLib/Math/float4.h"
-#include "MathGeoLib/Math/Quat.h"
+#include "Libraries/MathGeoLib/Math/float3.h"
+#include "Libraries/MathGeoLib/Math/float4.h"
+#include "Libraries/MathGeoLib/Math/Quat.h"
 #include "Component_Billboard.h"
 #include "Color.h"
 

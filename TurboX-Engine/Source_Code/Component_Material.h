@@ -3,9 +3,8 @@
 
 #include "Component.h"
 #include "ResourceTexture.h"
-#include "glew\glew.h"
-#include "DevIL/include/ilut.h"
-#include "Color.h"
+#include "Libraries\glew\glew.h"
+#include "Libraries/DevIL/include/ilut.h"
 #include <string>
 
 #pragma comment (lib, "Libraries/glew/glew32.lib") /* link OpenGL Utility lib */
@@ -33,9 +32,7 @@ public:
 	Component::Type GetComponentType() override;
 	ResourceTexture* GetResourceTexture() const { return resourceTexture; }
 	string GetName() const { return name; };
-
-public:
-	Color color;
+  
 private:
 	ResourceTexture* resourceTexture = nullptr;
 
