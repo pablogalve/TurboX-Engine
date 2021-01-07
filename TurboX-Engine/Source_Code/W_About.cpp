@@ -89,7 +89,7 @@ void W_About::Draw()
 	ImGui::Spacing();
 	ImGui::Text("MIT License:");
 	ImGui::Spacing();
-	ImGui::TextWrapped("Copyright (c) 2020 TurboX Engine");
+	ImGui::TextWrapped("Copyright (c) 2021 TurboX Engine");
 	ImGui::Spacing();
 	ImGui::TextWrapped(
 		"Permission is hereby granted, free of charge, to any person obtaining a copy"

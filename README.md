@@ -14,7 +14,7 @@ Repository Link: [github.com/pablogalve/TurboX-Engine](https://github.com/pablog
   - Inside Visual Studio 2019 -> Debug > TurboX-Engine Properties... > Debugging > Working Directory: ..\Engine\TurboX-Engine\TurboX-Engine
 
 ## Continuous Integration & Deployment
-- Commits on master branch will generate an automatic build (ready to use by the end user) and deploy it in [GitHub Releases.](https://github.com/pablogalve/TurboX-Engine/releases).
+- Commits on master branch will generate an automatic build (ready to use by the end user) and deploy it in [GitHub Releases.](https://github.com/pablogalve/TurboX-Engine/releases)
 
 ## Team Members
 - Pablo Galve Millán 

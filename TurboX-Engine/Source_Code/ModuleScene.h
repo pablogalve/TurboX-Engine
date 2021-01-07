@@ -42,6 +42,7 @@ public:
 	void DrawGuizmo(ImGuizmo::OPERATION operation);
 
 	bool LoadSettings(Config* data)override;
+	bool LoadGameObjects(GameObject* gameObject);
 	bool LoadScene(const char* file);
 	bool SaveSettings(Config* data)const override;
 

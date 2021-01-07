@@ -91,7 +91,7 @@ bool Application::Init()
 
 	ms_timer.Start();
 	LoadEngineNow();
-	//scene->AddCamera();
+
 	return ret;
 }
 

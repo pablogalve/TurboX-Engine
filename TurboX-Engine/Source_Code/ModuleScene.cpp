@@ -99,6 +99,10 @@ GameObject* ModuleScene::CreateGameObject(std::string name, float3 position, Qua
 	if (newGameObject != nullptr)
 		App->scene->AddChild(newGameObject, parent);	
 
+	newGameObject->transform->SetPosition(position);
+	newGameObject->transform->SetRotation(scale);
+	//newGameObject->transform->SetRotation(rotation); //TODO: Conversion between euler angles and quaternions (float3 and Quat)
+
 	return newGameObject;
 }
 
@@ -283,20 +287,34 @@ void ModuleScene::CreateEmptyGameObject()
 }
 
 void ModuleScene::LoadTownScene()
-{
-	
+{	
 	GameObject* newGameObject;
 
 	newGameObject = App->scene_loader->LoadStreet("Assets/Models/Street environment_V01.FBX");
 
 	float3 pos = float3::zero;
 	float3 scale = float3::one;
-	Quat rot = Quat::identity;
 
 	newGameObject->transform->SetPosition(pos);
 	newGameObject->transform->SetRotation(scale);
 	newGameObject->transform->SetRotation({ -90,0,0 });
 
+	//Smoke 1
+	float3 smoke1pos = { 24.72, 9.92f, 40.61f };
+	GameObject* newSmoke1 = CreateGameObject("Smoke1", smoke1pos);
+	newSmoke1->CreateComponent(Component::Type::ParticleSystem);
+	newSmoke1->particle_system->emitters.push_back(EmitterInstance());
+	ParticleEmitter* emitterReference = new ParticleEmitter();
+	newSmoke1->particle_system->emitters.back().owner = (C_ParticleSystem*)newSmoke1->GetComponent(Component::Type::ParticleSystem);	//Set EmitterInstance's owner
+	newSmoke1->particle_system->emitters.back().Init(emitterReference);
+
+	//Smoke 2
+	float3 smoke2pos = { -30.36f, 7.11f, -33.78f };
+	GameObject* newSmoke2 = CreateGameObject("Smoke2", smoke2pos);
+	newSmoke2->CreateComponent(Component::Type::ParticleSystem);
+	newSmoke2->particle_system->emitters.push_back(EmitterInstance());
+	newSmoke2->particle_system->emitters.back().owner = (C_ParticleSystem*)newSmoke2->GetComponent(Component::Type::ParticleSystem);	//Set EmitterInstance's owner
+	newSmoke2->particle_system->emitters.back().Init(emitterReference);
 }
 
 void ModuleScene::selectGameObject(GameObject* gameObject)
@@ -390,7 +408,18 @@ bool ModuleScene::LoadSettings(Config* data)
 {
 	bool ret = true;
 	
-	//LoadScene(DEFAULT_SCENE_FILE);
+	//Load gameObjects data
+
+	MY_LOG("llega");
+
+	return ret;
+}
+
+bool ModuleScene::LoadGameObjects(GameObject* gameObject)
+{
+	bool ret = true;
+
+
 
 	return ret;
 }

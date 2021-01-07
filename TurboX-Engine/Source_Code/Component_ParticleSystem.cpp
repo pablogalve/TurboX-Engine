@@ -21,7 +21,6 @@ C_ParticleSystem::C_ParticleSystem(Component::Type type, GameObject* owner) :Com
 	particle_material = nullptr;
 	color = { Blue, Green};
 	//res_mesh = App->resources->GetBillboard();
-
 }
 
 C_ParticleSystem::~C_ParticleSystem()
