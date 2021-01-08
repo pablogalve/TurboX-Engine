@@ -33,7 +33,6 @@ void C_Billboard::Update()
 
 void C_Billboard::Draw(Color color)
 {
-
 	FaceCamera();
 
 	if (owner->particle_system != nullptr)

@@ -10,13 +10,6 @@
 
 class GameObject;
 
-template <class T>
-struct range
-{
-	T min; //Start
-	T max; //Final
-};
-
 class C_ParticleSystem : public Component {
 public:
 	C_ParticleSystem(Component::Type type, GameObject* owner);
@@ -32,8 +25,7 @@ public:
 
 	float GetRandomFloat(range<float> number);
 	uint GetRandomUint(range<uint> number);
-	Color GetRandomColor(range<Color> r);
-
+	
 	void AddMaterial(std::map<uint, Resource* > resources);
 
 public:

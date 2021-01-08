@@ -10,6 +10,7 @@ Particle::Particle(Particle* particleReference)
 	lifetime = particleReference->lifetime;
 	velocity = particleReference->velocity;
 	direction = particleReference->direction;
+	color = particleReference->color;
 	size = particleReference->size;
 	dirVariation = particleReference->dirVariation;
 	active = true;
@@ -19,9 +20,5 @@ Particle::Particle(Particle* particleReference)
 
 Particle::~Particle()
 {
-}
-
-void Particle::Draw()
-{
-	
+	billboard = nullptr;
 }

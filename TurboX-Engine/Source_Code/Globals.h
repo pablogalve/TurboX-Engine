@@ -88,3 +88,10 @@ enum update_status
 	  x = NULL;\
 	}\
 }
+
+template <class T>
+struct range
+{
+	T min; //Start
+	T max; //Final
+};

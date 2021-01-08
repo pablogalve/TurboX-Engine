@@ -12,9 +12,6 @@ public:
 	Particle();
 	Particle(Particle* particleReference);
 	~Particle();
-
-	void Draw();
-
 public:
 	float3 position;
 	float lifetime;
@@ -27,7 +24,6 @@ public:
 	float distanceToCamera;
 
 	C_Billboard* billboard;
-
 };
 
 #endif // !__PARTICLE_H__

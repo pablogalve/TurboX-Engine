@@ -61,17 +61,6 @@ uint C_ParticleSystem::GetRandomUint(range<uint> number)
 	return (ldexp(pcg32_random(), -32) * (number.max - number.min)) + number.min;
 }
 
-Color C_ParticleSystem::GetRandomColor(range<Color> r)
-{
-	Color c;
-	c.r = (ldexp(pcg32_random(), -32) * (r.max.r - r.min.r)) + r.min.r;
-	c.g = (ldexp(pcg32_random(), -32) * (r.max.g - r.min.g)) + r.min.g;
-	c.b = (ldexp(pcg32_random(), -32) * (r.max.b - r.min.b)) + r.min.b;
-	c.a = (ldexp(pcg32_random(), -32) * (r.max.a - r.min.a)) + r.min.a;
-
-	return c;
-}
-
 void C_ParticleSystem::AddMaterial(std::map<uint, Resource*> resources)
 {
 	uint flags = 0;

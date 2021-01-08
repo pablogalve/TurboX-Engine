@@ -86,10 +86,10 @@ update_status ModuleScene::PostUpdate(float dt)
 		ParticleEmitter* emitterReference = new ParticleEmitter();
 		newFirework->particle_system->emitters.back().owner = (C_ParticleSystem*)newFirework->GetComponent(Component::Type::ParticleSystem);	//Set EmitterInstance's owner
 		newFirework->particle_system->emitters.back().Init(emitterReference);
+		newFirework->particle_system->emitters.back().UpdateParticleReference();
 		Firework* firework = new Firework(newFirework);
 		firework->name = "firework";
-		newFirework->particle_system->emitters.back().emitter->modules.push_back(firework);
-		newFirework->particle_system->emitters.back().UpdateParticleReference();
+		newFirework->particle_system->emitters.back().emitter->modules.push_back(firework);		
 	}
 
 	return UPDATE_CONTINUE;

@@ -2,6 +2,8 @@
 #include "ModuleTimeManagement.h"
 #include "Libraries/MathGeoLib/MathGeoLib.h"
 #include "ModuleCamera3D.h"
+#include "ModuleResources.h"
+#include "ModuleScene.h"
 
 ParticleModule::ParticleModule()
 {
@@ -120,7 +122,6 @@ void ParticleModule::UpdateParticleReference(EmitterInstance* emitterInstance)
 	particleReference->position = emitterInstance->owner->owner->transform->position;
 	particleReference->lifetime = emitterInstance->owner->lifetime.min;
 	particleReference->color = emitterInstance->owner->color.min;
-	//particleReference->color = emitterInstance->owner->color.min; //TODO: Uncomment
 	particleReference->direction = emitterInstance->owner->direction;
 	particleReference->dirVariation = emitterInstance->owner->dirVariation;
 	particleReference->size = emitterInstance->owner->size.min;
@@ -167,17 +168,25 @@ Firework::Firework(GameObject* owner)
 {
 	fireworkOwner = owner;
 	currentTime = 0.0f;
-	lifeTime = 5.0f;
+	lifeTime = 0.7f; //Firework goes up for x seconds
 	particleReference->active = false;
 	particleReference->billboard = nullptr;
-	particleReference->color = Red;
-	particleReference->direction = { 0,0,0 };
-	particleReference->dirVariation = 360.0f;
+	//particleReference->color = Green; //Color not initialized because it's latter overwritten by the rangeColor
+	rangeColor = { {0,0,0,1}, {1,1,1,1} };
+	particleReference->direction = { 0,1,0 };
+	particleReference->dirVariation = 0.0f;
 	particleReference->distanceToCamera = NULL;
-	particleReference->lifetime = 2.0;
+	particleReference->lifetime = 1.0; //Particle lifetime
 	particleReference->position = fireworkOwner->transform->position;
-	particleReference->size = 10.0f;
-	particleReference->velocity = 0.5f;
+	particleReference->size = 2.0f;
+	particleReference->velocity = 2.0f;
+
+	//Set Resource
+	owner->particle_system->particle_material = new C_Material(Component::Type::Material, owner->parent);
+	std::string resourceName = "fire";
+	Resource* resourceFireWork = App->resources->GetResourceByName(&resourceName);
+	if (resourceFireWork != nullptr) 
+		owner->particle_system->particle_material->SetResource(resourceFireWork->GetUUID());
 }
 
 Firework::~Firework()
@@ -187,16 +196,24 @@ Firework::~Firework()
 
 void Firework::Update(EmitterInstance* emitterInstance)
 {
-	if (currentTime < lifeTime)
+	if (currentTime < lifeTime) //This is when the firework should go up
 	{
 		float3 lastPos = fireworkOwner->transform->position;
 
-		fireworkOwner->transform->SetPosition({ lastPos.x, lastPos.y + 0.1f, lastPos.z });
+		fireworkOwner->transform->SetPosition({ lastPos.x, lastPos.y + 2.0f, lastPos.z });
 		particleReference->position = fireworkOwner->transform->position;
-		currentTime += App->timeManagement->GetDeltaTime();
+		Spawn(emitterInstance);
 	}
-
-	Spawn(emitterInstance);
+	else if(currentTime < lifeTime * 2){ //This is when the firework should explode
+		particleReference->dirVariation = 360.0f;
+		particleReference->velocity = 100.0f;
+		particleReference->size = 5.0f;
+		Spawn(emitterInstance);
+	}
+	else if (currentTime > lifeTime * 4) { //This is when the firework should die
+		CleanUp();		
+	}
+	currentTime += App->timeManagement->GetDeltaTime();	
 
 	for (size_t i = 0; i < particles_vector.size(); i++)
 	{
@@ -212,6 +229,52 @@ void Firework::Update(EmitterInstance* emitterInstance)
 
 	DrawParticles();
 	DeActivateParticles();
+}
+
+void Firework::Spawn(EmitterInstance* emitterInstance)
+{
+	if (existing_particles < emitterInstance->owner->maxParticles) {
+		//Create new particles until the vector is full
+		particleReference->color = GetRandomColor(rangeColor);
+		Particle* newParticle = new Particle(particleReference);
+
+		newParticle->billboard = (C_Billboard*)emitterInstance->owner->owner->CreateComponent(Component::Type::Billboard);
+
+		if (newParticle != nullptr)
+		{
+			particles_vector.push_back(newParticle);
+			existing_particles++;
+			activeParticles++;
+			//particles_vector[particles_vector.size()-1].color = owner->GetRandomColor(owner->color);
+			particles_vector[particles_vector.size() - 1].direction = particleReference->direction + SetRandomDirection();
+		}
+		else MY_LOG("Error creating particles in the Particle Emitter Instance. newParticle was nulltr.")
+	}
+}
+
+void Firework::CleanUp()
+{
+	for (size_t i = 0; i < particles_vector.size(); i++)
+	{
+		particles_vector[i].~Particle();
+		particles_vector.erase(particles_vector.begin(), particles_vector.end());
+	}
+	fireworkOwner->to_delete = true;
+	App->scene->DestroyGameObject(fireworkOwner);
+	fireworkOwner = nullptr;
+	delete fireworkOwner;
+	
+}
+
+Color Firework::GetRandomColor(range<Color> r)
+{
+	Color c;
+	c.r = (ldexp(pcg32_random(), -32) * (r.max.r - r.min.r)) + r.min.r;
+	c.g = (ldexp(pcg32_random(), -32) * (r.max.g - r.min.g)) + r.min.g;
+	c.b = (ldexp(pcg32_random(), -32) * (r.max.b - r.min.b)) + r.min.b;
+	c.a = (ldexp(pcg32_random(), -32) * (r.max.a - r.min.a)) + r.min.a;
+
+	return c;	
 }
 
 DefaultParticle::DefaultParticle(GameObject* owner)
