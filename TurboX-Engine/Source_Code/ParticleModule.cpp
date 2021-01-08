@@ -10,6 +10,7 @@ ParticleModule::ParticleModule()
 	lastUsedParticle = 0;
 	particleReference = new Particle(); //TODO: Duplicate data. particleReference in EmitterInstance and C_ParticleSystem should only be initialized once
 	particleReference->position = { 0,0,0 };
+	particleReference->lifetime = 0;
 	particleReference->billboard = nullptr;
 }
 
@@ -116,6 +117,7 @@ unsigned int ParticleModule::GetFirstUnusedParticle()
 
 void ParticleModule::UpdateParticleReference(EmitterInstance* emitterInstance)
 {
+	particleReference->position = emitterInstance->owner->owner->transform->position;
 	particleReference->lifetime = emitterInstance->owner->lifetime.min;
 	particleReference->color = emitterInstance->owner->color.min;
 	//particleReference->color = emitterInstance->owner->color.min; //TODO: Uncomment
@@ -166,16 +168,16 @@ Firework::Firework(GameObject* owner)
 	fireworkOwner = owner;
 	currentTime = 0.0f;
 	lifeTime = 5.0f;
-	fireworkReference.active = false;
-	fireworkReference.billboard = nullptr;
-	fireworkReference.color = Red;
-	fireworkReference.direction = { 0,0,0 };
-	fireworkReference.dirVariation = 360.0f;
-	fireworkReference.distanceToCamera = NULL;
-	fireworkReference.lifetime = 2.0;
-	fireworkReference.position = fireworkOwner->transform->position;
-	fireworkReference.size = 10.0f;
-	fireworkReference.velocity = 0.5f;
+	particleReference->active = false;
+	particleReference->billboard = nullptr;
+	particleReference->color = Red;
+	particleReference->direction = { 0,0,0 };
+	particleReference->dirVariation = 360.0f;
+	particleReference->distanceToCamera = NULL;
+	particleReference->lifetime = 2.0;
+	particleReference->position = fireworkOwner->transform->position;
+	particleReference->size = 10.0f;
+	particleReference->velocity = 0.5f;
 }
 
 Firework::~Firework()
@@ -190,7 +192,7 @@ void Firework::Update(EmitterInstance* emitterInstance)
 		float3 lastPos = fireworkOwner->transform->position;
 
 		fireworkOwner->transform->SetPosition({ lastPos.x, lastPos.y + 0.1f, lastPos.z });
-		fireworkReference.position = fireworkOwner->transform->position;
+		particleReference->position = fireworkOwner->transform->position;
 		currentTime += App->timeManagement->GetDeltaTime();
 	}
 

@@ -78,9 +78,7 @@ public:
 
 public:
 	GameObject* fireworkOwner;
-
 private:
-	Particle fireworkReference;
 	float lifeTime;
 	float currentTime;
 };
