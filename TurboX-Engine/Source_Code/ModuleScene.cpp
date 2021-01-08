@@ -9,6 +9,8 @@
 #include "ModuleFileSystem.h"
 #include "ModuleResources.h"
 #include "ModuleSceneLoader.h"
+#include "ParticleEmitter.h"
+#include "ParticleModule.h"
 #include "GameObject.h"
 #include <vector>
 
@@ -77,6 +79,18 @@ update_status ModuleScene::PostUpdate(float dt)
 	DrawGameObjects(GetRoot(), GetRoot());
 
 	UpdateGameObjects(GetRoot());
+
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	{
+		GameObject* newFirework = CreateGameObject("firework");
+		newFirework->CreateComponent(Component::Type::ParticleSystem);
+		newFirework->particle_system->emitters.push_back(EmitterInstance());
+		ParticleEmitter* emitterReference = new ParticleEmitter();
+		newFirework->particle_system->emitters.back().owner = (C_ParticleSystem*)newFirework->GetComponent(Component::Type::ParticleSystem);	//Set EmitterInstance's owner
+		newFirework->particle_system->emitters.back().Init(emitterReference);
+		Firework* firework = new Firework(newFirework);
+		newFirework->particle_system->emitters.back().emitter->modules.push_back(firework);
+	}
 
 	return UPDATE_CONTINUE;
 }

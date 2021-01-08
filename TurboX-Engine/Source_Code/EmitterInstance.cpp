@@ -35,11 +35,11 @@ void EmitterInstance::Init(ParticleEmitter* emitterReference)
 
 void EmitterInstance::UpdateModules()
 {
-    /*for (uint i = 0; i < emitter->modules.size() ; ++i)
+    for (uint i = 0; i < emitter->modules.size() ; ++i)
     {
         //TODO: We are not using emitter->modules vector
-        //emitter->modules[i]->Update(this);
-    }*/
+        emitter->modules[i]->Update(this);
+    }
 
     SpawnParticle();
     UpdateParticles();

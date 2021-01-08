@@ -9,6 +9,7 @@
 #include "ResourceTexture.h"
 #include "ModuleScene.h"
 #include "ModuleResources.h"
+#include "ParticleEmitter.h"
 
 W_Inspector::W_Inspector()
 {

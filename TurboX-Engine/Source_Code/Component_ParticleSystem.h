@@ -6,7 +6,6 @@
 #include <vector>
 #include <map>
 #include "EmitterInstance.h"
-#include "ResourceParticleSystem.h"
 #include "ResourceMesh.h"
 
 class GameObject;
@@ -39,7 +38,6 @@ public:
 
 public:
 	std::vector<EmitterInstance> emitters;
-	ResourceParticleSystem* resourceParticleSystem;
 
 public:
 	int maxParticles;

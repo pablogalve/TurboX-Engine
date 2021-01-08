@@ -696,9 +696,6 @@
     <ClInclude Include="ModuleTexture.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceParticleSystem.h">
-      <Filter>Sources\Resources</Filter>
-    </ClInclude>
     <ClInclude Include="Component_ParticleSystem.h">
       <Filter>Sources\GameObjects\Components</Filter>
     </ClInclude>
@@ -961,9 +958,6 @@
     </ClCompile>
     <ClCompile Include="ModuleTexture.cpp">
       <Filter>Sources\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceParticleSystem.cpp">
-      <Filter>Sources\Resources</Filter>
     </ClCompile>
     <ClCompile Include="Component_ParticleSystem.cpp">
       <Filter>Sources\GameObjects\Components</Filter>

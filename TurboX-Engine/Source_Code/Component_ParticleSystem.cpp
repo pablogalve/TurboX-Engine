@@ -11,7 +11,6 @@
 C_ParticleSystem::C_ParticleSystem(Component::Type type, GameObject* owner) :Component(type, owner)
 {
 	maxParticles = 500;
-	resourceParticleSystem = nullptr;
 	lifetime = { 2,5 };
 	direction = { 0,1,0 };
 	size = { 1,30 };
