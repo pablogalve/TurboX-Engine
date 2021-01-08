@@ -1,6 +1,5 @@
 #include "Component_ParticleSystem.h"
 #include "Application.h"
-#include "Component_Material.h"
 #include "ModuleScene.h"
 #include "ModuleResources.h"
 #include "ModuleInput.h"
@@ -11,7 +10,7 @@
 
 C_ParticleSystem::C_ParticleSystem(Component::Type type, GameObject* owner) :Component(type, owner)
 {
-	maxParticles = 200;
+	maxParticles = 500;
 	resourceParticleSystem = nullptr;
 	lifetime = { 2,5 };
 	direction = { 0,1,0 };
@@ -99,29 +98,7 @@ void C_ParticleSystem::AddMaterial(std::map<uint, Resource*> resources)
 
 				}
 			}
-		}
-		
+		}		
 		res = nullptr;
 	}
-
-	/*for (std::list<C_Material*>::iterator item = App->scene->materials.begin(); item != App->scene->materials.end(); item++) {
-
-		ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
-
-		node_flags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
-		
-		ImGui::TreeNodeEx((*item)->GetName().c_str(), node_flags);
-
-		if (ImGui::IsItemClicked())
-		{
-			//material = (*item);
-
-		}
-		if (ImGui::IsItemHovered())
-		{
-			ImGui::BeginTooltip();
-			//ImGui::ColorButton("Color##3c", *(ImVec4*)&(*item)->color, 0, ImVec2(80, 80));
-			ImGui::EndTooltip();
-		}
-	}*/
 }

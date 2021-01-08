@@ -285,7 +285,7 @@ void W_Inspector::DrawParticleSystem(C_ParticleSystem* particle_system)
 			particle_system->emitters[0].UpdateParticleReference();
 		//ImGui::SliderFloat("Lifetime", &particle_system->lifetime, 0.0f, 20.0f, "ratio = %.3f");
 
-		if(ImGui::SliderInt("Max Particles", &particle_system->maxParticles, 0, 200, "Max: %i"))
+		if(ImGui::SliderInt("Max Particles", &particle_system->maxParticles, 0, 500, "Max: %i"))
 			particle_system->emitters[0].UpdateParticleReference();
 
 		if (ImGui::DragFloatRange2("Particle Size", &particle_system->size.min, &particle_system->size.max, 0.25f, 0.0f, 100.0f, "Min: %.1f", "Max: %.1f"))

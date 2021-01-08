@@ -4,7 +4,7 @@
 #include "Resource.h"
 #include "ResourceMesh.h"
 #include "GameObject.h"
-
+#include <string>
 #include <map>
 
 #define MS_TO_CHECK_META 2000
@@ -38,6 +38,7 @@ public:
 	std::vector<Resource*> GetResourcesListType(Resource::ResType type, bool loaded = false);
 
 	const Resource::ResType GetResourceTypeFromExtension(const char* path) const;
+	Resource* GetResourceByName(std::string* name);
 
 	void GenerateBillboard();
 

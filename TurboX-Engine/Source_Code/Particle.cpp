@@ -15,7 +15,6 @@ Particle::Particle(Particle* particleReference)
 	active = true;
 	billboard = particleReference->billboard;
 	distanceToCamera = 0.0f;
-
 }
 
 Particle::~Particle()

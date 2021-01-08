@@ -10,6 +10,7 @@
 #include "ModuleSceneLoader.h"
 #include "Component.h"
 #include "Component_Material.h"
+#include <iostream>
 
 ModuleResources::ModuleResources(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -422,6 +423,23 @@ const Resource::ResType ModuleResources::GetResourceTypeFromExtension(const char
 	if (extension == TGA_FORMAT || extension == TGA_FORMAT_CAP)  return Resource::ResType::Texture;
 
 	return Resource::ResType::None;
+}
+
+Resource* ModuleResources::GetResourceByName(std::string* name)
+{
+	for (std::map<uint, Resource*>::iterator goIterator = resources.begin(); goIterator != resources.end(); goIterator++)
+	{
+		Resource* res = (*goIterator).second;
+
+		std::string resname = res->GetNameStr();
+
+		if (!name->compare(resname)) 
+			return res; //return ret if they are equal
+		
+		res = nullptr;
+	}
+
+	return nullptr;
 }
 
 void ModuleResources::GenerateBillboard()
