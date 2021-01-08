@@ -54,7 +54,6 @@ void C_Mesh::Draw()
 					else {
 						glColor3f(material->colors.x, material->colors.y, material->colors.z);
 					}
-
 				}
 
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, resourceMesh->id_index); // test: before it was 2 lines upper

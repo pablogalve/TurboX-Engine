@@ -103,15 +103,15 @@ Component* GameObject::GetComponent(Component::Type type)
 
 void GameObject::Draw()
 {
-	
-	if (mesh != nullptr)
-	{
-		glPushMatrix();
-		glMultMatrixf((float*)transform->globalMatrix.Transposed().v);
-		mesh->Draw();
-		glPopMatrix();
-	}
-	
+	//if (culling) {
+		if (mesh != nullptr)
+		{
+			glPushMatrix();
+			glMultMatrixf((float*)transform->globalMatrix.Transposed().v);
+			mesh->Draw();
+			glPopMatrix();
+		}
+	//}
 
 	if (camera != nullptr)
 	{

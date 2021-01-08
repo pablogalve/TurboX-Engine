@@ -45,14 +45,11 @@ public:
 	range <float> lifetime;
 	range <float> size;
 	float3 direction;
-	float dirVariation; //TODO: Randomize direction
+	float dirVariation;
 	range <Color> color;
 
 	C_Material* particle_material;
 
 	ResourceMesh* res_mesh;
-
-
-
 };
 #endif // !__COMPONENT_PARTICLE_SYSTEM_H__

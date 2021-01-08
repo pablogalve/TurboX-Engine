@@ -69,8 +69,6 @@ update_status ModuleScene::Update(float dt)
 		}
 	}
 
-	//FrustumCulling(GetRoot(), GetRoot());
-
 	return UPDATE_CONTINUE;
 }
 
@@ -79,7 +77,7 @@ update_status ModuleScene::PostUpdate(float dt)
 	DrawGameObjects(GetRoot(), GetRoot());
 
 	UpdateGameObjects(GetRoot());
-
+	//FrustumCulling(GetRoot(), GetRoot()); //TODO: Apply frustum culling
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		GameObject* newFirework = CreateGameObject("firework");
@@ -89,7 +87,9 @@ update_status ModuleScene::PostUpdate(float dt)
 		newFirework->particle_system->emitters.back().owner = (C_ParticleSystem*)newFirework->GetComponent(Component::Type::ParticleSystem);	//Set EmitterInstance's owner
 		newFirework->particle_system->emitters.back().Init(emitterReference);
 		Firework* firework = new Firework(newFirework);
+		firework->name = "firework";
 		newFirework->particle_system->emitters.back().emitter->modules.push_back(firework);
+		newFirework->particle_system->emitters.back().UpdateParticleReference();
 	}
 
 	return UPDATE_CONTINUE;
@@ -330,6 +330,9 @@ void ModuleScene::LoadTownScene()
 	newSmoke1->particle_system->speed.min = 0.3f;
 	newSmoke1->particle_system->dirVariation = 40.0f;
 	newSmoke1->particle_system->lifetime.min = 10.0f;
+	DefaultParticle* defaultParticle = new DefaultParticle(newSmoke1);
+	defaultParticle->name = "smoke1";
+	newSmoke1->particle_system->emitters[0].emitter->modules.push_back(defaultParticle);
 	newSmoke1->particle_system->emitters[0].UpdateParticleReference();
 	//Set Resource
 	std::string resourceName1 = "smoke1";
@@ -349,6 +352,9 @@ void ModuleScene::LoadTownScene()
 	newSmoke2->particle_system->speed.min = 0.3f;
 	newSmoke2->particle_system->dirVariation = 40.0f;
 	newSmoke2->particle_system->lifetime.min = 10.0f;
+	DefaultParticle* defaultParticle2 = new DefaultParticle(newSmoke2);
+	defaultParticle2->name = "smoke2";
+	newSmoke2->particle_system->emitters.back().emitter->modules.push_back(defaultParticle2);	
 	newSmoke2->particle_system->emitters[0].UpdateParticleReference();
 	//Set Resource
 	std::string resourceName2 = "smoke1";
