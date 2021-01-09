@@ -82,15 +82,7 @@ update_status ModuleScene::PostUpdate(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		if (!App->timeManagement->IsPaused() && !App->timeManagement->IsStopped()) {
-			GameObject* newFirework = CreateGameObject("firework");
-			newFirework->CreateComponent(Component::Type::ParticleSystem);
-			newFirework->particle_system->emitters.push_back(EmitterInstance(new ParticleEmitter()));
-			newFirework->particle_system->emitters.back().owner = (C_ParticleSystem*)newFirework->GetComponent(Component::Type::ParticleSystem);	//Set EmitterInstance's owner
-			newFirework->particle_system->emitters.back().Init();
-			newFirework->particle_system->emitters.back().UpdateParticleReference();
-			Firework* firework = new Firework(newFirework);
-			firework->name = "firework";
-			newFirework->particle_system->emitters.back().emitter->modules.push_back(firework);
+			App->scene->CreateGameObject("Firework")->CreateCustomParticleSystem(ParticleModule::Type::Firework);
 		}
 		else {
 			MY_LOG("Warning! You must press <play> to create fireworks!");
@@ -320,54 +312,13 @@ void ModuleScene::LoadTownScene()
 	newGameObject->transform->SetRotation({ -90,0,0 });
 	newGameObject->transform->changed = true;
 
-	//TODO: Move to its own function
-	/*
-	//Smoke 1
-	float3 smoke1pos = { 24.72, 10.1f, 40.61f };
-	GameObject* newSmoke1 = CreateGameObject("Smoke1", smoke1pos);
-	newSmoke1->CreateComponent(Component::Type::ParticleSystem);
-	newSmoke1->particle_system->emitters.push_back(EmitterInstance());
-	//Set Particle Emitter
-	ParticleEmitter* emitterReference = new ParticleEmitter();
-	newSmoke1->particle_system->emitters.back().owner = (C_ParticleSystem*)newSmoke1->GetComponent(Component::Type::ParticleSystem);	//Set EmitterInstance's owner
-	newSmoke1->particle_system->emitters.back().Init(emitterReference);
-	newSmoke1->particle_system->particle_material = new C_Material(Component::Type::Material, newSmoke1->parent);
-	newSmoke1->particle_system->color.min = {0.3, 0.3, 0.3, 1.0};
-	newSmoke1->particle_system->size.min = 0.5f;
-	newSmoke1->particle_system->speed.min = 0.3f;
-	newSmoke1->particle_system->dirVariation = 40.0f;
-	newSmoke1->particle_system->lifetime.min = 10.0f;
-	newSmoke1->particle_system->emitters[0].UpdateParticleReference();
-	CustomParticle* defaultParticle = new CustomParticle(newSmoke1);
-	defaultParticle->name = "smoke1";
-	newSmoke1->particle_system->emitters[0].emitter->modules.push_back(defaultParticle);
-	//Set Resource
-	std::string resourceName1 = "smoke1";
-	Resource* resourceSmoke1 = App->resources->GetResourceByName(&resourceName1);
-	if (resourceSmoke1 != nullptr) newSmoke1->particle_system->particle_material->SetResource(resourceSmoke1->GetUUID());
+	GameObject* smoke1 = CreateGameObject("Smoke1");
+	float3 smoke1Pos = { 24.76f, 10.13f, 40.55f };
+	smoke1->CreateCustomParticleSystem(ParticleModule::Type::Smoke, smoke1Pos);
 
-	//Smoke 2
-	float3 smoke2pos = { -30.36f, 7.11f, -33.78f };
-	GameObject* newSmoke2 = CreateGameObject("Smoke2", smoke2pos);
-	newSmoke2->CreateComponent(Component::Type::ParticleSystem);
-	newSmoke2->particle_system->emitters.push_back(EmitterInstance());
-	newSmoke2->particle_system->emitters.back().owner = (C_ParticleSystem*)newSmoke2->GetComponent(Component::Type::ParticleSystem);	//Set EmitterInstance's owner
-	newSmoke2->particle_system->emitters.back().Init(emitterReference);
-	newSmoke2->particle_system->particle_material = new C_Material(Component::Type::Material, newSmoke2->parent);
-	newSmoke2->particle_system->color.min = { 0.3, 0.3, 0.3, 1.0 };
-	newSmoke2->particle_system->size.min = 0.5f;
-	newSmoke2->particle_system->speed.min = 0.3f;
-	newSmoke2->particle_system->dirVariation = 40.0f;
-	newSmoke2->particle_system->lifetime.min = 10.0f;
-	newSmoke2->particle_system->emitters[0].UpdateParticleReference();
-	CustomParticle* defaultParticle2 = new CustomParticle(newSmoke2);
-	defaultParticle2->name = "smoke2";
-	newSmoke2->particle_system->emitters.back().emitter->modules.push_back(defaultParticle2);		
-	//Set Resource
-	std::string resourceName2 = "smoke1";
-	Resource* resourceSmoke2 = App->resources->GetResourceByName(&resourceName2);
-	if (resourceSmoke2 != nullptr) newSmoke2->particle_system->particle_material->SetResource(resourceSmoke2->GetUUID());
-	*/
+	GameObject* smoke2 = CreateGameObject("Smoke2");
+	float3 smoke2Pos = { -30.37f , 7.07f, -33.75f };
+	smoke2->CreateCustomParticleSystem(ParticleModule::Type::Smoke, smoke2Pos);
 }
 
 void ModuleScene::selectGameObject(GameObject* gameObject)

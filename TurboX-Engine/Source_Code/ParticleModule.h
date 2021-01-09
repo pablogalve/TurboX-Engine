@@ -1,6 +1,6 @@
 #ifndef __PARTICLE_MODULE_H__
 #define __PARTICLE_MODULE_H__
-#include "GameObject.h"
+//#include "GameObject.h"
 #include "Particle.h"
 #include <string>
 #include "Globals.h"

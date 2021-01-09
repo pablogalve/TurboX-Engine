@@ -11,6 +11,7 @@
 #include "ModuleResources.h"
 #include "ParticleEmitter.h"
 #include "ModuleTimeManagement.h"
+#include "ParticleModule.h"
 
 W_Inspector::W_Inspector()
 {
@@ -73,33 +74,13 @@ void W_Inspector::Draw()
 			if (ImGui::BeginMenu("Particle System"))
 			{				
 				if (ImGui::MenuItem("Custom Particle System", nullptr))
-				{
-					gameObject->CreateComponent(Component::Type::ParticleSystem);
-					//TODO: Create emitters elsewhere
-					gameObject->particle_system->emitters.push_back(EmitterInstance(new ParticleEmitter()));
-					gameObject->particle_system->emitters.back().owner = (C_ParticleSystem*)gameObject->GetComponent(Component::Type::ParticleSystem);	//Set EmitterInstance's owner
-					gameObject->particle_system->emitters.back().Init();
-					CustomParticle* defaultParticle = new CustomParticle(gameObject);
-					defaultParticle->name = "defaultParticle";
-					gameObject->particle_system->emitters[0].emitter->modules.push_back(defaultParticle);
-					gameObject->particle_system->emitters[0].UpdateParticleReference();
-					//delete emitterReference;
-				}
-				if (ImGui::MenuItem("Smoke", nullptr))
-				{
-					GameObject* smokeGO = &App->scene->selected_GO[0];
-					smokeGO->CreateComponent(Component::Type::ParticleSystem);
-					smokeGO->particle_system->emitters.push_back(EmitterInstance(new ParticleEmitter));
+					App->scene->selected_GO[0].CreateCustomParticleSystem(ParticleModule::Type::Custom);
 
-					Smoke* newSmoke = new Smoke(smokeGO);
-					smokeGO->particle_system->emitters[0].emitter->modules.push_back(newSmoke);
-
-					smokeGO->particle_system->emitters.back().owner = (C_ParticleSystem*)smokeGO->GetComponent(Component::Type::ParticleSystem);
-					smokeGO->particle_system->emitters.back().Init();
-				}
+				if (ImGui::MenuItem("Smoke", nullptr))				
+					App->scene->selected_GO[0].CreateCustomParticleSystem(ParticleModule::Type::Smoke);
+				
 				if (ImGui::MenuItem("Fireworks", nullptr))
-				{
-				}
+					App->scene->selected_GO[0].CreateCustomParticleSystem(ParticleModule::Type::Firework);				
 				
 				ImGui::EndMenu();
 			}
