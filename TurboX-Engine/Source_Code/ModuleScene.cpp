@@ -84,10 +84,9 @@ update_status ModuleScene::PostUpdate(float dt)
 		if (!App->timeManagement->IsPaused() && !App->timeManagement->IsStopped()) {
 			GameObject* newFirework = CreateGameObject("firework");
 			newFirework->CreateComponent(Component::Type::ParticleSystem);
-			newFirework->particle_system->emitters.push_back(EmitterInstance());
-			ParticleEmitter* emitterReference = new ParticleEmitter();
+			newFirework->particle_system->emitters.push_back(EmitterInstance(new ParticleEmitter()));
 			newFirework->particle_system->emitters.back().owner = (C_ParticleSystem*)newFirework->GetComponent(Component::Type::ParticleSystem);	//Set EmitterInstance's owner
-			newFirework->particle_system->emitters.back().Init(emitterReference);
+			newFirework->particle_system->emitters.back().Init();
 			newFirework->particle_system->emitters.back().UpdateParticleReference();
 			Firework* firework = new Firework(newFirework);
 			firework->name = "firework";
@@ -339,7 +338,7 @@ void ModuleScene::LoadTownScene()
 	newSmoke1->particle_system->dirVariation = 40.0f;
 	newSmoke1->particle_system->lifetime.min = 10.0f;
 	newSmoke1->particle_system->emitters[0].UpdateParticleReference();
-	DefaultParticle* defaultParticle = new DefaultParticle(newSmoke1);
+	CustomParticle* defaultParticle = new CustomParticle(newSmoke1);
 	defaultParticle->name = "smoke1";
 	newSmoke1->particle_system->emitters[0].emitter->modules.push_back(defaultParticle);
 	//Set Resource
@@ -361,7 +360,7 @@ void ModuleScene::LoadTownScene()
 	newSmoke2->particle_system->dirVariation = 40.0f;
 	newSmoke2->particle_system->lifetime.min = 10.0f;
 	newSmoke2->particle_system->emitters[0].UpdateParticleReference();
-	DefaultParticle* defaultParticle2 = new DefaultParticle(newSmoke2);
+	CustomParticle* defaultParticle2 = new CustomParticle(newSmoke2);
 	defaultParticle2->name = "smoke2";
 	newSmoke2->particle_system->emitters.back().emitter->modules.push_back(defaultParticle2);		
 	//Set Resource
@@ -463,8 +462,6 @@ bool ModuleScene::LoadSettings(Config* data)
 	bool ret = true;
 	
 	//Load gameObjects data
-
-	MY_LOG("llega");
 
 	return ret;
 }

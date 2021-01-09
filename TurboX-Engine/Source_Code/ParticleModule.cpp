@@ -41,14 +41,29 @@ void ParticleModule::Spawn(EmitterInstance* emitterInstance)
 		particles_vector[index].lifetime = particleReference->lifetime;
 		particles_vector[index].direction = particleReference->direction + SetRandomDirection();
 		particles_vector[index].size = particleReference->size;
-		particles_vector[index].velocity = particleReference->velocity;
+		particles_vector[index].speed = particleReference->speed;
 		particles_vector[index].color = particleReference->color;
 	}
 }
 
 void ParticleModule::Update(EmitterInstance* emitterInstance)
 {
-	
+	Spawn(emitterInstance);
+
+	for (size_t i = 0; i < particles_vector.size(); i++)
+	{
+		if (particles_vector[i].active)
+		{
+			particles_vector[i].lifetime -= App->timeManagement->GetDeltaTime();
+			particles_vector[i].position += particles_vector[i].speed * particles_vector[i].direction * App->timeManagement->GetDeltaTime();
+			particles_vector[i].distanceToCamera = CalculateParticleDistanceToCamera(&particles_vector[i]);
+		}
+	}
+
+	SortParticles(particles_vector);
+
+	DrawParticles();
+	DeActivateParticles();
 }
 
 void ParticleModule::Reset()
@@ -73,7 +88,7 @@ void ParticleModule::DrawParticles()
 			particles_vector[i].billboard->Draw(particles_vector[i].color);
 
 			//PARTICLES WITH GL_POINTS
-			/*particles_vector[i].position += particles_vector[i].velocity * particles_vector[i].direction * App->timeManagement->GetDeltaTime();
+			/*particles_vector[i].position += particles_vector[i].speed * particles_vector[i].direction * App->timeManagement->GetDeltaTime();
 			particles_vector[i].lifetime -= App->timeManagement->GetDeltaTime();
 			glColor4f(particles_vector[i].color.r, particles_vector[i].color.g, particles_vector[i].color.b, particles_vector[i].color.a);
 			glPointSize(particles_vector[i].size);
@@ -142,7 +157,7 @@ void ParticleModule::UpdateParticleReference(EmitterInstance* emitterInstance)
 	particleReference->direction = emitterInstance->owner->direction;
 	particleReference->dirVariation = emitterInstance->owner->dirVariation;
 	particleReference->size = emitterInstance->owner->size.min;
-	particleReference->velocity = emitterInstance->owner->speed.min;
+	particleReference->speed = emitterInstance->owner->speed.min;
 }
 
 void ParticleModule::SortParticles(std::vector<Particle>& particles)
@@ -196,7 +211,7 @@ Firework::Firework(GameObject* owner)
 	particleReference->lifetime = 1.0; //Particle lifetime
 	particleReference->position = fireworkOwner->transform->position;
 	particleReference->size = 2.0f;
-	particleReference->velocity = 2.0f;
+	particleReference->speed = 2.0f;
 
 	//Set Resource
 	owner->particle_system->particle_material = new C_Material(Component::Type::Material, owner->parent);
@@ -223,7 +238,7 @@ void Firework::Update(EmitterInstance* emitterInstance)
 	}
 	else if(currentTime < lifeTime * 2){ //This is when the firework should explode
 		particleReference->dirVariation = 360.0f;
-		particleReference->velocity = 100.0f;
+		particleReference->speed = 100.0f;
 		particleReference->size = 5.0f;
 		Spawn(emitterInstance);
 	}
@@ -237,7 +252,7 @@ void Firework::Update(EmitterInstance* emitterInstance)
 		if (particles_vector[i].active)
 		{
 			particles_vector[i].lifetime -= App->timeManagement->GetDeltaTime();
-			particles_vector[i].position += particles_vector[i].velocity * particles_vector[i].direction * App->timeManagement->GetDeltaTime();
+			particles_vector[i].position += particles_vector[i].speed * particles_vector[i].direction * App->timeManagement->GetDeltaTime();
 			particles_vector[i].distanceToCamera = CalculateParticleDistanceToCamera(&particles_vector[i]);
 		}
 	}
@@ -292,39 +307,51 @@ Color Firework::GetRandomColor(range<Color> r)
 	return c;	
 }
 
-DefaultParticle::DefaultParticle(GameObject* owner)
+CustomParticle::CustomParticle(GameObject* owner)
 {
 }
 
-DefaultParticle::~DefaultParticle()
+CustomParticle::~CustomParticle()
 {
 }
 
-void DefaultParticle::Update(EmitterInstance* emitterInstance)
-{
-	Spawn(emitterInstance);
-
-	for (size_t i = 0; i < particles_vector.size(); i++)
-	{
-		if (particles_vector[i].active)
-		{
-			particles_vector[i].lifetime -= App->timeManagement->GetDeltaTime();
-			particles_vector[i].position += particles_vector[i].velocity * particles_vector[i].direction * App->timeManagement->GetDeltaTime();
-			particles_vector[i].distanceToCamera = CalculateParticleDistanceToCamera(&particles_vector[i]);
-		}
-	}
-
-	SortParticles(particles_vector);
-
-	DrawParticles();
-	DeActivateParticles();
-}
-
-void DefaultParticle::CleanUp()
+void CustomParticle::CleanUp()
 {
 	for (size_t i = 0; i < particles_vector.size(); i++)
 	{
 		//particles_vector[i].~Particle();
 		particles_vector.erase(particles_vector.begin(), particles_vector.end());
 	}
+}
+
+Smoke::Smoke(GameObject* owner)
+{
+	//Set up particleReference
+	particleReference->position = owner->transform->position;
+	particleReference->speed = 0.3f;
+	particleReference->color = { 0.3, 0.3, 0.3, 1.0 };
+	particleReference->size = 0.5f;
+	particleReference->dirVariation = 40;
+	particleReference->direction = { 0, 1, 0 };
+	particleReference->lifetime = 5.0f;
+
+	//Set up material
+	owner->particle_system->particle_material = new C_Material(Component::Type::Material, owner);
+		
+	//Set Resource
+	std::string resourceName1 = "smoke1";
+	Resource* resourceSmoke1 = App->resources->GetResourceByName(&resourceName1);
+	if (resourceSmoke1 != nullptr) owner->particle_system->particle_material->SetResource(resourceSmoke1->GetUUID());
+}
+
+Smoke::~Smoke()
+{
+}
+
+/*void Smoke::Update(EmitterInstance* emitterInstance)
+{
+}*/
+
+void Smoke::CleanUp()
+{
 }

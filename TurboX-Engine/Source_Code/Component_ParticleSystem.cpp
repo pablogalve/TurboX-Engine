@@ -36,19 +36,18 @@ void C_ParticleSystem::Init()
 {
 	for (size_t i = 0; i < emitters.size(); i++)
 	{
-		ParticleEmitter* emitterReference = new ParticleEmitter();
-		emitters[i].Init(emitterReference);
+		emitters[i].Init();
 	}
 }
 
 void C_ParticleSystem::Update()
 {
-	if (!App->timeManagement->IsPaused()) { //Only update the emitters if the engine is in play mode
+	//if (!App->timeManagement->IsPaused()) { //Only update the emitters if the engine is in play mode
 		for (size_t i = 0; i < emitters.size(); i++)
 		{
 			emitters[i].UpdateModules();
 		}
-	}
+	//}
 	for (size_t i = 0; i < emitters.size(); i++)
 	{
 		emitters[i].Draw();

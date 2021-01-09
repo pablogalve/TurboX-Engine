@@ -10,19 +10,17 @@
 #include "ModuleCamera3D.h"
 #include "GameObject.h"
 
-EmitterInstance::EmitterInstance()
+EmitterInstance::EmitterInstance(ParticleEmitter* emitterReference)
 {   
-     
+    this->emitter = emitterReference;
 }
 
-void EmitterInstance::Init(ParticleEmitter* emitterReference)
+void EmitterInstance::Init()
 {
-    this->emitter = emitterReference;
     for (uint i = 0; i < emitter->modules.size(); ++i)
     {
         emitter->modules[i]->Init(this);        
     }
-    UpdateParticleReference();
 }
 
 void EmitterInstance::UpdateModules()

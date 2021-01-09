@@ -13,9 +13,9 @@ class ParticleEmitter;
 class EmitterInstance
 {
 public:
-	EmitterInstance();
+	EmitterInstance(ParticleEmitter* emitterReference);
 
-	void Init(ParticleEmitter* emitterReference);
+	void Init();
 	void UpdateModules();
 	void Draw();
 	void UpdateParticleReference();

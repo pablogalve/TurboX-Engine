@@ -53,16 +53,34 @@ protected:
 	uint activeParticles;
 	uint lastUsedParticle;
 };
+ 
+// ---------- CUSTOM PARTICLE ----------
 
-class DefaultParticle : public ParticleModule
+class CustomParticle : public ParticleModule
 {
 public:
-	DefaultParticle(GameObject* owner);
-	~DefaultParticle();
+	CustomParticle(GameObject* owner);
+	~CustomParticle();
 
-	void Update(EmitterInstance* emitterInstance) override;
 	void CleanUp() override;
+
+	Type GetType() { return Type::Custom; };
 };
+
+// ---------- SMOKE PARTICLE EMITTER ----------
+
+class Smoke : public ParticleModule
+{
+public:
+	Smoke(GameObject* owner);
+	~Smoke();
+
+	void CleanUp() override;
+
+	Type GetType() { return Type::Smoke; };
+};
+
+// ---------- FIREWORK ----------
 
 class Firework : public ParticleModule
 {
@@ -77,6 +95,7 @@ public:
 
 	Color GetRandomColor(range<Color> r);
 	
+	Type GetType() { return Type::Firework; };
 public:
 	GameObject* fireworkOwner;
 private:
