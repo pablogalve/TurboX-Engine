@@ -17,7 +17,9 @@ public:
 
 	void Init(ParticleEmitter* emitterReference);
 	void UpdateModules();
+	void Draw();
 	void UpdateParticleReference();
+	void Reset();
 public:	
 	ParticleEmitter* emitter;
 	C_ParticleSystem* owner;

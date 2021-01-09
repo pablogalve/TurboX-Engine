@@ -44,17 +44,21 @@ void W_Toolbar::Draw()
 
 	if (ImGui::ArrowButton("Play", ImGuiDir_Right))
 	{
-		if (App->timeManagement->IsPaused()) {
-			App->timeManagement->Resume();
+		MY_LOG("Play button pressed");
+		if (App->timeManagement->IsStopped()) {
+			App->timeManagement->Play();
+			//TODO: Call the Init of the particles
+			App->scene->PlayScene(App->scene->GetRoot(), App->scene->GetRoot());
 		}
-		else {
-			App->timeManagement->Play();			
+		else if (App->timeManagement->IsPaused()) {
+			App->timeManagement->Resume();
 		}
 		App->scene->inGame = true;
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("||", { 23, 19 }))
 	{
+		MY_LOG("Pause button pressed");
 		if (App->scene->inGame && !App->timeManagement->IsPaused()) {
 			App->timeManagement->Pause();
 		}
@@ -65,9 +69,11 @@ void W_Toolbar::Draw()
 	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 1,0.2f,0,1 });
 	if (ImGui::Button("STOP", { 40, 19 }))
 	{
+		MY_LOG("Stop button pressed");
 		if (App->scene->inGame) {
 			App->timeManagement->Stop();
 			App->scene->inGame = false;
+			App->scene->StopScene(App->scene->GetRoot(), App->scene->GetRoot());
 		}
 	}
 	ImGui::PopStyleColor();

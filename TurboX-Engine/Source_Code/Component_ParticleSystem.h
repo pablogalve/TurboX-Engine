@@ -17,6 +17,7 @@ public:
 
 	Component::Type GetComponentType() override;
 
+	void Init();
 	void Update() override;
 	void Reset(); //TODO: Reset()
 

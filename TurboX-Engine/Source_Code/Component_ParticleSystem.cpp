@@ -7,6 +7,8 @@
 #include "Libraries/ImGui/imgui.h"
 #include "Libraries/ImGui/imgui_impl_opengl3.h"
 #include "Libraries/ImGui/imgui_impl_sdl.h"
+#include "ModuleTimeManagement.h"
+#include "ParticleEmitter.h"
 
 C_ParticleSystem::C_ParticleSystem(Component::Type type, GameObject* owner) :Component(type, owner)
 {
@@ -30,17 +32,35 @@ Component::Type C_ParticleSystem::GetComponentType()
 	return Component::Type::ParticleSystem;
 }
 
-void C_ParticleSystem::Update()
+void C_ParticleSystem::Init()
 {
 	for (size_t i = 0; i < emitters.size(); i++)
 	{
-		emitters[i].UpdateModules();
+		ParticleEmitter* emitterReference = new ParticleEmitter();
+		emitters[i].Init(emitterReference);
+	}
+}
+
+void C_ParticleSystem::Update()
+{
+	if (!App->timeManagement->IsPaused()) { //Only update the emitters if the engine is in play mode
+		for (size_t i = 0; i < emitters.size(); i++)
+		{
+			emitters[i].UpdateModules();
+		}
+	}
+	for (size_t i = 0; i < emitters.size(); i++)
+	{
+		emitters[i].Draw();
 	}
 }
 
 void C_ParticleSystem::Reset()
 {
-	
+	for (size_t i = 0; i < emitters.size(); i++)
+	{
+		emitters[i].Reset();
+	}
 }
 
 void C_ParticleSystem::Save()

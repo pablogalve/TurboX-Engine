@@ -10,6 +10,7 @@
 #include "ModuleScene.h"
 #include "ModuleResources.h"
 #include "ParticleEmitter.h"
+#include "ModuleTimeManagement.h"
 
 W_Inspector::W_Inspector()
 {
@@ -82,6 +83,12 @@ void W_Inspector::Draw()
 				gameObject->particle_system->emitters[0].emitter->modules.push_back(defaultParticle);
 				gameObject->particle_system->emitters[0].UpdateParticleReference();
 				//delete emitterReference;
+
+				//We create the particle system but we adapt to the current state
+				if (App->timeManagement->IsPaused())
+					App->scene->StopScene(App->scene->GetRoot(), App->scene->GetRoot());
+				if (App->timeManagement->IsStopped())
+					App->scene->StopScene(App->scene->GetRoot(), App->scene->GetRoot());
 			}
 		}
 

@@ -7,6 +7,7 @@
 
 ParticleModule::ParticleModule()
 {
+	
 	existing_particles = 0;
 	activeParticles = 0;
 	lastUsedParticle = 0;
@@ -14,6 +15,13 @@ ParticleModule::ParticleModule()
 	particleReference->position = { 0,0,0 };
 	particleReference->lifetime = 0;
 	particleReference->billboard = nullptr;
+}
+
+void ParticleModule::Init(EmitterInstance* emitterInstance)
+{
+	existing_particles = 0;
+	activeParticles = 0;
+	lastUsedParticle = 0;
 }
 
 void ParticleModule::Spawn(EmitterInstance* emitterInstance)
@@ -41,6 +49,15 @@ void ParticleModule::Spawn(EmitterInstance* emitterInstance)
 void ParticleModule::Update(EmitterInstance* emitterInstance)
 {
 	
+}
+
+void ParticleModule::Reset()
+{
+	CleanUp();
+}
+
+void ParticleModule::CleanUp()
+{
 }
 
 void ParticleModule::DrawParticles()
@@ -227,7 +244,6 @@ void Firework::Update(EmitterInstance* emitterInstance)
 
 	SortParticles(particles_vector);
 
-	DrawParticles();
 	DeActivateParticles();
 }
 
@@ -262,8 +278,7 @@ void Firework::CleanUp()
 	fireworkOwner->to_delete = true;
 	App->scene->DestroyGameObject(fireworkOwner);
 	fireworkOwner = nullptr;
-	delete fireworkOwner;
-	
+	delete fireworkOwner;	
 }
 
 Color Firework::GetRandomColor(range<Color> r)
@@ -303,4 +318,13 @@ void DefaultParticle::Update(EmitterInstance* emitterInstance)
 
 	DrawParticles();
 	DeActivateParticles();
+}
+
+void DefaultParticle::CleanUp()
+{
+	for (size_t i = 0; i < particles_vector.size(); i++)
+	{
+		//particles_vector[i].~Particle();
+		particles_vector.erase(particles_vector.begin(), particles_vector.end());
+	}
 }

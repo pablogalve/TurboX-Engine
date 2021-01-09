@@ -48,6 +48,8 @@ public:
 
 	uint GetRandomUUID();
 
+	void PlayScene(GameObject* gameObject, GameObject* root);
+	void StopScene(GameObject* gameObject, GameObject* root);
 private:
 	GameObject* GetGameObjectUUIDRecursive(uint UUID, GameObject* go) const;
 	void UpdateGameObjects(GameObject* gameObject);

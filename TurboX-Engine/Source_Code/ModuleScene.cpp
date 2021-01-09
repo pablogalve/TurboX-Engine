@@ -13,6 +13,7 @@
 #include "ParticleModule.h"
 #include "GameObject.h"
 #include <vector>
+#include "ModuleTimeManagement.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -80,16 +81,21 @@ update_status ModuleScene::PostUpdate(float dt)
 	//FrustumCulling(GetRoot(), GetRoot()); //TODO: Apply frustum culling
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		GameObject* newFirework = CreateGameObject("firework");
-		newFirework->CreateComponent(Component::Type::ParticleSystem);
-		newFirework->particle_system->emitters.push_back(EmitterInstance());
-		ParticleEmitter* emitterReference = new ParticleEmitter();
-		newFirework->particle_system->emitters.back().owner = (C_ParticleSystem*)newFirework->GetComponent(Component::Type::ParticleSystem);	//Set EmitterInstance's owner
-		newFirework->particle_system->emitters.back().Init(emitterReference);
-		newFirework->particle_system->emitters.back().UpdateParticleReference();
-		Firework* firework = new Firework(newFirework);
-		firework->name = "firework";
-		newFirework->particle_system->emitters.back().emitter->modules.push_back(firework);		
+		if (!App->timeManagement->IsPaused() && !App->timeManagement->IsStopped()) {
+			GameObject* newFirework = CreateGameObject("firework");
+			newFirework->CreateComponent(Component::Type::ParticleSystem);
+			newFirework->particle_system->emitters.push_back(EmitterInstance());
+			ParticleEmitter* emitterReference = new ParticleEmitter();
+			newFirework->particle_system->emitters.back().owner = (C_ParticleSystem*)newFirework->GetComponent(Component::Type::ParticleSystem);	//Set EmitterInstance's owner
+			newFirework->particle_system->emitters.back().Init(emitterReference);
+			newFirework->particle_system->emitters.back().UpdateParticleReference();
+			Firework* firework = new Firework(newFirework);
+			firework->name = "firework";
+			newFirework->particle_system->emitters.back().emitter->modules.push_back(firework);
+		}
+		else {
+			MY_LOG("Warning! You must press <play> to create fireworks!");
+		}				
 	}
 
 	return UPDATE_CONTINUE;
@@ -315,6 +321,8 @@ void ModuleScene::LoadTownScene()
 	newGameObject->transform->SetRotation({ -90,0,0 });
 	newGameObject->transform->changed = true;
 
+	//TODO: Move to its own function
+	/*
 	//Smoke 1
 	float3 smoke1pos = { 24.72, 10.1f, 40.61f };
 	GameObject* newSmoke1 = CreateGameObject("Smoke1", smoke1pos);
@@ -360,6 +368,7 @@ void ModuleScene::LoadTownScene()
 	std::string resourceName2 = "smoke1";
 	Resource* resourceSmoke2 = App->resources->GetResourceByName(&resourceName2);
 	if (resourceSmoke2 != nullptr) newSmoke2->particle_system->particle_material->SetResource(resourceSmoke2->GetUUID());
+	*/
 }
 
 void ModuleScene::selectGameObject(GameObject* gameObject)
@@ -536,4 +545,34 @@ bool ModuleScene::SaveSettings(Config* data) const
 uint ModuleScene::GetRandomUUID()
 {
 	return LCG().Int();
+}
+
+void ModuleScene::PlayScene(GameObject* gameObject, GameObject* root)
+{
+	//At scene play, we should init particle emitters
+	C_ParticleSystem* particleSystem = (C_ParticleSystem*)gameObject->GetComponent(Component::Type::ParticleSystem);
+
+	if (particleSystem != nullptr) {
+		//Reset particle emitters
+		particleSystem->Init();
+	}
+	for (uint i = 0; i < gameObject->childs.size(); i++)
+	{
+		PlayScene(gameObject->childs[i], root);
+	}
+}
+
+void ModuleScene::StopScene(GameObject* gameObject, GameObject* root)
+{
+	//At scene stop, we should reset particle emitters
+	C_ParticleSystem* particleSystem = (C_ParticleSystem*)gameObject->GetComponent(Component::Type::ParticleSystem);
+
+	if (particleSystem != nullptr) {
+		//Reset particle emitters
+		particleSystem->Reset();
+	}
+	for (uint i = 0; i < gameObject->childs.size(); i++)
+	{
+		StopScene(gameObject->childs[i], root);
+	}	
 }

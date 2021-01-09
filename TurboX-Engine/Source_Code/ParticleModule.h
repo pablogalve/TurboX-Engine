@@ -27,8 +27,11 @@ public:
 
 	ParticleModule();
 
+	void Init(EmitterInstance* emitterInstance);
 	virtual void Spawn(EmitterInstance* emitterInstance); //It creates a new particle or re-spawns an existing one through object polling
-	virtual void Update(EmitterInstance* emitterInstance); //TODO: Update()
+	virtual void Update(EmitterInstance* emitterInstance);
+	virtual void Reset();
+	virtual void CleanUp();
 	void DrawParticles();
 	void DeActivateParticles();
 	void Save(); //TODO: Save()
@@ -58,13 +61,7 @@ public:
 	~DefaultParticle();
 
 	void Update(EmitterInstance* emitterInstance) override;
-
-public:
-	GameObject* fireworkOwner;	
-private:
-	Particle fireworkReference;
-	float lifeTime;
-	float currentTime;	
+	void CleanUp() override;
 };
 
 class Firework : public ParticleModule
@@ -76,7 +73,7 @@ public:
 	void Update(EmitterInstance* emitterInstance) override;
 	void Spawn(EmitterInstance* emitterInstance) override;
 
-	void CleanUp();
+	void CleanUp() override;
 
 	Color GetRandomColor(range<Color> r);
 	

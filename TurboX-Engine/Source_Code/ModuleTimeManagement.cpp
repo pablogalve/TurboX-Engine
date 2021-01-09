@@ -9,7 +9,8 @@ ModuleTimeManagement::ModuleTimeManagement(Application* app, bool start_enabled)
 	gameDeltaTime = 0.0f;
 	deltaTime = 0.0f;
 	gameClock = 0.0f;
-	paused = true;
+	paused = false;
+	stopped = true;
 }
 
 ModuleTimeManagement::~ModuleTimeManagement()
@@ -43,6 +44,7 @@ bool ModuleTimeManagement::Start()
 void ModuleTimeManagement::Play()
 {
 	paused = false;
+	stopped = false;
 	realTimeClock.Start();
 }
 
@@ -50,19 +52,22 @@ void ModuleTimeManagement::Resume()
 {
 	realTimeClock.Resume();
 	paused = false;
+	stopped = false;
 }
 
 void ModuleTimeManagement::Pause()
 {
 	realTimeClock.Stop();
 	paused = true;
+	stopped = false;
 }
 
 void ModuleTimeManagement::Stop()
 {
 	realTimeClock.Stop();
 	realTimeClock.ResetTimer();
-	paused = true;
+	stopped = true;
+	paused = false;
 	gameClock = 0;
 	gameDeltaTime = 0;
 }
@@ -80,6 +85,11 @@ const float ModuleTimeManagement::GetGameDeltaTime() const
 const float ModuleTimeManagement::GetRealTimeInSeconds()
 {
 	return realTimeClock.ReadSec();
+}
+
+const bool ModuleTimeManagement::IsStopped() const
+{
+	return stopped;
 }
 
 float ModuleTimeManagement::GetDeltaTime() const
