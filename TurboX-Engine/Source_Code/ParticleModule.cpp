@@ -213,6 +213,8 @@ Firework::Firework(GameObject* owner)
 	particleReference->size = 2.0f;
 	particleReference->speed = 2.0f;
 
+	owner->particle_system->UpdateParticleGUI(particleReference);
+
 	//Set Resource
 	owner->particle_system->particle_material = new C_Material(Component::Type::Material, owner->parent);
 	std::string resourceName = "fire";
@@ -334,6 +336,8 @@ Smoke::Smoke(GameObject* owner)
 	particleReference->dirVariation = 40;
 	particleReference->direction = { 0, 1, 0 };
 	particleReference->lifetime = 5.0f;
+
+	owner->particle_system->UpdateParticleGUI(particleReference); 
 
 	//Set up material
 	owner->particle_system->particle_material = new C_Material(Component::Type::Material, owner);

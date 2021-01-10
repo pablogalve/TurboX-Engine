@@ -20,7 +20,6 @@ public:
 
 	void SetShowWindow() override;
 	bool GetShowWindow() override { return showWindow; };
-
 private:
 	//Draw info in the inspector
 	void DrawTransform(C_Transform* transform);

@@ -28,7 +28,7 @@ public:
 	uint GetRandomUint(range<uint> number);
 	
 	void AddMaterial(std::map<uint, Resource* > resources);
-
+	void UpdateParticleGUI(Particle* newParticleReference);
 public:
 	std::vector<EmitterInstance> emitters;
 

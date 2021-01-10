@@ -109,3 +109,13 @@ void C_ParticleSystem::AddMaterial(std::map<uint, Resource*> resources)
 		res = nullptr;
 	}
 }
+
+void C_ParticleSystem::UpdateParticleGUI(Particle* newParticleReference)
+{
+	speed.min = newParticleReference->speed;
+	lifetime.min = newParticleReference->lifetime;
+	size.min = newParticleReference->size;
+	direction = newParticleReference->direction;
+	dirVariation = newParticleReference->dirVariation;
+	color.min = newParticleReference->color;
+}
