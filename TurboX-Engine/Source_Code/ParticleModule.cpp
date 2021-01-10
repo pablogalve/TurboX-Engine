@@ -152,12 +152,12 @@ unsigned int ParticleModule::GetFirstUnusedParticle()
 void ParticleModule::UpdateParticleReference(EmitterInstance* emitterInstance)
 {
 	particleReference->position = emitterInstance->owner->owner->transform->position;
-	particleReference->lifetime = emitterInstance->owner->lifetime.min;
-	particleReference->color = emitterInstance->owner->color.min;
-	particleReference->direction = emitterInstance->owner->direction;
-	particleReference->dirVariation = emitterInstance->owner->dirVariation;
-	particleReference->size = emitterInstance->owner->size.min;
-	particleReference->speed = emitterInstance->owner->speed.min;
+	particleReference->lifetime = emitterInstance->owner->particleReferenceGUI->lifetime;
+	particleReference->color = emitterInstance->owner->particleReferenceGUI->color;
+	particleReference->direction = emitterInstance->owner->particleReferenceGUI->direction;
+	particleReference->dirVariation = emitterInstance->owner->particleReferenceGUI->dirVariation;
+	particleReference->size = emitterInstance->owner->particleReferenceGUI->size;
+	particleReference->speed = emitterInstance->owner->particleReferenceGUI->speed;
 }
 
 void ParticleModule::SortParticles(std::vector<Particle>& particles)

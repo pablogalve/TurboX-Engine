@@ -13,13 +13,16 @@
 C_ParticleSystem::C_ParticleSystem(Component::Type type, GameObject* owner) :Component(type, owner)
 {
 	maxParticles = 200;
-	lifetime = { 2,5 };
-	direction = { 0,1,0 };
-	size = { 1,30 };
-	dirVariation = 180.0f;
-	speed = { 2, 3 };
+		
+	particleReferenceGUI = new Particle();
+	particleReferenceGUI->lifetime = 2.f;
+	particleReferenceGUI->direction = { 0,1,0 };
+	particleReferenceGUI->size = 1.f;
+	particleReferenceGUI->dirVariation = 180.0f;
+	particleReferenceGUI->speed = 2.f;
+	particleReferenceGUI->color = Blue;
+
 	particle_material = nullptr;
-	color = { Blue, Green};
 	//res_mesh = App->resources->GetBillboard();
 }
 
@@ -112,10 +115,5 @@ void C_ParticleSystem::AddMaterial(std::map<uint, Resource*> resources)
 
 void C_ParticleSystem::UpdateParticleGUI(Particle* newParticleReference)
 {
-	speed.min = newParticleReference->speed;
-	lifetime.min = newParticleReference->lifetime;
-	size.min = newParticleReference->size;
-	direction = newParticleReference->direction;
-	dirVariation = newParticleReference->dirVariation;
-	color.min = newParticleReference->color;
+	particleReferenceGUI = newParticleReference;
 }

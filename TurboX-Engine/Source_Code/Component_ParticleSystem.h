@@ -33,13 +33,8 @@ public:
 	std::vector<EmitterInstance> emitters;
 
 public:
+	Particle* particleReferenceGUI;
 	int maxParticles;
-	range <float> speed;
-	range <float> lifetime;
-	range <float> size;
-	float3 direction;
-	float dirVariation;
-	range <Color> color;
 
 	C_Material* particle_material;
 
