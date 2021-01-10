@@ -15,7 +15,7 @@ public:
 public:
 	float3 position;
 	float lifetime;
-	float velocity;
+	float speed;
 	float size;
 	float dirVariation;
 	Color color;

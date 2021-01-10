@@ -17,6 +17,7 @@ public:
 
 	Component::Type GetComponentType() override;
 
+	void Init();
 	void Update() override;
 	void Reset(); //TODO: Reset()
 
@@ -27,18 +28,13 @@ public:
 	uint GetRandomUint(range<uint> number);
 	
 	void AddMaterial(std::map<uint, Resource* > resources);
-
+	void UpdateParticleGUI(Particle* newParticleReference);
 public:
 	std::vector<EmitterInstance> emitters;
 
 public:
+	Particle* particleReferenceGUI;
 	int maxParticles;
-	range <float> speed;
-	range <float> lifetime;
-	range <float> size;
-	float3 direction;
-	float dirVariation;
-	range <Color> color;
 
 	C_Material* particle_material;
 

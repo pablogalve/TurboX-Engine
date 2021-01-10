@@ -8,7 +8,7 @@ Particle::Particle(Particle* particleReference)
 {
 	position = particleReference->position;
 	lifetime = particleReference->lifetime;
-	velocity = particleReference->velocity;
+	speed = particleReference->speed;
 	direction = particleReference->direction;
 	color = particleReference->color;
 	size = particleReference->size;

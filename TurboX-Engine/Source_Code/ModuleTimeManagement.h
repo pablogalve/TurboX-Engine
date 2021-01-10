@@ -23,6 +23,7 @@ public:
 	const float GetGameDeltaTime() const;
 
 	const float GetRealTimeInSeconds();
+	const bool IsStopped() const;
 	const bool IsPaused() const;
 
 	float* GetTimeScale();
@@ -37,4 +38,5 @@ private:
 	Timer realTimeClock;
 	float gameClock;
 	bool paused;
+	bool stopped;
 };

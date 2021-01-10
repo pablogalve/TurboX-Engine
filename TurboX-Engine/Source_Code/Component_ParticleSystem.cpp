@@ -7,17 +7,22 @@
 #include "Libraries/ImGui/imgui.h"
 #include "Libraries/ImGui/imgui_impl_opengl3.h"
 #include "Libraries/ImGui/imgui_impl_sdl.h"
+#include "ModuleTimeManagement.h"
+#include "ParticleEmitter.h"
 
 C_ParticleSystem::C_ParticleSystem(Component::Type type, GameObject* owner) :Component(type, owner)
 {
 	maxParticles = 200;
-	lifetime = { 2,5 };
-	direction = { 0,1,0 };
-	size = { 1,30 };
-	dirVariation = 180.0f;
-	speed = { 2, 3 };
+		
+	particleReferenceGUI = new Particle();
+	particleReferenceGUI->lifetime = 2.f;
+	particleReferenceGUI->direction = { 0,1,0 };
+	particleReferenceGUI->size = 1.f;
+	particleReferenceGUI->dirVariation = 180.0f;
+	particleReferenceGUI->speed = 2.f;
+	particleReferenceGUI->color = Blue;
+
 	particle_material = nullptr;
-	color = { Blue, Green};
 	//res_mesh = App->resources->GetBillboard();
 }
 
@@ -30,17 +35,34 @@ Component::Type C_ParticleSystem::GetComponentType()
 	return Component::Type::ParticleSystem;
 }
 
-void C_ParticleSystem::Update()
+void C_ParticleSystem::Init()
 {
 	for (size_t i = 0; i < emitters.size(); i++)
 	{
-		emitters[i].UpdateModules();
+		emitters[i].Init();
+	}
+}
+
+void C_ParticleSystem::Update()
+{
+	//if (!App->timeManagement->IsPaused()) { //Only update the emitters if the engine is in play mode
+		for (size_t i = 0; i < emitters.size(); i++)
+		{
+			emitters[i].UpdateModules();
+		}
+	//}
+	for (size_t i = 0; i < emitters.size(); i++)
+	{
+		emitters[i].Draw();
 	}
 }
 
 void C_ParticleSystem::Reset()
 {
-	
+	for (size_t i = 0; i < emitters.size(); i++)
+	{
+		emitters[i].Reset();
+	}
 }
 
 void C_ParticleSystem::Save()
@@ -89,4 +111,9 @@ void C_ParticleSystem::AddMaterial(std::map<uint, Resource*> resources)
 		}		
 		res = nullptr;
 	}
+}
+
+void C_ParticleSystem::UpdateParticleGUI(Particle* newParticleReference)
+{
+	particleReferenceGUI = newParticleReference;
 }

@@ -1,6 +1,6 @@
 #ifndef __PARTICLE_MODULE_H__
 #define __PARTICLE_MODULE_H__
-#include "GameObject.h"
+//#include "GameObject.h"
 #include "Particle.h"
 #include <string>
 #include "Globals.h"
@@ -27,8 +27,11 @@ public:
 
 	ParticleModule();
 
+	void Init(EmitterInstance* emitterInstance);
 	virtual void Spawn(EmitterInstance* emitterInstance); //It creates a new particle or re-spawns an existing one through object polling
-	virtual void Update(EmitterInstance* emitterInstance); //TODO: Update()
+	virtual void Update(EmitterInstance* emitterInstance);
+	virtual void Reset();
+	virtual void CleanUp();
 	void DrawParticles();
 	void DeActivateParticles();
 	void Save(); //TODO: Save()
@@ -50,22 +53,34 @@ protected:
 	uint activeParticles;
 	uint lastUsedParticle;
 };
+ 
+// ---------- CUSTOM PARTICLE ----------
 
-class DefaultParticle : public ParticleModule
+class CustomParticle : public ParticleModule
 {
 public:
-	DefaultParticle(GameObject* owner);
-	~DefaultParticle();
+	CustomParticle(GameObject* owner);
+	~CustomParticle();
 
-	void Update(EmitterInstance* emitterInstance) override;
+	void CleanUp() override;
 
-public:
-	GameObject* fireworkOwner;	
-private:
-	Particle fireworkReference;
-	float lifeTime;
-	float currentTime;	
+	Type GetType() { return Type::Custom; };
 };
+
+// ---------- SMOKE PARTICLE EMITTER ----------
+
+class Smoke : public ParticleModule
+{
+public:
+	Smoke(GameObject* owner);
+	~Smoke();
+
+	void CleanUp() override;
+
+	Type GetType() { return Type::Smoke; };
+};
+
+// ---------- FIREWORK ----------
 
 class Firework : public ParticleModule
 {
@@ -76,10 +91,11 @@ public:
 	void Update(EmitterInstance* emitterInstance) override;
 	void Spawn(EmitterInstance* emitterInstance) override;
 
-	void CleanUp();
+	void CleanUp() override;
 
 	Color GetRandomColor(range<Color> r);
 	
+	Type GetType() { return Type::Firework; };
 public:
 	GameObject* fireworkOwner;
 private:

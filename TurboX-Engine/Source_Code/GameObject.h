@@ -11,9 +11,8 @@
 #include "Component_ParticleSystem.h"
 #include "Component_Billboard.h"
 #include "Component.h"
-
 #include "Config_JSON.h"
-
+#include "ParticleModule.h"
 #include "Libraries/MathGeoLib/Algorithm/Random/LCG.h"
 
 using namespace std;
@@ -53,6 +52,8 @@ public:
 
 	void GetComponents(Component::Type type, std::vector<Component*>& comp);
 	C_Material* GetComponentMaterial(uint UUID);
+
+	void CreateCustomParticleSystem(ParticleModule::Type type, float3 position = { -1,-1,-1 });
 public:	
 	std::string name;
 	vector<Component*> components;

@@ -4,12 +4,14 @@
 
 TurboX-Engine is a 3D Game Engine built from scratch in C++ and OpenGL. We are two future game developers that are currently studying at CITM (Barcelona, Spain).
 
+Website: [pablogalve.github.io/TurboX-Engine](https://pablogalve.github.io/TurboX-Engine/)
 Repository Link: [github.com/pablogalve/TurboX-Engine](https://github.com/pablogalve/TurboX-Engine)
 
 ## Particle System
 
 ## How to compile
-- Clone the repository
+- Clone or fork the repository
+- Open TurboX-Engine.sln in the 'TurboX-Engine\Source_Code' folder
 - Set up the necessary dlls:
   - Inside Visual Studio 2019 -> Debug > TurboX-Engine Properties... > Debugging > Working Directory: ..\Engine\TurboX-Engine\TurboX-Engine
 

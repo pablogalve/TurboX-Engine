@@ -10,6 +10,8 @@
 #include "ModuleScene.h"
 #include "ModuleResources.h"
 #include "ParticleEmitter.h"
+#include "ModuleTimeManagement.h"
+#include "ParticleModule.h"
 
 W_Inspector::W_Inspector()
 {
@@ -69,19 +71,18 @@ void W_Inspector::Draw()
 
 		if (gameObject->GetComponent(Component::Type::ParticleSystem) == false)
 		{
-			if (ImGui::MenuItem("Particle System", nullptr))
-			{
-				gameObject->CreateComponent(Component::Type::ParticleSystem);
-				//TODO: Create emitters elsewhere
-				gameObject->particle_system->emitters.push_back(EmitterInstance());
-				ParticleEmitter* emitterReference = new ParticleEmitter();
-				gameObject->particle_system->emitters.back().owner = (C_ParticleSystem*)gameObject->GetComponent(Component::Type::ParticleSystem);	//Set EmitterInstance's owner
-				gameObject->particle_system->emitters.back().Init(emitterReference);	
-				DefaultParticle* defaultParticle = new DefaultParticle(gameObject);
-				defaultParticle->name = "defaultParticle";
-				gameObject->particle_system->emitters[0].emitter->modules.push_back(defaultParticle);
-				gameObject->particle_system->emitters[0].UpdateParticleReference();
-				//delete emitterReference;
+			if (ImGui::BeginMenu("Particle System"))
+			{				
+				if (ImGui::MenuItem("Custom Particle System", nullptr))
+					App->scene->selected_GO[0].CreateCustomParticleSystem(ParticleModule::Type::Custom);
+
+				if (ImGui::MenuItem("Smoke", nullptr))				
+					App->scene->selected_GO[0].CreateCustomParticleSystem(ParticleModule::Type::Smoke);
+				
+				if (ImGui::MenuItem("Fireworks", nullptr))
+					App->scene->selected_GO[0].CreateCustomParticleSystem(ParticleModule::Type::Firework);				
+				
+				ImGui::EndMenu();
 			}
 		}
 
@@ -281,65 +282,68 @@ void W_Inspector::DrawParticleSystem(C_ParticleSystem* particle_system)
 	{
 		if (ImGui::CollapsingHeader("Particle Values"))
 		{
-			//TODO
+			ImGui::Text("Particle Emitter");
+
+			if (ImGui::SliderFloat("Lifetime", &particle_system->particleReferenceGUI->lifetime, 0, 100, "Max: %.1f"))
+				particle_system->emitters[0].UpdateParticleReference();
+
+			if (ImGui::SliderInt("Max Particles", &particle_system->maxParticles, 0, 200, "Max: %i"))
+				particle_system->emitters[0].UpdateParticleReference();
+
+			if (ImGui::SliderFloat("Particle Size", &particle_system->particleReferenceGUI->size, 0, 10, "Max: %.1f"))
+				particle_system->emitters[0].UpdateParticleReference();
+
+			ImGui::Columns(4, "Direction");
+			if (ImGui::DragFloat("##DirectionX", &particle_system->particleReferenceGUI->direction.x, 0.05f, 0.f, 0.f, "X: %.2f"))
+				particle_system->emitters[0].UpdateParticleReference();
+			ImGui::NextColumn();
+			if (ImGui::DragFloat("##DirectionY", &particle_system->particleReferenceGUI->direction.y, 0.05f, 0.f, 0.f, "Y: %.2f"))
+				particle_system->emitters[0].UpdateParticleReference();
+			ImGui::NextColumn();
+			if (ImGui::DragFloat("##DirectionZ", &particle_system->particleReferenceGUI->direction.z, 0.05f, 0.f, 0.f, "Z: %.2f"))
+				particle_system->emitters[0].UpdateParticleReference();
+			ImGui::NextColumn();
+			ImGui::Text("Direction");
+			ImGui::Columns(1);
+
+			if (ImGui::SliderFloat("Dir. variation", &particle_system->particleReferenceGUI->dirVariation, 0, 360, "Max: %.1f"))
+				particle_system->emitters[0].UpdateParticleReference();
+
+			if (ImGui::SliderFloat("Speed", &particle_system->particleReferenceGUI->speed, 0, 20, "Max: %.1f"))
+				particle_system->emitters[0].UpdateParticleReference();
 		}
-
-		ImGui::Text("Particle Emitter");
-
-		if (ImGui::DragFloatRange2("Lifetime", &particle_system->lifetime.min, &particle_system->lifetime.max, 0.25f, 0.0f, 100.0f, "Min: %.1f", "Max: %.1f"))
-			particle_system->emitters[0].UpdateParticleReference();
-		//ImGui::SliderFloat("Lifetime", &particle_system->lifetime, 0.0f, 20.0f, "ratio = %.3f");
-
-		if(ImGui::SliderInt("Max Particles", &particle_system->maxParticles, 0, 200, "Max: %i"))
-			particle_system->emitters[0].UpdateParticleReference();
-
-		if (ImGui::DragFloatRange2("Particle Size", &particle_system->size.min, &particle_system->size.max, 0.25f, 0.0f, 100.0f, "Min: %.1f", "Max: %.1f"))
-			particle_system->emitters[0].UpdateParticleReference();
-
-		ImGui::Columns(4, "Direction");		
-		if (ImGui::DragFloat("##DirectionX", &particle_system->direction.x, 0.05f, 0.f, 0.f, "X: %.2f"))
-			particle_system->emitters[0].UpdateParticleReference();
-		ImGui::NextColumn();
-		if (ImGui::DragFloat("##DirectionY", &particle_system->direction.y, 0.05f, 0.f, 0.f, "Y: %.2f"))
-			particle_system->emitters[0].UpdateParticleReference();
-		ImGui::NextColumn();
-		if (ImGui::DragFloat("##DirectionZ", &particle_system->direction.z, 0.05f, 0.f, 0.f, "Z: %.2f"))
-			particle_system->emitters[0].UpdateParticleReference();
-		ImGui::NextColumn(); 
-		ImGui::Text("Direction");
-		ImGui::Columns(1);
-
-		if (ImGui::SliderFloat("Dir. variation", &particle_system->dirVariation, 0, 360, "Max: %.1f"))
-			particle_system->emitters[0].UpdateParticleReference();
-
-		if (ImGui::DragFloatRange2("Speed", &particle_system->speed.min, &particle_system->speed.max, 0.25f, 0.0f, 20.0f, "Min: %.1f", "Max: %.1f"))
-			particle_system->emitters[0].UpdateParticleReference();
-
 		
-		//Material
-		if (particle_system->owner->material == nullptr)
+		if (ImGui::CollapsingHeader("Material"))
 		{
-			if (ImGui::Button("Add Material"))
-				ImGui::OpenPopup("add_material");
-
-			if (ImGui::BeginPopup("add_material"))
+			//Material
+			if (particle_system->owner->material == nullptr)
 			{
-				//TODO: Add Material
+				if (ImGui::Button("Add Material"))
+					ImGui::OpenPopup("add_material");
 
-				particle_system->AddMaterial(App->resources->GetResourcesList());
-				ImGui::EndPopup();
+				if (ImGui::BeginPopup("add_material"))
+				{
+					//TODO: Add Material
+
+					particle_system->AddMaterial(App->resources->GetResourcesList());
+					ImGui::EndPopup();
+				}
+			}
+			else {
+				//TODO: Show material info
+				
 			}
 		}
-		else {
-			//TODO: Show material info
-
-		}
-
-		//Color
-		ImGui::Text("Color");
-		if(ImGui::ColorPicker4("Color##4", &particle_system->color.min))
+		if (ImGui::CollapsingHeader("Color"))
 		{
-			particle_system->emitters[0].UpdateParticleReference();
+			//Material
+			if (particle_system->owner->material == nullptr)
+			{
+				//Color
+				ImGui::Text("Color");
+				if (ImGui::ColorPicker4("Color##4", &particle_system->particleReferenceGUI->color))
+					particle_system->emitters[0].UpdateParticleReference();
+			}
 		}
 	}
 }

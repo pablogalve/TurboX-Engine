@@ -3,6 +3,7 @@
 #include "ModuleScene.h"
 #include "ModuleRenderer3D.h"
 #include "ResourceMesh.h"
+#include "ParticleEmitter.h"
 
 GameObject::GameObject()
 {	
@@ -290,6 +291,62 @@ C_Material* GameObject::GetComponentMaterial(uint UUID)
 		it = nullptr;
 	}
 	return nullptr;
+}
+
+void GameObject::CreateCustomParticleSystem(ParticleModule::Type type, float3 position)
+{
+	float3 defaultPos = { -1, -1, -1 };
+	if(position.x != defaultPos.x && position.y != defaultPos.y && position.z != defaultPos.z)	
+		transform->SetPosition(position);	
+
+	//We make sure that particle_system is valid, or else we create it
+	if (particle_system == nullptr)
+		CreateComponent(Component::Type::ParticleSystem);
+
+	switch (type)
+	{
+	case ParticleModule::None:
+		MY_LOG("Error. You are trying to create a <None Particle System>");
+		break;
+	case ParticleModule::Custom:
+	{
+		//TODO: Create emitters elsewhere
+		particle_system->emitters.push_back(EmitterInstance(new ParticleEmitter()));
+		particle_system->emitters.back().owner = particle_system;	//Set EmitterInstance's owner
+		particle_system->emitters.back().Init();
+		CustomParticle* defaultParticle = new CustomParticle(this);
+		defaultParticle->name = "defaultParticle";
+		particle_system->emitters[0].emitter->modules.push_back(defaultParticle);
+		particle_system->emitters[0].UpdateParticleReference();
+		//delete emitterReference;
+		break;
+	}
+	case ParticleModule::Smoke:
+	{
+		particle_system->emitters.push_back(EmitterInstance(new ParticleEmitter));
+
+		Smoke* newSmoke = new Smoke(this);
+		particle_system->emitters[0].emitter->modules.push_back(newSmoke);
+
+		particle_system->emitters.back().owner = particle_system;
+		particle_system->emitters.back().Init();
+		break;
+	}
+	case ParticleModule::Firework:
+	{
+		name = "firework";
+		particle_system->emitters.push_back(EmitterInstance(new ParticleEmitter()));
+		particle_system->emitters.back().owner = particle_system;
+		particle_system->emitters.back().Init();
+		particle_system->emitters.back().UpdateParticleReference();
+		Firework* firework = new Firework(this);
+		firework->name = "firework";
+		particle_system->emitters.back().emitter->modules.push_back(firework);
+		break;
+	}
+	default:
+		break;
+	}
 }
 
 void GameObject::setSelected(bool selected)
