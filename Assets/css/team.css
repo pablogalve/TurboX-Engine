@@ -8,20 +8,24 @@ html {
   
   .column {
     float: right;
-    width: 33.3%;
+    width: 50%;
     margin-bottom: 16px;
     padding: 0 8px;
   }
   
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);      
+    size: 70%;      
+  }
+
   @media screen and (max-width: 650px) {
     .column {
       width: 100%;
       display: block;
     }
-  }
-  
-  .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    .card {
+      size: 70%;
+    }
   }
   
   .container {

@@ -107,7 +107,7 @@ html {
 /* Create two equal columns that floats next to each other */
 .column {
     margin-top: 5%;
-    float: left;
+    float: center;
     width: 50%;
     padding: 10px;
 }
