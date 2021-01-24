@@ -1,13 +1,16 @@
 # TurboX-Engine
 
-<img src="https://user-images.githubusercontent.com/47743853/97490963-d326f580-1961-11eb-99c8-9dd1b0b7fdc0.png"  height="430"></img>
-
-TurboX-Engine is a 3D Game Engine built from scratch in C++ and OpenGL. We are two future game developers that are currently studying at CITM (Barcelona, Spain).
+TurboX-Engine is a 3D Game Engine with an integrated particle system built from scratch in C++ and OpenGL. We are two future game developers that are currently studying at CITM (Barcelona, Spain).
 
 Website: [pablogalve.github.io/TurboX-Engine](https://pablogalve.github.io/TurboX-Engine/)
 Repository Link: [github.com/pablogalve/TurboX-Engine](https://github.com/pablogalve/TurboX-Engine)
 
 ## Particle System
+<img src="https://github.com/pablogalve/TurboX-Engine/blob/gh-pages/images/smoke.gif"  width="45%"></img>
+<img src="https://github.com/pablogalve/TurboX-Engine/blob/gh-pages/images/fireworks.gif"  width="45%"></img>
+
+<img src="https://github.com/pablogalve/TurboX-Engine/blob/gh-pages/images/particlesystem.gif"  width="45%"></img>
+<img src="https://github.com/pablogalve/TurboX-Engine/blob/gh-pages/images/particlesystemgo.gif"  width="45%"></img>
 
 ## How to compile
 - Clone or fork the repository
