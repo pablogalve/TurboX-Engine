@@ -160,9 +160,9 @@ update_status ModuleCamera3D::Update(float dt)
 		Position += newPos;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT && App->scene->selected_GO != nullptr)
 	{
-		LookAt({ 0,0,0 });
+		LookAt(App->scene->selected_GO->transform->GetPosition());
 	}
 
 	camera->frustum.pos = Position;

@@ -367,11 +367,13 @@ void ModuleRenderer3D::CalculateGlobalMatrix(GameObject* gameObject)
 	{
 		if (gameObject->parent == nullptr)
 		{
+			//Only root GO should enter here
 			transform->globalMatrix = transform->localMatrix;
 		}
 		else
 		{
-			transform->globalMatrix = ((C_Transform*)gameObject->parent->GetComponent(Component::Type::Transform))->globalMatrix * transform->localMatrix;
+			//All GO except root should enter here
+ 			transform->globalMatrix = ((C_Transform*)gameObject->parent->GetComponent(Component::Type::Transform))->globalMatrix * transform->localMatrix;
 		}
 
 
