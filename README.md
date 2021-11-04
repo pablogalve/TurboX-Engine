@@ -59,3 +59,4 @@ Paid proprietary license: [PROPRIETARY LICENSE.](https://github.com/pablogalve/T
 You still have doubts about which license to follow?
 - You will copy parts or the entirety of this project without crediting the original authors: [PROPRIETARY LICENSE.](https://github.com/pablogalve/TurboX-Engine/blob/master/PROPRIETARY_LICENSE)
 - Any other case: [MIT LICENSE.](https://github.com/pablogalve/TurboX-Engine/blob/master/MIT_LICENSE)
+
