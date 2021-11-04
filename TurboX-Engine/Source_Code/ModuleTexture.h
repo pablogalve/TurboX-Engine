@@ -24,8 +24,6 @@ public:
 
 	bool ImportTexture(const char * tex, std::vector<std::string>* written, bool UI = false);
 
-	void ReceiveEvent(const Event &event);
-
 	void ManageDroppedTexture(const char* droppedFileDire);
 
 public: 
