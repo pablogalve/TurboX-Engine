@@ -11,7 +11,7 @@ build:
   verbosity: normal
 before_package:
 - ps: Copy-Item README.md TurboX-Engine\Engine\TurboX-Engine\
-- ps: Copy-Item LICENSE TurboX-Engine\Engine\TurboX-Engine\
+- ps: Copy-Item MIT_LICENSE TurboX-Engine\Engine\TurboX-Engine\
 - ps: Copy-Item TurboX-Engine\Source_Code\$env:CONFIGURATION\TurboX-Engine.exe TurboX-Engine\Engine\TurboX-Engine\TurboX-Engine
 artifacts:
 - path: TurboX-Engine\Engine
