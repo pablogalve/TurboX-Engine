@@ -39,5 +39,24 @@ Repository Link: [github.com/pablogalve/TurboX-Engine](https://github.com/pablog
 - E: scale
 
 ## LICENSE
-TurboX-Engine is licensed under the MIT License.
-Take a look of our license [here.](https://github.com/pablogalve/TurboX-Engine/blob/master/LICENSE)
+TurboX-Engine is using a dual-license. Which one applies to me?
+
+### MIT LICENSE
+You will be using the [MIT LICENSE](https://github.com/pablogalve/TurboX-Engine/blob/master/MIT_LICENSE) by default, provided that you are compliant with at least 1 of the following conditions (Only 1 is needed):
+- You credit the authors on your project. You must include our [MIT LICENSE](https://github.com/pablogalve/TurboX-Engine/blob/master/MIT_LICENSE) in the same folder where you store the licenses from other libraries or projects that you are using.
+- You contribute to this project. For example, you open a pull request to add a feature, solve a bug or improve something.
+- You fork this project. You can fork this repository for your own purposes (including commercial use) following the [MIT LICENSE.](https://github.com/pablogalve/TurboX-Engine/blob/master/MIT_LICENSE)
+- Any other situation that is not covered in the PROPRIETARY LICENSE. If you are using this project for a case that does not meet the conditions of PROPRIETARY LICENSE, then you are covered by default by MIT LICENSE
+
+Free open-source license: [MIT LICENSE.](https://github.com/pablogalve/TurboX-Engine/blob/master/MIT_LICENSE)
+
+### PROPRIETARY LICENSE
+- If you want to use this repository for any use without being compliant with the MIT LICENSE above mentioned, then you must follow the PROPRIETARY LICENSE.
+- If you copy this entire project or some parts of it without giving credit to the original authors (e.g. plagiating a project and claiming it was made by you when in fact it wasn't), then we will understand that you are acting on bad faith and against us and the open-source philosofy, and therefore you must follow the PROPRIETARY LICENSE.
+
+Paid proprietary license: [PROPRIETARY LICENSE.](https://github.com/pablogalve/TurboX-Engine/blob/master/PROPRIETARY_LICENSE)
+
+You still have doubts about which license to follow?
+- You will copy parts or the entirety of this project without crediting the original authors: [PROPRIETARY LICENSE.](https://github.com/pablogalve/TurboX-Engine/blob/master/PROPRIETARY_LICENSE)
+- Any other case: [MIT LICENSE.](https://github.com/pablogalve/TurboX-Engine/blob/master/MIT_LICENSE)
+

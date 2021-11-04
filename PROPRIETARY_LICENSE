@@ -1,0 +1,119 @@
+                     PROPRIETARY License
+                     Version 1, 4 November 2021
+
+Copyright (c) 2021 TurboX Engine
+
+
+                            Preamble
+
+This license has been designed to avoid plagiarism, meaning that a person
+is copying someone else's work without crediting the original author.
+Remember that plagiarism is morally incorrect and illegal in most countries.
+
+                     TERMS AND CONDITIONS
+
+0. Definitions.
+
+  "This License" refers to version 1 of this License, written in this document.
+
+  "Copyright" also means copyright-like laws that apply to other kinds of
+works, such as semiconductor masks.
+
+  To "modify" a work means to copy from or adapt all or part of the work
+in a fashion requiring copyright permission, other than the making of an
+exact copy. The resulting work is called a "modified version" of the
+earlier work or a work "based on" the earlier work.
+
+  "Breach of contract" refers to when the licensee agreed to adhere 
+to the terms of this license, but failed to do so.
+
+  "This project" refers to TurboX Engine project, stored in the following
+github repository: [TurboX Engine's official repository.](https://github.com/pablogalve/TurboX-Engine)
+
+  "Licensor" refers to the original authors of this project.
+
+  "Licensee" refers to the user who has paid this license's fee.
+
+1. Who is obligated to become a licensee
+
+By default, the [TurboX Engine's official repository.](https://github.com/pablogalve/TurboX-Engine)
+is regulated by the [MIT LICENSE.](https://github.com/pablogalve/TurboX-Engine/blob/master/MIT_LICENSE)
+However, there is one case where the user must become a licensee.
+You must become a licensee if you copy this entire project or some parts of
+it without giving credit to the original authors (plagiarism: copying a project
+and claiming it was made by you when in fact it wasn't). 
+In the case of plagiarism, we will understand that you are acting on bad faith
+and against us and the open-source philosofy, and therefore you must follow 
+this license instead of the [MIT LICENSE.](https://github.com/pablogalve/TurboX-Engine/blob/master/MIT_LICENSE)
+
+2. What is a licensee allowed to do
+
+- The licensee has the right to use this software in a maximum of one repository.
+- The licensee has the right to modify this software.
+- The licensee can use this project for their own purposes without giving 
+credits to the original authors.
+- The licensee is allowed to distribute this project, but third parties must be
+informed and follow this project's dual license.
+
+3. Fees and Taxes
+
+The cost of this license is 60 EUR. Taxes are not included in this contract.
+The licensee is responsible for any taxes that may be assessed in this
+agreement.
+
+4. Using this license without paying the fees
+
+In the case of finding a user who according to (1) must buy this license
+but hasn't bought it, the said user will be contacted by the licensor
+to give them the option to either buy the license or stop acting with
+the terms provided in (1) to be regulated by MIT License instead of this
+one. If the user does not answer or refuses to follow the instructions in
+a reasonable period of time of 2 weeks, counting from the time of 
+notification, then the user will be considered to commit plagiarism,
+act on bad faith and against us and the open-source philosophy. 
+The user will be liable to the licensor by 200 EUR for damages.
+
+5. Breach of contract
+
+If the licensee doesn't adhere to the terms of this license, he/she will
+incurr a breach of contract.
+In the event of a breach of contract, the licensee agrees to indemnify the
+licensor with a unique payment of the value of 200 EUR.
+
+6. Governing Law and Dispute Resolution Options
+
+Any dispute arised between the licensee and the licensor from this license
+will be resolved in the tribunals of the Kingdom of Spain. 
+
+7. Disclaimer of Warranty.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+8. Limitation of Liability.
+
+IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
+WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MODIFIES AND/OR CONVEYS
+THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY
+GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE
+USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF
+DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD
+PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS),
+EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF
+SUCH DAMAGES.
+
+9. Interpretation of Sections 15 and 16.
+
+If the disclaimer of warranty and limitation of liability provided
+above cannot be given local legal effect according to their terms,
+reviewing courts shall apply local law that most closely approximates
+an absolute waiver of all civil liability in connection with the
+Program, unless a warranty or assumption of liability accompanies a
+copy of the Program in return for a fee.
+
+                     END OF TERMS AND CONDITIONS

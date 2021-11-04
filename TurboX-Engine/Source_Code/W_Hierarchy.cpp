@@ -4,7 +4,6 @@
 
 W_Hierarchy::W_Hierarchy()
 {
-	open_pop_up = false;
 }
 
 W_Hierarchy::~W_Hierarchy()
