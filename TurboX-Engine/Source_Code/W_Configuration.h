@@ -4,6 +4,9 @@
 #include "WindowConfig.h"
 #include "Module.h"
 #include "Application.h"
+#include "ModuleWindow.h"
+#include "ModuleRenderer3D.h"
+#include "ModuleInput.h"
 
 #include <vector>
 
@@ -16,10 +19,11 @@ public:
 	void Draw() override;
 
 	void SetShowWindow() override;
-	bool GetShowWindow() override { return showWindow; };
+	bool GetShowWindow() override;
 
 	void GetHardwareCaps();
 	void GetVramData(float& vram_budget, float& vram_usage, float& vram_available, float& vram_reserved);
+
 private:
 	std::vector<float> fps_log;
 	std::vector<float> ms_log;

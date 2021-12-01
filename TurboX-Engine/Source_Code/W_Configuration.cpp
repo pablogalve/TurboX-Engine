@@ -1,8 +1,4 @@
 #include "W_Configuration.h"
-#include "ModuleWindow.h"
-#include "ModuleRenderer3D.h"
-#include "ModuleInput.h"
-#include "Application.h"
 
 W_Configuration::W_Configuration()
 {
@@ -282,6 +278,11 @@ void W_Configuration::Draw()
 void W_Configuration::SetShowWindow()
 {
 	showWindow = !showWindow;
+}
+
+bool W_Configuration::GetShowWindow()
+{
+	return showWindow;
 }
 
 void W_Configuration::GetHardwareCaps()

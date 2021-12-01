@@ -2,6 +2,9 @@
 #define __ABOUT_H_
 
 #include "WindowConfig.h"
+#include "Application.h"
+#include "Libraries/SDL/include/SDL.h"
+#include "Libraries/glew/glew.h"
 
 class W_About : WindowConfig
 {
@@ -12,7 +15,7 @@ public:
 	void Draw() override;
 
 	void SetShowWindow() override;
-	bool GetShowWindow() override { return showWindow; };
+	bool GetShowWindow() override;
 };
 
 #endif // !__ABOUT_H_

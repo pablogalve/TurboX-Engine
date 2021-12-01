@@ -20,44 +20,33 @@ void W_Hierarchy::Draw()
 void W_Hierarchy::DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags default_flags, GameObject* root)
 {	
 	bool drawAgain = true;
-		
 	ImGuiTreeNodeFlags flags = default_flags;	
 
-	if (gameObject->childs.empty()) {
+	if (gameObject->childs.empty())
 		flags |= ImGuiTreeNodeFlags_Leaf;
-	}
 
 	if (gameObject->is_selected)
-	{
 		flags |= ImGuiTreeNodeFlags_Selected;
-	}
 
-	if (gameObject != root){
+	if (gameObject != root)
 		drawAgain = ImGui::TreeNodeEx(gameObject, flags, gameObject->name.c_str());
-	}
 	else
 		drawAgain = true;
 
 	if (ImGui::IsItemClicked(0))
-	{
 		App->scene->selectGameObject(gameObject);
-	}
 
 	if (ImGui::BeginPopupContextItem((gameObject->name + "rightClick").c_str(), 1))
 	{
 		if (ImGui::Button("Delete"))
-		{
 			gameObject->to_delete = true;
-		}
 		ImGui::EndPopup();
 	}
 
 	if (App->scene->selected_GO != nullptr)
 	{
 		if (App->scene->selected_GO->to_delete == true)
-		{
 			App->scene->DestroyGameObject(gameObject);
-		}
 	}
 
 	if (ImGui::BeginDragDropSource())
@@ -72,6 +61,7 @@ void W_Hierarchy::DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags defa
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Reparenting", ImGuiDragDropFlags_SourceAllowNullID))
 		{
 			GameObject* draggedGameobject = App->scene->GetGameObjectByUUID(*(uint*)payload->Data);
+
 			if (draggedGameobject != nullptr)
 				draggedGameobject->SetParent(gameObject);
 		}
@@ -92,4 +82,9 @@ void W_Hierarchy::DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags defa
 void W_Hierarchy::SetShowWindow()
 {
 	showWindow = !showWindow;
+}
+
+bool W_Hierarchy::GetShowWindow()
+{
+	return showWindow;
 }

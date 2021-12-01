@@ -88,7 +88,6 @@
     <ClInclude Include="ModuleTimeManagement.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleModule.h" />
-    <ClInclude Include="PathNode.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceMesh.h" />
     <ClInclude Include="ResourceTexture.h" />

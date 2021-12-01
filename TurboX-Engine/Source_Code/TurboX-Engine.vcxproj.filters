@@ -663,9 +663,6 @@
     <ClInclude Include="W_Toolbar.h">
       <Filter>Sources\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="PathNode.h">
-      <Filter>Sources\Containers</Filter>
-    </ClInclude>
     <ClInclude Include="Config_JSON.h">
       <Filter>Sources\FileManager</Filter>
     </ClInclude>

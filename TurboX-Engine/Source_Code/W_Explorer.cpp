@@ -1,15 +1,12 @@
 #include "W_Explorer.h"
-#include "Application.h"
-#include "ModuleFileSystem.h"
-#include "ModuleResources.h"
 
 W_Explorer::W_Explorer()
 {
+	currDir = ASSETS_PATH;
 }
 
 W_Explorer::~W_Explorer()
-{
-}
+{}
 
 void W_Explorer::Draw()
 {
@@ -57,21 +54,24 @@ void W_Explorer::Draw()
 		
 		if (ImGui::BeginMenu(fileName.c_str())) 
 		{
-			
 			if (ImGui::MenuItem("Load File")) 
-			{
 				App->resources->LoadFiles(files[i].c_str());
-			}
-			if (ImGui::MenuItem("Delete File")) { App->file_system->RemoveFile(files[i].c_str()); }
+
+			if (ImGui::MenuItem("Delete File")) 
+				App->file_system->RemoveFile(files[i].c_str());
 
 			ImGui::EndMenu();
 		}
 	}
-
 	ImGui::End();
 }
 
 void W_Explorer::SetShowWindow()
 {
 	showWindow = !showWindow;
+}
+
+bool W_Explorer::GetShowWindow()
+{
+	return showWindow;
 }

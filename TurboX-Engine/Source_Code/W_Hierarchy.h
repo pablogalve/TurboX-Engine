@@ -6,8 +6,6 @@
 #include "Application.h"
 #include <vector>
 
-using namespace std;
-
 class Application;
 class GameObject;
 
@@ -19,13 +17,13 @@ public:
 
 	void Draw() override;
 	void DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags default_flags, GameObject* root);
+
 	void SetShowWindow() override;
-	bool GetShowWindow() override { return showWindow; };
+	bool GetShowWindow() override;
 
 public:
 	std::vector<GameObject*> selectedGameObjects;
 	bool active;
-
 };
 
 #endif // !__HIERARCHY_H_

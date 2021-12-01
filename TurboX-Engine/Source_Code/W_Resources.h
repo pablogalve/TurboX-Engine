@@ -16,10 +16,9 @@ public:
 	void Draw() override;
 
 	void SetShowWindow() override;
-	bool GetShowWindow() override { return showWindow; };
+	bool GetShowWindow() override;
 
 	void DrawResourcesChilds(std::map<uint, Resource* > resources);
-
 };
 
 #endif // !__RESOURCES_H_

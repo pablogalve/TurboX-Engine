@@ -25,6 +25,11 @@ void W_Resources::SetShowWindow()
 	showWindow = !showWindow;
 }
 
+bool W_Resources::GetShowWindow()
+{
+	return showWindow;
+}
+
 void W_Resources::DrawResourcesChilds(std::map<uint, Resource*> resources)
 {
 	uint flags = 0;

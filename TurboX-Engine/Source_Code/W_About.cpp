@@ -1,7 +1,4 @@
 #include "W_About.h"
-#include "Libraries/SDL/include/SDL.h"
-#include "Libraries/glew/glew.h"
-#include "Application.h"
 
 W_About::W_About()
 {
@@ -120,4 +117,9 @@ void W_About::Draw()
 void W_About::SetShowWindow()
 {
 	showWindow = !showWindow;
+}
+
+bool W_About::GetShowWindow()
+{
+	return showWindow;
 }
