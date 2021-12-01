@@ -1,6 +1,4 @@
 #include "W_Hierarchy.h"
-#include "ModuleScene.h"
-#include "Application.h"
 
 W_Hierarchy::W_Hierarchy()
 {
@@ -14,9 +12,8 @@ void W_Hierarchy::Draw()
 {
 	ImGui::Begin("Hierarchy");
 
-	ImGuiTreeNodeFlags default_flags = ImGuiTreeNodeFlags_NoTreePushOnOpen;
+	ImGuiTreeNodeFlags default_flags = ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
 	DrawGameObject(App->scene->GetRoot(), default_flags, App->scene->GetRoot());
-
 	ImGui::End();
 }
 
@@ -25,7 +22,7 @@ void W_Hierarchy::DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags defa
 	bool drawAgain = true;
 		
 	ImGuiTreeNodeFlags flags = default_flags;	
-	
+
 	if (gameObject->childs.empty()) {
 		flags |= ImGuiTreeNodeFlags_Leaf;
 	}
@@ -34,19 +31,17 @@ void W_Hierarchy::DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags defa
 	{
 		flags |= ImGuiTreeNodeFlags_Selected;
 	}
-	
 
-	if (gameObject != root)
+	if (gameObject != root){
 		drawAgain = ImGui::TreeNodeEx(gameObject, flags, gameObject->name.c_str());
+	}
 	else
 		drawAgain = true;
-
 
 	if (ImGui::IsItemClicked(0))
 	{
 		App->scene->selectGameObject(gameObject);
 	}
-
 
 	if (ImGui::BeginPopupContextItem((gameObject->name + "rightClick").c_str(), 1))
 	{
@@ -84,11 +79,13 @@ void W_Hierarchy::DrawGameObject(GameObject* gameObject, ImGuiTreeNodeFlags defa
 	}
 
 	if (drawAgain)
-	{
+	{		
 		for (uint i = 0; i < gameObject->childs.size(); i++)
 		{
+			if(gameObject != root) ImGui::Indent();
 			DrawGameObject(gameObject->childs[i], flags, root);
-		}
+			if (gameObject != root) ImGui::Unindent();
+		}	
 	}
 }
 
