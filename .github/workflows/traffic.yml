@@ -18,7 +18,7 @@ jobs:
     
     # Calculates traffic and clones and stores in CSV file
     - name: GitHub traffic 
-      uses: sangonzal/repository-traffic-action@v0.1.3
+      uses: sangonzal/repository-traffic-action@v0.1.4
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
      
@@ -26,7 +26,7 @@ jobs:
     - name: Commit changes
       uses: EndBug/add-and-commit@v4
       with:
-        author_name: Insights Bot
-        message: "GitHub traffic"
+        author_name: Pablo Galve
+        message: "GitHub traffic (Automated)"
         add: "./traffic/*"
         ref: "traffic"  # commits to branch "traffic" 
