@@ -2,6 +2,8 @@
 #define __HIERARCHY_H_
 
 #include "WindowConfig.h"
+#include "ModuleScene.h"
+#include "Application.h"
 #include <vector>
 
 using namespace std;
